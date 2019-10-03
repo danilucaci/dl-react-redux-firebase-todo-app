@@ -1,0 +1,77 @@
+@import "./base/_colors";
+@import "./base/_variables";
+@import "./base/_functions";
+
+// ******************************************
+// Color Tokens
+// ******************************************
+
+$color-text-body-default: $grey900;
+$color-text-button-primary-enabled: $primary50;
+$color-text-button-primary-disabled: $grey00;
+
+$color-background-primary-enabled: $primary600;
+$color-background-primary-hover: $primary500;
+$color-background-primary-active: $primary700;
+$color-background-primary-focus: $primary700;
+$color-background-primary-disabled: $grey500;
+
+// ******************************************
+// Font Tokens
+// ******************************************
+
+// Body Font Size
+$font-size-body-m: rem(16);
+$font-size-body-s: rem(14);
+
+// Display Font Size and Line Height
+$font-size-desktop-display-xl: rem(40);
+$font-size-desktop-display-l: rem(32);
+$font-size-desktop-display-m: rem(28);
+$font-size-desktop-display-s: rem(24);
+$font-size-desktop-display-xs: rem(20);
+
+$font-size-mobile-display-xl: rem(28);
+$font-size-mobile-display-l: rem(24);
+$font-size-mobile-display-m: rem(20);
+$font-size-mobile-display-s: rem(18);
+$font-size-mobile-display-xs: rem(16);
+
+// Body Line Height
+$font-line-height-body-m: rem(24);
+$font-line-height-body-s: rem(20);
+
+// Display Line Height
+$font-line-height-desktop-display-xl: rem(48);
+$font-line-height-desktop-display-l: rem(40);
+$font-line-height-desktop-display-m: rem(36);
+$font-line-height-desktop-display-s: rem(32);
+$font-line-height-desktop-display-xs: rem(32);
+
+$font-line-height-mobile-display-xl: rem(36);
+$font-line-height-mobile-display-l: rem(32);
+$font-line-height-mobile-display-m: rem(32);
+$font-line-height-mobile-display-s: rem(32);
+$font-line-height-mobile-display-xs: rem(24);
+
+// Subhead
+$font-size-subhead: rem(14);
+$font-line-height-subhead: rem(20);
+
+// Buttons
+$font-size-button-m: rem(16);
+$font-size-button-s: rem(14);
+$font-line-height-button-m: rem(24);
+$font-line-height-button-s: rem(20);
+
+// Font Families
+$font-family-display-medium: $font-family-medium;
+$font-family-display-bold: $font-family-bold;
+$font-family-subhead: $font-family-medium;
+$font-family-button: $font-family-medium;
+$font-family-body-regular: $font-family-regular;
+$font-family-body-bold: $font-family-bold;
+
+// ******************************************
+// Spacing Tokens
+// ******************************************

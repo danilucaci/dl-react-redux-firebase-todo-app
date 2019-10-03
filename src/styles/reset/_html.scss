@@ -1,15 +1,13 @@
-@import "./colors";
-@import "./variables";
+@import "../tokens";
 
 html {
-  background-color: $grey00;
-  color: $grey700;
-  font-family: $font-system;
+  background-color: white;
+  color: $color-text-body-default;
+  font-family: $font-family-fallback;
   font-weight: 400;
   font-style: normal;
   font-size: 100%;
-  line-height: $size-line-height-base;
-  /* prettier-ignore */
+  line-height: $font-line-height-body-m;
   // **********************************************************
   // Disables the browser's inflation algorithm.
   // Prevent font scaling in landscape while allowing user zoom
@@ -18,4 +16,6 @@ html {
   -o-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
