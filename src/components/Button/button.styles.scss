@@ -1,0 +1,16 @@
+@import "../../styles/colors";
+@import "../../styles/variables";
+
+.Button {
+  padding: 24px 16px;
+  background-color: $primary600;
+  color: $primary50;
+  font-size: $size-font-base;
+  line-height: $size-line-height-base;
+  font-family: $font-system;
+
+  &__grey {
+    background-color: $grey600;
+    color: $grey50;
+  }
+}

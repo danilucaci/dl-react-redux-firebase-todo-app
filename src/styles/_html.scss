@@ -1,0 +1,21 @@
+@import "./colors";
+@import "./variables";
+
+html {
+  background-color: $grey00;
+  color: $grey700;
+  font-family: $font-system;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 100%;
+  line-height: $size-line-height-base;
+  /* prettier-ignore */
+  // **********************************************************
+  // Disables the browser's inflation algorithm.
+  // Prevent font scaling in landscape while allowing user zoom
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -o-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
