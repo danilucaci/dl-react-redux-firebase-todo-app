@@ -65,12 +65,9 @@ $font-line-height-button-m: rem(24);
 $font-line-height-button-s: rem(20);
 
 // Font Families
-$font-family-display-medium: $font-family-medium;
-$font-family-display-bold: $font-family-bold;
-$font-family-subhead: $font-family-medium;
-$font-family-button: $font-family-medium;
-$font-family-body-regular: $font-family-regular;
-$font-family-body-bold: $font-family-bold;
+$font-family-display: $font-family-default;
+$font-family-button: $font-family-default;
+$font-family-body: $font-family-default;
 
 // ******************************************
 // Spacing Tokens
