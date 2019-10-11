@@ -1,0 +1,74 @@
+@import "../../styles/tokens";
+
+.PrimaryButton {
+  background-color: $color-background-primary-enabled;
+  border-radius: $border-radius-button-default;
+  border: $size-border-button-default $color-border-primary-enabled solid;
+  color: $color-text-button-primary-enabled;
+
+  font-size: $font-size-button-m;
+  line-height: $font-line-height-button-m;
+  font-family: $font-family-button;
+  font-weight: $font-weight-button;
+
+  white-space: nowrap;
+  height: $size-button-with-icon-m;
+
+  padding: $spacing-button-default-vertical-m
+    $spacing-button-default-horizontal-m;
+
+  &__WithIcon {
+    padding: $spacing-button-with-icon-vertical-m
+      $spacing-button-with-icon-right-m $spacing-button-with-icon-vertical-m
+      $spacing-button-with-icon-left-m;
+  }
+
+  &__Icon {
+    width: $size-icon-m;
+    height: $size-icon-m;
+    fill: currentColor;
+
+    position: static;
+    display: inline-block;
+    vertical-align: bottom;
+    margin-right: rem(4);
+  }
+
+  &:hover {
+    background-color: $color-background-primary-hover;
+    border: $size-border-button-default $color-border-primary-hover solid;
+    box-shadow: $shadow-button-primary-hover;
+    cursor: pointer;
+    outline: none;
+  }
+
+  &:focus {
+    background-color: $color-background-primary-focus;
+    border: $size-border-button-default $color-border-primary-focus solid;
+    box-shadow: $shadow-button-primary-focus;
+    cursor: pointer;
+    outline: none;
+  }
+
+  &:active {
+    background-color: $color-background-primary-active;
+    border: $size-border-button-default $color-border-primary-active solid;
+    box-shadow: none;
+    cursor: pointer;
+    outline: none;
+  }
+
+  &:disabled {
+    background-color: $color-background-primary-disabled;
+    border: $size-border-button-default $color-border-primary-disabled solid;
+    box-shadow: none;
+    outline: none;
+    cursor: not-allowed;
+    color: $color-icon-button-primary-disabled;
+
+    &:hover,
+    &:focus {
+      cursor: not-allowed;
+    }
+  }
+}

@@ -4,3 +4,19 @@ $font-family-fallback: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
 $font-family-default: "Work Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
   "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
   "Helvetica Neue", sans-serif;
+
+// ******************************************
+// Breakpoints
+// ******************************************
+
+$breakpoints: (
+  xxxs: rem(360),
+  xxs: rem(420),
+  xs: rem(480),
+  s: rem(560),
+  m: rem(560),
+  l: rem(680),
+  xl: rem(800),
+  xxl: rem(1024),
+  xxxl: rem(1200),
+);

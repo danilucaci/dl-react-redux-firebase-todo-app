@@ -1,7 +1,7 @@
 @import "../tokens";
 
 html {
-  background-color: white;
+  background-color: $color-background-page-lightest;
   color: $color-text-body-default;
   font-family: $font-family-body;
   font-weight: 400;
