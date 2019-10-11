@@ -1,4 +1,5 @@
 @use "variables";
+@use "functions";
 
 @mixin media-min($breakpoint) {
   @if map-has-key(variables.$breakpoints, $breakpoint) {
@@ -40,5 +41,16 @@
     @if (map-has-key(variables.$breakpoints, $upper) == false) {
       @warn 'Your upper breakpoint was invalid: #{$upper}.';
     }
+  }
+}
+
+@mixin fade-in-nav-buttons($distance: 4) {
+  0% {
+    opacity: 0;
+    transform: translateY(functions.rem($distance));
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

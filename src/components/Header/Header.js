@@ -10,18 +10,24 @@ function Header() {
     <header className="Header">
       <Logo />
       <div className="Buttons">
-        <PrimaryButton icon="add">New task</PrimaryButton>
+        <PrimaryButton icon="add" additionalClasses={["AddTaskDesktop"]}>
+          New task
+        </PrimaryButton>
         <IconButton
           icon="add"
-          buttonClasses="AddTask"
+          additionalClasses={["AddTaskMobile"]}
           ariaText="Add a new task"
         />
         <IconButton
           icon="search"
-          buttonClasses="Search"
+          additionalClasses={["SearchButton"]}
           ariaText="Search tasks"
         />
-        <IconButton icon="menu" buttonClasses="Menu" ariaText="Open menu" />
+        <IconButton
+          icon="menu"
+          additionalClasses={["Menu"]}
+          ariaText="Open menu"
+        />
       </div>
     </header>
   );

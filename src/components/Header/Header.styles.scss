@@ -24,14 +24,41 @@
 .Menu {
   display: inline-block;
   margin-left: tokens.rem(8);
+
+  @include tokens.media-min(xxs) {
+    display: none;
+  }
 }
 
-.Search {
+.SearchButton {
   display: inline-block;
   margin-left: tokens.rem(8);
+
+  @include tokens.media-min(xxs) {
+    display: none;
+  }
 }
 
-.AddTask {
-  display: inline-block;
+.AddTaskMobile {
   margin-left: tokens.rem(8);
+  display: inline-block;
+
+  @include tokens.media-min(xxs) {
+    display: none;
+  }
+}
+
+.AddTaskDesktop {
+  margin-left: tokens.rem(8);
+  display: none;
+
+  animation: fade-in-nav-buttons ease-out tokens.$animation-duration-base;
+
+  @include tokens.media-min(xxs) {
+    display: inline-block;
+  }
+}
+
+@keyframes fade-in-nav-buttons {
+  @include tokens.fade-in-nav-buttons();
 }
