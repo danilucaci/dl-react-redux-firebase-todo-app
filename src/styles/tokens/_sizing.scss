@@ -1,0 +1,21 @@
+@use "../base/functions";
+
+// ******************************************
+// Sizing Tokens
+// ******************************************
+
+// Site nav
+$size-site-nav-s: functions.rem(56);
+$size-site-nav-m: functions.rem(64);
+
+// Buttons
+$size-border-button-default: 1px;
+$size-button-icon-m: functions.rem(40);
+$size-button-with-icon-m: functions.rem(40);
+
+// Icons
+$size-icon-m: functions.rem(24);
+$size-icon-s: functions.rem(20);
+
+// Border Radius
+$border-radius-button-default: 3px;

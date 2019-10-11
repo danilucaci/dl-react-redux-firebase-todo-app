@@ -1,16 +1,16 @@
-@import "../../styles/tokens";
+@use "../../styles/tokens";
 
 .Logo {
-  font-family: $font-family-display;
+  font-family: tokens.$font-family-display;
   font-weight: 700;
   font-style: normal;
-  font-size: $font-size-logo;
-  line-height: $font-line-height-logo;
-  color: $color-text-display-default;
+  font-size: tokens.$font-size-logo;
+  line-height: tokens.$font-line-height-logo;
+  color: tokens.$color-text-display-default;
 
   text-decoration: none;
 
   &:hover {
-    color: $color-text-link-hover;
+    color: tokens.$color-text-link-hover;
   }
 }

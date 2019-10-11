@@ -1,19 +1,19 @@
-@import "../../styles/tokens";
+@use "../../styles/tokens";
 
 .Header {
-  background-color: $color-background-page-lightest;
-  height: $size-site-nav-s;
+  background-color: tokens.$color-background-page-lightest;
+  height: tokens.$size-site-nav-s;
   width: 100%;
-  border-bottom: 1px solid $color-border-header;
-  padding: $spacing-site-nav-vertical-s $grid-gutter-s;
+  border-bottom: 1px solid tokens.$color-border-header;
+  padding: tokens.$spacing-site-nav-vertical-s tokens.$grid-gutter-s;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  @include media-min(s) {
-    height: $size-site-nav-s;
-    padding: $spacing-site-nav-vertical-m $grid-gutter-m;
+  @include tokens.media-min(s) {
+    height: tokens.$size-site-nav-s;
+    padding: tokens.$spacing-site-nav-vertical-m tokens.$grid-gutter-m;
   }
 }
 
@@ -23,15 +23,15 @@
 
 .Menu {
   display: inline-block;
-  margin-left: rem(8);
+  margin-left: tokens.rem(8);
 }
 
 .Search {
   display: inline-block;
-  margin-left: rem(8);
+  margin-left: tokens.rem(8);
 }
 
 .AddTask {
   display: inline-block;
-  margin-left: rem(8);
+  margin-left: tokens.rem(8);
 }

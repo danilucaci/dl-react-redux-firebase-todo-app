@@ -1,0 +1,61 @@
+@use "../base/variables";
+@use "../base/functions";
+
+// ******************************************
+// Font Tokens
+// ******************************************
+
+// Font Families
+$font-family-display: variables.$font-family-default;
+$font-family-button: variables.$font-family-default;
+$font-family-body: variables.$font-family-default;
+
+// Body
+$font-size-body-m: functions.rem(16);
+$font-size-body-s: functions.rem(14);
+$font-line-height-body-m: functions.rem(24);
+$font-line-height-body-s: functions.rem(20);
+
+// Display Font Size and Line Height
+// Deskop
+$font-size-desktop-display-xl: functions.rem(40);
+$font-size-desktop-display-l: functions.rem(32);
+$font-size-desktop-display-m: functions.rem(28);
+$font-size-desktop-display-s: functions.rem(24);
+$font-size-desktop-display-xs: functions.rem(20);
+
+$font-line-height-desktop-display-xl: functions.rem(48);
+$font-line-height-desktop-display-l: functions.rem(40);
+$font-line-height-desktop-display-m: functions.rem(36);
+$font-line-height-desktop-display-s: functions.rem(32);
+$font-line-height-desktop-display-xs: functions.rem(32);
+
+// Mobile
+$font-size-mobile-display-xl: functions.rem(28);
+$font-size-mobile-display-l: functions.rem(24);
+$font-size-mobile-display-m: functions.rem(20);
+$font-size-mobile-display-s: functions.rem(18);
+$font-size-mobile-display-xs: functions.rem(16);
+
+$font-line-height-mobile-display-xl: functions.rem(36);
+$font-line-height-mobile-display-l: functions.rem(32);
+$font-line-height-mobile-display-m: functions.rem(32);
+$font-line-height-mobile-display-s: functions.rem(32);
+$font-line-height-mobile-display-xs: functions.rem(24);
+
+// Subhead
+$font-size-subhead: functions.rem(14);
+$font-line-height-subhead: functions.rem(20);
+
+// Logo
+$font-size-logo: functions.rem(20);
+$font-line-height-logo: functions.rem(32);
+
+// Buttons
+$font-size-button-m: functions.rem(16);
+$font-size-button-s: functions.rem(14);
+
+$font-line-height-button-m: functions.rem(24);
+$font-line-height-button-s: functions.rem(20);
+
+$font-weight-button: 500;

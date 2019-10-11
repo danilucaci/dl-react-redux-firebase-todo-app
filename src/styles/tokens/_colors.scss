@@ -1,0 +1,61 @@
+@use "../base/colors";
+@use "../base/variables";
+
+// ******************************************
+// Color Tokens
+// ******************************************
+
+$color-text-body-default: colors.$grey900;
+$color-text-display-default: colors.$grey900;
+$color-text-button-primary-enabled: colors.$primary50;
+$color-text-button-primary-disabled: colors.$grey00;
+
+// Links
+$color-text-link-default: colors.$primary600;
+$color-text-link-hover: colors.$primary500;
+$color-text-link-active: colors.$primary700;
+
+$color-background-outlined-enabled: transparent;
+$color-background-outlined-hover: colors.$grey100;
+$color-background-outlined-active: colors.$grey200;
+$color-background-outlined-focus: colors.$grey100;
+$color-background-outlined-disabled: transparent;
+
+$color-background-primary-enabled: colors.$primary600;
+$color-background-primary-hover: colors.$primary500;
+$color-background-primary-active: colors.$primary700;
+$color-background-primary-focus: colors.$primary600;
+$color-background-primary-disabled: colors.$grey500;
+
+$color-icon-button-primary-enabled: colors.$primary600;
+$color-icon-button-primary-hover: colors.$primary500;
+$color-icon-button-primary-active: colors.$primary700;
+$color-icon-button-primary-focus: colors.$primary600;
+$color-icon-button-primary-disabled: colors.$grey500;
+
+$color-icon-button-outlined-enabled: colors.$grey900;
+$color-icon-button-outlined-hover: colors.$grey900;
+$color-icon-button-outlined-active: colors.$grey900;
+$color-icon-button-outlined-focus: colors.$grey900;
+$color-icon-button-outlined-disabled: colors.$grey500;
+
+$color-border-outlined-enabled: transparent;
+$color-border-outlined-hover: colors.$grey100;
+$color-border-outlined-active: colors.$grey200;
+$color-border-outlined-focus: colors.$grey900;
+$color-border-outlined-disabled: transparent;
+
+$color-border-primary-enabled: colors.$primary600;
+$color-border-primary-hover: colors.$primary500;
+$color-border-primary-active: colors.$primary700;
+$color-border-primary-focus: colors.$primary900;
+$color-border-primary-disabled: colors.$grey500;
+
+// Border Colors
+$color-border-header: colors.$grey300;
+$color-border-components-default: colors.$grey300;
+
+// Page Backgrounds
+$color-background-page-lightest: colors.$grey00;
+$color-background-page-lighter: colors.$grey50;
+$color-background-page-light: colors.$grey100;

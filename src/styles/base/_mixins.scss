@@ -1,8 +1,8 @@
-@import "./variables";
+@use "variables";
 
 @mixin media-min($breakpoint) {
-  @if map-has-key($breakpoints, $breakpoint) {
-    $breakpoint-value: map-get($breakpoints, $breakpoint);
+  @if map-has-key(variables.$breakpoints, $breakpoint) {
+    $breakpoint-value: map-get(variables.$breakpoints, $breakpoint);
     @media (min-width: $breakpoint-value) {
       @content;
     }
@@ -12,8 +12,8 @@
 }
 
 @mixin media-max($breakpoint) {
-  @if map-has-key($breakpoints, $breakpoint) {
-    $breakpoint: map-get($breakpoints, $breakpoint);
+  @if map-has-key(variables.$breakpoints, $breakpoint) {
+    $breakpoint: map-get(variables.$breakpoints, $breakpoint);
     @media (max-width: $breakpoint-value) {
       @content;
     }
@@ -23,19 +23,21 @@
 }
 
 @mixin media-between($lower, $upper) {
-  @if map-has-key($breakpoints, $lower) and map-has-key($breakpoints, $upper) {
-    $lower-breakpoint: map-get($breakpoints, $lower);
-    $upper-breakpoint: map-get($breakpoints, $upper);
+  @if map-has-key(variables.$breakpoints, $lower) and
+    map-has-key(variables.$breakpoints, $upper)
+  {
+    $lower-breakpoint: map-get(variables.$breakpoints, $lower);
+    $upper-breakpoint: map-get(variables.$breakpoints, $upper);
 
     @media (min-width: $lower-breakpoint) and (max-width: ($upper-breakpoint - 1)) {
       @content;
     }
   } @else {
-    @if (map-has-key($breakpoints, $lower) == false) {
+    @if (map-has-key(variables.$breakpoints, $lower) == false) {
       @warn 'Your lower breakpoint was invalid: #{$lower}.';
     }
 
-    @if (map-has-key($breakpoints, $upper) == false) {
+    @if (map-has-key(variables.$breakpoints, $upper) == false) {
       @warn 'Your upper breakpoint was invalid: #{$upper}.';
     }
   }

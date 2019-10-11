@@ -1,58 +1,64 @@
-@import "../../styles/tokens";
+@use "../../styles/tokens";
 
 .IconButton {
-  background-color: $color-background-outlined-enabled;
-  border-radius: $border-radius-button-default;
-  border: $size-border-button-default $color-border-outlined-enabled solid;
-  color: $color-icon-button-outlined-enabled;
+  background-color: tokens.$color-background-outlined-enabled;
+  border-radius: tokens.$border-radius-button-default;
+  border: tokens.$size-border-button-default
+    tokens.$color-border-outlined-enabled solid;
+  color: tokens.$color-icon-button-outlined-enabled;
 
-  padding: $spacing-button-icon-vertical-m $spacing-button-icon-horizontal-m;
+  padding: tokens.$spacing-button-icon-vertical-m
+    tokens.$spacing-button-icon-horizontal-m;
 
-  height: $size-button-icon-m;
-  width: $size-button-icon-m;
+  height: tokens.$size-button-icon-m;
+  width: tokens.$size-button-icon-m;
 
   &__Icon {
-    width: $size-icon-m;
-    height: $size-icon-m;
+    width: tokens.$size-icon-m;
+    height: tokens.$size-icon-m;
     fill: currentColor;
     display: block;
     position: static;
   }
 
   &:hover {
-    background-color: $color-background-outlined-hover;
-    border: $size-border-button-default $color-border-outlined-hover solid;
+    background-color: tokens.$color-background-outlined-hover;
+    border: tokens.$size-border-button-default
+      tokens.$color-border-outlined-hover solid;
     box-shadow: none;
-    color: $color-icon-button-outlined-hover;
+    color: tokens.$color-icon-button-outlined-hover;
     cursor: pointer;
     outline: none;
   }
 
   &:focus {
-    background-color: $color-background-outlined-focus;
-    border: $size-border-button-default $color-border-outlined-focus solid;
-    box-shadow: $shadow-button-outlined-focus;
-    color: $color-icon-button-outlined-focus;
+    background-color: tokens.$color-background-outlined-focus;
+    border: tokens.$size-border-button-default
+      tokens.$color-border-outlined-focus solid;
+    box-shadow: tokens.$shadow-button-outlined-focus;
+    color: tokens.$color-icon-button-outlined-focus;
     cursor: pointer;
     outline: none;
   }
 
   &:active {
-    background-color: $color-background-outlined-active;
-    border: $size-border-button-default $color-border-outlined-active solid;
+    background-color: tokens.$color-background-outlined-active;
+    border: tokens.$size-border-button-default
+      tokens.$color-border-outlined-active solid;
     box-shadow: none;
-    color: $color-icon-button-outlined-active;
+    color: tokens.$color-icon-button-outlined-active;
     cursor: pointer;
     outline: none;
   }
 
   &:disabled {
-    background-color: $color-background-outlined-disabled;
-    border: $size-border-button-default $color-border-outlined-disabled solid;
+    background-color: tokens.$color-background-outlined-disabled;
+    border: tokens.$size-border-button-default
+      tokens.$color-border-outlined-disabled solid;
     box-shadow: none;
     outline: none;
     cursor: not-allowed;
-    color: $color-icon-button-outlined-disabled;
+    color: tokens.$color-icon-button-outlined-disabled;
 
     &:hover,
     &:focus {

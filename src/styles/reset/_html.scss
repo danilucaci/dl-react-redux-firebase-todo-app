@@ -1,13 +1,13 @@
-@import "../tokens";
+@use "../tokens";
 
 html {
-  background-color: $color-background-page-lightest;
-  color: $color-text-body-default;
-  font-family: $font-family-body;
+  background-color: tokens.$color-background-page-lightest;
+  color: tokens.$color-text-body-default;
+  font-family: tokens.$font-family-body;
   font-weight: 400;
   font-style: normal;
   font-size: 100%;
-  line-height: $font-line-height-body-m;
+  line-height: tokens.$font-line-height-body-m;
   // **********************************************************
   // Disables the browser's inflation algorithm.
   // Prevent font scaling in landscape while allowing user zoom
