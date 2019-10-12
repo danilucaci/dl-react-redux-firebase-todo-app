@@ -1,4 +1,4 @@
-@use "../base/variables";
+@use "../base/fonts";
 @use "../base/functions";
 
 // ******************************************
@@ -6,9 +6,9 @@
 // ******************************************
 
 // Font Families
-$font-family-display: variables.$font-family-default;
-$font-family-button: variables.$font-family-default;
-$font-family-body: variables.$font-family-default;
+$font-family-display: fonts.$font-family-default;
+$font-family-button: fonts.$font-family-default;
+$font-family-body: fonts.$font-family-default;
 
 // Body
 $font-size-body-m: functions.rem(16);
