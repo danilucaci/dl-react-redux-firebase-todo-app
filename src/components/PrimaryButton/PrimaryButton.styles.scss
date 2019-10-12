@@ -7,10 +7,13 @@
     tokens.$color-border-primary-enabled solid;
   color: tokens.$color-text-button-primary-enabled;
 
-  font-size: tokens.$font-size-button-m;
+  font: {
+    size: tokens.$font-size-button-m;
+    family: tokens.$font-family-button;
+    weight: tokens.$font-weight-button;
+  }
+
   line-height: tokens.$font-line-height-button-m;
-  font-family: tokens.$font-family-button;
-  font-weight: tokens.$font-weight-button;
 
   white-space: nowrap;
   height: tokens.$size-button-with-icon-m;
