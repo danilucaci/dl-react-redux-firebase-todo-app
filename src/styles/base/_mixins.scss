@@ -10,7 +10,7 @@
       @content;
     }
   } @else {
-    @warn 'Invalid breakpoint: #{$breakpoint}.';
+    @warn 'Invalid breakpoint: #{$breakpoint} in `media-min`.';
   }
 }
 
@@ -21,7 +21,7 @@
       @content;
     }
   } @else {
-    @warn 'Invalid breakpoint: #{$breakpoint}.';
+    @warn 'Invalid breakpoint: #{$breakpoint} in `media-max`.';
   }
 }
 
