@@ -1,9 +1,11 @@
 @use "variables";
 @use "functions";
 
+@use "sass:map";
+
 @mixin media-min($breakpoint) {
-  @if map-has-key(variables.$breakpoints, $breakpoint) {
-    $breakpoint-value: map-get(variables.$breakpoints, $breakpoint);
+  @if map.has-key(grid.$breakpoints, $breakpoint) {
+    $breakpoint-value: map.get(grid.$breakpoints, $breakpoint);
     @media (min-width: $breakpoint-value) {
       @content;
     }
@@ -13,8 +15,8 @@
 }
 
 @mixin media-max($breakpoint) {
-  @if map-has-key(variables.$breakpoints, $breakpoint) {
-    $breakpoint: map-get(variables.$breakpoints, $breakpoint);
+  @if map.has-key(grid.$breakpoints, $breakpoint) {
+    $breakpoint: map.get(grid.$breakpoints, $breakpoint);
     @media (max-width: $breakpoint-value) {
       @content;
     }
@@ -24,21 +26,21 @@
 }
 
 @mixin media-between($lower, $upper) {
-  @if map-has-key(variables.$breakpoints, $lower) and
-    map-has-key(variables.$breakpoints, $upper)
+  @if map.has-key(grid.$breakpoints, $lower) and
+    map.has-key(grid.$breakpoints, $upper)
   {
-    $lower-breakpoint: map-get(variables.$breakpoints, $lower);
-    $upper-breakpoint: map-get(variables.$breakpoints, $upper);
+    $lower-breakpoint: map.get(grid.$breakpoints, $lower);
+    $upper-breakpoint: map.get(grid.$breakpoints, $upper);
 
     @media (min-width: $lower-breakpoint) and (max-width: ($upper-breakpoint - 1)) {
       @content;
     }
   } @else {
-    @if (map-has-key(variables.$breakpoints, $lower) == false) {
+    @if (map.has-key(grid.$breakpoints, $lower) == false) {
       @warn 'Your lower breakpoint was invalid: #{$lower}.';
     }
 
-    @if (map-has-key(variables.$breakpoints, $upper) == false) {
+    @if (map.has-key(grid.$breakpoints, $upper) == false) {
       @warn 'Your upper breakpoint was invalid: #{$upper}.';
     }
   }
