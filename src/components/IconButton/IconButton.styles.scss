@@ -23,8 +23,7 @@
 
   &:hover {
     background-color: tokens.$color-background-outlined-hover;
-    border: tokens.$size-border-button-default
-      tokens.$color-border-outlined-hover solid;
+    border-color: tokens.$color-border-outlined-hover;
     box-shadow: none;
     color: tokens.$color-icon-button-outlined-hover;
     cursor: pointer;
@@ -33,8 +32,7 @@
 
   &:focus {
     background-color: tokens.$color-background-outlined-focus;
-    border: tokens.$size-border-button-default
-      tokens.$color-border-outlined-focus solid;
+    border-color: tokens.$color-border-outlined-focus;
     box-shadow: tokens.$shadow-button-outlined-focus;
     color: tokens.$color-icon-button-outlined-focus;
     cursor: pointer;
@@ -43,8 +41,7 @@
 
   &:active {
     background-color: tokens.$color-background-outlined-active;
-    border: tokens.$size-border-button-default
-      tokens.$color-border-outlined-active solid;
+    border-color: tokens.$color-border-outlined-active;
     box-shadow: none;
     color: tokens.$color-icon-button-outlined-active;
     cursor: pointer;
@@ -53,8 +50,7 @@
 
   &:disabled {
     background-color: tokens.$color-background-outlined-disabled;
-    border: tokens.$size-border-button-default
-      tokens.$color-border-outlined-disabled solid;
+    border-color: tokens.$color-border-outlined-disabled;
     box-shadow: none;
     outline: none;
     cursor: not-allowed;

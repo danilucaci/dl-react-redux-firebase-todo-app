@@ -41,8 +41,7 @@
 
   &:hover {
     background-color: tokens.$color-background-primary-hover;
-    border: tokens.$size-border-button-default
-      tokens.$color-border-primary-hover solid;
+    border-color: tokens.$color-border-primary-hover;
     box-shadow: tokens.$shadow-button-primary-hover;
     cursor: pointer;
     outline: none;
@@ -50,8 +49,7 @@
 
   &:focus {
     background-color: tokens.$color-background-primary-focus;
-    border: tokens.$size-border-button-default
-      tokens.$color-border-primary-focus solid;
+    border-color: tokens.$color-border-primary-focus;
     box-shadow: tokens.$shadow-button-primary-focus;
     cursor: pointer;
     outline: none;
@@ -59,8 +57,7 @@
 
   &:active {
     background-color: tokens.$color-background-primary-active;
-    border: tokens.$size-border-button-default
-      tokens.$color-border-primary-active solid;
+    border-color: tokens.$color-border-primary-active;
     box-shadow: none;
     cursor: pointer;
     outline: none;
@@ -68,8 +65,7 @@
 
   &:disabled {
     background-color: tokens.$color-background-primary-disabled;
-    border: tokens.$size-border-button-default
-      tokens.$color-border-primary-disabled solid;
+    border-color: tokens.$color-border-primary-disabled;
     box-shadow: none;
     outline: none;
     cursor: not-allowed;
