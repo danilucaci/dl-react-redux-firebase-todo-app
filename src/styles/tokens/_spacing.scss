@@ -51,3 +51,18 @@ $spacing-button-with-icon-right-s: functions.rem(12) -
   sizing.$size-border-button-default;
 $spacing-button-with-icon-vertical-s: functions.rem(4) -
   sizing.$size-border-button-default;
+
+// Input fields
+$spacing-input-horizontal-m: functions.rem(12) -
+  sizing.$size-border-input-default;
+$spacing-input-vertical-m: functions.rem(12) - sizing.$size-border-input-default;
+
+$spacing-input-horizontal-s: functions.rem(12) -
+  sizing.$size-border-input-default;
+$spacing-input-vertical-s: functions.rem(8) - sizing.$size-border-input-default;
+
+// Search bar
+$spacing-search-bar-horizontal: functions.rem(12) -
+  sizing.$size-border-input-default;
+$spacing-search-bar-vertical: functions.rem(8) -
+  sizing.$size-border-input-default;

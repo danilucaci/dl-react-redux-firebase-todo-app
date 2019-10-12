@@ -10,6 +10,7 @@ $size-site-nav-m: functions.rem(64);
 
 // Buttons
 $size-border-button-default: functions.rem(2);
+$size-border-input-default: functions.rem(1);
 $size-button-icon-m: functions.rem(40);
 $size-button-with-icon-m: functions.rem(40);
 
@@ -17,5 +18,10 @@ $size-button-with-icon-m: functions.rem(40);
 $size-icon-m: functions.rem(24);
 $size-icon-s: functions.rem(20);
 
+// Input fields
+$size-input-m: functions.rem(48);
+$size-input-s: functions.rem(40);
+
 // Border Radius
 $border-radius-button-default: 3px;
+$border-radius-input-default: 3px;

@@ -1,0 +1,84 @@
+@use "../../styles/tokens";
+
+.Search__Bar {
+  display: none;
+
+  background-color: tokens.$color-background-search-bar-enabled;
+  border-radius: tokens.$border-radius-input-default;
+  border: tokens.$size-border-input-default tokens.$color-border-input-enabled
+    solid;
+  color: tokens.$color-text-input-enabled;
+
+  flex: 1 1 auto;
+
+  white-space: nowrap;
+  height: tokens.$size-input-s;
+
+  margin-right: tokens.$grid-gutter-s;
+
+  padding: {
+    top: 0;
+    left: tokens.$spacing-search-bar-horizontal;
+    right: 0;
+    bottom: 0;
+  }
+
+  &:focus {
+    background-color: tokens.$color-background-search-bar-active;
+  }
+
+  @include tokens.media-min(s) {
+    margin-right: tokens.$grid-gutter-m;
+  }
+
+  @include tokens.media-min(s) {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.Search__Label {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  flex: 1 1 auto;
+  margin-right: tokens.$spacing-search-bar-horizontal;
+}
+
+.Search__Input {
+  background-color: transparent;
+  border: none;
+  margin: 0;
+  height: 100%;
+
+  flex: 1 1 auto;
+
+  font: {
+    size: tokens.$font-size-input-m;
+    family: tokens.$font-family-body;
+    weight: tokens.$font-weight-body;
+  }
+
+  line-height: tokens.$font-line-height-button-s;
+
+  padding: {
+    top: tokens.$spacing-search-bar-vertical;
+    left: 0;
+    right: tokens.$spacing-search-bar-horizontal;
+    bottom: tokens.$spacing-search-bar-vertical;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.Search__Icon {
+  margin-right: tokens.rem(8);
+  flex: 0 0 auto;
+  width: tokens.$size-icon-m;
+  height: tokens.$size-icon-m;
+  fill: tokens.$color-icon-default;
+  display: block;
+}

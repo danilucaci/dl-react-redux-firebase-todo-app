@@ -16,6 +16,12 @@ $font-size-body-s: functions.rem(14);
 $font-line-height-body-m: functions.rem(24);
 $font-line-height-body-s: functions.rem(20);
 
+// Input fields
+$font-size-input-m: functions.rem(16);
+$font-size-input-s: functions.rem(14);
+$font-line-height-input-m: functions.rem(24);
+$font-line-height-input-s: functions.rem(20);
+
 // Display Font Size and Line Height
 // Deskop
 $font-size-desktop-display-xl: functions.rem(40);
@@ -59,3 +65,4 @@ $font-line-height-button-m: functions.rem(24);
 $font-line-height-button-s: functions.rem(20);
 
 $font-weight-button: 500;
+$font-weight-body: 400;

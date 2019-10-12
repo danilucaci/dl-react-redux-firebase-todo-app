@@ -1,7 +1,61 @@
+@use "../tokens";
+
 %clearfix {
   &:after {
     content: "";
     display: table;
     clear: both;
+  }
+}
+
+%InputMedium {
+  background-color: tokens.$color-background-input-enabled;
+  border-radius: tokens.$border-radius-input-default;
+  border: tokens.$size-border-input-default tokens.$color-border-input-enabled
+    solid;
+  color: tokens.$color-text-input-enabled;
+
+  font: {
+    size: tokens.$font-size-input-m;
+    family: tokens.$font-family-body;
+    weight: tokens.$font-weight-body;
+  }
+
+  line-height: tokens.$font-line-height-input-m;
+
+  white-space: nowrap;
+  height: tokens.$size-input-m;
+
+  padding: {
+    top: tokens.$spacing-input-vertical-m;
+    left: tokens.$spacing-input-horizontal-m;
+    right: tokens.$spacing-input-horizontal-m;
+    bottom: tokens.$spacing-input-vertical-m;
+  }
+}
+
+%InputSmall {
+  background-color: tokens.$color-background-input-enabled;
+  border-radius: tokens.$border-radius-input-default;
+  border: tokens.$size-border-input-default tokens.$color-border-input-enabled
+    solid;
+  color: tokens.$color-text-input-enabled;
+
+  font: {
+    size: tokens.$font-size-input-m;
+    family: tokens.$font-family-body;
+    weight: tokens.$font-weight-body;
+  }
+
+  line-height: tokens.$font-line-height-button-s;
+
+  white-space: nowrap;
+  height: tokens.$size-input-s;
+
+  padding: {
+    top: tokens.$spacing-input-vertical-s;
+    left: tokens.$spacing-input-horizontal-s;
+    right: tokens.$spacing-input-horizontal-s;
+    bottom: tokens.$spacing-input-vertical-s;
   }
 }

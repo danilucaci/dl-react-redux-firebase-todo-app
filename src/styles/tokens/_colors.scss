@@ -14,6 +14,11 @@ $color-text-link-default: colors.$primary600;
 $color-text-link-hover: colors.$primary500;
 $color-text-link-active: colors.$primary700;
 
+// Input fields
+$color-text-input-enabled: colors.$grey700;
+$color-text-input-active: colors.$grey900;
+$color-text-input-disabled: colors.$grey500;
+
 $color-background-outlined-enabled: transparent;
 $color-background-outlined-hover: colors.$grey100;
 $color-background-outlined-active: colors.$grey200;
@@ -25,6 +30,12 @@ $color-background-primary-hover: colors.$primary500;
 $color-background-primary-active: colors.$primary700;
 $color-background-primary-focus: colors.$primary600;
 $color-background-primary-disabled: colors.$grey500;
+
+$color-background-input-enabled: colors.$grey00;
+$color-background-search-bar-enabled: colors.$grey50;
+$color-background-search-bar-active: colors.$grey00;
+
+$color-icon-default: colors.$grey600;
 
 $color-icon-button-primary-enabled: colors.$primary600;
 $color-icon-button-primary-hover: colors.$primary500;
@@ -43,6 +54,12 @@ $color-border-outlined-hover: colors.$grey100;
 $color-border-outlined-active: colors.$grey200;
 $color-border-outlined-focus: colors.$grey900;
 $color-border-outlined-disabled: transparent;
+
+$color-border-input-enabled: colors.$grey300;
+$color-border-input-hover: colors.$grey300;
+$color-border-input-active: colors.$grey900;
+$color-border-input-focus: colors.$grey900;
+$color-border-input-disabled: colors.$grey500;
 
 $color-border-primary-enabled: colors.$primary600;
 $color-border-primary-hover: colors.$primary500;
