@@ -9,6 +9,16 @@
   @return $number;
 }
 
+/// Returns the computed width (as a percentage) of a grid column
+/// divided by the total number of colums in the grid.
+/// 12 (total columns) / 6 ($index) => 50%
+/// @param {Number} $index - The current index in the loop
+/// @param {Number} $max-col-size - Total amount of columns in the grid
+/// @return {Number} - Percentage value of the columns width
+@function get-grid-col-percentage-width($index: 1, $max-col-size: 12) {
+  @return (((100 / $max-col-size) * $index) * 1%);
+}
+
 @function rem($size) {
   $remSize: $size / 16;
   @return ($remSize * 1rem);

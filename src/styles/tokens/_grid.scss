@@ -1,0 +1,38 @@
+@use "../base/functions";
+@use "sass:list";
+@use "sass:map";
+
+// Gutters
+$grid-gutter-s: functions.rem(16);
+$grid-gutter-m: functions.rem(24);
+
+// Grid Spacing
+$grid-spacing-s: functions.rem(8);
+$grid-spacing-m: functions.rem(12);
+
+// Max page width
+$desktop-max-page-width: functions.rem(1152);
+
+$grid-column-count-xl: 12;
+$grid-column-count-m: 8;
+$grid-column-count-s: 4;
+
+// ******************************************
+// Breakpoints
+// ******************************************
+
+$breakpoints: (
+  "xxxs": functions.rem(360),
+  "xxs": functions.rem(420),
+  "xs": functions.rem(480),
+  "s": functions.rem(560),
+  "m": functions.rem(560),
+  "l": functions.rem(680),
+  "xl": functions.rem(800),
+  "xxl": functions.rem(1024),
+  "xxxl": functions.rem(1200),
+);
+
+$breakpoint-keys: map.keys($breakpoints);
+
+$large-gutters-breakpoint-index: list.index($breakpoint-keys, "s");

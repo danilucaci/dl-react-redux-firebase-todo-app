@@ -1,4 +1,4 @@
-@use "variables";
+@use "../tokens/grid";
 @use "functions";
 
 @use "sass:map";
@@ -43,6 +43,160 @@
     @if (map.has-key(grid.$breakpoints, $upper) == false) {
       @warn 'Your upper breakpoint was invalid: #{$upper}.';
     }
+  }
+}
+
+/// Creates grid column classes without a prefix
+/// divided by the total number of colums in the grid.
+/// 12 (total columns) / 6 ($index) => 50%
+///
+/// @param {Number} $index - The current index in the loop
+/// @param {Number} $max-col-size - Total amount of columns in the grid
+///
+/// @example scss - SCSS usage
+///
+/// @for $loop-index from 1 through grid.$grid-column-count-xl {
+///   @include mixins.generate-grid-colums($loop-index, grid.$grid-column-count-xl);
+/// }
+///
+/// @example css - CSS output
+///
+/// .col-1 {
+///  max-width: calc(8.3333333333% - 1rem);
+///  flex-basis: calc(8.3333333333% - 1rem);
+/// }
+///
+/// .col-2 {
+///   max-width: calc(16.6666666667% - 1rem);
+///   flex-basis: calc(16.6666666667% - 1rem);
+/// }
+@mixin generate-grid-colums(
+  $index: 1,
+  $max-col-size: grid.$grid-column-count-xl
+) {
+  @if ($index <= grid.$large-gutters-breakpoint-index) {
+    .col-#{$index} {
+      max-width: calc(
+        #{functions.get-grid-col-percentage-width($index, $max-col-size)} -
+          #{grid.$grid-gutter-s}
+      );
+
+      flex-basis: calc(
+        #{functions.get-grid-col-percentage-width($index, $max-col-size)} -
+          #{grid.$grid-gutter-s}
+      );
+    }
+  } @else {
+    .col-#{$index} {
+      max-width: calc(
+        #{functions.get-grid-col-percentage-width($index, $max-col-size)} -
+          #{grid.$grid-gutter-m}
+      );
+
+      flex-basis: calc(
+        #{functions.get-grid-col-percentage-width($index, $max-col-size)} -
+          #{grid.$grid-gutter-m}
+      );
+    }
+  }
+}
+
+/// Creates grid column classes with a responsive prefix
+/// divided by the total number of colums in the grid.
+/// 12 (total columns) / 6 ($index) => 50%
+///
+/// @param {Number} $index - The current index in the loop
+/// @param {Number} $max-col-size - Total amount of columns in the grid
+/// @param {String} $breakpoint - The breakpoint to include in the class name
+///
+/// @example scss - SCSS usage
+///
+/// @for $loop-index from 1 through grid.$grid-column-count-m {
+///   @include mixins.generate-grid-colums-with-prefix(
+///     $loop-index,
+///     grid.$grid-column-count-m,
+///     m
+///   );
+/// }
+///
+/// @example css - CSS output
+///
+/// @media (min-width: 35rem) {
+///   .col-m-6 {
+///     max-width: calc( 75% - 1.5rem );
+///     flex-basis: calc( 75% - 1.5rem );
+///   }
+/// }
+///
+/// @example scss - SCSS usage
+///
+/// @for $loop-index from 1 through grid.$grid-column-count-xl {
+///   @include mixins.generate-grid-colums-with-prefix(
+///     $loop-index,
+///     grid.$grid-column-count-xl,
+///     l
+///   );
+/// }
+///
+/// @example css - CSS output
+///
+/// @media (min-width: 42.5rem) {
+///   .col-l-1 {
+///     max-width: calc( 8.3333333333% - 1rem );
+///     flex-basis: calc( 8.3333333333% - 1rem );
+///   }
+/// }
+@mixin generate-grid-colums-with-prefix(
+  $index: 1,
+  $max-col-size: grid.$grid-column-count-xl,
+  $breakpoint: null
+) {
+  @if ($breakpoint) {
+    @if (map.has-key(grid.$breakpoints, $breakpoint)) {
+      @include media-min($breakpoint) {
+        @if ($index <= grid.$large-gutters-breakpoint-index) {
+          .col-#{$breakpoint}-#{$index} {
+            max-width: calc(
+              #{functions.get-grid-col-percentage-width(
+                  $index,
+                  $max-col-size
+                )} -
+                #{grid.$grid-gutter-s}
+            );
+
+            flex-basis: calc(
+              #{functions.get-grid-col-percentage-width(
+                  $index,
+                  $max-col-size
+                )} -
+                #{grid.$grid-gutter-s}
+            );
+          }
+        } @else {
+          .col-#{$breakpoint}-#{$index} {
+            max-width: calc(
+              #{functions.get-grid-col-percentage-width(
+                  $index,
+                  $max-col-size
+                )} -
+                #{grid.$grid-gutter-m}
+            );
+
+            flex-basis: calc(
+              #{functions.get-grid-col-percentage-width(
+                  $index,
+                  $max-col-size
+                )} -
+                #{grid.$grid-gutter-m}
+            );
+          }
+        }
+      }
+    } @else {
+      @warn ("Invalid breakpoint: #{$breakpoint} in `generate-grid-colums`.");
+    }
+  } @else {
+    @warn ("No breakpoint was provided to `generate-grid-colums`.");
   }
 }
 
