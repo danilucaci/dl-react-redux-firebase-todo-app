@@ -44,7 +44,7 @@ PrimaryButton.propTypes = {
 
 PrimaryButton.defaultProps = {
   icon: "",
-  additionalClasses: null,
+  additionalClasses: [],
   disabled: false,
 };
 

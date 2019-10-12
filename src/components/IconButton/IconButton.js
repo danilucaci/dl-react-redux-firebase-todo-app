@@ -43,7 +43,7 @@ IconButton.propTypes = {
 
 IconButton.defaultProps = {
   icon: "",
-  additionalClasses: null,
+  additionalClasses: [],
   disabled: false,
 };
 
