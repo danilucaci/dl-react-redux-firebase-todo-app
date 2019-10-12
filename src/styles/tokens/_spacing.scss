@@ -1,4 +1,5 @@
 @use "../base/functions";
+@use "sizing";
 
 // ******************************************
 // Spacing Tokens
@@ -9,33 +10,44 @@ $spacing-site-nav-vertical-s: functions.rem(8);
 $spacing-site-nav-vertical-m: functions.rem(8);
 
 // Icon Buttons
-$spacing-button-icon-horizontal-l: functions.rem(11);
-$spacing-button-icon-vertical-l: functions.rem(11);
-$spacing-button-icon-horizontal-m: functions.rem(7);
-$spacing-button-icon-vertical-m: functions.rem(7);
+$spacing-button-icon-horizontal-l: functions.rem(12) -
+  sizing.$size-border-button-default;
+$spacing-button-icon-vertical-l: functions.rem(12) -
+  sizing.$size-border-button-default;
+$spacing-button-icon-horizontal-m: functions.rem(8) -
+  sizing.$size-border-button-default;
+$spacing-button-icon-vertical-m: functions.rem(8) -
+  sizing.$size-border-button-default;
 
 // Buttons
-$spacing-button-default-horizontal-l: functions.rem(16);
-$spacing-button-default-vertical-l: functions.rem(12);
-$spacing-button-default-horizontal-m: functions.rem(16);
-$spacing-button-default-vertical-m: functions.rem(8);
-$spacing-button-default-horizontal-s: functions.rem(12);
-$spacing-button-default-vertical-s: functions.rem(4);
+$spacing-button-default-horizontal-l: functions.rem(16) -
+  sizing.$size-border-button-default;
+$spacing-button-default-vertical-l: functions.rem(12) -
+  sizing.$size-border-button-default;
+$spacing-button-default-horizontal-m: functions.rem(16) -
+  sizing.$size-border-button-default;
+$spacing-button-default-vertical-m: functions.rem(8) -
+  sizing.$size-border-button-default;
+$spacing-button-default-horizontal-s: functions.rem(12) -
+  sizing.$size-border-button-default;
+$spacing-button-default-vertical-s: functions.rem(4) -
+  sizing.$size-border-button-default;
 
-$spacing-button-with-icon-left-l: functions.rem(12);
-$spacing-button-with-icon-right-l: functions.rem(16);
-$spacing-button-with-icon-vertical-l: functions.rem(12);
-$spacing-button-with-icon-left-m: functions.rem(12);
-$spacing-button-with-icon-right-m: functions.rem(16);
-$spacing-button-with-icon-vertical-m: functions.rem(6);
-$spacing-button-with-icon-left-s: functions.rem(8);
-$spacing-button-with-icon-right-s: functions.rem(12);
-$spacing-button-with-icon-vertical-s: functions.rem(4);
-
-// Gutters
-$grid-gutter-s: functions.rem(16);
-$grid-gutter-m: functions.rem(24);
-
-// Grid Spacing
-$grid-spacing-s: functions.rem(8);
-$grid-spacing-m: functions.rem(12);
+$spacing-button-with-icon-left-l: functions.rem(12) -
+  sizing.$size-border-button-default;
+$spacing-button-with-icon-right-l: functions.rem(16) -
+  sizing.$size-border-button-default;
+$spacing-button-with-icon-vertical-l: functions.rem(12) -
+  sizing.$size-border-button-default;
+$spacing-button-with-icon-left-m: functions.rem(12) -
+  sizing.$size-border-button-default;
+$spacing-button-with-icon-right-m: functions.rem(16) -
+  sizing.$size-border-button-default;
+$spacing-button-with-icon-vertical-m: functions.rem(8) -
+  sizing.$size-border-button-default;
+$spacing-button-with-icon-left-s: functions.rem(8) -
+  sizing.$size-border-button-default;
+$spacing-button-with-icon-right-s: functions.rem(12) -
+  sizing.$size-border-button-default;
+$spacing-button-with-icon-vertical-s: functions.rem(4) -
+  sizing.$size-border-button-default;

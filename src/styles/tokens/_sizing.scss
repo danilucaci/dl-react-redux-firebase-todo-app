@@ -9,7 +9,7 @@ $size-site-nav-s: functions.rem(56);
 $size-site-nav-m: functions.rem(64);
 
 // Buttons
-$size-border-button-default: 1px;
+$size-border-button-default: functions.rem(2);
 $size-button-icon-m: functions.rem(40);
 $size-button-with-icon-m: functions.rem(40);
 
