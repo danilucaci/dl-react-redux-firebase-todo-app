@@ -66,3 +66,31 @@ $spacing-search-bar-horizontal: functions.rem(12) -
   sizing.$size-border-input-default;
 $spacing-search-bar-vertical: functions.rem(8) -
   sizing.$size-border-input-default;
+
+// Component Spacing Tokens
+$spacing-c-01: functions.rem(2);
+$spacing-c-02: functions.rem(4);
+$spacing-c-03: functions.rem(8);
+$spacing-c-04: functions.rem(12);
+$spacing-c-05: functions.rem(16);
+$spacing-c-06: functions.rem(20);
+$spacing-c-07: functions.rem(24);
+$spacing-c-08: functions.rem(32);
+$spacing-c-09: functions.rem(40);
+$spacing-c-10: functions.rem(48);
+
+// Layout Spacing Tokens
+$spacing-l-01: functions.rem(8);
+$spacing-l-02: functions.rem(16);
+$spacing-l-03: functions.rem(24);
+$spacing-l-04: functions.rem(32);
+$spacing-l-05: functions.rem(48);
+$spacing-l-06: functions.rem(64);
+$spacing-l-07: functions.rem(80);
+$spacing-l-08: functions.rem(96);
+$spacing-l-09: functions.rem(120);
+$spacing-l-10: functions.rem(160);
+
+// Main top spacing
+$spacing-main-top-s: functions.rem(24);
+$spacing-main-top-m: functions.rem(40);
