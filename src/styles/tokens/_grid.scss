@@ -12,6 +12,11 @@ $grid-spacing-m: functions.rem(12);
 
 // Max page width
 $desktop-max-page-width: functions.rem(1152);
+$desktop-max-page-width-col10: functions.rem(984);
+
+// Breakpoint at which the gutters change size from 16px to 24px
+// Also where fonts change sizes
+$grid-gutter-breakpoint-change: "m";
 
 $grid-column-count-xl: 12;
 $grid-column-count-m: 8;
@@ -34,5 +39,4 @@ $breakpoints: (
 );
 
 $breakpoint-keys: map.keys($breakpoints);
-
-$large-gutters-breakpoint-index: list.index($breakpoint-keys, "s");
+$large-gutters-breakpoint-index: list.index($breakpoint-keys, "m");

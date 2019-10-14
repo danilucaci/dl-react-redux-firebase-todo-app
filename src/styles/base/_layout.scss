@@ -2,6 +2,7 @@
 @use "../base/mixins";
 @use "../base/functions";
 @use "../base/placeholders";
+@use "../tokens";
 
 @use "sass:list";
 @use "sass:map";
@@ -20,7 +21,7 @@
   padding-left: grid.$grid-spacing-s;
   padding-right: grid.$grid-spacing-s;
 
-  @include mixins.media-min(s) {
+  @include mixins.media-min(tokens.$grid-gutter-breakpoint-change) {
     padding-left: grid.$grid-spacing-m;
     padding-right: grid.$grid-spacing-m;
   }
@@ -29,6 +30,12 @@
     margin-left: auto;
     margin-right: auto;
     max-width: grid.$desktop-max-page-width;
+  }
+
+  &--contain-10 {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: grid.$desktop-max-page-width-col10;
   }
 
   &--nested {
@@ -43,7 +50,7 @@
     margin-left: -#{grid.$grid-spacing-s};
     margin-right: -#{grid.$grid-spacing-s};
 
-    @include mixins.media-min(s) {
+    @include mixins.media-min(tokens.$grid-gutter-breakpoint-change) {
       margin-left: -#{grid.$grid-spacing-m};
       margin-right: -#{grid.$grid-spacing-m};
     }
@@ -53,20 +60,14 @@
 .col {
   margin-left: grid.$grid-spacing-s;
   margin-right: grid.$grid-spacing-s;
-  margin-bottom: grid.$grid-gutter-s;
 
   flex: 1 1 100%;
   max-width: 100%;
 
-  @include mixins.media-min(s) {
+  @include mixins.media-min(tokens.$grid-gutter-breakpoint-change) {
     float: left;
     margin-left: grid.$grid-spacing-m;
     margin-right: grid.$grid-spacing-m;
-    margin-bottom: grid.$grid-gutter-m;
-  }
-
-  &:only-of-type {
-    margin-bottom: 0;
   }
 }
 
@@ -75,7 +76,43 @@
   @include mixins.generate-grid-colums($loop-index, grid.$grid-column-count-xl);
 }
 
-// Generate col-m-1...12 classes with `-m` prefix
+// Generate col-xxxs-1...4 classes with `-xxxs` prefix
+@for $loop-index from 1 through grid.$grid-column-count-s {
+  @include mixins.generate-grid-colums-with-prefix(
+    $loop-index,
+    grid.$grid-column-count-s,
+    xxxs
+  );
+}
+
+// Generate col-xxs-1...4 classes with `-xxs` prefix
+@for $loop-index from 1 through grid.$grid-column-count-s {
+  @include mixins.generate-grid-colums-with-prefix(
+    $loop-index,
+    grid.$grid-column-count-s,
+    xxs
+  );
+}
+
+// Generate col-xs-1...4 classes with `-xs` prefix
+@for $loop-index from 1 through grid.$grid-column-count-s {
+  @include mixins.generate-grid-colums-with-prefix(
+    $loop-index,
+    grid.$grid-column-count-s,
+    xs
+  );
+}
+
+// Generate col-s-1...8 classes with `-s` prefix
+@for $loop-index from 1 through grid.$grid-column-count-m {
+  @include mixins.generate-grid-colums-with-prefix(
+    $loop-index,
+    grid.$grid-column-count-m,
+    s
+  );
+}
+
+// Generate col-m-1...8 classes with `-m` prefix
 @for $loop-index from 1 through grid.$grid-column-count-m {
   @include mixins.generate-grid-colums-with-prefix(
     $loop-index,
@@ -84,11 +121,11 @@
   );
 }
 
-// Generate col-l-1...12 classes with `-l` prefix
-@for $loop-index from 1 through grid.$grid-column-count-xl {
+// Generate col-l-1...8 classes with `-l` prefix
+@for $loop-index from 1 through grid.$grid-column-count-m {
   @include mixins.generate-grid-colums-with-prefix(
     $loop-index,
-    grid.$grid-column-count-xl,
+    grid.$grid-column-count-m,
     l
   );
 }
@@ -99,5 +136,14 @@
     $loop-index,
     grid.$grid-column-count-xl,
     xl
+  );
+}
+
+// Generate col-xxl-1...12 classes with `-xxl` prefix
+@for $loop-index from 1 through grid.$grid-column-count-xl {
+  @include mixins.generate-grid-colums-with-prefix(
+    $loop-index,
+    grid.$grid-column-count-xl,
+    xxl
   );
 }

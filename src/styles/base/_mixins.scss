@@ -2,6 +2,7 @@
 @use "functions";
 
 @use "sass:map";
+@use "sass:list";
 
 @mixin media-min($breakpoint) {
   @if map.has-key(grid.$breakpoints, $breakpoint) {
@@ -74,28 +75,23 @@
   $index: 1,
   $max-col-size: grid.$grid-column-count-xl
 ) {
-  @if ($index <= grid.$large-gutters-breakpoint-index) {
+  .col-#{$index} {
+    max-width: calc(
+      #{functions.get-grid-col-percentage-width($index, $max-col-size)} - #{grid.$grid-gutter-s}
+    );
+
+    flex-basis: calc(
+      #{functions.get-grid-col-percentage-width($index, $max-col-size)} - #{grid.$grid-gutter-s}
+    );
+  }
+  @include media-min(grid.$grid-gutter-breakpoint-change) {
     .col-#{$index} {
       max-width: calc(
-        #{functions.get-grid-col-percentage-width($index, $max-col-size)} -
-          #{grid.$grid-gutter-s}
+        #{functions.get-grid-col-percentage-width($index, $max-col-size)} - #{grid.$grid-gutter-m}
       );
 
       flex-basis: calc(
-        #{functions.get-grid-col-percentage-width($index, $max-col-size)} -
-          #{grid.$grid-gutter-s}
-      );
-    }
-  } @else {
-    .col-#{$index} {
-      max-width: calc(
-        #{functions.get-grid-col-percentage-width($index, $max-col-size)} -
-          #{grid.$grid-gutter-m}
-      );
-
-      flex-basis: calc(
-        #{functions.get-grid-col-percentage-width($index, $max-col-size)} -
-          #{grid.$grid-gutter-m}
+        #{functions.get-grid-col-percentage-width($index, $max-col-size)} - #{grid.$grid-gutter-m}
       );
     }
   }
@@ -153,8 +149,11 @@
 ) {
   @if ($breakpoint) {
     @if (map.has-key(grid.$breakpoints, $breakpoint)) {
+      $breakpoint-keys: map.keys(grid.$breakpoints);
+      $current-breakpoint-index: list.index(grid.$breakpoint-keys, $breakpoint);
+
       @include media-min($breakpoint) {
-        @if ($index <= grid.$large-gutters-breakpoint-index) {
+        @if ($current-breakpoint-index < grid.$large-gutters-breakpoint-index) {
           .col-#{$breakpoint}-#{$index} {
             max-width: calc(
               #{functions.get-grid-col-percentage-width(
