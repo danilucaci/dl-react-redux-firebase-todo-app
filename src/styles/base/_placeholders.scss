@@ -59,3 +59,72 @@
     bottom: tokens.$spacing-input-vertical-s;
   }
 }
+
+%divider--on-white {
+  border-bottom: tokens.$size-divider-s solid tokens.$color-divider-on-white;
+}
+
+%divider--on-grey {
+  border-bottom: tokens.$size-divider-s solid tokens.$color-divider-on-grey;
+}
+
+%bg-debug {
+  * {
+    background-color: rgba(255, 0, 0, 0.2);
+  }
+  * * {
+    background-color: rgba(0, 255, 0, 0.2);
+  }
+  * * * {
+    background-color: rgba(0, 0, 255, 0.2);
+  }
+  * * * * {
+    background-color: rgba(255, 0, 255, 0.2);
+  }
+  * * * * * {
+    background-color: rgba(0, 255, 255, 0.2);
+  }
+  * * * * * * {
+    background-color: rgba(255, 255, 0, 0.2);
+  }
+  * * * * * * * {
+    background-color: rgba(255, 0, 0, 0.2);
+  }
+  * * * * * * * * {
+    background-color: rgba(0, 255, 0, 0.2);
+  }
+  * * * * * * * * * {
+    background-color: rgba(0, 0, 255, 0.2);
+  }
+}
+
+%olg-debug {
+  &,
+  * {
+    outline: 1px solid rgba(255, 0, 0, 0.2);
+  }
+  * * {
+    outline: 1px solid rgba(0, 255, 0, 0.2);
+  }
+  * * * {
+    outline: 1px solid rgba(0, 0, 255, 0.2);
+  }
+  * * * * {
+    outline: 1px solid rgba(255, 0, 255, 0.2);
+  }
+  * * * * * {
+    outline: 1px solid rgba(0, 255, 255, 0.2);
+  }
+  * * * * * * {
+    outline: 1px solid rgba(255, 255, 0, 0.2);
+  }
+  * * * * * * * {
+    outline: 1px solid rgba(255, 0, 0, 0.2);
+  }
+  * * * * * * * * {
+    outline: 1px solid rgba(0, 255, 0, 0.2);
+  }
+  * * * * * * * * * {
+    outline: 1px solid rgba(0, 0, 255, 0.2);
+  }
+}
