@@ -1,7 +1,95 @@
 @use "styles/reset";
 @use "styles/base/fonts";
 @use "styles/base/layout";
+@use "styles/tokens";
+
+@use "styles/base/placeholders";
 
 .App {
-  text-align: center;
+  // @extend %bg-debug;
+}
+
+h1 {
+  color: tokens.$color-text-display-default;
+
+  font-size: tokens.$font-size-mobile-display-xl;
+  line-height: tokens.$font-line-height-mobile-display-xl;
+  font-family: tokens.$font-family-display;
+  font-weight: 700;
+  font-style: normal;
+
+  margin: 0;
+
+  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+    font-size: tokens.$font-size-desktop-display-xl;
+    line-height: tokens.$font-line-height-desktop-display-xl;
+  }
+}
+
+h2 {
+  color: tokens.$color-text-display-default;
+
+  font-size: tokens.$font-size-mobile-display-l;
+  line-height: tokens.$font-line-height-mobile-display-l;
+  font-family: tokens.$font-family-display;
+  font-weight: 700;
+  font-style: normal;
+
+  margin: 0;
+
+  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+    font-size: tokens.$font-size-desktop-display-l;
+    line-height: tokens.$font-line-height-desktop-display-l;
+  }
+}
+
+h3 {
+  color: tokens.$color-text-display-default;
+
+  font-size: tokens.$font-size-mobile-display-m;
+  line-height: tokens.$font-line-height-mobile-display-m;
+  font-family: tokens.$font-family-display;
+  font-weight: 700;
+  font-style: normal;
+
+  margin: 0;
+
+  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+    font-size: tokens.$font-size-desktop-display-m;
+    line-height: tokens.$font-line-height-desktop-display-m;
+  }
+}
+
+h4 {
+  color: tokens.$color-text-display-default;
+
+  font-size: tokens.$font-size-mobile-display-s;
+  line-height: tokens.$font-line-height-mobile-display-s;
+  font-family: tokens.$font-family-display;
+  font-weight: 700;
+  font-style: normal;
+
+  margin: 0;
+
+  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+    font-size: tokens.$font-size-desktop-display-s;
+    line-height: tokens.$font-line-height-desktop-display-s;
+  }
+}
+
+h5 {
+  color: tokens.$color-text-display-default;
+
+  font-size: tokens.$font-size-mobile-display-xs;
+  line-height: tokens.$font-line-height-mobile-display-xs;
+  font-family: tokens.$font-family-display;
+  font-weight: 700;
+  font-style: normal;
+
+  margin: 0;
+
+  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+    font-size: tokens.$font-size-desktop-display-xs;
+    line-height: tokens.$font-line-height-desktop-display-xs;
+  }
 }
