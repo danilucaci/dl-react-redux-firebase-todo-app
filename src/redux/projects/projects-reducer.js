@@ -3,14 +3,25 @@ import ProjectsTypes from "./projects-types";
 export const INITIAL_STATE = {
   projects: [
     {
-      id: new Date().toString(),
-      uid: new Date().toString(),
+      id: new Date() + Math.random(),
+      uid: new Date() + Math.random(),
       name: "Personal",
-      taskCount: 0,
+      taskCount: 2,
       color: {
-        projectColorID: new Date().toString(),
-        colorName: "Purple",
-        colorValue: "purple",
+        colorID: new Date() + Math.random(),
+        colorName: "Blue",
+        colorValue: "#4B75F6",
+      },
+    },
+    {
+      id: new Date() + Math.random(),
+      uid: new Date() + Math.random(),
+      name: "Work",
+      taskCount: 12,
+      color: {
+        colorID: new Date() + Math.random(),
+        colorName: "Charcoal",
+        colorValue: "#808080",
       },
     },
   ],

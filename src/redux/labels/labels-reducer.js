@@ -3,14 +3,25 @@ import LabelsTypes from "./labels-types";
 export const INITIAL_STATE = {
   labels: [
     {
-      id: new Date().toString(),
-      uid: new Date().toString(),
+      id: new Date() + Math.random(),
+      uid: new Date() + Math.random(),
       name: "pending",
-      taskCount: 0,
+      taskCount: 1,
       color: {
-        labelColorID: new Date().toString(),
+        colorID: new Date() + Math.random(),
+        colorName: "Orange",
+        colorValue: "#F19D4B",
+      },
+    },
+    {
+      id: new Date() + Math.random(),
+      uid: new Date() + Math.random(),
+      name: "soon",
+      taskCount: 3,
+      color: {
+        colorID: new Date() + Math.random(),
         colorName: "Blue",
-        colorValue: "blue",
+        colorValue: "#4B75F6",
       },
     },
   ],

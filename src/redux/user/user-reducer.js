@@ -2,7 +2,7 @@ import UserTypes from "./user-types";
 
 export const INITIAL_STATE = {
   currentUser: {
-    uid: new Date().toString(),
+    uid: new Date() + Math.random(),
     displayName: "Dani lucaci",
     email: "dani@mail.com",
     avatar: null,

@@ -3,22 +3,46 @@ import TodosTypes from "./todos-types";
 const INITIAL_STATE = {
   todos: [
     {
-      id: new Date().toString(),
-      uid: new Date().toString(),
+      id: new Date() + Math.random(),
+      uid: new Date() + Math.random(),
       name: "Learn React",
       dueDate: new Date(),
       completed: false,
       overdue: false,
       project: {
-        projectID: new Date().toString(),
+        projectID: new Date() + Math.random(),
         name: "Personal",
-        color: "blue",
+        colorName: "Blue",
+        colorValue: "#4B75F6",
       },
       labels: [
         {
-          labelID: new Date().toString(),
+          labelID: new Date() + Math.random(),
           name: "waiting",
-          color: "purple",
+          colorName: "Orange",
+          colorValue: "#F19D4B",
+        },
+      ],
+    },
+    {
+      id: new Date() + Math.random(),
+      uid: new Date() + Math.random(),
+      name: "Finish design",
+      dueDate: new Date(),
+      completed: false,
+      overdue: false,
+      project: {
+        projectID: new Date() + Math.random(),
+        name: "Personal",
+        colorName: "Blue",
+        colorValue: "#4B75F6",
+      },
+      labels: [
+        {
+          labelID: new Date() + Math.random(),
+          name: "waiting",
+          colorName: "Orange",
+          colorValue: "#F19D4B",
         },
       ],
     },
