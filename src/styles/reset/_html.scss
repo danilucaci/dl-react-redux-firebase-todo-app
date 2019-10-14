@@ -1,7 +1,7 @@
 @use "../tokens";
 
 html {
-  background-color: tokens.$color-background-page-lightest;
+  background-color: tokens.$color-background-page-lighter;
   color: tokens.$color-text-body-default;
   font-family: tokens.$font-family-body;
   font-weight: 400;

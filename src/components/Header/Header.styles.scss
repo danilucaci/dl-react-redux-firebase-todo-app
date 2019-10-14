@@ -1,31 +1,41 @@
 @use "../../styles/tokens";
 
-.Header {
+.Site__Header__Wrapper {
   background-color: tokens.$color-background-page-lightest;
+  border-bottom: 1px solid tokens.$color-border-header;
   height: tokens.$size-site-nav-s;
   width: 100%;
-  border-bottom: 1px solid tokens.$color-border-header;
-  padding: tokens.$spacing-site-nav-vertical-s tokens.$grid-gutter-s;
 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  padding-top: tokens.$spacing-site-nav-vertical-s;
+  padding-bottom: tokens.$spacing-site-nav-vertical-s;
 
-  @include tokens.media-min(s) {
+  @include tokens.media-min(m) {
     height: tokens.$size-site-nav-s;
-    padding: tokens.$spacing-site-nav-vertical-m tokens.$grid-gutter-m;
+    padding-top: tokens.$spacing-site-nav-vertical-m;
+    padding-bottom: tokens.$spacing-site-nav-vertical-m;
   }
+}
+
+.Buttons__Wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.Site__Header__Nav {
+  display: flex;
+  align-items: center;
 }
 
 .Buttons {
   display: flex;
+  margin-left: auto;
 }
 
 .Menu {
   display: inline-block;
   margin-left: tokens.rem(8);
 
-  @include tokens.media-min(s) {
+  @include tokens.media-min(m) {
     display: none;
   }
 }
@@ -34,7 +44,7 @@
   display: inline-block;
   margin-left: tokens.rem(8);
 
-  @include tokens.media-min(s) {
+  @include tokens.media-min(m) {
     display: none;
   }
 }
@@ -43,7 +53,7 @@
   margin-left: tokens.rem(8);
   display: inline-block;
 
-  @include tokens.media-min(s) {
+  @include tokens.media-min(m) {
     display: none;
   }
 }
@@ -51,13 +61,7 @@
 .AddTaskDesktop {
   display: none;
 
-  animation: fade-in-nav-buttons ease-out tokens.$animation-duration-base;
-
-  @include tokens.media-min(s) {
+  @include tokens.media-min(m) {
     display: inline-block;
   }
-}
-
-@keyframes fade-in-nav-buttons {
-  @include tokens.fade-in-nav-buttons();
 }

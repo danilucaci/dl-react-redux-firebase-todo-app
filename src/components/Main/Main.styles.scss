@@ -1,0 +1,97 @@
+@use "../../styles/tokens";
+@use "../../styles/base/placeholders";
+
+.Main {
+  margin-top: tokens.$spacing-main-top-s;
+
+  @include tokens.media-min(m) {
+    background-color: tokens.$color-background-page-lightest;
+    margin-top: 0;
+    padding-top: tokens.$spacing-main-top-s;
+  }
+
+  @include tokens.media-min(xl) {
+    padding-top: tokens.$spacing-main-top-m;
+  }
+}
+
+.Section {
+  background-color: tokens.$color-background-page-lightest;
+  box-shadow: tokens.$shadow-section;
+
+  margin: {
+    left: -#{tokens.$grid-gutter-s};
+    right: -#{tokens.$grid-gutter-s};
+    bottom: tokens.$grid-gutter-m;
+  }
+
+  padding: {
+    left: tokens.$grid-gutter-s;
+    right: tokens.$grid-gutter-s;
+    top: tokens.$spacing-l-02;
+    bottom: tokens.$spacing-l-02;
+  }
+
+  @include tokens.media-min(m) {
+    background-color: transparent;
+    box-shadow: none;
+
+    padding: {
+      left: tokens.$spacing-l-04;
+      right: tokens.$spacing-l-04;
+      top: 0;
+      bottom: 0;
+    }
+
+    margin: {
+      left: 0;
+      right: 0;
+      bottom: tokens.$spacing-l-05;
+    }
+  }
+}
+
+.Section__Header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 100%;
+  padding-bottom: tokens.$spacing-c-05;
+  @extend %divider--on-white;
+}
+
+.Section__Title {
+  font-size: tokens.$font-size-mobile-display-s;
+  line-height: tokens.$font-line-height-mobile-display-s;
+
+  @include tokens.media-min(m) {
+    font-size: tokens.$font-size-desktop-display-xs;
+    line-height: tokens.$font-line-height-desktop-display-xs;
+  }
+}
+
+.Section__Date {
+  font-size: tokens.$font-size-body-m;
+  line-height: tokens.$font-line-height-body-m;
+  color: tokens.$color-text-body-subdued;
+
+  margin-left: tokens.$spacing-c-05;
+  margin-right: tokens.$spacing-c-05;
+}
+
+.Section__Link {
+  text-decoration: none;
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+
+  margin-left: auto;
+
+  display: flex;
+
+  &:hover {
+    color: tokens.$color-text-body-default;
+    text-decoration: none;
+    cursor: pointer;
+  }
+}

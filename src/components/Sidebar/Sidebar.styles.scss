@@ -1,0 +1,263 @@
+@use "../../styles/tokens";
+@use "../../styles/base/placeholders";
+
+.Sidebar {
+  display: none;
+
+  margin-top: tokens.$spacing-c-07;
+
+  @include tokens.media-min(m) {
+    display: block;
+  }
+
+  @include tokens.media-min(xl) {
+    margin-top: tokens.$spacing-c-09;
+  }
+}
+
+.Sidebar__Section {
+  margin-bottom: tokens.$spacing-c-07;
+
+  @include tokens.media-min(m) {
+    margin-bottom: tokens.$spacing-c-08;
+  }
+
+  & li {
+    list-style-type: none;
+  }
+}
+
+.Sidebar__Avatar__Link {
+  text-decoration: none;
+  color: tokens.$color-text-body-default;
+  font-size: tokens.$font-size-body-m;
+  line-height: tokens.$font-line-height-body-m;
+
+  display: flex;
+  flex: 1 1 auto;
+
+  &:hover {
+    color: tokens.$color-text-body-default;
+    text-decoration: none;
+    cursor: pointer;
+  }
+}
+
+.Sidebar__Link {
+  text-decoration: none;
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+
+  display: flex;
+  flex: 1 1 auto;
+
+  padding: {
+    top: tokens.$spacing-c-03;
+    bottom: tokens.$spacing-c-03;
+  }
+
+  &:hover {
+    color: tokens.$color-text-body-default;
+    text-decoration: none;
+    cursor: pointer;
+  }
+}
+
+.Sidebar__Section__Item {
+  display: flex;
+  align-items: center;
+  font-size: tokens.$font-size-body-m;
+  line-height: tokens.$font-line-height-body-m;
+  color: tokens.$color-text-body-default;
+
+  margin: {
+    left: -#{tokens.$grid-gutter-s};
+    right: -#{tokens.$grid-gutter-s};
+  }
+
+  padding: {
+    left: tokens.$grid-gutter-s;
+    right: tokens.$grid-gutter-s;
+  }
+
+  @include tokens.media-min(m) {
+    margin: {
+      left: -#{tokens.$grid-gutter-m};
+      right: -#{tokens.$grid-gutter-m};
+    }
+    padding: {
+      left: tokens.$grid-gutter-m;
+      right: tokens.$grid-gutter-m;
+    }
+  }
+
+  &:hover {
+    background-color: tokens.$color-background-sidebar-item-hover;
+  }
+}
+
+.Sidebar__AddNew__Button {
+  display: block;
+
+  margin: {
+    left: -#{tokens.$grid-gutter-s};
+    right: -#{tokens.$grid-gutter-s};
+    top: tokens.$spacing-c-05;
+  }
+
+  padding: {
+    left: tokens.$grid-gutter-s;
+    right: tokens.$grid-gutter-s;
+  }
+
+  @include tokens.media-min(m) {
+    margin: {
+      left: -#{tokens.$grid-gutter-m};
+      right: -#{tokens.$grid-gutter-m};
+    }
+    padding: {
+      left: tokens.$grid-gutter-m;
+      right: tokens.$grid-gutter-m;
+    }
+  }
+}
+
+.Sidebar__Section__Item__Icon {
+  width: tokens.$size-icon-m;
+  height: tokens.$size-icon-m;
+  fill: tokens.$color-icon-default;
+  margin-right: tokens.$spacing-c-04;
+}
+
+.Sidebar__Section__Item__Icon__Day {
+  & text {
+    font-size: tokens.$font-size-calendar-day;
+    line-height: tokens.$font-line-height-calendar-day;
+    fill: tokens.$color-text-body-default;
+    font-family: tokens.$font-family-body;
+    font-weight: 500;
+  }
+}
+
+.Sidebar__Section__Item__Count {
+  font-size: tokens.$font-size-body-s;
+  line-height: tokens.$font-line-height-body-m;
+  color: tokens.$color-text-body-subdued;
+  margin-left: auto;
+}
+
+.Sidebar__Avatar {
+  display: flex;
+  align-items: center;
+
+  margin: {
+    bottom: tokens.$spacing-c-05;
+    left: -#{tokens.$grid-gutter-s};
+    right: -#{tokens.$grid-gutter-s};
+  }
+  padding: {
+    left: tokens.$grid-gutter-s;
+    right: tokens.$grid-gutter-s;
+  }
+
+  @include tokens.media-min(m) {
+    margin: {
+      left: -#{tokens.$grid-gutter-m};
+      right: -#{tokens.$grid-gutter-m};
+    }
+    padding: {
+      left: tokens.$grid-gutter-m;
+      right: tokens.$grid-gutter-m;
+    }
+  }
+}
+
+.Sidebar__Avatar__Image {
+  width: tokens.$size-avatar-m;
+  height: tokens.$size-avatar-m;
+  margin-right: tokens.$spacing-c-02;
+  margin-left: -#{tokens.$spacing-c-02};
+  border: tokens.$border-avatar-default tokens.$color-avatar-on-white solid;
+  border-radius: 50%;
+}
+
+.Sidebar__Section__Title {
+  display: flex;
+  padding-bottom: tokens.$spacing-c-04;
+  @extend %divider--on-white;
+
+  margin: {
+    left: -#{tokens.$grid-gutter-s};
+    right: -#{tokens.$grid-gutter-s};
+    bottom: tokens.$spacing-c-05;
+  }
+
+  padding: {
+    left: tokens.$grid-gutter-s;
+    right: tokens.$grid-gutter-s;
+    top: tokens.$spacing-c-03;
+    bottom: tokens.$spacing-c-03;
+  }
+
+  @include tokens.media-min(m) {
+    margin: {
+      left: -#{tokens.$grid-gutter-m};
+      right: -#{tokens.$grid-gutter-m};
+    }
+    padding: {
+      left: tokens.$grid-gutter-m;
+      right: tokens.$grid-gutter-m;
+    }
+  }
+
+  &:hover {
+    background-color: tokens.$color-background-sidebar-item-hover;
+    cursor: pointer;
+  }
+}
+
+.Sidebar__Section__Title__Button {
+  background-color: tokens.$color-background-outlined-enabled;
+  border: none;
+  outline: none;
+
+  display: flex;
+  flex: 6 1 auto;
+
+  margin-right: tokens.$spacing-c-05;
+  font-size: tokens.$font-size-body-m;
+  line-height: tokens.$font-line-height-body-m;
+  font-weight: 700;
+
+  margin-top: 0;
+  margin-bottom: 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.Sidebar__Section__Title__Icon {
+  width: tokens.$size-icon-m;
+  height: tokens.$size-icon-m;
+  fill: tokens.$color-icon-default;
+  margin-right: tokens.$spacing-c-04;
+}
+
+.Sidebar__Section__Title__SeeAll {
+  text-align: right;
+  text-decoration: none;
+  color: tokens.$color-text-body-default;
+  font-size: tokens.$font-size-body-m;
+  line-height: tokens.$font-line-height-body-m;
+
+  display: flex;
+  flex: 0 1 auto;
+
+  &:hover {
+    color: tokens.$color-text-body-default;
+    text-decoration: none;
+    cursor: pointer;
+  }
+}

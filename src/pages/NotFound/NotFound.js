@@ -1,17 +1,17 @@
 import React from "react";
 import classnames from "classnames";
 
-import "./Projects.styles.scss";
+import "./NotFound.styles.scss";
 import Main from "../../components/Main/Main";
 
-function Projects() {
+function NotFound(props) {
   return (
     <Main>
       <section className="Section">
-        <h1>Projects page</h1>
+        <h1>NotFound page</h1>
       </section>
     </Main>
   );
 }
 
-export default Projects;
+export default NotFound;

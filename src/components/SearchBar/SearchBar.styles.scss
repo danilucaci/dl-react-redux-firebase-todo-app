@@ -12,7 +12,7 @@
   flex: 1 1 auto;
 
   white-space: nowrap;
-  height: tokens.$size-input-s;
+  height: tokens.$size-input-m;
 
   margin-right: tokens.$grid-gutter-s;
 
@@ -27,11 +27,11 @@
     background-color: tokens.$color-background-search-bar-active;
   }
 
-  @include tokens.media-min(s) {
+  @include tokens.media-min(l) {
     margin-right: tokens.$grid-gutter-m;
   }
 
-  @include tokens.media-min(s) {
+  @include tokens.media-min(m) {
     display: flex;
     align-items: center;
   }
@@ -51,7 +51,7 @@
   border: none;
   margin: 0;
   height: 100%;
-
+  width: 100%;
   flex: 1 1 auto;
 
   font: {

@@ -15,13 +15,25 @@ $size-button-icon-m: functions.rem(40);
 $size-button-with-icon-m: functions.rem(40);
 
 // Icons
+$size-avatar-m: functions.rem(36);
+$size-avatar-s: functions.rem(24);
+
+// Dividers
+$size-divider-m: functions.rem(2);
+$size-divider-s: functions.rem(1);
+
+// Icons
 $size-icon-m: functions.rem(24);
 $size-icon-s: functions.rem(20);
 
 // Input fields
-$size-input-m: functions.rem(48);
-$size-input-s: functions.rem(40);
+$size-input-m: functions.rem(40);
+$size-input-s: functions.rem(32);
 
 // Border Radius
 $border-radius-button-default: 3px;
+$border-radius-button-text: 1px;
 $border-radius-input-default: 3px;
+
+// Avatars
+$border-avatar-default: functions.rem(2);

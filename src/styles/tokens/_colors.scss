@@ -5,9 +5,12 @@
 // ******************************************
 
 $color-text-body-default: colors.$grey900;
+$color-text-body-subdued: colors.$grey700;
 $color-text-display-default: colors.$grey900;
 $color-text-button-primary-enabled: colors.$primary50;
 $color-text-button-primary-disabled: colors.$grey00;
+$color-text-button-outlined-enabled: colors.$grey900;
+$color-text-button-outlined-disabled: colors.$grey700;
 
 // Links
 $color-text-link-default: colors.$primary600;
@@ -25,6 +28,12 @@ $color-background-outlined-active: colors.$grey200;
 $color-background-outlined-focus: colors.$grey100;
 $color-background-outlined-disabled: transparent;
 
+$color-background-text-button-enabled: transparent;
+$color-background-text-button-hover: transparent;
+$color-background-text-button-active: transparent;
+$color-background-text-button-focus: colors.$grey00;
+$color-background-text-button-disabled: transparent;
+
 $color-background-primary-enabled: colors.$primary600;
 $color-background-primary-hover: colors.$primary500;
 $color-background-primary-active: colors.$primary700;
@@ -34,6 +43,8 @@ $color-background-primary-disabled: colors.$grey500;
 $color-background-input-enabled: colors.$grey00;
 $color-background-search-bar-enabled: colors.$grey50;
 $color-background-search-bar-active: colors.$grey00;
+
+$color-background-sidebar-item-hover: colors.$grey100;
 
 $color-icon-default: colors.$grey600;
 
@@ -75,3 +86,11 @@ $color-border-components-default: colors.$grey300;
 $color-background-page-lightest: colors.$grey00;
 $color-background-page-lighter: colors.$grey50;
 $color-background-page-light: colors.$grey100;
+
+// Dividers
+$color-divider-on-white: colors.$grey200;
+$color-divider-on-grey: colors.$grey300;
+
+// Avatars
+$color-avatar-on-white: colors.$grey00;
+$color-avatar-on-grey: colors.$grey50;

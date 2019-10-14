@@ -1,0 +1,43 @@
+@use "../../styles/tokens";
+
+.AddNew {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  font-size: tokens.$font-size-button-m;
+  line-height: tokens.$font-line-height-button-m;
+  color: tokens.$color-text-button-outlined-enabled;
+  border-radius: tokens.$border-radius-button-text;
+
+  &:hover {
+    cursor: pointer;
+    outline: none;
+  }
+
+  &:focus {
+    background-color: tokens.$color-background-text-button-focus;
+    box-shadow: tokens.$shadow-button-text-focus;
+    cursor: pointer;
+    outline: none;
+  }
+
+  &:disabled {
+    outline: none;
+    cursor: not-allowed;
+    color: tokens.$color-text-button-outlined-disabled;
+
+    &:hover,
+    &:focus {
+      cursor: not-allowed;
+    }
+  }
+}
+
+.AddNew__Icon {
+  display: block;
+  width: tokens.$size-icon-m;
+  height: tokens.$size-icon-m;
+  margin-right: tokens.$spacing-c-04;
+  fill: tokens.$color-icon-default;
+}

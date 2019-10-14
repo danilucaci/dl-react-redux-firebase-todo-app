@@ -8,29 +8,37 @@ import SearchBar from "../SearchBar/SearchBar";
 
 function Header() {
   return (
-    <header className="Header">
-      <Logo />
-      <SearchBar />
-      <div className="Buttons">
-        <PrimaryButton icon="add" additionalClasses={["AddTaskDesktop"]}>
-          New task
-        </PrimaryButton>
-        <IconButton
-          icon="add"
-          additionalClasses={["AddTaskMobile"]}
-          ariaText="Add a new task"
-        />
-        <IconButton
-          icon="search"
-          additionalClasses={["SearchButton"]}
-          ariaText="Search tasks"
-        />
-        <IconButton
-          icon="menu"
-          additionalClasses={["Menu"]}
-          ariaText="Open menu"
-        />
-      </div>
+    <header className="Site__Header__Wrapper" role="banner">
+      <nav
+        className="Site__Header__Nav row row--contain-10"
+        aria-label="Page Menu"
+        role="navigation"
+      >
+        <Logo />
+        <div className="Buttons__Wrapper col col-8 col-m-5 col-xl-8">
+          <SearchBar />
+          <div className="Buttons">
+            <PrimaryButton icon="add" additionalClasses={["AddTaskDesktop"]}>
+              New task
+            </PrimaryButton>
+            <IconButton
+              icon="add"
+              additionalClasses={["AddTaskMobile"]}
+              ariaText="Add a new task"
+            />
+            <IconButton
+              icon="search"
+              additionalClasses={["SearchButton"]}
+              ariaText="Search todos"
+            />
+            <IconButton
+              icon="menu"
+              additionalClasses={["Menu"]}
+              ariaText="Open menu"
+            />
+          </div>
+        </div>
+      </nav>
     </header>
   );
 }

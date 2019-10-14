@@ -13,10 +13,4 @@
   &:hover {
     color: tokens.$color-text-link-hover;
   }
-
-  margin-right: tokens.$grid-gutter-s;
-
-  @include tokens.media-min(s) {
-    margin-right: tokens.$grid-gutter-m;
-  }
 }
