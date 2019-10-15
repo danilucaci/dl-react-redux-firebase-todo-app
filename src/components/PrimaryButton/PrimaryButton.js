@@ -3,15 +3,10 @@ import { arrayOf, string, bool, node } from "prop-types";
 import classNames from "classnames";
 
 import "./PrimaryButton.styles.scss";
+import { getAddedClasses } from "../../utils/helpers";
 
 function PrimaryButton({ icon, disabled, additionalClasses, children }) {
-  const addedClasses = additionalClasses.reduce(
-    (classes, currClass) => ({
-      ...classes,
-      [currClass]: true,
-    }),
-    {},
-  );
+  const addedClasses = getAddedClasses(additionalClasses);
 
   const buttonClassNames = classNames({
     PrimaryButton: true,

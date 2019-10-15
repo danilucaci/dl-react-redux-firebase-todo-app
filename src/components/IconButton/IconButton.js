@@ -5,15 +5,10 @@ import classNames from "classnames";
 import "./IconButton.styles.scss";
 
 import AriaText from "../AriaText/AriaText";
+import { getAddedClasses } from "../../utils/helpers";
 
 function IconButton({ icon, ariaText, additionalClasses, disabled }) {
-  const addedClasses = additionalClasses.reduce(
-    (classes, currClass) => ({
-      ...classes,
-      [currClass]: true,
-    }),
-    {},
-  );
+  const addedClasses = getAddedClasses(additionalClasses);
 
   const buttonClassNames = classNames({
     IconButton: true,
