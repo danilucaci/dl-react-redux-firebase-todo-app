@@ -18,22 +18,22 @@ function Header() {
         <div className="Buttons__Wrapper col col-8 col-m-5 col-xl-8">
           <SearchBar />
           <div className="Buttons">
-            <PrimaryButton icon="add-24" additionalClasses={["AddTodoDesktop"]}>
+            <PrimaryButton icon="add-24" additionalClasses="AddTodoDesktop">
               New todo
             </PrimaryButton>
             <IconButton
               icon="add-24"
-              additionalClasses={["AddTodoMobile"]}
+              additionalClasses="AddTodoMobile"
               ariaText="Add a new todo"
             />
             <IconButton
               icon="search-24"
-              additionalClasses={["SearchButton"]}
+              additionalClasses="SearchButton"
               ariaText="Search todos"
             />
             <IconButton
               icon="menu"
-              additionalClasses={["Menu"]}
+              additionalClasses="Menu"
               ariaText="Open menu"
             />
           </div>

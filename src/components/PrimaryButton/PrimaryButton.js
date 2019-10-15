@@ -1,12 +1,12 @@
 import React from "react";
-import { arrayOf, string, bool, node } from "prop-types";
+import { string, bool, node } from "prop-types";
 import classNames from "classnames";
 
 import "./PrimaryButton.styles.scss";
-import { getAddedClasses } from "../../utils/helpers";
+import { getClassesFromProps } from "../../utils/helpers";
 
 function PrimaryButton({ icon, disabled, additionalClasses, children }) {
-  const addedClasses = getAddedClasses(additionalClasses);
+  const addedClasses = getClassesFromProps(additionalClasses);
 
   const buttonClassNames = classNames({
     PrimaryButton: true,
@@ -33,13 +33,13 @@ function PrimaryButton({ icon, disabled, additionalClasses, children }) {
 PrimaryButton.propTypes = {
   icon: string,
   disabled: bool,
-  additionalClasses: arrayOf(string),
+  additionalClasses: string,
   children: node.isRequired,
 };
 
 PrimaryButton.defaultProps = {
   icon: "",
-  additionalClasses: [],
+  additionalClasses: "",
   disabled: false,
 };
 

@@ -1,14 +1,14 @@
 import React from "react";
-import { arrayOf, string, bool } from "prop-types";
+import { string, bool } from "prop-types";
 import classNames from "classnames";
 
 import "./IconButton.styles.scss";
 
 import AriaText from "../AriaText/AriaText";
-import { getAddedClasses } from "../../utils/helpers";
+import { getClassesFromProps } from "../../utils/helpers";
 
 function IconButton({ icon, ariaText, additionalClasses, disabled }) {
-  const addedClasses = getAddedClasses(additionalClasses);
+  const addedClasses = getClassesFromProps(additionalClasses);
 
   const buttonClassNames = classNames({
     IconButton: true,
@@ -31,14 +31,14 @@ function IconButton({ icon, ariaText, additionalClasses, disabled }) {
 
 IconButton.propTypes = {
   icon: string,
-  additionalClasses: arrayOf(string),
+  additionalClasses: string,
   disabled: bool,
   ariaText: string.isRequired,
 };
 
 IconButton.defaultProps = {
   icon: "",
-  additionalClasses: [],
+  additionalClasses: "",
   disabled: false,
 };
 
