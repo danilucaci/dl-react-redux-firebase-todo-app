@@ -49,7 +49,7 @@
   }
 }
 
-.AddTaskMobile {
+.AddTodoMobile {
   margin-left: tokens.rem(8);
   display: inline-block;
 
@@ -58,7 +58,7 @@
   }
 }
 
-.AddTaskDesktop {
+.AddTodoDesktop {
   display: none;
 
   @include tokens.media-min(m) {

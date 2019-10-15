@@ -36,11 +36,11 @@ function Sidebar(props) {
             </li>
           </NavLink>
           <li className="Sidebar__Section__Item">
-            <NavLink className="Sidebar__Link" to="/todos">
+            <NavLink className="Sidebar__Link" to="/Inbox">
               <svg className="Sidebar__Section__Item__Icon">
                 <use xlinkHref="#home" />
               </svg>
-              Todos
+              Inbox
               <span className="Sidebar__Section__Item__Count">15</span>
             </NavLink>
           </li>
@@ -59,11 +59,11 @@ function Sidebar(props) {
             </NavLink>
           </li>
           <li className="Sidebar__Section__Item">
-            <NavLink className="Sidebar__Link" to="/tomorrow">
+            <NavLink className="Sidebar__Link" to="/next-days">
               <svg className="Sidebar__Section__Item__Icon">
                 <use xlinkHref="#calendar-base" />
               </svg>
-              Tomorrow
+              Next 7 days
               <span className="Sidebar__Section__Item__Count">11</span>
             </NavLink>
           </li>
@@ -85,7 +85,7 @@ function Sidebar(props) {
               <SidebarItem
                 key={project.id}
                 iconColor={project.color.colorValue}
-                taskCount={project.taskCount}
+                todosCount={project.todosCount}
                 path={`/project/${project.name}`}
               >
                 {project.name}
@@ -112,7 +112,7 @@ function Sidebar(props) {
               <SidebarItem
                 key={label.id}
                 iconColor={label.color.colorValue}
-                taskCount={label.taskCount}
+                todosCount={label.todosCount}
                 path={`/label/${label.name}`}
               >
                 {label.name}

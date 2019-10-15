@@ -9,10 +9,10 @@ import Header from "./components/Header/Header";
 
 import Home from "./pages/Home/Home";
 import Profile from "./pages/Profile/Profile";
-import Todos from "./pages/Todos/Todos";
+import Inbox from "./pages/Inbox/Inbox";
 import NotFound from "./pages/NotFound/NotFound";
 import Today from "./pages/Today/Today";
-import Tomorrow from "./pages/Tomorrow/Tomorrow";
+import NextDays from "./pages/NextDays/NextDays";
 import Project from "./pages/Project/Project";
 import Projects from "./pages/Projects/Projects";
 import Label from "./pages/Label/Label";
@@ -29,9 +29,9 @@ function App() {
       <Header />
       <Switch>
         <Route path="/profile" component={Profile} />
-        <Route path="/todos" component={Todos} />
+        <Route path="/inbox" component={Inbox} />
         <Route path="/today" component={Today} />
-        <Route path="/tomorrow" component={Tomorrow} />
+        <Route path="/next-days" component={NextDays} />
         <Route path="/project/:projectID" component={Project} />
         <Route path="/projects" component={Projects} />
         <Route path="/label/:labelID" component={Label} />

@@ -6,7 +6,7 @@ export const INITIAL_STATE = {
       id: new Date() + Math.random(),
       uid: new Date() + Math.random(),
       name: "pending",
-      taskCount: 1,
+      todosCount: 1,
       color: {
         colorID: new Date() + Math.random(),
         colorName: "Orange",
@@ -17,7 +17,7 @@ export const INITIAL_STATE = {
       id: new Date() + Math.random(),
       uid: new Date() + Math.random(),
       name: "soon",
-      taskCount: 3,
+      todosCount: 3,
       color: {
         colorID: new Date() + Math.random(),
         colorName: "Blue",

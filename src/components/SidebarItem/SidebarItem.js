@@ -6,7 +6,7 @@ import { string, number, node } from "prop-types";
 import "./SidebarItem.styles.scss";
 
 function SidebarItem(props) {
-  const { path, iconColor, taskCount, children } = props;
+  const { path, iconColor, todosCount, children } = props;
 
   const sidebarItemClasses = classnames({
     Sidebar__Item: true,
@@ -19,7 +19,7 @@ function SidebarItem(props) {
           <use xlinkHref="#color" />
         </svg>
         {children}
-        <span className="Sidebar__Item__Count">{taskCount}</span>
+        <span className="Sidebar__Item__Count">{todosCount}</span>
       </NavLink>
     </li>
   );
@@ -28,7 +28,7 @@ function SidebarItem(props) {
 SidebarItem.propTypes = {
   path: string.isRequired,
   iconColor: string.isRequired,
-  taskCount: number.isRequired,
+  todosCount: number.isRequired,
   children: node.isRequired,
 };
 

@@ -5,8 +5,19 @@ export const INITIAL_STATE = {
     {
       id: new Date() + Math.random(),
       uid: new Date() + Math.random(),
+      name: "Inbox",
+      todosCount: 2,
+      color: {
+        colorID: new Date() + Math.random(),
+        colorName: "Grey",
+        colorValue: "#B8B8B8",
+      },
+    },
+    {
+      id: new Date() + Math.random(),
+      uid: new Date() + Math.random(),
       name: "Personal",
-      taskCount: 2,
+      todosCount: 2,
       color: {
         colorID: new Date() + Math.random(),
         colorName: "Blue",
@@ -17,11 +28,11 @@ export const INITIAL_STATE = {
       id: new Date() + Math.random(),
       uid: new Date() + Math.random(),
       name: "Work",
-      taskCount: 12,
+      todosCount: 12,
       color: {
         colorID: new Date() + Math.random(),
-        colorName: "Charcoal",
-        colorValue: "#808080",
+        colorName: "Mint Green",
+        colorValue: "#82CABC",
       },
     },
   ],

@@ -16,7 +16,7 @@ function Todo(props) {
 
   return (
     <li className="Todo__Item">
-      <button className={todoButtonClassnames} disabled>
+      <button className={todoButtonClassnames}>
         <svg className="Todo__Button__Icon">
           <use xlinkHref="#check-20" />
         </svg>
@@ -47,9 +47,6 @@ function Todo(props) {
                 ))}
               {dueDate && (
                 <div className="Todo__DueDate">
-                  <svg className="Todo__DueDate__Icon">
-                    <use xlinkHref="#alarm" />
-                  </svg>
                   {formatTodoDueDate(dueDate)}
                 </div>
               )}
