@@ -24,7 +24,7 @@ function SearchBar() {
     <form method="get" action="/search" className={searchBarClasses}>
       <label htmlFor="search-bar" className={labelClasses}>
         <svg className={svgClassNames}>
-          <use xlinkHref={`#search`} aria-hidden="true" />
+          <use xlinkHref={`#search-20`} />
         </svg>
         <input
           type="text"

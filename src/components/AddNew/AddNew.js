@@ -14,7 +14,7 @@ function AddNew(props) {
   return (
     <button className={addNewClasses}>
       <svg className="AddNew__Icon">
-        <use xlinkHref="#add" />
+        <use xlinkHref="#add-24" />
       </svg>
       {children}
     </button>
