@@ -8,28 +8,13 @@ import "./Todos.styles.scss";
 import Main from "../../components/Main/Main";
 
 import { todosSelector } from "../../redux/todos/todos-selectors";
+import { formatSectionDate, formatTomorrowDate } from "../../utils/dates";
 
 function Todos(props) {
   const { todos } = props;
 
-  const todayDate = new Date();
-  const tomorrowDate = addDays(todayDate, 1);
-
-  const dateoptions = {
-    month: "short",
-    day: "numeric",
-    weekday: "short",
-  };
-
-  const formattedTodayDate = new Intl.DateTimeFormat(
-    "en-US",
-    dateoptions,
-  ).format(todayDate);
-
-  const formattedTomorrowDate = new Intl.DateTimeFormat(
-    "en-US",
-    dateoptions,
-  ).format(tomorrowDate);
+  const { todayDate, todayFormattedDate } = formatSectionDate();
+  const { tomorrowDate, tomorrowFormattedDate } = formatTomorrowDate();
 
   return (
     <Main>
