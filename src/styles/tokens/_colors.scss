@@ -28,6 +28,36 @@ $color-background-outlined-active: colors.$grey200;
 $color-background-outlined-focus: colors.$grey100;
 $color-background-outlined-disabled: transparent;
 
+// Check Button
+$color-background-todo-checkbox-enabled: colors.$grey00;
+$color-background-todo-checkbox-enabled-focus: colors.$grey50;
+$color-background-todo-checkbox-enabled-hover: colors.$primary50;
+$color-background-todo-checkbox-enabled-disabled: colors.$grey00;
+$color-background-todo-checkbox-completed: colors.$primary600;
+$color-background-todo-checkbox-completed-focus: colors.$primary600;
+$color-background-todo-checkbox-completed-hover: colors.$primary500;
+$color-background-todo-checkbox-completed-disabled: colors.$grey500;
+
+// Check Button Borders
+$color-border-todo-checkbox-enabled: colors.$grey600;
+$color-border-todo-checkbox-enabled-focus: colors.$grey900;
+$color-border-todo-checkbox-enabled-hover: colors.$primary600;
+$color-border-todo-checkbox-enabled-disabled: colors.$grey500;
+$color-border-todo-checkbox-completed: colors.$primary600;
+$color-border-todo-checkbox-completed-focus: colors.$primary900;
+$color-border-todo-checkbox-completed-hover: colors.$primary500;
+$color-border-todo-checkbox-completed-disabled: colors.$grey600;
+
+// Check Button Icon
+$color-icon-todo-checkbox-enabled: transparent;
+$color-icon-todo-checkbox-enabled-focus: colors.$grey900;
+$color-icon-todo-checkbox-enabled-hover: colors.$primary600;
+$color-icon-todo-checkbox-enabled-disabled: transparent;
+$color-icon-todo-checkbox-completed: colors.$grey00;
+$color-icon-todo-checkbox-completed-focus: colors.$grey00;
+$color-icon-todo-checkbox-completed-hover: colors.$grey00;
+$color-icon-todo-checkbox-completed-disabled: colors.$grey00;
+
 $color-background-text-button-enabled: transparent;
 $color-background-text-button-hover: transparent;
 $color-background-text-button-active: transparent;

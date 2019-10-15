@@ -13,6 +13,7 @@ $size-border-button-default: functions.rem(2);
 $size-border-input-default: functions.rem(1);
 $size-button-icon-m: functions.rem(40);
 $size-button-with-icon-m: functions.rem(40);
+$size-button-todo: functions.rem(24);
 
 // Icons
 $size-avatar-m: functions.rem(36);
@@ -37,3 +38,6 @@ $border-radius-input-default: 3px;
 
 // Avatars
 $border-avatar-default: functions.rem(2);
+
+// Todo Button Icon
+$border-todo-checkbox: functions.rem(1);

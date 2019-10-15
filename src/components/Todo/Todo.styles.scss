@@ -1,0 +1,179 @@
+@use "../../styles/tokens";
+@use "../../styles/base/placeholders";
+
+.Todo__Item {
+  @extend %divider--on-white;
+
+  display: flex;
+  list-style-type: none;
+
+  padding: {
+    top: tokens.$spacing-c-05;
+    bottom: tokens.$spacing-c-05;
+  }
+}
+
+.Todo__Item__Contents {
+  flex: 1 1 auto;
+}
+
+.Todo__Button {
+  background-color: tokens.$color-background-todo-checkbox-enabled;
+  border: tokens.$color-border-todo-checkbox-enabled
+    tokens.$border-todo-checkbox solid;
+  border-radius: 50%;
+
+  padding: 1px;
+
+  margin-right: tokens.$spacing-c-04;
+  width: tokens.$size-button-todo;
+  height: tokens.$size-button-todo;
+
+  & svg {
+    fill: tokens.$color-icon-todo-checkbox-enabled;
+  }
+
+  &:hover {
+    background-color: tokens.$color-background-todo-checkbox-enabled-hover;
+    border-color: tokens.$color-border-todo-checkbox-enabled-hover;
+    cursor: pointer;
+
+    & > svg {
+      fill: tokens.$color-icon-todo-checkbox-enabled-hover;
+    }
+  }
+
+  &:focus {
+    background-color: tokens.$color-background-todo-checkbox-enabled-focus;
+    border-color: tokens.$color-border-todo-checkbox-enabled-focus;
+    box-shadow: tokens.$shadow-button-outlined-focus;
+    outline: none;
+
+    & > svg {
+      fill: tokens.$color-icon-todo-checkbox-enabled-focus;
+    }
+  }
+
+  &:disabled {
+    background-color: tokens.$color-background-todo-checkbox-enabled-disabled;
+    border-color: tokens.$color-border-todo-checkbox-enabled-disabled;
+    box-shadow: none;
+    cursor: not-allowed;
+
+    &:hover,
+    &:focus {
+      cursor: not-allowed;
+    }
+
+    & > svg {
+      fill: tokens.$color-icon-todo-checkbox-enabled-disabled;
+    }
+  }
+
+  &--Completed {
+    background-color: tokens.$color-background-todo-checkbox-completed;
+    border-color: tokens.$color-border-todo-checkbox-completed;
+
+    & svg {
+      fill: tokens.$color-icon-todo-checkbox-completed;
+    }
+
+    &:hover {
+      background-color: tokens.$color-background-todo-checkbox-completed-hover;
+      border-color: tokens.$color-border-todo-checkbox-completed-hover;
+      cursor: pointer;
+
+      & > svg {
+        fill: tokens.$color-icon-todo-checkbox-completed-hover;
+      }
+    }
+
+    &:focus {
+      background-color: tokens.$color-background-todo-checkbox-completed-focus;
+      border-color: tokens.$color-border-todo-checkbox-completed-focus;
+      box-shadow: tokens.$shadow-button-primary-focus;
+      outline: none;
+
+      & > svg {
+        fill: tokens.$color-icon-todo-checkbox-completed-focus;
+      }
+    }
+
+    &:disabled {
+      background-color: tokens.$color-background-todo-checkbox-completed-disabled;
+      border-color: tokens.$color-border-todo-checkbox-completed-disabled;
+      box-shadow: none;
+
+      cursor: not-allowed;
+
+      &:hover,
+      &:focus {
+        cursor: not-allowed;
+      }
+
+      & > svg {
+        fill: tokens.$color-icon-todo-checkbox-completed-disabled;
+      }
+    }
+  }
+}
+
+.Todo__Button__Icon {
+  width: tokens.$size-icon-s;
+  height: tokens.$size-icon-s;
+  margin: 0;
+}
+
+.Todo__Name {
+  font-size: tokens.$font-size-body-m;
+  line-height: tokens.$font-line-height-body-m;
+  color: tokens.$color-text-body-default;
+}
+
+.Todo__Name__Row {
+  display: flex;
+}
+
+.Todo__Status__Row {
+  margin-top: tokens.$spacing-c-04;
+  display: flex;
+}
+
+.Todo__Project {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.Todo__Project__Icon {
+  width: tokens.$size-icon-m;
+  height: tokens.$size-icon-m;
+  margin: 0;
+  margin-left: tokens.$spacing-c-02;
+}
+
+.Todo__Label {
+  display: flex;
+  align-items: center;
+  margin-right: tokens.$spacing-c-06;
+}
+
+.Todo__Label__Icon {
+  width: tokens.$size-icon-m;
+  height: tokens.$size-icon-m;
+  margin: 0;
+  margin-right: tokens.$spacing-c-02;
+}
+
+.Todo__DueDate {
+  display: flex;
+  align-items: center;
+}
+
+.Todo__DueDate__Icon {
+  width: tokens.$size-icon-m;
+  height: tokens.$size-icon-m;
+  margin: 0;
+  margin-right: tokens.$spacing-c-02;
+  fill: tokens.$color-icon-default;
+}
