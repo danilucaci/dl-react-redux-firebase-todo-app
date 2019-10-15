@@ -1,5 +1,4 @@
 import React from "react";
-import classnames from "classnames";
 
 import "./Label.styles.scss";
 import Main from "../../components/Main/Main";
