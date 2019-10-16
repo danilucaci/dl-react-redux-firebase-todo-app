@@ -16,7 +16,7 @@
   pointer-events: none;
   transition: transform ease-out tokens.$timing-menu-transition;
 
-  margin-top: tokens.$spacing-c-07;
+  margin-top: tokens.$spacing-c-06;
 
   @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
     background-color: tokens.$color-background-page-lighter;
@@ -28,7 +28,7 @@
   }
 
   @include tokens.media-min(xl) {
-    margin-top: tokens.$spacing-c-09;
+    margin-top: tokens.$spacing-c-08;
   }
 
   &--IsTransitioning {
@@ -54,22 +54,6 @@
   }
 }
 
-.Sidebar__Avatar__Link {
-  text-decoration: none;
-  color: tokens.$color-text-body-default;
-  font-size: tokens.$font-size-body-m;
-  line-height: tokens.$font-line-height-body-m;
-
-  display: flex;
-  flex: 1 1 auto;
-
-  &:hover {
-    color: tokens.$color-text-body-default;
-    text-decoration: none;
-    cursor: pointer;
-  }
-}
-
 .Sidebar__Link {
   text-decoration: none;
   color: inherit;
@@ -79,33 +63,23 @@
   display: flex;
   flex: 1 1 auto;
 
-  padding: {
-    top: tokens.$spacing-c-03;
-    bottom: tokens.$spacing-c-03;
-  }
-
-  &:hover {
-    color: tokens.$color-text-body-default;
-    text-decoration: none;
-    cursor: pointer;
-  }
-}
-
-.Sidebar__Section__Item {
-  display: flex;
-  align-items: center;
-  font-size: tokens.$font-size-body-m;
-  line-height: tokens.$font-line-height-body-m;
-  color: tokens.$color-text-body-default;
-
   margin: {
     left: -#{tokens.$grid-gutter-s};
     right: -#{tokens.$grid-gutter-s};
   }
 
   padding: {
-    left: tokens.$grid-gutter-s;
+    top: tokens.$spacing-c-03;
     right: tokens.$grid-gutter-s;
+    bottom: tokens.$spacing-c-03;
+    left: tokens.$grid-gutter-s;
+  }
+
+  &:hover {
+    background-color: tokens.$color-background-sidebar-item-hover;
+    color: tokens.$color-text-body-default;
+    text-decoration: none;
+    cursor: pointer;
   }
 
   @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
@@ -119,9 +93,19 @@
     }
   }
 
-  &:hover {
+  &--Active {
     background-color: tokens.$color-background-sidebar-item-hover;
+    font-family: tokens.$font-family-display;
+    font-weight: 700;
   }
+}
+
+.Sidebar__Section__Item {
+  display: flex;
+  align-items: center;
+  font-size: tokens.$font-size-body-m;
+  line-height: tokens.$font-line-height-body-m;
+  color: tokens.$color-text-body-default;
 }
 
 .Sidebar__AddNew__Button {
@@ -157,6 +141,12 @@
   margin-right: tokens.$spacing-c-04;
 }
 
+.Sidebar__Section__Item__Color__Icon {
+  width: tokens.$size-icon-m;
+  height: tokens.$size-icon-m;
+  margin-right: tokens.$spacing-c-04;
+}
+
 .Sidebar__Section__Item__Icon__Day {
   & text {
     font-size: tokens.$font-size-calendar-day;
@@ -170,6 +160,7 @@
 .Sidebar__Section__Item__Count {
   font-size: tokens.$font-size-body-s;
   line-height: tokens.$font-line-height-body-m;
+  font-weight: 400;
   color: tokens.$color-text-body-subdued;
   margin-left: auto;
 }
@@ -177,13 +168,25 @@
 .Sidebar__Avatar {
   display: flex;
   align-items: center;
+}
+
+.Sidebar__Avatar__Link {
+  text-decoration: none;
+  color: tokens.$color-text-body-default;
+  font-size: tokens.$font-size-body-m;
+  line-height: tokens.$font-line-height-body-m;
+
+  display: flex;
 
   margin: {
-    bottom: tokens.$spacing-c-05;
     left: -#{tokens.$grid-gutter-s};
     right: -#{tokens.$grid-gutter-s};
+    bottom: tokens.$spacing-c-03;
   }
+
   padding: {
+    top: tokens.$spacing-c-03;
+    bottom: tokens.$spacing-c-03;
     left: tokens.$grid-gutter-s;
     right: tokens.$grid-gutter-s;
   }
@@ -198,13 +201,19 @@
       right: tokens.$grid-gutter-m;
     }
   }
+
+  &:hover {
+    color: tokens.$color-text-body-default;
+    text-decoration: none;
+    cursor: pointer;
+  }
 }
 
 .Sidebar__Avatar__Image {
   width: tokens.$size-avatar-m;
   height: tokens.$size-avatar-m;
-  margin-right: tokens.$spacing-c-02;
-  margin-left: -#{tokens.$spacing-c-02};
+  margin-right: tokens.$spacing-c-03;
+  margin-left: -#{tokens.$spacing-c-03};
   border: tokens.$border-avatar-default tokens.$color-avatar-on-white solid;
   border-radius: 50%;
 }
@@ -247,7 +256,6 @@
 .Sidebar__Section__Title__Button {
   background-color: tokens.$color-background-outlined-enabled;
   border: none;
-  outline: none;
 
   display: flex;
   flex: 6 1 auto;
@@ -278,6 +286,7 @@
   color: tokens.$color-text-body-default;
   font-size: tokens.$font-size-body-m;
   line-height: tokens.$font-line-height-body-m;
+  font-weight: 400;
 
   display: flex;
   flex: 0 1 auto;

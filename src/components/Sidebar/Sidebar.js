@@ -56,7 +56,11 @@ function Sidebar(props) {
     <aside className={sidebarClasses}>
       <nav>
         <ul className="Sidebar__Section">
-          <NavLink className="Sidebar__Avatar__Link" to="/profile">
+          <NavLink
+            activeClassName="Sidebar__Link--Active"
+            className="Sidebar__Avatar__Link"
+            to="/profile"
+          >
             <li className="Sidebar__Avatar">
               <img
                 src={avatarPlaceholder}
@@ -67,7 +71,11 @@ function Sidebar(props) {
             </li>
           </NavLink>
           <li className="Sidebar__Section__Item">
-            <NavLink className="Sidebar__Link" to="/Inbox">
+            <NavLink
+              activeClassName="Sidebar__Link--Active"
+              className="Sidebar__Link"
+              to="/Inbox"
+            >
               <svg className="Sidebar__Section__Item__Icon">
                 <use xlinkHref="#home" />
               </svg>
@@ -76,7 +84,11 @@ function Sidebar(props) {
             </NavLink>
           </li>
           <li className="Sidebar__Section__Item">
-            <NavLink className="Sidebar__Link" to="/today">
+            <NavLink
+              activeClassName="Sidebar__Link--Active"
+              className="Sidebar__Link"
+              to="/today"
+            >
               <svg className="Sidebar__Section__Item__Icon Sidebar__Section__Item__Icon__Day">
                 <use xlinkHref="#calendar-day" />
                 <text transform="translate(4 2)">
@@ -90,7 +102,11 @@ function Sidebar(props) {
             </NavLink>
           </li>
           <li className="Sidebar__Section__Item">
-            <NavLink className="Sidebar__Link" to="/next-days">
+            <NavLink
+              activeClassName="Sidebar__Link--Active"
+              className="Sidebar__Link"
+              to="/next-days"
+            >
               <svg className="Sidebar__Section__Item__Icon">
                 <use xlinkHref="#calendar-base" />
               </svg>
