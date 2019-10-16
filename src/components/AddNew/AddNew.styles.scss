@@ -9,6 +9,7 @@
   line-height: tokens.$font-line-height-button-m;
   color: tokens.$color-text-button-outlined-enabled;
   border-radius: tokens.$border-radius-button-text;
+  padding-right: tokens.$spacing-c-02;
 
   &:hover {
     cursor: pointer;
