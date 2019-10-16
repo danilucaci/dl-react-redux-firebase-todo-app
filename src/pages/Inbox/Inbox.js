@@ -1,8 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import "./Inbox.styles.scss";
-
 import Main from "../../components/Main/Main";
 import Todo from "../../components/Todo/Todo";
 import AddNew from "../../components/AddNew/AddNew";

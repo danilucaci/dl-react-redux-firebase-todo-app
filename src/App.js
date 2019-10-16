@@ -1,5 +1,6 @@
 import React from "react";
 import classnames from "classnames";
+import { connect } from "react-redux";
 import { Switch, Route } from "react-router-dom";
 
 import "./App.scss";
@@ -18,10 +19,20 @@ import Projects from "./pages/Projects/Projects";
 import Label from "./pages/Label/Label";
 import Labels from "./pages/Labels/Labels";
 
-function App() {
+import { projectsSelector } from "./redux/projects/projects-selectors";
+import { labelsSelector } from "./redux/labels/labels-selectors";
+import { currentUserSelector } from "./redux/user/user-selectors";
+
+function App(props) {
   const appClasses = classnames({
     App: true,
   });
+
+  const {
+    labels,
+    projects,
+    // currentUser
+  } = props;
 
   return (
     <div className={appClasses}>
@@ -32,9 +43,23 @@ function App() {
         <Route path="/inbox" component={Inbox} />
         <Route path="/today" component={Today} />
         <Route path="/next-days" component={NextDays} />
-        <Route path="/project/:projectID" component={Project} />
+        {projects &&
+          projects.map((project) => (
+            <Route
+              key={project.id}
+              path={`/project/${project.name}`}
+              render={(props) => <Project {...props} projectID={project.id} />}
+            />
+          ))}
         <Route path="/projects" component={Projects} />
-        <Route path="/label/:labelID" component={Label} />
+        {labels &&
+          labels.map((label) => (
+            <Route
+              key={label.id}
+              path={`/label/${label.name}`}
+              render={(props) => <Label {...props} labelID={label.id} />}
+            />
+          ))}
         <Route path="/labels" component={Labels} />
         <Route path="/" exact component={Home} />
         <Route path="*" exact component={NotFound} />
@@ -43,4 +68,10 @@ function App() {
   );
 }
 
-export default App;
+export const mapStateToProps = (state) => ({
+  projects: projectsSelector(state),
+  labels: labelsSelector(state),
+  currentUser: currentUserSelector(state),
+});
+
+export default connect(mapStateToProps)(App);

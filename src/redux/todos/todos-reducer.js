@@ -9,15 +9,15 @@ const INITIAL_STATE = {
       dueDate: new Date("2019-10-12 15:00"),
       completed: false,
       project: {
-        projectID: new Date() + Math.random(),
+        projectID: "project-01",
         name: "Inbox",
         colorName: "Grey",
         colorValue: "#B8B8B8",
       },
       labels: [
         {
-          labelID: new Date() + Math.random(),
-          name: "waiting",
+          labelID: "label-01",
+          name: "pending",
           colorName: "Orange",
           colorValue: "#F19D4B",
         },
@@ -30,7 +30,7 @@ const INITIAL_STATE = {
       dueDate: new Date("2019-10-18"),
       completed: false,
       project: {
-        projectID: new Date() + Math.random(),
+        projectID: "project-01",
         name: "Inbox",
         colorName: "Grey",
         colorValue: "#B8B8B8",
@@ -44,15 +44,15 @@ const INITIAL_STATE = {
       dueDate: new Date("2019-10-17 11:00"),
       completed: false,
       project: {
-        projectID: new Date() + Math.random(),
+        projectID: "project-02",
         name: "Personal",
         colorName: "Blue",
         colorValue: "#4B75F6",
       },
       labels: [
         {
-          labelID: new Date() + Math.random(),
-          name: "waiting",
+          labelID: "label-01",
+          name: "pending",
           colorName: "Orange",
           colorValue: "#F19D4B",
         },
@@ -65,15 +65,15 @@ const INITIAL_STATE = {
       dueDate: null,
       completed: false,
       project: {
-        projectID: new Date() + Math.random(),
+        projectID: "project-02",
         name: "Personal",
         colorName: "Blue",
         colorValue: "#4B75F6",
       },
       labels: [
         {
-          labelID: new Date() + Math.random(),
-          name: "waiting",
+          labelID: "label-01",
+          name: "pending",
           colorName: "Orange",
           colorValue: "#F19D4B",
         },
@@ -86,12 +86,25 @@ const INITIAL_STATE = {
       dueDate: new Date("2019-10-15 21:00"),
       completed: false,
       project: {
-        projectID: new Date() + Math.random(),
+        projectID: "project-02",
         name: "Personal",
         colorName: "Blue",
         colorValue: "#4B75F6",
       },
-      labels: null,
+      labels: [
+        {
+          labelID: "label-01",
+          name: "pending",
+          colorName: "Orange",
+          colorValue: "#F19D4B",
+        },
+        {
+          labelID: "label-02",
+          name: "soon",
+          colorName: "Teal",
+          colorValue: "#428DAA",
+        },
+      ],
     },
     {
       id: new Date() + Math.random(),
@@ -100,7 +113,7 @@ const INITIAL_STATE = {
       dueDate: new Date("2019-10-1"),
       completed: false,
       project: {
-        projectID: new Date() + Math.random(),
+        projectID: "project-02",
         name: "Personal",
         colorName: "Blue",
         colorValue: "#4B75F6",
@@ -114,12 +127,19 @@ const INITIAL_STATE = {
       dueDate: new Date("2019-10-22"),
       completed: false,
       project: {
-        projectID: new Date() + Math.random(),
+        projectID: "project-02",
         name: "Personal",
         colorName: "Blue",
         colorValue: "#4B75F6",
       },
-      labels: null,
+      labels: [
+        {
+          labelID: "label-02",
+          name: "soon",
+          colorName: "Teal",
+          colorValue: "#428DAA",
+        },
+      ],
     },
     {
       id: new Date() + Math.random(),
@@ -128,12 +148,19 @@ const INITIAL_STATE = {
       dueDate: new Date("2019-10-19 21:00"),
       completed: false,
       project: {
-        projectID: new Date() + Math.random(),
+        projectID: "project-03",
         name: "Work",
         colorName: "Mint Green",
         colorValue: "#82CABC",
       },
-      labels: null,
+      labels: [
+        {
+          labelID: "label-02",
+          name: "soon",
+          colorName: "Teal",
+          colorValue: "#428DAA",
+        },
+      ],
     },
     {
       id: new Date() + Math.random(),
@@ -142,12 +169,25 @@ const INITIAL_STATE = {
       dueDate: new Date("2019-10-16 20:00"),
       completed: false,
       project: {
-        projectID: new Date() + Math.random(),
+        projectID: "project-03",
         name: "Work",
         colorName: "Mint Green",
         colorValue: "#82CABC",
       },
-      labels: null,
+      labels: [
+        {
+          labelID: "label-01",
+          name: "pending",
+          colorName: "Orange",
+          colorValue: "#F19D4B",
+        },
+        {
+          labelID: "label-02",
+          name: "soon",
+          colorName: "Teal",
+          colorValue: "#428DAA",
+        },
+      ],
     },
   ],
 };

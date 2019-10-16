@@ -38,7 +38,7 @@
     max-width: grid.$desktop-max-page-width-col10;
   }
 
-  &--nested {
+  &-nested {
     @extend %clearfix;
 
     display: block;

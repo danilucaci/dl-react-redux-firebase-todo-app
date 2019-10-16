@@ -21,6 +21,12 @@
   line-height: tokens.$font-line-height-mobile-display-l;
   font-weight: 700;
 
+  text-transform: capitalize;
+
+  &--Label {
+    text-transform: none;
+  }
+
   @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
     padding: {
       left: tokens.$spacing-l-04;

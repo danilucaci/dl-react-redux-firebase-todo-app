@@ -3,8 +3,8 @@ import ProjectsTypes from "./projects-types";
 export const INITIAL_STATE = {
   projects: [
     {
-      id: new Date() + Math.random(),
-      uid: new Date() + Math.random(),
+      id: "project-01",
+      uid: "user-01",
       name: "Inbox",
       todosCount: 2,
       color: {
@@ -14,8 +14,8 @@ export const INITIAL_STATE = {
       },
     },
     {
-      id: new Date() + Math.random(),
-      uid: new Date() + Math.random(),
+      id: "project-02",
+      uid: "project-02",
       name: "Personal",
       todosCount: 2,
       color: {
@@ -25,8 +25,8 @@ export const INITIAL_STATE = {
       },
     },
     {
-      id: new Date() + Math.random(),
-      uid: new Date() + Math.random(),
+      id: "project-03",
+      uid: "project-03",
       name: "Work",
       todosCount: 12,
       color: {

@@ -1,1 +1,58 @@
 @use "../../styles/tokens";
+@use "../../styles/base/placeholders";
+
+.Projects__Section__Header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-bottom: tokens.$spacing-c-05;
+  margin-bottom: tokens.$spacing-c-07;
+
+  @extend %divider--on-white;
+}
+
+.Project__Card {
+  background-color: tokens.$color-background-page-lightest;
+  text-decoration: none;
+
+  border-radius: tokens.$border-radius-components-default;
+
+  margin-bottom: tokens.$grid-gutter-s;
+  padding: tokens.$spacing-c-05;
+
+  &:hover {
+    box-shadow: tokens.$shadow-project-card;
+  }
+
+  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+    background-color: tokens.$color-background-page-lighter;
+    margin-bottom: tokens.$grid-gutter-m;
+    box-shadow: none;
+  }
+
+  &__Header {
+    display: flex;
+  }
+
+  &__Title {
+    font-size: tokens.$font-size-mobile-display-xs;
+    line-height: tokens.$font-line-height-mobile-display-xs;
+    margin-bottom: tokens.$spacing-c-10;
+
+    @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+      font-size: tokens.$font-size-mobile-display-xs;
+      line-height: tokens.$font-line-height-mobile-display-xs;
+    }
+  }
+
+  &__Icon {
+    width: tokens.$size-icon-m;
+    height: tokens.$size-icon-m;
+    margin-left: auto;
+  }
+
+  &__Count {
+    color: tokens.$color-text-body-subdued;
+  }
+}

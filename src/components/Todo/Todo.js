@@ -4,7 +4,17 @@ import classnames from "classnames";
 
 import "./Todo.styles.scss";
 
-import { formatTodoDueDate } from "../../utils/dates";
+import { formatTodoDueDate, isPastDate } from "../../utils/dates";
+
+export function renderTodoDueDate(dueDate) {
+  return isPastDate(dueDate) ? (
+    <div className="Todo__DueDate Todo__DueDate--Overdue">
+      {formatTodoDueDate(dueDate)}
+    </div>
+  ) : (
+    <div className="Todo__DueDate">{formatTodoDueDate(dueDate)}</div>
+  );
+}
 
 function Todo(props) {
   const { labels, project, dueDate, completed, children } = props;
@@ -45,11 +55,7 @@ function Todo(props) {
                     {label.name}
                   </div>
                 ))}
-              {dueDate && (
-                <div className="Todo__DueDate">
-                  {formatTodoDueDate(dueDate)}
-                </div>
-              )}
+              {dueDate && renderTodoDueDate(dueDate)}
             </div>
           </>
         )}
