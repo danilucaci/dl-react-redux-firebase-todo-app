@@ -39,30 +39,42 @@ function App(props) {
       <SVGSprite />
       <Header />
       <Switch>
-        <Route path="/profile" component={Profile} />
-        <Route path="/inbox" component={Inbox} />
-        <Route path="/today" component={Today} />
-        <Route path="/next-days" component={NextDays} />
+        <Route path="/profile">
+          <Profile />
+        </Route>
+        <Route path="/inbox">
+          <Inbox />
+        </Route>
+        <Route path="/today">
+          <Today />
+        </Route>
+        <Route path="/next-days">
+          <NextDays />
+        </Route>
         {projects &&
           projects.map((project) => (
-            <Route
-              key={project.id}
-              path={`/project/${project.name}`}
-              render={(props) => <Project {...props} projectID={project.id} />}
-            />
+            <Route key={project.id} path={`/project/${project.name}`}>
+              <Project projectID={project.id} />
+            </Route>
           ))}
-        <Route path="/projects" component={Projects} />
+        <Route path="/projects">
+          <Projects />
+        </Route>
         {labels &&
           labels.map((label) => (
-            <Route
-              key={label.id}
-              path={`/label/${label.name}`}
-              render={(props) => <Label {...props} labelID={label.id} />}
-            />
+            <Route key={label.id} path={`/label/${label.name}`}>
+              <Label labelID={label.id} />
+            </Route>
           ))}
-        <Route path="/labels" component={Labels} />
-        <Route path="/" exact component={Home} />
-        <Route path="*" exact component={NotFound} />
+        <Route path="/labels">
+          <Labels />
+        </Route>
+        <Route path="/" exact>
+          <Home />
+        </Route>
+        <Route path="*" exact>
+          <NotFound />
+        </Route>
       </Switch>
     </div>
   );
