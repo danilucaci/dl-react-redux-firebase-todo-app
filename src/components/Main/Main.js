@@ -9,7 +9,7 @@ function Main({ children }) {
   const mainClasses = classnames({
     Main: true,
     col: true,
-    [`col-m-5`]: true,
+    [`col-l-5`]: true,
     [`col-xl-8`]: true,
   });
 

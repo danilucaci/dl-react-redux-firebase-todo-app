@@ -31,7 +31,7 @@
     margin-right: tokens.$grid-gutter-m;
   }
 
-  @include tokens.media-min(m) {
+  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
     display: flex;
     align-items: center;
   }

@@ -39,7 +39,7 @@
     right: tokens.$grid-gutter-s;
   }
 
-  @include tokens.media-min(m) {
+  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
     margin: {
       left: -#{tokens.$grid-gutter-m};
       right: -#{tokens.$grid-gutter-m};

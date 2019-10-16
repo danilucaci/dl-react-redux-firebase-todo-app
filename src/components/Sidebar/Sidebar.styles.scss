@@ -6,7 +6,7 @@
 
   margin-top: tokens.$spacing-c-07;
 
-  @include tokens.media-min(m) {
+  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
     display: block;
   }
 
@@ -18,7 +18,7 @@
 .Sidebar__Section {
   margin-bottom: tokens.$spacing-c-07;
 
-  @include tokens.media-min(m) {
+  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
     margin-bottom: tokens.$spacing-c-08;
   }
 
@@ -81,7 +81,7 @@
     right: tokens.$grid-gutter-s;
   }
 
-  @include tokens.media-min(m) {
+  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
     margin: {
       left: -#{tokens.$grid-gutter-m};
       right: -#{tokens.$grid-gutter-m};
@@ -111,7 +111,7 @@
     right: tokens.$grid-gutter-s;
   }
 
-  @include tokens.media-min(m) {
+  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
     margin: {
       left: -#{tokens.$grid-gutter-m};
       right: -#{tokens.$grid-gutter-m};
@@ -161,7 +161,7 @@
     right: tokens.$grid-gutter-s;
   }
 
-  @include tokens.media-min(m) {
+  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
     margin: {
       left: -#{tokens.$grid-gutter-m};
       right: -#{tokens.$grid-gutter-m};
@@ -200,7 +200,7 @@
     bottom: tokens.$spacing-c-03;
   }
 
-  @include tokens.media-min(m) {
+  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
     margin: {
       left: -#{tokens.$grid-gutter-m};
       right: -#{tokens.$grid-gutter-m};

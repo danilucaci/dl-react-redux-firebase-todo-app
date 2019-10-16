@@ -4,7 +4,7 @@
 .Main {
   margin-top: tokens.$spacing-main-top-s;
 
-  @include tokens.media-min(m) {
+  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
     background-color: tokens.$color-background-page-lightest;
     margin-top: 0;
     padding-top: tokens.$spacing-main-top-s;
@@ -58,7 +58,7 @@
   font-size: tokens.$font-size-mobile-display-s;
   line-height: tokens.$font-line-height-mobile-display-s;
 
-  @include tokens.media-min(m) {
+  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
     font-size: tokens.$font-size-desktop-display-xs;
     line-height: tokens.$font-line-height-desktop-display-xs;
   }

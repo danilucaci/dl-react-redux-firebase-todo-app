@@ -9,7 +9,7 @@
   padding-top: tokens.$spacing-site-nav-vertical-s;
   padding-bottom: tokens.$spacing-site-nav-vertical-s;
 
-  @include tokens.media-min(m) {
+  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
     height: tokens.$size-site-nav-s;
     padding-top: tokens.$spacing-site-nav-vertical-m;
     padding-bottom: tokens.$spacing-site-nav-vertical-m;
@@ -35,7 +35,7 @@
   display: inline-block;
   margin-left: tokens.rem(8);
 
-  @include tokens.media-min(m) {
+  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
     display: none;
   }
 }
@@ -44,7 +44,7 @@
   display: inline-block;
   margin-left: tokens.rem(8);
 
-  @include tokens.media-min(m) {
+  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
     display: none;
   }
 }
@@ -53,7 +53,7 @@
   margin-left: tokens.rem(8);
   display: inline-block;
 
-  @include tokens.media-min(m) {
+  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
     display: none;
   }
 }
@@ -61,7 +61,7 @@
 .AddTodoDesktop {
   display: none;
 
-  @include tokens.media-min(m) {
+  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
     display: inline-block;
   }
 }

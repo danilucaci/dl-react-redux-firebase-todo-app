@@ -15,7 +15,7 @@ function Sidebar(props) {
   const sidebarClasses = classnames({
     Sidebar: true,
     col: true,
-    [`col-m-3`]: true,
+    [`col-l-3`]: true,
     [`col-xl-4`]: true,
   });
 
