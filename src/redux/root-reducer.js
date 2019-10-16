@@ -5,6 +5,7 @@ import projectsReducer from "./projects/projects-reducer";
 import colorsReducer from "./colors/colors-reducer";
 import labelsReducer from "./labels/labels-reducer";
 import todosReducer from "./todos/todos-reducer";
+import localStateReducer from "./localState/localState-reducer";
 
 export default combineReducers({
   user: userReducer,
@@ -12,4 +13,5 @@ export default combineReducers({
   colors: colorsReducer,
   labels: labelsReducer,
   todos: todosReducer,
+  localState: localStateReducer,
 });

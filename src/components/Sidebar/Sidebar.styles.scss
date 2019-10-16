@@ -3,15 +3,42 @@
 
 .Sidebar {
   display: none;
+  background-color: tokens.$color-background-page-lightest;
+
+  will-change: transform;
+  position: fixed;
+  z-index: 1000;
+  top: tokens.$size-site-nav-s;
+  left: tokens.$grid-spacing-s;
+  right: tokens.$grid-spacing-s;
+
+  transform: translateX(-120%);
+  pointer-events: none;
+  transition: transform ease-out tokens.$timing-menu-transition;
 
   margin-top: tokens.$spacing-c-07;
 
   @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+    background-color: tokens.$color-background-page-lighter;
     display: block;
+    position: static;
+    transform: none;
+    transition: none;
+    pointer-events: auto;
   }
 
   @include tokens.media-min(xl) {
     margin-top: tokens.$spacing-c-09;
+  }
+
+  &--IsTransitioning {
+    display: block !important;
+  }
+
+  &--Visible {
+    display: block;
+    transform: translateY(0);
+    pointer-events: auto;
   }
 }
 

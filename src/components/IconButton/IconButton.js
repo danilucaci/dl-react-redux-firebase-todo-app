@@ -7,7 +7,7 @@ import "./IconButton.styles.scss";
 import AriaText from "../AriaText/AriaText";
 import { getClassesFromProps } from "../../utils/helpers";
 
-function IconButton({ icon, ariaText, additionalClasses, disabled }) {
+function IconButton({ icon, ariaText, additionalClasses, disabled, onClick }) {
   const addedClasses = getClassesFromProps(additionalClasses);
 
   const buttonClassNames = classNames({
@@ -20,7 +20,7 @@ function IconButton({ icon, ariaText, additionalClasses, disabled }) {
   });
 
   return (
-    <button className={buttonClassNames} disabled={disabled}>
+    <button className={buttonClassNames} disabled={disabled} onClick={onClick}>
       <AriaText>{ariaText}</AriaText>
       <svg className={svgClassNames}>
         <use xlinkHref={`#${icon}`} aria-hidden="true" />

@@ -1,7 +1,7 @@
 @use "../tokens";
 
 html {
-  background-color: tokens.$color-background-page-lighter;
+  background-color: tokens.$color-background-page-lightest;
   color: tokens.$color-text-body-default;
   font-family: tokens.$font-family-body;
   font-weight: 400;
@@ -18,4 +18,8 @@ html {
   text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+    background-color: tokens.$color-background-page-lighter;
+  }
 }

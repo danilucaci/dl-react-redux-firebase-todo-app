@@ -1,12 +1,16 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import "./Header.styles.scss";
 
 import Logo from "../Logo/Logo";
 import IconButton from "../IconButton/IconButton";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
 import SearchBar from "../SearchBar/SearchBar";
+import { toggleMenu } from "../../redux/localState/localState-actions";
 
 function Header() {
+  const dispatch = useDispatch();
+
   return (
     <header className="Site__Header__Wrapper" role="banner">
       <nav
@@ -25,16 +29,19 @@ function Header() {
               icon="add-24"
               additionalClasses="AddTodoMobile"
               ariaText="Add a new todo"
+              onClick={() => console.log("Adding todo...")}
             />
             <IconButton
               icon="search-24"
               additionalClasses="SearchButton"
               ariaText="Search todos"
+              onClick={() => console.log("Searching...")}
             />
             <IconButton
               icon="menu"
               additionalClasses="Menu"
               ariaText="Open menu"
+              onClick={() => dispatch(toggleMenu())}
             />
           </div>
         </div>

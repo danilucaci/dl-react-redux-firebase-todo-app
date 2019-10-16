@@ -1,0 +1,7 @@
+const LocalStateTypes = {
+  TOGGLE_MENU: "TOGGLE_MENU",
+  TOGGLE_MENU_IS_TRANSITIONING: "TOGGLE_MENU_IS_TRANSITIONING",
+  CLOSE_MENU: "CLOSE_MENU",
+};
+
+export default LocalStateTypes;

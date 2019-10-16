@@ -1,25 +1,56 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import classnames from "classnames";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 
 import "./Sidebar.styles.scss";
 import avatarPlaceholder from "../../assets/img/avatar-placeholder.png";
 import SidebarItem from "../SidebarItem/SidebarItem";
 import AddNew from "../AddNew/AddNew";
-
 import { projectsSelector } from "../../redux/projects/projects-selectors";
 import { labelsSelector } from "../../redux/labels/labels-selectors";
+import { menuSelector } from "../../redux/localState/localState-selectors";
+import { closeMenu } from "../../redux/localState/localState-actions";
 
 function Sidebar(props) {
+  const { projects, labels, menu } = props;
+  const { menuOpen, isTransitioning } = menu;
+  const dispatch = useDispatch();
+  let location = useLocation();
+
+  // Breakpoint at which the gutters change size from 16px to 24px
+  // Also where fonts change sizes
+  // AKA: $grid-gutter-breakpoint-change: "l";
+  const mql = window.matchMedia("(min-width: 42.5rem)");
+
+  useEffect(() => {
+    mql.addEventListener("change", handleMatchMedia);
+
+    function handleMatchMedia(e) {
+      if (e.matches) {
+        if (menuOpen) {
+          dispatch(closeMenu());
+        }
+      }
+    }
+
+    return () => {
+      mql.removeEventListener("change", handleMatchMedia);
+
+      if (menuOpen) {
+        dispatch(closeMenu());
+      }
+    };
+  }, [dispatch, location, menuOpen, mql]);
+
   const sidebarClasses = classnames({
     Sidebar: true,
+    [`Sidebar--Visible`]: menuOpen,
+    [`Sidebar--IsTransitioning`]: isTransitioning,
     col: true,
     [`col-l-3`]: true,
     [`col-xl-4`]: true,
   });
-
-  const { projects, labels } = props;
 
   return (
     <aside className={sidebarClasses}>
@@ -130,6 +161,7 @@ function Sidebar(props) {
 const mapStateToProps = (state) => ({
   projects: projectsSelector(state),
   labels: labelsSelector(state),
+  menu: menuSelector(state),
 });
 
 export default connect(mapStateToProps)(Sidebar);
