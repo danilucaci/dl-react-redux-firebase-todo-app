@@ -128,6 +128,7 @@
   font-size: tokens.$font-size-body-m;
   line-height: tokens.$font-line-height-body-m;
   color: tokens.$color-text-body-default;
+  margin-right: tokens.$spacing-c-05;
 }
 
 .Todo__Name__Row {
@@ -137,6 +138,7 @@
 .Todo__Status__Row {
   margin-top: tokens.$spacing-c-04;
   display: flex;
+  flex-wrap: wrap;
 }
 
 .Todo__Project {
