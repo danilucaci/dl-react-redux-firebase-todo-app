@@ -4,11 +4,16 @@ import { node } from "prop-types";
 
 import "./AddNew.styles.scss";
 
+import { getClassesFromProps } from "../../utils/helpers";
+
 function AddNew(props) {
-  const { children } = props;
+  const { children, additionalClasses } = props;
+
+  const addedClasses = getClassesFromProps(additionalClasses);
 
   const addNewClasses = classnames({
     AddNew: true,
+    ...addedClasses,
   });
 
   return (

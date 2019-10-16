@@ -99,7 +99,7 @@ function NextDays(props) {
               </Todo>
             ))}
         </ul>
-        <AddNew>Add todo</AddNew>
+        <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
       </section>
       <section className="Section">
         <header className="Section__Header">
@@ -121,7 +121,7 @@ function NextDays(props) {
               </Todo>
             ))}
         </ul>
-        <AddNew>Add todo</AddNew>
+        <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
       </section>
       <section className="Section">
         <header className="Section__Header">
@@ -143,7 +143,7 @@ function NextDays(props) {
               </Todo>
             ))}
         </ul>
-        <AddNew>Add todo</AddNew>
+        <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
       </section>
       <section className="Section">
         <header className="Section__Header">
@@ -165,7 +165,7 @@ function NextDays(props) {
               </Todo>
             ))}
         </ul>
-        <AddNew>Add todo</AddNew>
+        <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
       </section>
       <section className="Section">
         <header className="Section__Header">
@@ -187,7 +187,7 @@ function NextDays(props) {
               </Todo>
             ))}
         </ul>
-        <AddNew>Add todo</AddNew>
+        <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
       </section>
       <section className="Section">
         <header className="Section__Header">
@@ -209,7 +209,7 @@ function NextDays(props) {
               </Todo>
             ))}
         </ul>
-        <AddNew>Add todo</AddNew>
+        <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
       </section>
       <section className="Section">
         <header className="Section__Header">
@@ -231,7 +231,7 @@ function NextDays(props) {
               </Todo>
             ))}
         </ul>
-        <AddNew>Add todo</AddNew>
+        <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
       </section>
     </Main>
   );

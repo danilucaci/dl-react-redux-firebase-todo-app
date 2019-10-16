@@ -59,7 +59,7 @@ function Inbox(props) {
             ))}
           </ul>
         ) : null}
-        <AddNew>Add todo</AddNew>
+        <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
       </section>
     </Main>
   );

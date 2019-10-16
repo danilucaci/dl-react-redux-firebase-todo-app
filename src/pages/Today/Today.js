@@ -71,7 +71,7 @@ function Today(props) {
               </Todo>
             ))}
         </ul>
-        <AddNew>Add todo</AddNew>
+        <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
       </section>
     </Main>
   );

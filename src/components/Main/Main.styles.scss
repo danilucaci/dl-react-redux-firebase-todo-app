@@ -64,6 +64,10 @@
   }
 }
 
+.Section__AddNew {
+  margin-top: tokens.$spacing-c-05;
+}
+
 .Section__Date {
   font-size: tokens.$font-size-body-m;
   line-height: tokens.$font-line-height-body-m;
