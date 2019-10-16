@@ -13,7 +13,7 @@
 }
 
 .Project__Card {
-  background-color: tokens.$color-background-page-lightest;
+  background-color: tokens.$color-background-page-lighter;
   text-decoration: none;
 
   border-radius: tokens.$border-radius-components-default;
@@ -26,7 +26,6 @@
   }
 
   @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
-    background-color: tokens.$color-background-page-lighter;
     margin-bottom: tokens.$grid-gutter-m;
     box-shadow: none;
   }
