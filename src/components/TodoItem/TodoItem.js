@@ -1,0 +1,102 @@
+import React from "react";
+import { arrayOf, object, shape, string, bool, func } from "prop-types";
+import classnames from "classnames";
+
+import "./TodoItem.styles.scss";
+
+import { formatTodoDueDate, isPastDate } from "../../utils/dates";
+
+export function renderTodoDueDate(dueDate) {
+  return isPastDate(dueDate) ? (
+    <div className="Todo__DueDate Todo__DueDate--Overdue">
+      {formatTodoDueDate(dueDate)}
+    </div>
+  ) : (
+    <div className="Todo__DueDate">{formatTodoDueDate(dueDate)}</div>
+  );
+}
+
+function Todo(props) {
+  const {
+    labels,
+    project,
+    dueDate,
+    completed,
+    todoLabel,
+    setTodoEditing,
+  } = props;
+
+  const todoButtonClassnames = classnames({
+    Todo__Button: true,
+    [`Todo__Button--Completed`]: completed ? true : false,
+  });
+
+  return (
+    <li className="Todo__Item">
+      <button className={todoButtonClassnames}>
+        <svg className="Todo__Button__Icon">
+          <use xlinkHref="#check-20" />
+        </svg>
+      </button>
+      <div className="Todo__Item__Contents">
+        <div className="Todo__Name__Row">
+          <span className="Todo__Name" onClick={() => setTodoEditing(true)}>
+            {todoLabel}
+          </span>
+          {project && (
+            <div className="Todo__Project">
+              {project.name}
+              <svg className="Todo__Project__Icon" fill={project.colorValue}>
+                <use xlinkHref="#color" />
+              </svg>
+            </div>
+          )}
+        </div>
+        {(labels || dueDate) && (
+          <>
+            <div className="Todo__Status__Row">
+              {labels &&
+                labels.map((label) => (
+                  <div className="Todo__Label" key={label.labelID}>
+                    <svg className="Todo__Label__Icon" fill={label.colorValue}>
+                      <use xlinkHref="#tag" />
+                    </svg>
+                    {label.name}
+                  </div>
+                ))}
+              {dueDate && renderTodoDueDate(dueDate)}
+            </div>
+          </>
+        )}
+      </div>
+    </li>
+  );
+}
+
+Todo.propTypes = {
+  labels: arrayOf(
+    shape({
+      labelID: string,
+      name: string,
+      colorName: string,
+      colorValue: string,
+    }),
+  ),
+  project: shape({
+    projectID: string.isRequired,
+    name: string.isRequired,
+    colorName: string.isRequired,
+    colorValue: string.isRequired,
+  }).isRequired,
+  dueDate: object,
+  completed: bool.isRequired,
+  todoLabel: string.isRequired,
+  setTodoEditing: func.isRequired,
+};
+
+Todo.defaultProps = {
+  labels: null,
+  dueDate: null,
+};
+
+export default Todo;

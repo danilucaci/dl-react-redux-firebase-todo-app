@@ -2,20 +2,20 @@ import React from "react";
 import { string, node } from "prop-types";
 import classNames from "classnames";
 
-import "./PrimaryButton.styles.scss";
+import "./TextButton.styles.scss";
 import { getClassesFromProps } from "../../utils/helpers";
 
-function PrimaryButton({ icon, additionalClasses, children, ...props }) {
+function TextButton({ icon, additionalClasses, children, ...props }) {
   const addedClasses = getClassesFromProps(additionalClasses);
 
   const buttonClassNames = classNames({
-    PrimaryButton: true,
-    PrimaryButton__WithIcon: Boolean(icon),
+    TextButton: true,
+    TextButton__WithIcon: Boolean(icon),
     ...addedClasses,
   });
 
   const svgClassNames = classNames({
-    PrimaryButton__Icon: true,
+    TextButton__Icon: true,
   });
 
   return (
@@ -30,15 +30,15 @@ function PrimaryButton({ icon, additionalClasses, children, ...props }) {
   );
 }
 
-PrimaryButton.propTypes = {
+TextButton.propTypes = {
   icon: string,
   additionalClasses: string,
   children: node.isRequired,
 };
 
-PrimaryButton.defaultProps = {
+TextButton.defaultProps = {
   icon: null,
   additionalClasses: null,
 };
 
-export default PrimaryButton;
+export default TextButton;

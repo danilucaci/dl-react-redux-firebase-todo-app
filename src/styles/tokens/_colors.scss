@@ -12,6 +12,8 @@ $color-text-button-primary-enabled: colors.$primary50;
 $color-text-button-primary-disabled: colors.$grey00;
 $color-text-button-outlined-enabled: colors.$grey900;
 $color-text-button-outlined-disabled: colors.$grey700;
+$color-text-button-text-enabled: colors.$grey900;
+$color-text-button-text-disabled: colors.$grey700;
 
 // Links
 $color-text-link-default: colors.$primary600;
@@ -29,6 +31,18 @@ $color-background-outlined-active: colors.$grey200;
 $color-background-outlined-focus: colors.$grey100;
 $color-background-outlined-disabled: transparent;
 
+$color-background-text-button-enabled: transparent;
+$color-background-text-button-hover: colors.$grey50;
+$color-background-text-button-active: colors.$grey100;
+$color-background-text-button-focus: colors.$grey50;
+$color-background-text-button-disabled: transparent;
+
+$color-background-primary-enabled: colors.$primary600;
+$color-background-primary-hover: colors.$primary500;
+$color-background-primary-active: colors.$primary700;
+$color-background-primary-focus: colors.$primary600;
+$color-background-primary-disabled: colors.$grey500;
+
 // Check Button
 $color-background-todo-checkbox-enabled: colors.$grey00;
 $color-background-todo-checkbox-enabled-focus: colors.$grey50;
@@ -38,6 +52,17 @@ $color-background-todo-checkbox-completed: colors.$primary600;
 $color-background-todo-checkbox-completed-focus: colors.$primary600;
 $color-background-todo-checkbox-completed-hover: colors.$primary500;
 $color-background-todo-checkbox-completed-disabled: colors.$grey500;
+
+$color-background-input-enabled: colors.$grey00;
+$color-background-search-bar-enabled: colors.$grey50;
+$color-background-search-bar-active: colors.$grey00;
+
+$color-background-sidebar-item-hover: colors.$grey100;
+
+// Page Backgrounds
+$color-background-page-lightest: colors.$grey00;
+$color-background-page-lighter: colors.$grey50;
+$color-background-page-light: colors.$grey100;
 
 // Check Button Borders
 $color-border-todo-checkbox-enabled: colors.$grey600;
@@ -59,24 +84,6 @@ $color-icon-todo-checkbox-completed-focus: colors.$grey00;
 $color-icon-todo-checkbox-completed-hover: colors.$grey00;
 $color-icon-todo-checkbox-completed-disabled: colors.$grey00;
 
-$color-background-text-button-enabled: transparent;
-$color-background-text-button-hover: transparent;
-$color-background-text-button-active: transparent;
-$color-background-text-button-focus: colors.$grey00;
-$color-background-text-button-disabled: transparent;
-
-$color-background-primary-enabled: colors.$primary600;
-$color-background-primary-hover: colors.$primary500;
-$color-background-primary-active: colors.$primary700;
-$color-background-primary-focus: colors.$primary600;
-$color-background-primary-disabled: colors.$grey500;
-
-$color-background-input-enabled: colors.$grey00;
-$color-background-search-bar-enabled: colors.$grey50;
-$color-background-search-bar-active: colors.$grey00;
-
-$color-background-sidebar-item-hover: colors.$grey100;
-
 $color-icon-default: colors.$grey600;
 
 $color-icon-button-primary-enabled: colors.$primary600;
@@ -91,17 +98,17 @@ $color-icon-button-outlined-active: colors.$grey900;
 $color-icon-button-outlined-focus: colors.$grey900;
 $color-icon-button-outlined-disabled: colors.$grey500;
 
+$color-icon-button-text-enabled: colors.$grey900;
+$color-icon-button-text-hover: colors.$grey900;
+$color-icon-button-text-active: colors.$grey900;
+$color-icon-button-text-focus: colors.$grey900;
+$color-icon-button-text-disabled: colors.$grey500;
+
 $color-border-outlined-enabled: transparent;
 $color-border-outlined-hover: colors.$grey100;
 $color-border-outlined-active: colors.$grey200;
 $color-border-outlined-focus: colors.$grey900;
 $color-border-outlined-disabled: transparent;
-
-$color-border-input-enabled: colors.$grey300;
-$color-border-input-hover: colors.$grey300;
-$color-border-input-active: colors.$grey900;
-$color-border-input-focus: colors.$grey900;
-$color-border-input-disabled: colors.$grey500;
 
 $color-border-primary-enabled: colors.$primary600;
 $color-border-primary-hover: colors.$primary500;
@@ -109,14 +116,21 @@ $color-border-primary-active: colors.$primary700;
 $color-border-primary-focus: colors.$primary900;
 $color-border-primary-disabled: colors.$grey500;
 
+$color-border-text-button-enabled: transparent;
+$color-border-text-button-hover: transparent;
+$color-border-text-button-active: transparent;
+$color-border-text-button-focus: colors.$grey900;
+$color-border-text-button-disabled: transparent;
+
+$color-border-input-enabled: colors.$grey300;
+$color-border-input-hover: colors.$grey300;
+$color-border-input-active: colors.$grey900;
+$color-border-input-focus: colors.$grey900;
+$color-border-input-disabled: colors.$grey500;
+
 // Border Colors
 $color-border-header: colors.$grey300;
 $color-border-components-default: colors.$grey300;
-
-// Page Backgrounds
-$color-background-page-lightest: colors.$grey00;
-$color-background-page-lighter: colors.$grey50;
-$color-background-page-light: colors.$grey100;
 
 // Dividers
 $color-divider-on-white: colors.$grey200;

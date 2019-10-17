@@ -39,5 +39,6 @@ export const labelOverdueTodosSelector = createSelector(
 
 export const labelNotOverdueTodosSelector = createSelector(
   [selectLabelTodos],
-  (todos) => todos.filter((todo) => isFutureDate(todo.dueDate)),
+  (todos) =>
+    todos.filter((todo) => isFutureDate(todo.dueDate) || todo.dueDate === null),
 );

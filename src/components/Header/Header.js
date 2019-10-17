@@ -22,24 +22,27 @@ function Header() {
         <div className="Buttons__Wrapper col col-8 col-m-5 col-xl-8">
           <SearchBar />
           <div className="Buttons">
-            <PrimaryButton icon="add-24" additionalClasses="AddTodoDesktop">
+            <PrimaryButton
+              icon="add-24"
+              additionalClasses="AddTodoDesktop PrimaryButton--Medium"
+            >
               New todo
             </PrimaryButton>
             <IconButton
               icon="add-24"
-              additionalClasses="AddTodoMobile"
+              additionalClasses="AddTodoMobile IconButton--Medium"
               ariaText="Add a new todo"
               onClick={() => console.log("Adding todo...")}
             />
             <IconButton
               icon="search-24"
-              additionalClasses="SearchButton"
+              additionalClasses="SearchButton IconButton--Medium"
               ariaText="Search todos"
               onClick={() => console.log("Searching...")}
             />
             <IconButton
               icon="menu"
-              additionalClasses="Menu"
+              additionalClasses="Menu IconButton--Medium"
               ariaText="Open menu"
               onClick={() => dispatch(toggleMenu())}
             />

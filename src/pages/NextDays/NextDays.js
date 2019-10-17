@@ -72,9 +72,8 @@ function NextDays(props) {
                   dueDate={todo.dueDate}
                   completed={todo.completed}
                   key={todo.id}
-                >
-                  {todo.name}
-                </Todo>
+                  todoLabel={todo.name}
+                />
               ))}
           </ul>
         </section>
@@ -94,9 +93,8 @@ function NextDays(props) {
                 dueDate={todo.dueDate}
                 completed={todo.completed}
                 key={todo.id}
-              >
-                {todo.name}
-              </Todo>
+                todoLabel={todo.name}
+              />
             ))}
         </ul>
         <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
@@ -116,9 +114,8 @@ function NextDays(props) {
                 dueDate={todo.dueDate}
                 completed={todo.completed}
                 key={todo.id}
-              >
-                {todo.name}
-              </Todo>
+                todoLabel={todo.name}
+              />
             ))}
         </ul>
         <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
@@ -138,9 +135,8 @@ function NextDays(props) {
                 dueDate={todo.dueDate}
                 completed={todo.completed}
                 key={todo.id}
-              >
-                {todo.name}
-              </Todo>
+                todoLabel={todo.name}
+              />
             ))}
         </ul>
         <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
@@ -160,9 +156,8 @@ function NextDays(props) {
                 dueDate={todo.dueDate}
                 completed={todo.completed}
                 key={todo.id}
-              >
-                {todo.name}
-              </Todo>
+                todoLabel={todo.name}
+              />
             ))}
         </ul>
         <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
@@ -182,9 +177,8 @@ function NextDays(props) {
                 dueDate={todo.dueDate}
                 completed={todo.completed}
                 key={todo.id}
-              >
-                {todo.name}
-              </Todo>
+                todoLabel={todo.name}
+              />
             ))}
         </ul>
         <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
@@ -204,9 +198,8 @@ function NextDays(props) {
                 dueDate={todo.dueDate}
                 completed={todo.completed}
                 key={todo.id}
-              >
-                {todo.name}
-              </Todo>
+                todoLabel={todo.name}
+              />
             ))}
         </ul>
         <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
@@ -226,9 +219,8 @@ function NextDays(props) {
                 dueDate={todo.dueDate}
                 completed={todo.completed}
                 key={todo.id}
-              >
-                {todo.name}
-              </Todo>
+                todoLabel={todo.name}
+              />
             ))}
         </ul>
         <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>

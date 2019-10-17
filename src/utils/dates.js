@@ -27,6 +27,10 @@ export function formatTodoDueDate(date) {
   return getDateTodoFormat(date);
 }
 
+export function formatTodoFormDueDate(date) {
+  return getDateTodoFormat(date);
+}
+
 export function formatTodaySectionDate() {
   const todayDate = new Date();
   const todayFormattedDate = format(todayDate, "EEE dd MMM", {

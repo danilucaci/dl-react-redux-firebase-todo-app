@@ -129,6 +129,7 @@
   line-height: tokens.$font-line-height-body-m;
   color: tokens.$color-text-body-default;
   margin-right: tokens.$spacing-c-05;
+  flex: 1 1 auto;
 }
 
 .Todo__Name__Row {

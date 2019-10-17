@@ -5,8 +5,9 @@
 // ******************************************
 
 $shadow-button-outlined-focus: 0px 0px 0px 3px colors.$grey200;
-$shadow-button-text-focus: 0px 0px 0px 4px colors.$grey00,
-  0px 0px 0px 5px colors.$grey900, 0px 0px 0px 8px colors.$grey200;
+$shadow-button-add-new-focus: 0px 0px 0px 4px colors.$grey50,
+  0px 0px 0px 6px colors.$grey900, 0px 0px 0px 9px colors.$grey200;
+$shadow-button-text-focus: 0px 0px 0px 3px colors.$grey200;
 $shadow-button-primary-hover: 0px 2px 8px rgba(78, 145, 233, 0.3),
   0px 2px 2px rgba(78, 145, 233, 0.3), 0px 1px 1px rgba(45, 113, 213, 0.4);
 $shadow-button-primary-focus: 0px 0px 0px 3px colors.$primary200;

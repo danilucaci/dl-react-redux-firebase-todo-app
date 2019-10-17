@@ -15,7 +15,8 @@ export const inboxTodosSelector = createSelector(
 
 export const notOverdueInboxTodosSelector = createSelector(
   [inboxTodosSelector],
-  (todos) => todos.filter((todo) => isFutureDate(todo.dueDate)),
+  (todos) =>
+    todos.filter((todo) => isFutureDate(todo.dueDate) || todo.dueDate === null),
 );
 
 export const overdueInboxTodosSelector = createSelector(
@@ -35,7 +36,8 @@ export const overdueTodosSelector = createSelector(
 
 export const notOverdueTodayTodosSelector = createSelector(
   [todayTodosSelector],
-  (todos) => todos.filter((todo) => isFutureDate(todo.dueDate)),
+  (todos) =>
+    todos.filter((todo) => isFutureDate(todo.dueDate) || todo.dueDate === null),
 );
 
 export const nextDaysPlus1TodosSelector = createSelector(
@@ -66,14 +68,4 @@ export const nextDaysPlus5TodosSelector = createSelector(
 export const nextDaysPlus6TodosSelector = createSelector(
   [selectTodos],
   (todos) => todos.filter((todo) => getNthDate(todo.dueDate, 6)),
-);
-
-export const sectionTodosSelector = createSelector(
-  [selectTodos],
-  (todos) => todos,
-);
-
-export const labelTodosSelector = createSelector(
-  [selectTodos],
-  (todos) => todos,
 );

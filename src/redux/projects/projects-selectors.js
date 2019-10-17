@@ -28,5 +28,6 @@ export const projectOverdueTodosSelector = createSelector(
 
 export const projectNotOverdueTodosSelector = createSelector(
   [selectProjectTodos],
-  (todos) => todos.filter((todo) => isFutureDate(todo.dueDate)),
+  (todos) =>
+    todos.filter((todo) => isFutureDate(todo.dueDate) || todo.dueDate === null),
 );

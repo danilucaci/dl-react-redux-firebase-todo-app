@@ -30,9 +30,8 @@ function Inbox(props) {
                 dueDate={todo.dueDate}
                 completed={todo.completed}
                 key={todo.id}
-              >
-                {todo.name}
-              </Todo>
+                todoLabel={todo.name}
+              />
             ))}
           </ul>
         </section>
@@ -51,9 +50,8 @@ function Inbox(props) {
                 dueDate={todo.dueDate}
                 completed={todo.completed}
                 key={todo.id}
-              >
-                {todo.name}
-              </Todo>
+                todoLabel={todo.name}
+              />
             ))}
           </ul>
         ) : null}

@@ -7,8 +7,13 @@
     tokens.$color-border-outlined-enabled solid;
   color: tokens.$color-icon-button-outlined-enabled;
 
-  padding: tokens.$spacing-button-icon-vertical-m
-    tokens.$spacing-button-icon-horizontal-m;
+  padding: tokens.$spacing-button-icon-vertical-l
+    tokens.$spacing-button-icon-horizontal-l;
+
+  &--Medium {
+    padding: tokens.$spacing-button-icon-vertical-m
+      tokens.$spacing-button-icon-horizontal-m;
+  }
 
   height: tokens.$size-button-icon-m;
   width: tokens.$size-button-icon-m;

@@ -1,66 +1,46 @@
-import React from "react";
-import { node, arrayOf, object, shape, string, bool } from "prop-types";
-import classnames from "classnames";
+import React, { useState } from "react";
+import { arrayOf, object, shape, string, bool } from "prop-types";
 
-import "./Todo.styles.scss";
+import TodoForm from "../TodoForm/TodoForm";
+import TodoItem from "../TodoItem/TodoItem";
 
-import { formatTodoDueDate, isPastDate } from "../../utils/dates";
+export function Todo(props) {
+  const { labels, project, dueDate, completed, todoLabel } = props;
+  const [todoEditing, setTodoEditing] = useState(false);
 
-export function renderTodoDueDate(dueDate) {
-  return isPastDate(dueDate) ? (
-    <div className="Todo__DueDate Todo__DueDate--Overdue">
-      {formatTodoDueDate(dueDate)}
-    </div>
+  function handleFormSubmit(e) {
+    console.log("Saved");
+
+    setTodoEditing((isEditing) => setTodoEditing(!isEditing));
+    e.preventDefault();
+  }
+
+  function handleCancelEdit() {
+    console.log("Cancelled");
+
+    setTodoEditing((isEditing) => setTodoEditing(!isEditing));
+  }
+
+  return todoEditing ? (
+    <TodoForm
+      labels={labels}
+      project={project}
+      dueDate={dueDate}
+      completed={completed}
+      setTodoEditing={setTodoEditing}
+      todoLabel={todoLabel}
+      handleFormSubmit={handleFormSubmit}
+      handleCancelEdit={handleCancelEdit}
+    />
   ) : (
-    <div className="Todo__DueDate">{formatTodoDueDate(dueDate)}</div>
-  );
-}
-
-function Todo(props) {
-  const { labels, project, dueDate, completed, children } = props;
-
-  const todoButtonClassnames = classnames({
-    Todo__Button: true,
-    [`Todo__Button--Completed`]: completed ? true : false,
-  });
-
-  return (
-    <li className="Todo__Item">
-      <button className={todoButtonClassnames}>
-        <svg className="Todo__Button__Icon">
-          <use xlinkHref="#check-20" />
-        </svg>
-      </button>
-      <div className="Todo__Item__Contents">
-        <div className="Todo__Name__Row">
-          <span className="Todo__Name">{children}</span>
-          {project && (
-            <div className="Todo__Project">
-              {project.name}
-              <svg className="Todo__Project__Icon" fill={project.colorValue}>
-                <use xlinkHref="#color" />
-              </svg>
-            </div>
-          )}
-        </div>
-        {(labels || dueDate) && (
-          <>
-            <div className="Todo__Status__Row">
-              {labels &&
-                labels.map((label) => (
-                  <div className="Todo__Label" key={label.labelID}>
-                    <svg className="Todo__Label__Icon" fill={label.colorValue}>
-                      <use xlinkHref="#tag" />
-                    </svg>
-                    {label.name}
-                  </div>
-                ))}
-              {dueDate && renderTodoDueDate(dueDate)}
-            </div>
-          </>
-        )}
-      </div>
-    </li>
+    <TodoItem
+      labels={labels}
+      project={project}
+      dueDate={dueDate}
+      completed={completed}
+      setTodoEditing={setTodoEditing}
+      todoLabel={todoLabel}
+    />
   );
 }
 
@@ -81,7 +61,7 @@ Todo.propTypes = {
   }).isRequired,
   dueDate: object,
   completed: bool.isRequired,
-  children: node.isRequired,
+  todoLabel: string.isRequired,
 };
 
 Todo.defaultProps = {

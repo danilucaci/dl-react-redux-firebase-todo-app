@@ -18,7 +18,7 @@
 
   &:focus {
     background-color: tokens.$color-background-text-button-focus;
-    box-shadow: tokens.$shadow-button-text-focus;
+    box-shadow: tokens.$shadow-button-add-new-focus;
     cursor: pointer;
     outline: none;
   }
