@@ -10,15 +10,17 @@ export function getClassesnamesObject(additionalClasses = []) {
 
 export function getClassesFromProps(additionalClasses) {
   if (additionalClasses === null || additionalClasses === undefined) {
-    return [];
+    return null;
   }
 
   // Class,Class,Class
   if (typeof additionalClasses === "string") {
-    if (additionalClasses.includes(",")) {
+    const trimmedClasses = additionalClasses.trim();
+
+    if (trimmedClasses.includes(",")) {
       return getClassesnamesObject(
         Array.from(
-          additionalClasses.split(",").map((str) => {
+          trimmedClasses.split(",").map((str) => {
             return str.trim();
           }),
         ),
@@ -26,10 +28,10 @@ export function getClassesFromProps(additionalClasses) {
     }
 
     // Class Class Class
-    if (additionalClasses.includes(" ")) {
+    if (trimmedClasses.length > 0 && trimmedClasses.includes(" ")) {
       return getClassesnamesObject(
         Array.from(
-          additionalClasses.split(" ").map((str) => {
+          trimmedClasses.split(" ").map((str) => {
             return str.trim();
           }),
         ),
@@ -37,15 +39,17 @@ export function getClassesFromProps(additionalClasses) {
     }
 
     // Class
-    return getClassesnamesObject(
-      additionalClasses.split(" ").map((str) => {
-        return str.trim();
-      }),
-    );
+    if (trimmedClasses.length > 0) {
+      return getClassesnamesObject(
+        trimmedClasses.split(" ").map((str) => {
+          return str.trim();
+        }),
+      );
+    }
   }
 
   console.error(
     `Invalid additionalClasses received in getClassesFromProps: ${additionalClasses}`,
   );
-  return [];
+  return null;
 }

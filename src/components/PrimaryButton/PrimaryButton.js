@@ -1,5 +1,5 @@
 import React from "react";
-import { string, bool, node } from "prop-types";
+import { string, node } from "prop-types";
 import classNames from "classnames";
 
 import "./PrimaryButton.styles.scss";
@@ -32,15 +32,13 @@ function PrimaryButton({ icon, disabled, additionalClasses, children }) {
 
 PrimaryButton.propTypes = {
   icon: string,
-  disabled: bool,
   additionalClasses: string,
   children: node.isRequired,
 };
 
 PrimaryButton.defaultProps = {
-  icon: "",
-  additionalClasses: "",
-  disabled: false,
+  icon: null,
+  additionalClasses: null,
 };
 
 export default PrimaryButton;

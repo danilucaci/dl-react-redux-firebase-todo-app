@@ -1,5 +1,5 @@
 import React from "react";
-import { string, bool } from "prop-types";
+import { string } from "prop-types";
 import classNames from "classnames";
 
 import "./IconButton.styles.scss";
@@ -32,14 +32,12 @@ function IconButton({ icon, ariaText, additionalClasses, disabled, onClick }) {
 IconButton.propTypes = {
   icon: string,
   additionalClasses: string,
-  disabled: bool,
   ariaText: string.isRequired,
 };
 
 IconButton.defaultProps = {
-  icon: "",
-  additionalClasses: "",
-  disabled: false,
+  icon: null,
+  additionalClasses: null,
 };
 
 export default IconButton;
