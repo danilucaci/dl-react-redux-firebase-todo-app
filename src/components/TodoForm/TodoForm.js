@@ -14,7 +14,11 @@ export function renderDueDateOrSchedule(dueDate) {
   return dueDate ? (
     renderTodoFormDueDateFormat(dueDate)
   ) : (
-    <button className="Todo__Form__DueDate" onClick={(e) => e.preventDefault()}>
+    <button
+      className="Todo__Form__DueDate"
+      onClick={(e) => e.preventDefault()}
+      type="button"
+    >
       Schedule
     </button>
   );
@@ -25,11 +29,16 @@ export function renderTodoFormDueDateFormat(dueDate) {
     <button
       className="Todo__Form__DueDate Todo__Form__DueDate--Overdue"
       onClick={(e) => e.preventDefault()}
+      type="button"
     >
       {formatTodoFormDueDate(dueDate)}
     </button>
   ) : (
-    <button className="Todo__Form__DueDate" onClick={(e) => e.preventDefault()}>
+    <button
+      className="Todo__Form__DueDate"
+      onClick={(e) => e.preventDefault()}
+      type="button"
+    >
       {formatTodoFormDueDate(dueDate)}
     </button>
   );
@@ -38,7 +47,11 @@ export function renderTodoFormDueDateFormat(dueDate) {
 export function renderTodoFormLabels(labels) {
   if (!Boolean(labels) || !Array.isArray(labels) || labels.length === 0) {
     return (
-      <button className="Todo__Form__Label" onClick={(e) => e.preventDefault()}>
+      <button
+        className="Todo__Form__Label"
+        onClick={(e) => e.preventDefault()}
+        type="button"
+      >
         <svg className="Todo__Form__Label__Icon" fill="#81878f">
           <use xlinkHref="#tag" />
         </svg>
@@ -51,6 +64,7 @@ export function renderTodoFormLabels(labels) {
         className="Todo__Form__Label"
         key={labels[0].labelID}
         onClick={(e) => e.preventDefault()}
+        type="button"
       >
         <svg className="Todo__Form__Label__Icon" fill={labels[0].colorValue}>
           <use xlinkHref="#tag" />
@@ -60,7 +74,11 @@ export function renderTodoFormLabels(labels) {
     );
   } else if (Array.isArray(labels) && labels.length > 1) {
     return (
-      <button className="Todo__Form__Label" onClick={(e) => e.preventDefault()}>
+      <button
+        className="Todo__Form__Label"
+        onClick={(e) => e.preventDefault()}
+        type="button"
+      >
         <svg className="Todo__Form__Label__Icon" fill="#81878f">
           <use xlinkHref="#tag" />
         </svg>
@@ -96,8 +114,6 @@ function TodoForm(props) {
   useFocusRef(inputRef);
 
   useKeyUpPress("Escape", toggleIsEditing);
-  // TODO: Fix this when opening the todo form with enter
-  // useKeyUpPress("Enter", toggleIsEditing);
 
   function handleFormSubmit(e) {
     e.preventDefault();
@@ -137,6 +153,7 @@ function TodoForm(props) {
               <button
                 className="Todo__Form__Project"
                 onClick={(e) => e.preventDefault()}
+                type="button"
               >
                 <svg
                   className="Todo__Form__Project__Icon"
@@ -157,13 +174,14 @@ function TodoForm(props) {
             <TextButton
               additionalClasses="TextButton--Medium"
               onClick={handleCancelEdit}
+              type="button"
             >
               Cancel
             </TextButton>
             <PrimaryButton
               type="submit"
               additionalClasses="Todo__Form__SubmitButton PrimaryButton--Medium"
-              onClick={(e) => console.log()}
+              onClick={() => console.log("Submitted with Primary Button")}
             >
               Save
             </PrimaryButton>
