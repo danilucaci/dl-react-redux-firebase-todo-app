@@ -23,6 +23,13 @@
     outline: none;
   }
 
+  .js-focus-visible &:focus:not([data-focus-visible-added]) {
+    background-color: tokens.$color-background-text-button-focus-polyfill;
+    outline: none;
+    box-shadow: none;
+    cursor: pointer;
+  }
+
   &:disabled {
     outline: none;
     cursor: not-allowed;

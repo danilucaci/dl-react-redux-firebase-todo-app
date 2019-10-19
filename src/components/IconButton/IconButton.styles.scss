@@ -44,6 +44,14 @@
     outline: none;
   }
 
+  .js-focus-visible &:focus:not([data-focus-visible-added]) {
+    background-color: tokens.$color-background-outlined-focus-polyfill;
+    border-color: tokens.$color-border-outlined-focus-polyfill;
+    box-shadow: none;
+    color: tokens.$color-icon-button-outlined-focus;
+    cursor: pointer;
+  }
+
   &:active {
     background-color: tokens.$color-background-outlined-active;
     border-color: tokens.$color-border-outlined-active;

@@ -1,9 +1,10 @@
+import "./App.scss";
+import "focus-visible";
+
 import React from "react";
 import classnames from "classnames";
 import { connect } from "react-redux";
 import { Switch, Route } from "react-router-dom";
-
-import "./App.scss";
 
 import SVGSprite from "./components/SVGSprite/SVGSprite";
 import Header from "./components/Header/Header";

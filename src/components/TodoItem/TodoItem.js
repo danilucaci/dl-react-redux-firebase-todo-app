@@ -55,7 +55,6 @@ function Todo(props) {
         <div className="Todo__Name__Row">
           <button
             className="Todo__Name"
-            tabIndex="0"
             aria-label={`Edit todo ${todoLabel}`}
             onClick={() => setIsEditingTodo(true)}
           >

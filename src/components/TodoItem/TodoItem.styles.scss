@@ -141,6 +141,13 @@
 
   &:focus {
     cursor: pointer;
+    border-radius: tokens.$border-radius-button-default;
+  }
+
+  .js-focus-visible &:focus:not([data-focus-visible-added]) {
+    outline: none;
+    box-shadow: none;
+    cursor: pointer;
   }
 
   &:active {

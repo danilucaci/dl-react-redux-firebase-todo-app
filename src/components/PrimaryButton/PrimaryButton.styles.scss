@@ -82,6 +82,14 @@
     outline: none;
   }
 
+  .js-focus-visible &:focus:not([data-focus-visible-added]) {
+    background-color: tokens.$color-background-primary-focus-polyfill;
+    border-color: tokens.$color-border-primary-focus-polyfill;
+    box-shadow: none;
+    cursor: pointer;
+    outline: none;
+  }
+
   &:active {
     background-color: tokens.$color-background-primary-active;
     border-color: tokens.$color-border-primary-active;

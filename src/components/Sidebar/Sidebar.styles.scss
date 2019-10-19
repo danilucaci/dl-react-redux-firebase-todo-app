@@ -271,6 +271,11 @@
   &:hover {
     cursor: pointer;
   }
+
+  .js-focus-visible &:focus:not([data-focus-visible-added]) {
+    outline: none;
+    cursor: pointer;
+  }
 }
 
 .Sidebar__Section__Title__Icon {
@@ -294,6 +299,11 @@
   &:hover {
     color: tokens.$color-text-body-default;
     text-decoration: none;
+    cursor: pointer;
+  }
+
+  .js-focus-visible &:focus:not([data-focus-visible-added]) {
+    outline: none;
     cursor: pointer;
   }
 }

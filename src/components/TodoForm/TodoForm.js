@@ -96,7 +96,8 @@ function TodoForm(props) {
   useFocusRef(inputRef);
 
   useKeyUpPress("Escape", toggleIsEditing);
-  useKeyUpPress("Enter", toggleIsEditing);
+  // TODO: Fix this when opening the todo form with enter
+  // useKeyUpPress("Enter", toggleIsEditing);
 
   function handleFormSubmit(e) {
     e.preventDefault();
@@ -107,6 +108,7 @@ function TodoForm(props) {
   function handleCancelEdit(e) {
     e.preventDefault();
     toggleIsEditing();
+    console.log(e.target);
   }
 
   function toggleIsEditing() {
@@ -161,6 +163,7 @@ function TodoForm(props) {
             <PrimaryButton
               type="submit"
               additionalClasses="Todo__Form__SubmitButton PrimaryButton--Medium"
+              onClick={(e) => console.log()}
             >
               Save
             </PrimaryButton>

@@ -29,33 +29,41 @@ $color-background-outlined-enabled: transparent;
 $color-background-outlined-hover: colors.$grey100;
 $color-background-outlined-active: colors.$grey200;
 $color-background-outlined-focus: colors.$grey100;
+$color-background-outlined-focus-polyfill: colors.$grey200;
 $color-background-outlined-disabled: transparent;
 
 $color-background-text-button-enabled: transparent;
 $color-background-text-button-hover: colors.$grey50;
 $color-background-text-button-active: colors.$grey100;
 $color-background-text-button-focus: colors.$grey50;
+$color-background-text-button-focus-polyfill: colors.$grey100;
 $color-background-text-button-disabled: transparent;
 
 $color-background-todo-meta-enabled: transparent;
 $color-background-todo-meta-hover: colors.$grey50;
 $color-background-todo-meta-active: colors.$grey100;
 $color-background-todo-meta-focus: transparent;
+$color-background-todo-meta-focus-polyfill: colors.$grey100;
 $color-background-todo-meta-disabled: transparent;
 
 $color-background-primary-enabled: colors.$primary600;
 $color-background-primary-hover: colors.$primary500;
 $color-background-primary-active: colors.$primary700;
 $color-background-primary-focus: colors.$primary600;
+$color-background-primary-focus-polyfill: colors.$primary700;
 $color-background-primary-disabled: colors.$grey500;
 
 // Check Button
 $color-background-todo-checkbox-enabled: colors.$grey00;
 $color-background-todo-checkbox-enabled-focus: colors.$grey50;
+$color-background-todo-checkbox-enabled-active: colors.$grey100;
+$color-background-todo-checkbox-enabled-focus-polyfill: colors.$grey100;
 $color-background-todo-checkbox-enabled-hover: colors.$primary50;
 $color-background-todo-checkbox-enabled-disabled: colors.$grey00;
 $color-background-todo-checkbox-completed: colors.$primary600;
 $color-background-todo-checkbox-completed-focus: colors.$primary600;
+$color-background-todo-checkbox-completed-active: colors.$primary700;
+$color-background-todo-checkbox-completed-focus-polyfill: colors.$primary700;
 $color-background-todo-checkbox-completed-hover: colors.$primary500;
 $color-background-todo-checkbox-completed-disabled: colors.$grey500;
 
@@ -114,24 +122,28 @@ $color-border-outlined-enabled: transparent;
 $color-border-outlined-hover: colors.$grey100;
 $color-border-outlined-active: colors.$grey200;
 $color-border-outlined-focus: colors.$grey900;
+$color-border-outlined-focus-polyfill: transparent;
 $color-border-outlined-disabled: transparent;
 
 $color-border-primary-enabled: colors.$primary600;
 $color-border-primary-hover: colors.$primary500;
 $color-border-primary-active: colors.$primary700;
 $color-border-primary-focus: colors.$primary900;
+$color-border-primary-focus-polyfill: transparent;
 $color-border-primary-disabled: colors.$grey500;
 
 $color-border-text-button-enabled: transparent;
 $color-border-text-button-hover: transparent;
 $color-border-text-button-active: transparent;
 $color-border-text-button-focus: colors.$grey900;
+$color-border-text-button-focus-polyfill: transparent;
 $color-border-text-button-disabled: transparent;
 
 $color-border-input-enabled: colors.$grey300;
 $color-border-input-hover: colors.$grey300;
 $color-border-input-active: colors.$grey900;
 $color-border-input-focus: colors.$grey900;
+$color-border-input-focus-polyfill: colors.$grey300;
 $color-border-input-disabled: colors.$grey500;
 
 // Border Colors

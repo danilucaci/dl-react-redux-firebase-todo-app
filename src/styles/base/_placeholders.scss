@@ -76,6 +76,12 @@
     cursor: pointer;
   }
 
+  .js-focus-visible &:focus:not([data-focus-visible-added]) {
+    background-color: tokens.$color-background-todo-meta-focus-polyfill;
+    outline: none;
+    cursor: pointer;
+  }
+
   &:active {
     background-color: tokens.$color-background-todo-meta-active;
     cursor: pointer;
