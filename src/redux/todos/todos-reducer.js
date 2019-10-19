@@ -1,10 +1,11 @@
 import TodosTypes from "./todos-types";
+import uuid from "uuid";
 
 const INITIAL_STATE = {
   todos: [
     {
-      id: new Date() + Math.random(),
-      uid: new Date() + Math.random(),
+      id: uuid.v4(),
+      uid: uuid.v4(),
       name: "Learn React",
       dueDate: new Date("2019-10-12 15:00"),
       completed: false,
@@ -24,8 +25,8 @@ const INITIAL_STATE = {
       ],
     },
     {
-      id: new Date() + Math.random(),
-      uid: new Date() + Math.random(),
+      id: uuid.v4(),
+      uid: uuid.v4(),
       name: "Finish design",
       dueDate: new Date("2019-10-18"),
       completed: false,
@@ -38,8 +39,8 @@ const INITIAL_STATE = {
       labels: null,
     },
     {
-      id: new Date() + Math.random(),
-      uid: new Date() + Math.random(),
+      id: uuid.v4(),
+      uid: uuid.v4(),
       name: "Study Maths",
       dueDate: new Date("2019-10-17 11:00"),
       completed: false,
@@ -59,8 +60,8 @@ const INITIAL_STATE = {
       ],
     },
     {
-      id: new Date() + Math.random(),
-      uid: new Date() + Math.random(),
+      id: uuid.v4(),
+      uid: uuid.v4(),
       name: "Learn Node",
       dueDate: null,
       completed: false,
@@ -80,8 +81,8 @@ const INITIAL_STATE = {
       ],
     },
     {
-      id: new Date() + Math.random(),
-      uid: new Date() + Math.random(),
+      id: uuid.v4(),
+      uid: uuid.v4(),
       name: "Todo 001",
       dueDate: new Date("2019-10-15 21:00"),
       completed: false,
@@ -107,8 +108,8 @@ const INITIAL_STATE = {
       ],
     },
     {
-      id: new Date() + Math.random(),
-      uid: new Date() + Math.random(),
+      id: uuid.v4(),
+      uid: uuid.v4(),
       name: "Todo 002",
       dueDate: new Date("2019-10-1"),
       completed: false,
@@ -121,8 +122,8 @@ const INITIAL_STATE = {
       labels: null,
     },
     {
-      id: new Date() + Math.random(),
-      uid: new Date() + Math.random(),
+      id: uuid.v4(),
+      uid: uuid.v4(),
       name: "Todo 003",
       dueDate: new Date("2019-10-22"),
       completed: false,
@@ -142,8 +143,8 @@ const INITIAL_STATE = {
       ],
     },
     {
-      id: new Date() + Math.random(),
-      uid: new Date() + Math.random(),
+      id: uuid.v4(),
+      uid: uuid.v4(),
       name: "Todo 004",
       dueDate: new Date("2019-10-19 21:00"),
       completed: false,
@@ -163,8 +164,8 @@ const INITIAL_STATE = {
       ],
     },
     {
-      id: new Date() + Math.random(),
-      uid: new Date() + Math.random(),
+      id: uuid.v4(),
+      uid: uuid.v4(),
       name: "Todo 005",
       dueDate: new Date("2019-10-16 20:00"),
       completed: false,

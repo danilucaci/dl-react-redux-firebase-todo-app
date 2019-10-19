@@ -1,4 +1,5 @@
 import LabelsTypes from "./labels-types";
+import uuid from "uuid";
 
 export const INITIAL_STATE = {
   labels: [
@@ -8,7 +9,7 @@ export const INITIAL_STATE = {
       name: "pending",
       todosCount: 1,
       color: {
-        colorID: new Date() + Math.random(),
+        colorID: uuid.v4(),
         colorName: "Orange",
         colorValue: "#F19D4B",
       },
@@ -19,7 +20,7 @@ export const INITIAL_STATE = {
       name: "soon",
       todosCount: 3,
       color: {
-        colorID: new Date() + Math.random(),
+        colorID: uuid.v4(),
         colorName: "Teal",
         colorValue: "#428DAA",
       },
@@ -30,7 +31,7 @@ export const INITIAL_STATE = {
       name: "relax",
       todosCount: 0,
       color: {
-        colorID: new Date() + Math.random(),
+        colorID: uuid.v4(),
         colorName: "Green",
         colorValue: "#4B9144",
       },

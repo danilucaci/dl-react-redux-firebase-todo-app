@@ -1,8 +1,9 @@
 import UserTypes from "./user-types";
+import uuid from "uuid";
 
 export const INITIAL_STATE = {
   currentUser: {
-    uid: new Date() + Math.random(),
+    uid: uuid.v4(),
     displayName: "Dani lucaci",
     email: "dani@mail.com",
     avatar: null,
