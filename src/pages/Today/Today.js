@@ -44,6 +44,7 @@ function Today(props) {
                   completed={todo.completed}
                   key={todo.id}
                   todoLabel={todo.name}
+                  id={todo.id}
                 />
               ))}
           </ul>
@@ -65,9 +66,9 @@ function Today(props) {
                 dueDate={todo.dueDate}
                 completed={todo.completed}
                 key={todo.id}
-              >
-                {todo.name}
-              </Todo>
+                todoLabel={todo.name}
+                id={todo.id}
+              />
             ))}
         </ul>
         <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>

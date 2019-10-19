@@ -31,6 +31,7 @@ function Inbox(props) {
                 completed={todo.completed}
                 key={todo.id}
                 todoLabel={todo.name}
+                id={todo.id}
               />
             ))}
           </ul>
@@ -51,6 +52,7 @@ function Inbox(props) {
                 completed={todo.completed}
                 key={todo.id}
                 todoLabel={todo.name}
+                id={todo.id}
               />
             ))}
           </ul>

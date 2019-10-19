@@ -60,6 +60,39 @@
   }
 }
 
+%Todo__Form__Meta {
+  background-color: tokens.$color-background-todo-meta-enabled;
+  border-radius: tokens.$border-radius-button-default;
+  border: none;
+  padding-right: tokens.$spacing-c-02;
+
+  &:hover {
+    background-color: tokens.$color-background-todo-meta-hover;
+    cursor: pointer;
+  }
+
+  &:focus {
+    background-color: tokens.$color-background-todo-meta-focus;
+    cursor: pointer;
+  }
+
+  &:active {
+    background-color: tokens.$color-background-todo-meta-active;
+    cursor: pointer;
+  }
+
+  &:disabled {
+    background-color: tokens.$color-background-todo-meta-disabled;
+    cursor: not-allowed;
+    color: tokens.$color-icon-button-text-disabled;
+
+    &:hover,
+    &:focus {
+      cursor: not-allowed;
+    }
+  }
+}
+
 %divider--on-white {
   border-bottom: tokens.$size-divider-s solid tokens.$color-divider-on-white;
 }

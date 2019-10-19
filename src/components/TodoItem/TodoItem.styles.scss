@@ -130,6 +130,32 @@
   color: tokens.$color-text-body-default;
   margin-right: tokens.$spacing-c-05;
   flex: 1 1 auto;
+  text-align-last: left;
+  background-color: transparent;
+
+  border: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:focus {
+    cursor: pointer;
+  }
+
+  &:active {
+    cursor: pointer;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    color: tokens.$color-icon-button-text-disabled;
+
+    &:hover,
+    &:focus {
+      cursor: not-allowed;
+    }
+  }
 }
 
 .Todo__Name__Row {
@@ -146,6 +172,10 @@
   margin-left: auto;
   display: flex;
   align-items: center;
+
+  @extend %Todo__Form__Meta;
+  padding-right: 0;
+  padding-left: tokens.$spacing-c-02;
 }
 
 .Todo__Project__Icon {
@@ -161,6 +191,7 @@
   margin-right: tokens.$spacing-c-06;
   font-size: tokens.$font-size-body-s;
   line-height: tokens.$font-line-height-body-s;
+  @extend %Todo__Form__Meta;
 }
 
 .Todo__Label__Icon {
@@ -177,6 +208,7 @@
   font-size: tokens.$font-size-body-s;
   line-height: tokens.$font-line-height-body-s;
   text-transform: capitalize;
+  @extend %Todo__Form__Meta;
 
   &:after {
     content: "";

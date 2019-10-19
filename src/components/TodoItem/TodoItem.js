@@ -1,18 +1,25 @@
 import React from "react";
 import { arrayOf, object, shape, string, bool, func } from "prop-types";
 import classnames from "classnames";
+import { useDispatch } from "react-redux";
 
 import "./TodoItem.styles.scss";
 
 import { formatTodoDueDate, isPastDate } from "../../utils/dates";
+import { toggleTodoCompleted } from "../../redux/todos/todos-actions";
 
-export function renderTodoDueDate(dueDate) {
+export function renderTodoDueDate(dueDate, setIsEditingTodo) {
   return isPastDate(dueDate) ? (
-    <div className="Todo__DueDate Todo__DueDate--Overdue">
+    <button
+      className="Todo__DueDate Todo__DueDate--Overdue"
+      onClick={() => setIsEditingTodo(true)}
+    >
       {formatTodoDueDate(dueDate)}
-    </div>
+    </button>
   ) : (
-    <div className="Todo__DueDate">{formatTodoDueDate(dueDate)}</div>
+    <button className="Todo__DueDate" onClick={() => setIsEditingTodo(true)}>
+      {formatTodoDueDate(dueDate)}
+    </button>
   );
 }
 
@@ -23,7 +30,8 @@ function Todo(props) {
     dueDate,
     completed,
     todoLabel,
-    setTodoEditing,
+    setIsEditingTodo,
+    id,
   } = props;
 
   const todoButtonClassnames = classnames({
@@ -31,25 +39,38 @@ function Todo(props) {
     [`Todo__Button--Completed`]: completed ? true : false,
   });
 
+  const dispatch = useDispatch();
+
   return (
     <li className="Todo__Item">
-      <button className={todoButtonClassnames}>
+      <button
+        className={todoButtonClassnames}
+        onClick={() => dispatch(toggleTodoCompleted(id))}
+      >
         <svg className="Todo__Button__Icon">
           <use xlinkHref="#check-20" />
         </svg>
       </button>
       <div className="Todo__Item__Contents">
         <div className="Todo__Name__Row">
-          <span className="Todo__Name" onClick={() => setTodoEditing(true)}>
+          <button
+            className="Todo__Name"
+            tabIndex="0"
+            aria-label={`Edit todo ${todoLabel}`}
+            onClick={() => setIsEditingTodo(true)}
+          >
             {todoLabel}
-          </span>
+          </button>
           {project && (
-            <div className="Todo__Project">
+            <button
+              className="Todo__Project"
+              onClick={() => setIsEditingTodo(true)}
+            >
               {project.name}
               <svg className="Todo__Project__Icon" fill={project.colorValue}>
                 <use xlinkHref="#color" />
               </svg>
-            </div>
+            </button>
           )}
         </div>
         {(labels || dueDate) && (
@@ -57,14 +78,18 @@ function Todo(props) {
             <div className="Todo__Status__Row">
               {labels &&
                 labels.map((label) => (
-                  <div className="Todo__Label" key={label.labelID}>
+                  <button
+                    className="Todo__Label"
+                    key={label.labelID}
+                    onClick={() => setIsEditingTodo(true)}
+                  >
                     <svg className="Todo__Label__Icon" fill={label.colorValue}>
                       <use xlinkHref="#tag" />
                     </svg>
                     {label.name}
-                  </div>
+                  </button>
                 ))}
-              {dueDate && renderTodoDueDate(dueDate)}
+              {dueDate && renderTodoDueDate(dueDate, setIsEditingTodo)}
             </div>
           </>
         )}
@@ -91,7 +116,7 @@ Todo.propTypes = {
   dueDate: object,
   completed: bool.isRequired,
   todoLabel: string.isRequired,
-  setTodoEditing: func.isRequired,
+  setIsEditingTodo: func.isRequired,
 };
 
 Todo.defaultProps = {

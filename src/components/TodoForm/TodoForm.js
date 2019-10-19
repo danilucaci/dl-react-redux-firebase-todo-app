@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { arrayOf, object, shape, string, bool, func } from "prop-types";
 
 import "./TodoForm.styles.scss";
@@ -6,52 +6,66 @@ import "./TodoForm.styles.scss";
 import { formatTodoFormDueDate, isPastDate } from "../../utils/dates";
 import TextButton from "../TextButton/TextButton";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
+import useKeyUpPress from "../../hooks/useKeyUpPress";
+import useFocusRef from "../../hooks/useFocusRef";
+import useOnClickOutside from "../../hooks/useOnClickOutside";
 
 export function renderDueDateOrSchedule(dueDate) {
   return dueDate ? (
     renderTodoFormDueDateFormat(dueDate)
   ) : (
-    <div className="Todo__Form__DueDate">Schedule</div>
+    <button className="Todo__Form__DueDate" onClick={(e) => e.preventDefault()}>
+      Schedule
+    </button>
   );
 }
 
 export function renderTodoFormDueDateFormat(dueDate) {
   return isPastDate(dueDate) ? (
-    <div className="Todo__Form__DueDate Todo__Form__DueDate--Overdue">
+    <button
+      className="Todo__Form__DueDate Todo__Form__DueDate--Overdue"
+      onClick={(e) => e.preventDefault()}
+    >
       {formatTodoFormDueDate(dueDate)}
-    </div>
+    </button>
   ) : (
-    <div className="Todo__Form__DueDate">{formatTodoFormDueDate(dueDate)}</div>
+    <button className="Todo__Form__DueDate" onClick={(e) => e.preventDefault()}>
+      {formatTodoFormDueDate(dueDate)}
+    </button>
   );
 }
 
 export function renderTodoFormLabels(labels) {
   if (!Boolean(labels) || !Array.isArray(labels) || labels.length === 0) {
     return (
-      <div className="Todo__Form__Label">
+      <button className="Todo__Form__Label" onClick={(e) => e.preventDefault()}>
         <svg className="Todo__Form__Label__Icon" fill="#81878f">
           <use xlinkHref="#tag" />
         </svg>
         Add Label
-      </div>
+      </button>
     );
   } else if (Array.isArray(labels) && labels.length === 1) {
     return (
-      <div className="Todo__Form__Label" key={labels[0].labelID}>
+      <button
+        className="Todo__Form__Label"
+        key={labels[0].labelID}
+        onClick={(e) => e.preventDefault()}
+      >
         <svg className="Todo__Form__Label__Icon" fill={labels[0].colorValue}>
           <use xlinkHref="#tag" />
         </svg>
         {labels[0].name}
-      </div>
+      </button>
     );
   } else if (Array.isArray(labels) && labels.length > 1) {
     return (
-      <div className="Todo__Form__Label">
+      <button className="Todo__Form__Label" onClick={(e) => e.preventDefault()}>
         <svg className="Todo__Form__Label__Icon" fill="#81878f">
           <use xlinkHref="#tag" />
         </svg>
         {labels.length} labels
-      </div>
+      </button>
     );
   } else {
     return null;
@@ -64,14 +78,45 @@ function TodoForm(props) {
     project,
     dueDate,
     todoLabel,
-    handleFormSubmit,
-    handleCancelEdit,
+    isEditingTodo,
+    setIsEditingTodo,
+    // id,
   } = props;
 
   const [todoValue, setTodoValue] = useState(todoLabel || "");
 
+  const inputRef = useRef();
+  const todoWrapperRef = useRef();
+
+  function handleClickOutside() {
+    toggleIsEditing();
+  }
+
+  useOnClickOutside(todoWrapperRef, handleClickOutside);
+  useFocusRef(inputRef);
+
+  useKeyUpPress("Escape", toggleIsEditing);
+  useKeyUpPress("Enter", toggleIsEditing);
+
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    toggleIsEditing();
+    console.log(e.target);
+  }
+
+  function handleCancelEdit(e) {
+    e.preventDefault();
+    toggleIsEditing();
+  }
+
+  function toggleIsEditing() {
+    if (isEditingTodo) {
+      setIsEditingTodo(false);
+    }
+  }
+
   return (
-    <li className="Todo__Form">
+    <li className="Todo__Form" ref={todoWrapperRef}>
       <form
         method="post"
         className="Todo__Form__FormWrapper"
@@ -82,11 +127,15 @@ function TodoForm(props) {
           className="Todo__Form__Input"
           value={todoValue}
           onChange={(e) => setTodoValue(e.target.value)}
+          ref={inputRef}
         />
         <div className="Todo__Form__ButtonsContainer">
           <div className="Todo__Form__MetaRow">
             {project && (
-              <div className="Todo__Form__Project">
+              <button
+                className="Todo__Form__Project"
+                onClick={(e) => e.preventDefault()}
+              >
                 <svg
                   className="Todo__Form__Project__Icon"
                   fill={project.colorValue}
@@ -94,7 +143,7 @@ function TodoForm(props) {
                   <use xlinkHref="#color" />
                 </svg>
                 {project.name}
-              </div>
+              </button>
             )}
 
             {renderTodoFormLabels(labels)}
@@ -109,7 +158,10 @@ function TodoForm(props) {
             >
               Cancel
             </TextButton>
-            <PrimaryButton additionalClasses="Todo__Form__SubmitButton PrimaryButton--Medium">
+            <PrimaryButton
+              type="submit"
+              additionalClasses="Todo__Form__SubmitButton PrimaryButton--Medium"
+            >
               Save
             </PrimaryButton>
           </div>
@@ -137,7 +189,8 @@ TodoForm.propTypes = {
   dueDate: object,
   completed: bool.isRequired,
   todoLabel: string.isRequired,
-  setTodoEditing: func.isRequired,
+  setIsEditingTodo: func.isRequired,
+  id: string.isRequired,
 };
 
 TodoForm.defaultProps = {

@@ -22,11 +22,16 @@ import Labels from "./pages/Labels/Labels";
 import { projectsSelector } from "./redux/projects/projects-selectors";
 import { labelsSelector } from "./redux/labels/labels-selectors";
 import { currentUserSelector } from "./redux/user/user-selectors";
+// import useEventListener from "./hooks/useEventListener";
 
 function App(props) {
   const appClasses = classnames({
     App: true,
   });
+
+  // useEventListener("focusin", (e) => {
+  //   console.log(e.target);
+  // });
 
   const {
     labels,

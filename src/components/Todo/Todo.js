@@ -5,32 +5,19 @@ import TodoForm from "../TodoForm/TodoForm";
 import TodoItem from "../TodoItem/TodoItem";
 
 export function Todo(props) {
-  const { labels, project, dueDate, completed, todoLabel } = props;
-  const [todoEditing, setTodoEditing] = useState(false);
+  const { labels, project, dueDate, completed, todoLabel, id } = props;
+  const [isEditingTodo, setIsEditingTodo] = useState(false);
 
-  function handleFormSubmit(e) {
-    console.log("Saved");
-
-    setTodoEditing((isEditing) => setTodoEditing(!isEditing));
-    e.preventDefault();
-  }
-
-  function handleCancelEdit() {
-    console.log("Cancelled");
-
-    setTodoEditing((isEditing) => setTodoEditing(!isEditing));
-  }
-
-  return todoEditing ? (
+  return isEditingTodo ? (
     <TodoForm
       labels={labels}
       project={project}
       dueDate={dueDate}
       completed={completed}
-      setTodoEditing={setTodoEditing}
+      isEditingTodo={isEditingTodo}
+      setIsEditingTodo={setIsEditingTodo}
       todoLabel={todoLabel}
-      handleFormSubmit={handleFormSubmit}
-      handleCancelEdit={handleCancelEdit}
+      id={id}
     />
   ) : (
     <TodoItem
@@ -38,8 +25,10 @@ export function Todo(props) {
       project={project}
       dueDate={dueDate}
       completed={completed}
-      setTodoEditing={setTodoEditing}
+      isEditingTodo={isEditingTodo}
+      setIsEditingTodo={setIsEditingTodo}
       todoLabel={todoLabel}
+      id={id}
     />
   );
 }
@@ -62,6 +51,7 @@ Todo.propTypes = {
   dueDate: object,
   completed: bool.isRequired,
   todoLabel: string.isRequired,
+  id: string.isRequired,
 };
 
 Todo.defaultProps = {

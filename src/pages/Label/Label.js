@@ -33,6 +33,7 @@ function Label(props) {
                   completed={todo.completed}
                   key={todo.id}
                   todoLabel={todo.name}
+                  id={todo.id}
                 />
               ))}
           </ul>
@@ -54,6 +55,7 @@ function Label(props) {
                 completed={todo.completed}
                 key={todo.id}
                 todoLabel={todo.name}
+                id={todo.id}
               />
             ))}
         </ul>
