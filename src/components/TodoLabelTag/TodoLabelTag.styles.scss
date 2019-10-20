@@ -1,0 +1,29 @@
+@use "../../styles/tokens";
+@use "../../styles/base/placeholders";
+
+.Todo__Label__Tag {
+  display: flex;
+  align-items: center;
+  font-size: tokens.$font-size-body-s;
+  line-height: tokens.$font-line-height-body-s;
+
+  margin-right: tokens.$spacing-c-05;
+  margin-top: tokens.$spacing-c-02;
+  margin-bottom: tokens.$spacing-c-02;
+  padding-right: tokens.$spacing-c-02;
+  padding-left: tokens.$spacing-c-01;
+
+  @include tokens.media-min(xxl) {
+    margin-right: tokens.$spacing-c-07;
+  }
+
+  @extend %Todo__Form__Meta;
+}
+
+.Todo__Label__Tag__Icon {
+  width: tokens.$size-icon-m;
+  height: tokens.$size-icon-m;
+
+  margin: 0;
+  margin-right: tokens.$spacing-c-02;
+}

@@ -5,23 +5,10 @@ import { useDispatch } from "react-redux";
 
 import "./TodoItem.styles.scss";
 
-import { formatTodoDueDate, isPastDate } from "../../utils/dates";
 import { toggleTodoCompleted } from "../../redux/todos/todos-actions";
-
-export function renderTodoDueDate(dueDate, setIsEditingTodo) {
-  return isPastDate(dueDate) ? (
-    <button
-      className="Todo__DueDate Todo__DueDate--Overdue"
-      onClick={() => setIsEditingTodo(true)}
-    >
-      {formatTodoDueDate(dueDate)}
-    </button>
-  ) : (
-    <button className="Todo__DueDate" onClick={() => setIsEditingTodo(true)}>
-      {formatTodoDueDate(dueDate)}
-    </button>
-  );
-}
+import TodoProjectTag from "../TodoProjectTag/TodoProjectTag";
+import TodoLabelTag from "../TodoLabelTag/TodoLabelTag";
+import TodoDueDate from "../TodoDueDate/TodoDueDate";
 
 function Todo(props) {
   const {
@@ -39,10 +26,14 @@ function Todo(props) {
     [`Todo__Button--Completed`]: completed ? true : false,
   });
 
+  const todoItemClassnames = classnames({
+    Todo__Item: true,
+  });
+
   const dispatch = useDispatch();
 
   return (
-    <li className="Todo__Item">
+    <li className={todoItemClassnames}>
       <button
         className={todoButtonClassnames}
         onClick={() => dispatch(toggleTodoCompleted(id))}
@@ -61,15 +52,13 @@ function Todo(props) {
             {todoLabel}
           </button>
           {project && (
-            <button
-              className="Todo__Project"
+            <TodoProjectTag
+              buttonAdditionalClasses="Todo__Item__Project"
+              projectName={project.name}
+              projectColorValue={project.colorValue}
+              iconSide="right"
               onClick={() => setIsEditingTodo(true)}
-            >
-              {project.name}
-              <svg className="Todo__Project__Icon" fill={project.colorValue}>
-                <use xlinkHref="#color" />
-              </svg>
-            </button>
+            />
           )}
         </div>
         {(labels || dueDate) && (
@@ -77,18 +66,19 @@ function Todo(props) {
             <div className="Todo__Status__Row">
               {labels &&
                 labels.map((label) => (
-                  <button
-                    className="Todo__Label"
+                  <TodoLabelTag
                     key={label.labelID}
+                    labelName={label.name}
+                    labelColorValue={label.colorValue}
                     onClick={() => setIsEditingTodo(true)}
-                  >
-                    <svg className="Todo__Label__Icon" fill={label.colorValue}>
-                      <use xlinkHref="#tag" />
-                    </svg>
-                    {label.name}
-                  </button>
+                  />
                 ))}
-              {dueDate && renderTodoDueDate(dueDate, setIsEditingTodo)}
+              {dueDate && (
+                <TodoDueDate
+                  dueDate={dueDate}
+                  onClick={() => setIsEditingTodo(true)}
+                />
+              )}
             </div>
           </>
         )}

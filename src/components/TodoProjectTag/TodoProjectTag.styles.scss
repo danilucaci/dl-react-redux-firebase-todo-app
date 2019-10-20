@@ -1,0 +1,24 @@
+@use "../../styles/tokens";
+@use "../../styles/base/placeholders";
+
+.Todo__Project__Tag {
+  display: flex;
+  align-items: center;
+  padding-right: tokens.$spacing-c-02;
+  @extend %Todo__Form__Meta;
+}
+
+.Todo__Project__Tag__Icon {
+  width: tokens.$size-icon-m;
+  height: tokens.$size-icon-m;
+
+  &__LeftSide {
+    margin: 0;
+    margin-right: tokens.$spacing-c-02;
+  }
+
+  &__RightSide {
+    margin: 0;
+    margin-left: tokens.$spacing-c-02;
+  }
+}

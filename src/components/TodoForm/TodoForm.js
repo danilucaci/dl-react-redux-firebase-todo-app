@@ -3,87 +3,39 @@ import { arrayOf, object, shape, string, bool, func } from "prop-types";
 
 import "./TodoForm.styles.scss";
 
-import { formatTodoFormDueDate, isPastDate } from "../../utils/dates";
 import TextButton from "../TextButton/TextButton";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
+import TodoProjectTag from "../TodoProjectTag/TodoProjectTag";
+import TodoLabelTag from "../TodoLabelTag/TodoLabelTag";
+import TodoDueDate from "../TodoDueDate/TodoDueDate";
 import useKeyUpPress from "../../hooks/useKeyUpPress";
 import useFocusRef from "../../hooks/useFocusRef";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
 
-export function renderDueDateOrSchedule(dueDate) {
-  return dueDate ? (
-    renderTodoFormDueDateFormat(dueDate)
-  ) : (
-    <button
-      className="Todo__Form__DueDate"
-      onClick={(e) => e.preventDefault()}
-      type="button"
-    >
-      Schedule
-    </button>
-  );
-}
-
-export function renderTodoFormDueDateFormat(dueDate) {
-  return isPastDate(dueDate) ? (
-    <button
-      className="Todo__Form__DueDate Todo__Form__DueDate--Overdue"
-      onClick={(e) => e.preventDefault()}
-      type="button"
-    >
-      {formatTodoFormDueDate(dueDate)}
-    </button>
-  ) : (
-    <button
-      className="Todo__Form__DueDate"
-      onClick={(e) => e.preventDefault()}
-      type="button"
-    >
-      {formatTodoFormDueDate(dueDate)}
-    </button>
-  );
-}
-
 export function renderTodoFormLabels(labels) {
   if (!Boolean(labels) || !Array.isArray(labels) || labels.length === 0) {
     return (
-      <button
-        className="Todo__Form__Label"
+      <TodoLabelTag
+        labelName="Add Label"
+        labelColorValue="#81878f"
         onClick={(e) => e.preventDefault()}
-        type="button"
-      >
-        <svg className="Todo__Form__Label__Icon" fill="#81878f">
-          <use xlinkHref="#tag" />
-        </svg>
-        Add Label
-      </button>
+      />
     );
   } else if (Array.isArray(labels) && labels.length === 1) {
     return (
-      <button
-        className="Todo__Form__Label"
-        key={labels[0].labelID}
+      <TodoLabelTag
+        labelName={labels[0].name}
+        labelColorValue={labels[0].colorValue}
         onClick={(e) => e.preventDefault()}
-        type="button"
-      >
-        <svg className="Todo__Form__Label__Icon" fill={labels[0].colorValue}>
-          <use xlinkHref="#tag" />
-        </svg>
-        {labels[0].name}
-      </button>
+      />
     );
   } else if (Array.isArray(labels) && labels.length > 1) {
     return (
-      <button
-        className="Todo__Form__Label"
+      <TodoLabelTag
+        labelName={`${labels.length} labels`}
+        labelColorValue="#81878f"
         onClick={(e) => e.preventDefault()}
-        type="button"
-      >
-        <svg className="Todo__Form__Label__Icon" fill="#81878f">
-          <use xlinkHref="#tag" />
-        </svg>
-        {labels.length} labels
-      </button>
+      />
     );
   } else {
     return null;
@@ -150,24 +102,22 @@ function TodoForm(props) {
         <div className="Todo__Form__ButtonsContainer">
           <div className="Todo__Form__MetaRow">
             {project && (
-              <button
-                className="Todo__Form__Project"
+              <TodoProjectTag
+                buttonAdditionalClasses="Todo__Form__Project"
+                projectName={project.name}
+                projectColorValue={project.colorValue}
+                iconSide="left"
                 onClick={(e) => e.preventDefault()}
-                type="button"
-              >
-                <svg
-                  className="Todo__Form__Project__Icon"
-                  fill={project.colorValue}
-                >
-                  <use xlinkHref="#color" />
-                </svg>
-                {project.name}
-              </button>
+              />
             )}
 
             {renderTodoFormLabels(labels)}
 
-            {renderDueDateOrSchedule(dueDate)}
+            <TodoDueDate
+              dueDate={dueDate}
+              additionalClasses="Todo__Form__DueDate"
+              onClick={(e) => e.preventDefault()}
+            />
           </div>
 
           <div className="Todo__Form__ButtonsRow">

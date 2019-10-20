@@ -9,14 +9,6 @@ import {
   formatRelative,
 } from "date-fns";
 
-export function getDateTodoFormat(date) {
-  if (isToday(date) || isTomorrow(date)) {
-    return formatRelative(date, new Date(), { weekStartsOn: 1 });
-  }
-
-  return format(date, "EEE dd MMM kk:mm", { weekStartsOn: 1 });
-}
-
 export function getNthDate(date, dateCount = 0) {
   const dateAdded = addDays(new Date(), dateCount);
 
@@ -24,11 +16,11 @@ export function getNthDate(date, dateCount = 0) {
 }
 
 export function formatTodoDueDate(date) {
-  return getDateTodoFormat(date);
-}
+  if (isToday(date) || isTomorrow(date)) {
+    return formatRelative(date, new Date(), { weekStartsOn: 1 });
+  }
 
-export function formatTodoFormDueDate(date) {
-  return getDateTodoFormat(date);
+  return format(date, "EEE dd MMM kk:mm", { weekStartsOn: 1 });
 }
 
 export function formatTodaySectionDate() {
