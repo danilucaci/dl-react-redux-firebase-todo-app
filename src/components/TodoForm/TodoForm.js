@@ -7,10 +7,8 @@ import TextButton from "../TextButton/TextButton";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
 import TodoProjectTag from "../TodoProjectTag/TodoProjectTag";
 import TodoLabelTag from "../TodoLabelTag/TodoLabelTag";
+import { useKeyUpPress, useOnClickOutside, useFocusRef } from "../../hooks";
 import TodoDueDate from "../TodoDueDate/TodoDueDate";
-import useKeyUpPress from "../../hooks/useKeyUpPress";
-import useFocusRef from "../../hooks/useFocusRef";
-import useOnClickOutside from "../../hooks/useOnClickOutside";
 
 export function renderTodoFormLabels(labels) {
   if (!Boolean(labels) || !Array.isArray(labels) || labels.length === 0) {
