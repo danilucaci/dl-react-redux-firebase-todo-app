@@ -23,12 +23,13 @@ function TodoDueDate({ dueDate, additionalClasses, ...props }) {
 }
 
 TodoDueDate.propTypes = {
-  dueDate: object.isRequired,
+  dueDate: object,
   additionalClasses: string,
 };
 
 TodoDueDate.defaultProps = {
   additionalClasses: null,
+  dueDate: null,
 };
 
 export default TodoDueDate;

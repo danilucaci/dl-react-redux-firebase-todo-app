@@ -64,15 +64,12 @@ function Todo(props) {
         {(labels || dueDate) && (
           <>
             <div className="Todo__Status__Row">
-              {labels &&
-                labels.map((label) => (
-                  <TodoLabelTag
-                    key={label.labelID}
-                    labelName={label.name}
-                    labelColorValue={label.colorValue}
-                    onClick={() => setIsEditingTodo(true)}
-                  />
-                ))}
+              {labels && (
+                <TodoLabelTag
+                  labels={labels}
+                  onClick={() => setIsEditingTodo(true)}
+                />
+              )}
               {dueDate && (
                 <TodoDueDate
                   dueDate={dueDate}

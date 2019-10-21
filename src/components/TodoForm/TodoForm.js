@@ -10,36 +10,6 @@ import TodoLabelTag from "../TodoLabelTag/TodoLabelTag";
 import { useKeyUpPress, useOnClickOutside, useFocusRef } from "../../hooks";
 import TodoDueDate from "../TodoDueDate/TodoDueDate";
 
-export function renderTodoFormLabels(labels) {
-  if (!Boolean(labels) || !Array.isArray(labels) || labels.length === 0) {
-    return (
-      <TodoLabelTag
-        labelName="Add Label"
-        labelColorValue="#81878f"
-        onClick={(e) => e.preventDefault()}
-      />
-    );
-  } else if (Array.isArray(labels) && labels.length === 1) {
-    return (
-      <TodoLabelTag
-        labelName={labels[0].name}
-        labelColorValue={labels[0].colorValue}
-        onClick={(e) => e.preventDefault()}
-      />
-    );
-  } else if (Array.isArray(labels) && labels.length > 1) {
-    return (
-      <TodoLabelTag
-        labelName={`${labels.length} labels`}
-        labelColorValue="#81878f"
-        onClick={(e) => e.preventDefault()}
-      />
-    );
-  } else {
-    return null;
-  }
-}
-
 function TodoForm(props) {
   const {
     labels,
@@ -48,7 +18,6 @@ function TodoForm(props) {
     todoLabel,
     isEditingTodo,
     setIsEditingTodo,
-    // id,
   } = props;
 
   const [todoValue, setTodoValue] = useState(todoLabel || "");
@@ -109,7 +78,11 @@ function TodoForm(props) {
               />
             )}
 
-            {renderTodoFormLabels(labels)}
+            <TodoLabelTag
+              condensed
+              labels={labels}
+              onClick={(e) => e.preventDefault()}
+            />
 
             <TodoDueDate
               dueDate={dueDate}
