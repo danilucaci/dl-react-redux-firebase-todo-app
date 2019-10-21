@@ -2,7 +2,7 @@
 @use "../../styles/base/placeholders";
 
 .Todo__Item {
-  @extend %divider--on-white;
+  @extend %bottom-divider--on-white;
 
   display: flex;
   list-style-type: none;

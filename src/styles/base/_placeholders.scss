@@ -98,11 +98,11 @@
   }
 }
 
-%divider--on-white {
+%bottom-divider--on-white {
   border-bottom: tokens.$size-divider-s solid tokens.$color-divider-on-white;
 }
 
-%divider--on-grey {
+%bottom-divider--on-grey {
   border-bottom: tokens.$size-divider-s solid tokens.$color-divider-on-grey;
 }
 

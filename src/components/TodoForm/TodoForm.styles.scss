@@ -2,7 +2,7 @@
 @use "../../styles/base/placeholders";
 
 .Todo__Form {
-  @extend %divider--on-white;
+  @extend %bottom-divider--on-white;
 
   list-style-type: none;
 

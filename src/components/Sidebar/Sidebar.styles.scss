@@ -221,7 +221,7 @@
 .Sidebar__Section__Title {
   display: flex;
   padding-bottom: tokens.$spacing-c-04;
-  @extend %divider--on-white;
+  @extend %bottom-divider--on-white;
 
   margin: {
     left: -#{tokens.$grid-gutter-s};
