@@ -11,3 +11,11 @@ export const toggleMenuIsTransitioning = () => ({
 export const closeMenu = () => ({
   type: LocalStateTypes.CLOSE_MENU,
 });
+
+export const openAddTodoModal = () => ({
+  type: LocalStateTypes.OPEN_ADD_TODO_MODAL,
+});
+
+export const closeAddTodoModal = () => ({
+  type: LocalStateTypes.CLOSE_ADD_TODO_MODAL,
+});

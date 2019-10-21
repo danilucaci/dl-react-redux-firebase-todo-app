@@ -106,6 +106,14 @@
   border-bottom: tokens.$size-divider-s solid tokens.$color-divider-on-grey;
 }
 
+%top-divider--on-white {
+  border-top: tokens.$size-divider-s solid tokens.$color-divider-on-white;
+}
+
+%top-divider--on-grey {
+  border-top: tokens.$size-divider-s solid tokens.$color-divider-on-grey;
+}
+
 %bg-debug {
   * {
     background-color: rgba(255, 0, 0, 0.2);

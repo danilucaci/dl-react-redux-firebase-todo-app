@@ -11,6 +11,9 @@ export const selectProjects = (state) =>
 export const selectProjectTodos = (state, projectID) =>
   state.todos.todos.filter((todo) => todo.project.projectID === projectID);
 
+export const selectInboxProject = (state) =>
+  state.projects.projects.filter((project) => project.name === "Inbox");
+
 export const projectsSelector = createSelector(
   [selectProjects],
   (projects) => projects,
@@ -18,6 +21,11 @@ export const projectsSelector = createSelector(
 
 export const projectSelector = createSelector(
   [selectProject],
+  (project) => project[0],
+);
+
+export const inboxProjectSelector = createSelector(
+  [selectInboxProject],
   (project) => project[0],
 );
 

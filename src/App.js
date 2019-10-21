@@ -19,26 +19,26 @@ import Project from "./pages/Project/Project";
 import Projects from "./pages/Projects/Projects";
 import Label from "./pages/Label/Label";
 import Labels from "./pages/Labels/Labels";
+import AddTodoModal from "./components/AddTodoModal/AddTodoModal";
 
 import { projectsSelector } from "./redux/projects/projects-selectors";
 import { labelsSelector } from "./redux/labels/labels-selectors";
 import { currentUserSelector } from "./redux/user/user-selectors";
-// import useEventListener from "./hooks/useEventListener";
+import { modalsSelector } from "./redux/localState/localState-selectors";
 
 function App(props) {
   const appClasses = classnames({
     App: true,
   });
 
-  // useEventListener("focusin", (e) => {
-  //   console.log(e.target);
-  // });
-
   const {
     labels,
     projects,
     // currentUser
+    modalsState,
   } = props;
+
+  const { addTodoModalActive } = modalsState;
 
   return (
     <div className={appClasses}>
@@ -82,6 +82,7 @@ function App(props) {
           <NotFound />
         </Route>
       </Switch>
+      {addTodoModalActive && <AddTodoModal />}
     </div>
   );
 }
@@ -90,6 +91,7 @@ export const mapStateToProps = (state) => ({
   projects: projectsSelector(state),
   labels: labelsSelector(state),
   currentUser: currentUserSelector(state),
+  modalsState: modalsSelector(state),
 });
 
 export default connect(mapStateToProps)(App);

@@ -5,6 +5,9 @@ const INITIAL_STATE = {
     menuOpen: false,
     isTransitioning: false,
   },
+  modals: {
+    addTodoModalActive: true,
+  },
 };
 
 const localStateReducer = (state = INITIAL_STATE, action) => {
@@ -33,6 +36,24 @@ const localStateReducer = (state = INITIAL_STATE, action) => {
         menu: {
           menuOpen: false,
           isTransitioning: false,
+        },
+      };
+    }
+    case LocalStateTypes.OPEN_ADD_TODO_MODAL: {
+      return {
+        ...state,
+        modals: {
+          ...state.modals,
+          addTodoModalActive: true,
+        },
+      };
+    }
+    case LocalStateTypes.CLOSE_ADD_TODO_MODAL: {
+      return {
+        ...state,
+        modals: {
+          ...state.modals,
+          addTodoModalActive: false,
         },
       };
     }

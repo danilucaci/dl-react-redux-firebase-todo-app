@@ -6,7 +6,10 @@ import Logo from "../Logo/Logo";
 import IconButton from "../IconButton/IconButton";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
 import SearchBar from "../SearchBar/SearchBar";
-import { toggleMenu } from "../../redux/localState/localState-actions";
+import {
+  toggleMenu,
+  openAddTodoModal,
+} from "../../redux/localState/localState-actions";
 
 function Header() {
   const dispatch = useDispatch();
@@ -24,25 +27,26 @@ function Header() {
           <div className="Buttons">
             <PrimaryButton
               icon="add-24"
-              additionalClasses="AddTodoDesktop PrimaryButton--Medium"
+              additionalClasses="PrimaryButton--Medium AddTodoDesktop"
+              onClick={() => dispatch(openAddTodoModal())}
             >
               New todo
             </PrimaryButton>
             <IconButton
               icon="add-24"
-              additionalClasses="AddTodoMobile IconButton--Medium"
+              additionalClasses="IconButton--Medium AddTodoMobile"
               ariaText="Add a new todo"
-              onClick={() => console.log("Adding todo...")}
+              onClick={() => dispatch(openAddTodoModal())}
             />
             <IconButton
               icon="search-24"
-              additionalClasses="SearchButton IconButton--Medium"
+              additionalClasses="IconButton--Medium SearchButton"
               ariaText="Search todos"
               onClick={() => console.log("Searching...")}
             />
             <IconButton
               icon="menu"
-              additionalClasses="Menu IconButton--Medium"
+              additionalClasses="IconButton--Medium Menu"
               ariaText="Open menu"
               onClick={() => dispatch(toggleMenu())}
             />

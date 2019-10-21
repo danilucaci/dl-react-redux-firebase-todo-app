@@ -1,0 +1,115 @@
+@use "../../styles/tokens";
+@use "../../styles/base/placeholders";
+
+.Modal {
+  // @extend %bg-debug;
+  overflow-x: auto;
+
+  &__Overlay {
+    overflow-x: auto;
+    background-color: tokens.$color-background-modal-overlay;
+    z-index: tokens.$z-index-overlay;
+    position: fixed;
+    margin: auto;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  &__Inner {
+    background-color: tokens.$color-background-modal-inner;
+    border-radius: tokens.$border-radius-components-default;
+    box-shadow: tokens.$shadow-modal-background;
+
+    width: 100%;
+    max-width: tokens.$size-modal-xl;
+
+    padding: tokens.$spacing-c-05;
+    margin: {
+      top: tokens.$spacing-modal-top-s;
+      right: tokens.$spacing-c-05;
+      bottom: tokens.$spacing-c-05;
+      left: tokens.$spacing-c-05;
+    }
+
+    @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+      padding: tokens.$spacing-c-07;
+      margin: {
+        top: tokens.$spacing-modal-top-xl;
+        right: tokens.$spacing-c-05;
+        bottom: tokens.$spacing-c-05;
+        left: tokens.$spacing-c-05;
+      }
+    }
+  }
+
+  &__TitleRow {
+    display: flex;
+    align-items: center;
+    margin-bottom: tokens.$spacing-c-07;
+  }
+
+  &__Title {
+    color: tokens.$color-text-display-default;
+
+    font-size: tokens.$font-size-mobile-display-xs;
+    line-height: tokens.$font-line-height-mobile-display-xs;
+    font-family: tokens.$font-family-display;
+    font-weight: 700;
+    font-style: normal;
+
+    margin: 0;
+
+    @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+      font-size: tokens.$font-size-desktop-display-xs;
+      line-height: tokens.$font-line-height-desktop-display-xs;
+    }
+  }
+
+  &__CloseButton {
+    margin-left: auto;
+  }
+
+  &__MetaRow {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: tokens.$spacing-c-05;
+
+    @include tokens.media-min(xxl) {
+      margin-top: tokens.$spacing-c-04;
+    }
+  }
+
+  &__Project {
+    margin-right: tokens.$spacing-c-05;
+    margin-top: tokens.$spacing-c-02;
+    margin-bottom: tokens.$spacing-c-02;
+
+    @include tokens.media-min(xxl) {
+      margin-right: tokens.$spacing-c-07;
+    }
+  }
+
+  &__DueDate {
+    @include tokens.media-min(xs) {
+      margin-left: auto;
+    }
+  }
+
+  &__CTARow {
+    display: flex;
+    justify-content: flex-end;
+    @extend %top-divider--on-white;
+    padding-top: tokens.$spacing-c-05;
+    margin-top: tokens.$spacing-c-07;
+  }
+
+  &__CancelBtn {
+    margin-right: tokens.$spacing-c-05;
+    display: inline-block;
+  }
+}
