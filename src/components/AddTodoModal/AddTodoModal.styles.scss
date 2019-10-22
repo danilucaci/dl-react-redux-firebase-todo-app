@@ -77,21 +77,13 @@
   &__MetaRow {
     display: flex;
     flex-wrap: wrap;
-    margin-top: tokens.$spacing-c-05;
-
-    @include tokens.media-min(xxl) {
-      margin-top: tokens.$spacing-c-04;
-    }
+    margin-top: tokens.$spacing-c-04;
   }
 
   &__Project {
-    margin-right: tokens.$spacing-c-05;
+    margin-right: tokens.$spacing-c-07;
     margin-top: tokens.$spacing-c-02;
     margin-bottom: tokens.$spacing-c-02;
-
-    @include tokens.media-min(xxl) {
-      margin-right: tokens.$spacing-c-07;
-    }
   }
 
   &__DueDate {

@@ -7,15 +7,11 @@
   font-size: tokens.$font-size-body-s;
   line-height: tokens.$font-line-height-body-s;
 
-  margin-right: tokens.$spacing-c-05;
+  margin-right: tokens.$spacing-c-07;
   margin-top: tokens.$spacing-c-02;
   margin-bottom: tokens.$spacing-c-02;
   padding-right: tokens.$spacing-c-02;
   padding-left: tokens.$spacing-c-01;
-
-  @include tokens.media-min(xxl) {
-    margin-right: tokens.$spacing-c-07;
-  }
 
   @extend %Todo__Form__Meta;
 }
