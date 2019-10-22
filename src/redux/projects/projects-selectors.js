@@ -5,6 +5,8 @@ import { isPastDate, isFutureDate } from "../../utils/dates";
 export const selectProject = (state, projectID) =>
   state.projects.projects.filter((project) => project.id === projectID);
 
+export const selectAllProjects = (state) => state.projects.projects;
+
 export const selectProjects = (state) =>
   state.projects.projects.filter((project) => project.name !== "Inbox");
 
@@ -13,6 +15,11 @@ export const selectProjectTodos = (state, projectID) =>
 
 export const selectInboxProject = (state) =>
   state.projects.projects.filter((project) => project.name === "Inbox");
+
+export const allProjectsSelector = createSelector(
+  [selectAllProjects],
+  (projects) => projects,
+);
 
 export const projectsSelector = createSelector(
   [selectProjects],

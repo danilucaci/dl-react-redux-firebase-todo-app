@@ -6,9 +6,15 @@ export const updateTodos = ({ todos }) => ({
 });
 
 export const toggleTodoCompleted = (todoID) => {
-  console.log(todoID);
   return {
     type: TodosTypes.TOGGLE_TODO_COMPLETED,
     payload: todoID,
+  };
+};
+
+export const addTodo = (todo) => {
+  return {
+    type: TodosTypes.ADD_TODO,
+    payload: todo,
   };
 };

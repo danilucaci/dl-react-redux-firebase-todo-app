@@ -216,6 +216,12 @@ const todosReducer = (state = INITIAL_STATE, action) => {
         }),
       };
     }
+    case TodosTypes.ADD_TODO: {
+      return {
+        ...state,
+        todos: [...state.todos, action.payload],
+      };
+    }
     default:
       return state;
   }

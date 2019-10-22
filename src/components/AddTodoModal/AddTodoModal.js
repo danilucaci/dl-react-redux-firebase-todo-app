@@ -1,5 +1,6 @@
-import React, { useRef, useEffect, useState } from "react";
-import { connect, useDispatch } from "react-redux";
+import React, { useRef, useEffect, useReducer } from "react";
+import { connect } from "react-redux";
+import uuid from "uuid";
 
 import "./AddTodoModal.styles.scss";
 
@@ -17,35 +18,65 @@ import Input from "../Input/Input";
 import TodoProjectTag from "../TodoProjectTag/TodoProjectTag";
 import TodoLabelTag from "../TodoLabelTag/TodoLabelTag";
 import TodoDueDate from "../TodoDueDate/TodoDueDate";
+import ProjectsDropdown from "../ProjectsDropdown/ProjectsDropdown";
+import LabelsDropdown from "../LabelsDropdown/LabelsDropdown";
 import { closeAddTodoModal } from "../../redux/localState/localState-actions";
+import { inboxProjectSelector } from "../../redux/projects/projects-selectors";
+import { addTodo } from "../../redux/todos/todos-actions";
+
 import {
-  inboxProjectSelector,
-  projectsSelector,
-} from "../../redux/projects/projects-selectors";
-import { labelsSelector } from "../../redux/labels/labels-selectors";
+  addTodoReducerState,
+  addTodoReducer,
+  setTodoNameAction,
+  toggleShowProjectsAction,
+  closeShowProjectsAction,
+  setSelectedProjectAction,
+  setInitialSelectedProjectAction,
+  toggleShowLabelsAction,
+  closeShowLabelsAction,
+  setSelectedLabelAction,
+  toggleShowDatesAction,
+  // closeShowDatesAction,
+  // setSelectedDatesAction,
+} from "./AddTodoLocalReducer";
 
 function Modal({
   ctaLabel = "Add todo",
   modalTitle = "Add a new todo",
   inboxProject,
-  projects,
-  labels,
+  closeModal,
+  addTodo,
 }) {
   const modalRef = useRef(null);
   const inputRef = useRef(null);
 
-  const [todoName, setTodoName] = useState("");
-  const [selectedProject, setSelectedProject] = useState(inboxProject);
-  const [selectedLabels, setSelectedLabels] = useState(null);
-  const [selectedDueDate, setSelectedDueDate] = useState(null);
+  const [state, dispatch] = useReducer(addTodoReducer, addTodoReducerState);
 
-  const dispatch = useDispatch();
+  const {
+    showProjects,
+    initialSelectedProjectSet,
+    showLabels,
+    showDates,
+    todo,
+  } = state;
 
-  const closeModal = () => dispatch(closeAddTodoModal());
+  const setTodoName = (todoName) => dispatch(setTodoNameAction(todoName));
+  const toggleShowProjects = () => dispatch(toggleShowProjectsAction());
+  const closeShowProjects = () => dispatch(closeShowProjectsAction());
 
-  useOnClickOutside(modalRef, closeModal);
-  useDisableModalBackground(modalRef);
-  useKeyUpPress("Escape", closeModal);
+  const setSelectedProject = (project) =>
+    dispatch(setSelectedProjectAction(project));
+
+  const setInitialSelectedProject = (project) =>
+    dispatch(setInitialSelectedProjectAction(project));
+
+  const toggleShowLabels = () => dispatch(toggleShowLabelsAction());
+  const closeShowLabels = () => dispatch(closeShowLabelsAction());
+  const setSelectedLabel = (labels) => dispatch(setSelectedLabelAction(labels));
+
+  const toggleShowDates = () => dispatch(toggleShowDatesAction());
+  // const closeShowDates = () => dispatch(closeShowDatesAction());
+  // const setSelectedDates = (dates) => dispatch(setSelectedDatesAction(dates));
 
   useEffect(() => {
     if (inputRef.current) {
@@ -53,8 +84,47 @@ function Modal({
     }
   }, []);
 
+  useEffect(() => {
+    if (!initialSelectedProjectSet) {
+      setInitialSelectedProject(inboxProject);
+    }
+  }, [inboxProject, initialSelectedProjectSet]);
+
+  useOnClickOutside(modalRef, clickOutsideHandler);
+  useDisableModalBackground(modalRef);
+  useKeyUpPress("Escape", escapeKeyHandler);
+
+  function escapeKeyHandler() {
+    if (showLabels) {
+      closeShowLabels();
+    } else if (showProjects) {
+      closeShowProjects();
+    } else {
+      closeModal();
+    }
+  }
+
+  function clickOutsideHandler() {
+    if (showLabels) {
+      closeShowLabels();
+    } else if (showProjects) {
+      closeShowProjects();
+    } else {
+      closeModal();
+    }
+  }
+
   function handleFormSubmit(e) {
     e.preventDefault();
+
+    const newTodo = {
+      id: uuid.v4(),
+      uid: uuid.v4(),
+      ...state.todo,
+    };
+
+    addTodo(newTodo);
+    closeModal();
   }
 
   return (
@@ -78,31 +148,48 @@ function Modal({
           >
             <Input
               onChange={(e) => setTodoName(e.target.value)}
-              value={todoName}
+              value={todo.name}
               placeholder="Todo name"
               ref={inputRef}
             />
             <div className="Modal__MetaRow">
-              {selectedProject ? (
+              {todo.project ? (
                 <TodoProjectTag
                   buttonAdditionalClasses="Modal__Project"
-                  projectName={selectedProject.name}
-                  projectColorValue={selectedProject.color.colorValue}
+                  projectName={todo.project.name}
+                  projectColorValue={todo.project.colorValue}
                   iconSide="left"
-                  onClick={(e) => e.preventDefault()}
+                  onClick={() => toggleShowProjects()}
                 />
               ) : null}
 
+              {showProjects && (
+                <ProjectsDropdown
+                  onChangeHandler={setSelectedProject}
+                  escapeKeyHandler={escapeKeyHandler}
+                  clickOutsideHandler={clickOutsideHandler}
+                />
+              )}
+
+              {showLabels && (
+                <LabelsDropdown
+                  onChangeHandler={setSelectedLabel}
+                  escapeKeyHandler={escapeKeyHandler}
+                  clickOutsideHandler={clickOutsideHandler}
+                />
+              )}
+
               <TodoLabelTag
-                labels={selectedLabels}
-                onClick={(e) => e.preventDefault()}
+                labels={todo.labels}
+                onClick={() => toggleShowLabels()}
               />
 
               <TodoDueDate
-                dueDate={selectedDueDate}
+                dueDate={todo.dueDate}
                 additionalClasses="Modal__DueDate"
-                onClick={(e) => e.preventDefault()}
+                onClick={() => toggleShowDates()}
               />
+              {showDates && "TODO"}
             </div>
             <div className="Modal__CTARow">
               <TextButton
@@ -115,7 +202,7 @@ function Modal({
               <PrimaryButton
                 additionalClasses="PrimaryButton--Medium"
                 type="submit"
-                onClick={() => console.log("Submitted with Primary Button")}
+                disabled={!todo.name.length}
               >
                 {ctaLabel}
               </PrimaryButton>
@@ -129,8 +216,14 @@ function Modal({
 
 export const mapStateToProps = (state) => ({
   inboxProject: inboxProjectSelector(state),
-  projects: projectsSelector(state),
-  labels: labelsSelector(state),
 });
 
-export default connect(mapStateToProps)(Modal);
+export const mapDispatchToProps = (dispatch) => ({
+  closeModal: () => dispatch(closeAddTodoModal()),
+  addTodo: (todo) => dispatch(addTodo(todo)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Modal);
