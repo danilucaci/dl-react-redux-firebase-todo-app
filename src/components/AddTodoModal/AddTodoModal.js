@@ -11,6 +11,7 @@ import {
   useOnClickOutside,
   useDisableModalBackground,
   useKeyUpPress,
+  useLogger,
 } from "../../hooks";
 
 import Portal from "../Portal/Portal";
@@ -49,8 +50,12 @@ function Modal({
 }) {
   const modalRef = useRef(null);
   const inputRef = useRef(null);
+  const projectsTagRef = useRef(null);
+  const labelsTagRef = useRef(null);
 
-  const [state, dispatch] = useReducer(addTodoReducer, addTodoReducerState);
+  const [state, dispatch] = useLogger(
+    useReducer(addTodoReducer, addTodoReducerState),
+  );
 
   const {
     showProjects,
