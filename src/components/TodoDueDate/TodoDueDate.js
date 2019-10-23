@@ -2,12 +2,28 @@ import React from "react";
 import { string, object } from "prop-types";
 import classNames from "classnames";
 
+import "react-day-picker/lib/style.css";
+import "./DateInputPicker.styles.scss";
 import "./TodoDueDate.styles.scss";
-import { getClassesFromProps } from "../../utils/helpers";
-import { formatTodoDueDate, isPastDate } from "../../utils/dates";
 
-function TodoDueDate({ dueDate, additionalClasses, ...props }) {
+import { formatTodoDueDate } from "../../utils/dates";
+
+import { getClassesFromProps } from "../../utils/helpers";
+import { isPastDate } from "../../utils/dates";
+import DatePicker from "../DatePicker/DatePicker";
+import { useRectSize } from "../../hooks";
+
+function TodoDueDate({
+  dueDate,
+  additionalClasses,
+  isVisible,
+  onChangeHandler,
+  onCloseHandler,
+  ...props
+}) {
   const addedClasses = getClassesFromProps(additionalClasses);
+
+  const [dateButtonRef, dateButtonSize] = useRectSize();
 
   const dueDateClassNames = classNames({
     Todo__DueDate: true,
@@ -16,9 +32,29 @@ function TodoDueDate({ dueDate, additionalClasses, ...props }) {
   });
 
   return (
-    <button className={dueDateClassNames} type="button" {...props}>
-      {dueDate ? formatTodoDueDate(dueDate) : "Schedule"}
-    </button>
+    <>
+      <button
+        className={dueDateClassNames}
+        type="button"
+        ref={dateButtonRef}
+        {...props}
+      >
+        {dueDate ? formatTodoDueDate(dueDate) : "Schedule"}
+      </button>
+      {isVisible && (
+        <DatePicker
+          dueDate={dueDate}
+          onChangeHandler={onChangeHandler}
+          onCloseHandler={onCloseHandler}
+          position={{
+            left: dateButtonSize.left + window.scrollX || 0,
+            right: dateButtonSize.right + window.scrollX || 0,
+            top:
+              dateButtonSize.top + window.scrollY + dateButtonSize.height || 0,
+          }}
+        />
+      )}
+    </>
   );
 }
 

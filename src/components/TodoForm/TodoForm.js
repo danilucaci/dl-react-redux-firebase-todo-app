@@ -25,8 +25,8 @@ function TodoForm(props) {
   const [selectedProject, setSelectedProject] = useState(project);
   const [showLabels, setShowLabels] = useState(false);
   const [selectedLabels, setSelectedLabels] = useState(labels);
-
-  console.log(selectedLabels);
+  const [showDate, setShowDate] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(dueDate);
 
   const inputRef = useRef();
   const todoWrapperRef = useRef();
@@ -40,24 +40,42 @@ function TodoForm(props) {
       setShowLabels(false);
       return;
     }
+    if (showDate) {
+      return;
+    }
+
+    toggleIsEditing();
+  }
+
+  function escapeKeyHandler() {
+    if (showProjects) {
+      setShowProjects(false);
+      return;
+    }
+    if (showLabels) {
+      setShowLabels(false);
+      return;
+    }
+    if (showDate) {
+      setShowDate(false);
+      return;
+    }
+
     toggleIsEditing();
   }
 
   useOnClickOutside(todoWrapperRef, handleClickOutside);
   useFocusRef(inputRef);
-
-  useKeyUpPress("Escape", toggleIsEditing);
+  useKeyUpPress("Escape", escapeKeyHandler);
 
   function handleFormSubmit(e) {
     e.preventDefault();
     toggleIsEditing();
-    console.log(e.target);
   }
 
   function handleCancelEdit(e) {
     e.preventDefault();
     toggleIsEditing();
-    console.log(e.target);
   }
 
   function toggleIsEditing() {
@@ -119,9 +137,18 @@ function TodoForm(props) {
             />
 
             <TodoDueDate
-              dueDate={dueDate}
+              dueDate={selectedDate}
               additionalClasses="Todo__Form__DueDate"
-              onClick={(e) => e.preventDefault()}
+              isVisible={showDate}
+              onChangeHandler={setSelectedDate}
+              onCloseHandler={() => {
+                setShowDate(false);
+              }}
+              onClick={() => {
+                if (!showDate) {
+                  setShowDate(true);
+                }
+              }}
             />
           </div>
 

@@ -51,6 +51,7 @@ function Todo(props) {
           >
             {todoLabel}
           </button>
+
           {project && (
             <TodoProjectTag
               buttonAdditionalClasses="Todo__Item__Project"

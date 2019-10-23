@@ -53,43 +53,24 @@
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
-
-  @include tokens.media-min(xxl) {
-    flex-direction: row;
-    align-items: center;
-  }
 }
 
 .Todo__Form__MetaRow {
   display: flex;
   flex-wrap: wrap;
-
-  @include tokens.media-min(xxl) {
-    margin-right: tokens.$spacing-c-07;
-  }
 }
 
 .Todo__Form__ButtonsRow {
   display: flex;
-
   margin-top: tokens.$spacing-c-05;
-
-  @include tokens.media-min(xxl) {
-    margin-top: 0;
-    margin-left: auto;
-  }
+  margin-left: auto;
 }
 
 .Todo__Form__Project {
   margin-right: tokens.$spacing-c-05;
   margin-top: tokens.$spacing-c-02;
   margin-bottom: tokens.$spacing-c-02;
-
-  @include tokens.media-min(xxl) {
-    margin-right: tokens.$spacing-c-07;
-  }
 }
 
 .Todo__Form__DueDate {
-  margin-left: auto;
 }

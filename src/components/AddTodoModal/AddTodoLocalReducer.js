@@ -2,7 +2,7 @@ export const addTodoReducerState = {
   showProjects: false,
   initialSelectedProjectSet: false,
   showLabels: false,
-  showDates: false,
+  showDate: false,
   todo: {
     name: "",
     dueDate: null,
@@ -20,9 +20,9 @@ export const AddTodoTypes = {
   TOGGLE_SHOW_LABELS: "TOGGLE_SHOW_LABELS",
   CLOSE_SHOW_LABELS: "CLOSE_SHOW_LABELS",
   SET_SELECTED_LABEL: "SET_SELECTED_LABEL",
-  TOGGLE_SHOW_DATES: "TOGGLE_SHOW_DATES",
-  CLOSE_SHOW_DATES: "CLOSE_SHOW_DATES",
-  SET_SELECTED_DATES: "SET_SELECTED_DATES",
+  SET_SHOW_DATE: "SET_SHOW_DATE",
+  CLOSE_SHOW_DATE: "CLOSE_SHOW_DATE",
+  SET_SELECTED_DATE: "SET_SELECTED_DATE",
   SET_TODO_NAME: "SET_TODO_NAME",
 };
 
@@ -42,7 +42,7 @@ export const addTodoReducer = (state, { type, payload }) => {
         ...state,
         showProjects: !state.showProjects,
         showLabels: false,
-        showDates: false,
+        showDate: false,
       };
     }
     case AddTodoTypes.CLOSE_SHOW_PROJECTS: {
@@ -86,7 +86,7 @@ export const addTodoReducer = (state, { type, payload }) => {
         ...state,
         showLabels: !state.showLabels,
         showProjects: false,
-        showDates: false,
+        showDate: false,
       };
     }
     case AddTodoTypes.CLOSE_SHOW_LABELS: {
@@ -112,25 +112,28 @@ export const addTodoReducer = (state, { type, payload }) => {
         },
       };
     }
-    case AddTodoTypes.TOGGLE_SHOW_DATES: {
+    case AddTodoTypes.SET_SHOW_DATE: {
       return {
         ...state,
-        showDates: !state.showDates,
+        showDate: true,
         showLabels: false,
         showProjects: false,
       };
     }
-    case AddTodoTypes.CLOSE_SHOW_DATES: {
+    case AddTodoTypes.CLOSE_SHOW_DATE: {
       return {
         ...state,
-        showDates: false,
+        showDate: false,
       };
     }
-    case AddTodoTypes.SET_SELECTED_DATES: {
+    case AddTodoTypes.SET_SELECTED_DATE: {
       return {
         ...state,
-        showDates: !state.showDates,
-        selectedDate: payload,
+        showDate: !state.showDate,
+        todo: {
+          ...state.todo,
+          dueDate: payload,
+        },
       };
     }
     default:
@@ -174,15 +177,15 @@ export const setSelectedLabelAction = (label) => ({
   payload: label,
 });
 
-export const toggleShowDatesAction = () => ({
-  type: AddTodoTypes.TOGGLE_SHOW_DATES,
+export const setShowDateAction = () => ({
+  type: AddTodoTypes.SET_SHOW_DATE,
 });
 
-export const closeShowDatesAction = () => ({
-  type: AddTodoTypes.CLOSE_SHOW_DATES,
+export const closeShowDateAction = () => ({
+  type: AddTodoTypes.CLOSE_SHOW_DATE,
 });
 
-export const setSelectedDatesAction = (dates) => ({
-  type: AddTodoTypes.SET_SELECTED_DATES,
-  payload: dates,
+export const setSelectedDateAction = (date) => ({
+  type: AddTodoTypes.SET_SELECTED_DATE,
+  payload: date,
 });

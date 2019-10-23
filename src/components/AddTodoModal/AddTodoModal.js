@@ -34,9 +34,9 @@ import {
   toggleShowLabelsAction,
   closeShowLabelsAction,
   setSelectedLabelAction,
-  toggleShowDatesAction,
-  // closeShowDatesAction,
-  // setSelectedDatesAction,
+  setShowDateAction,
+  closeShowDateAction,
+  setSelectedDateAction,
 } from "./AddTodoLocalReducer";
 
 function Modal({
@@ -58,7 +58,7 @@ function Modal({
     showProjects,
     initialSelectedProjectSet,
     showLabels,
-    showDates,
+    showDate,
     todo,
   } = state;
 
@@ -73,13 +73,13 @@ function Modal({
   const closeShowLabels = () => dispatch(closeShowLabelsAction());
   const setSelectedLabel = (labels) => dispatch(setSelectedLabelAction(labels));
 
-  const toggleShowDates = () => dispatch(toggleShowDatesAction());
-  // const closeShowDates = () => dispatch(closeShowDatesAction());
-  // const setSelectedDates = (dates) => dispatch(setSelectedDatesAction(dates));
+  const setShowDate = () => dispatch(setShowDateAction());
+  const closeShowDate = () => dispatch(closeShowDateAction());
+  const setSelectedDate = (date) => dispatch(setSelectedDateAction(date));
 
-  useOnClickOutside(modalRef, closeModalHandler);
+  useOnClickOutside(modalRef, handleClickOutside);
   useDisableModalBackground(modalRef);
-  useKeyUpPress("Escape", closeModalHandler);
+  useKeyUpPress("Escape", escapeKeyHandler);
 
   useEffect(() => {
     if (inputRef.current) {
@@ -96,14 +96,37 @@ function Modal({
     }
   }, [dispatch, inboxProject, initialSelectedProjectSet]);
 
-  function closeModalHandler() {
+  function handleClickOutside() {
+    if (showProjects) {
+      closeShowProjects();
+      return;
+    }
     if (showLabels) {
       closeShowLabels();
-    } else if (showProjects) {
-      closeShowProjects();
-    } else {
-      closeModal();
+      return;
     }
+    if (showDate) {
+      return;
+    }
+
+    closeModal();
+  }
+
+  function escapeKeyHandler() {
+    if (showProjects) {
+      closeShowProjects();
+      return;
+    }
+    if (showLabels) {
+      closeShowLabels();
+      return;
+    }
+    if (showDate) {
+      closeShowDate();
+      return;
+    }
+
+    closeModal();
   }
 
   function handleFormSubmit(e) {
@@ -165,9 +188,17 @@ function Modal({
               <TodoDueDate
                 dueDate={todo.dueDate}
                 additionalClasses="Modal__DueDate"
-                onClick={() => toggleShowDates()}
+                isVisible={showDate}
+                onChangeHandler={setSelectedDate}
+                onCloseHandler={() => {
+                  closeShowDate();
+                }}
+                onClick={() => {
+                  if (!showDate) {
+                    setShowDate();
+                  }
+                }}
               />
-              {showDates && "TODO"}
             </div>
             <div className="Modal__CTARow">
               <TextButton
