@@ -11,7 +11,8 @@ import {
   useOnClickOutside,
   useDisableModalBackground,
   useKeyUpPress,
-  useLogger,
+  // useLogger,
+  useRectSize,
 } from "../../hooks";
 
 import Portal from "../Portal/Portal";
@@ -50,12 +51,11 @@ function Modal({
 }) {
   const modalRef = useRef(null);
   const inputRef = useRef(null);
-  const projectsTagRef = useRef(null);
-  const labelsTagRef = useRef(null);
 
-  const [state, dispatch] = useLogger(
-    useReducer(addTodoReducer, addTodoReducerState),
-  );
+  const [state, dispatch] = useReducer(addTodoReducer, addTodoReducerState);
+  // const [state, dispatch] = useLogger(
+  //   useReducer(addTodoReducer, addTodoReducerState),
+  // );
 
   const {
     showProjects,
@@ -65,15 +65,15 @@ function Modal({
     todo,
   } = state;
 
+  const [projectsTagRef, projectsTagSize] = useRectSize();
+  const [labelsTagRef, labelsTagSize] = useRectSize();
+
   const setTodoName = (todoName) => dispatch(setTodoNameAction(todoName));
   const toggleShowProjects = () => dispatch(toggleShowProjectsAction());
   const closeShowProjects = () => dispatch(closeShowProjectsAction());
 
   const setSelectedProject = (project) =>
     dispatch(setSelectedProjectAction(project));
-
-  const setInitialSelectedProject = (project) =>
-    dispatch(setInitialSelectedProjectAction(project));
 
   const toggleShowLabels = () => dispatch(toggleShowLabelsAction());
   const closeShowLabels = () => dispatch(closeShowLabelsAction());
@@ -83,6 +83,10 @@ function Modal({
   // const closeShowDates = () => dispatch(closeShowDatesAction());
   // const setSelectedDates = (dates) => dispatch(setSelectedDatesAction(dates));
 
+  useOnClickOutside(modalRef, closeModalHandler);
+  useDisableModalBackground(modalRef);
+  useKeyUpPress("Escape", closeModalHandler);
+
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
@@ -90,26 +94,15 @@ function Modal({
   }, []);
 
   useEffect(() => {
+    const setInitialSelectedProject = (project) =>
+      dispatch(setInitialSelectedProjectAction(project));
+
     if (!initialSelectedProjectSet) {
       setInitialSelectedProject(inboxProject);
     }
-  }, [inboxProject, initialSelectedProjectSet]);
+  }, [dispatch, inboxProject, initialSelectedProjectSet]);
 
-  useOnClickOutside(modalRef, clickOutsideHandler);
-  useDisableModalBackground(modalRef);
-  useKeyUpPress("Escape", escapeKeyHandler);
-
-  function escapeKeyHandler() {
-    if (showLabels) {
-      closeShowLabels();
-    } else if (showProjects) {
-      closeShowProjects();
-    } else {
-      closeModal();
-    }
-  }
-
-  function clickOutsideHandler() {
+  function closeModalHandler() {
     if (showLabels) {
       closeShowLabels();
     } else if (showProjects) {
@@ -165,30 +158,40 @@ function Modal({
                   projectColorValue={todo.project.colorValue}
                   iconSide="left"
                   onClick={() => toggleShowProjects()}
+                  ref={projectsTagRef}
                 />
               ) : null}
-
               {showProjects && (
                 <ProjectsDropdown
                   onChangeHandler={setSelectedProject}
-                  escapeKeyHandler={escapeKeyHandler}
-                  clickOutsideHandler={clickOutsideHandler}
+                  position={{
+                    left: projectsTagSize.left + window.scrollX || 0,
+                    right: projectsTagSize.right + window.scrollX || 0,
+                    top:
+                      projectsTagSize.top +
+                        window.scrollY +
+                        projectsTagSize.height || 0,
+                  }}
                 />
               )}
-
-              {showLabels && (
-                <LabelsDropdown
-                  onChangeHandler={setSelectedLabel}
-                  escapeKeyHandler={escapeKeyHandler}
-                  clickOutsideHandler={clickOutsideHandler}
-                />
-              )}
-
               <TodoLabelTag
                 labels={todo.labels}
                 onClick={() => toggleShowLabels()}
+                ref={labelsTagRef}
               />
-
+              {showLabels && (
+                <LabelsDropdown
+                  onChangeHandler={setSelectedLabel}
+                  position={{
+                    left: labelsTagSize.left + window.scrollX || 0,
+                    right: labelsTagSize.right + window.scrollX || 0,
+                    top:
+                      labelsTagSize.top +
+                        window.scrollY +
+                        labelsTagSize.height || 0,
+                  }}
+                />
+              )}
               <TodoDueDate
                 dueDate={todo.dueDate}
                 additionalClasses="Modal__DueDate"

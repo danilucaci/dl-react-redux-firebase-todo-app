@@ -1,32 +1,15 @@
-import React, {
-  useRef,
-  //  useEffect
-} from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { array } from "prop-types";
-import classnames from "classnames";
 
 import "./ProjectsDropdown.styles.scss";
 
 import Portal from "../Portal/Portal";
 import { allProjectsSelector } from "../../redux/projects/projects-selectors";
-import { useOnClickOutside, useKeyUpPress } from "../../hooks";
+import { useRectSize } from "../../hooks";
 
-const ProjectsDropdown = ({
-  projects,
-  onChangeHandler,
-  escapeKeyHandler,
-  clickOutsideHandler,
-}) => {
-  const listClasses = classnames({
-    ProjectsDropdown__List: true,
-  });
-
-  const dropdownRef = useRef(null);
+const ProjectsDropdown = ({ projects, onChangeHandler, position }) => {
   // const listRef = useRef(null);
-
-  useOnClickOutside(dropdownRef, clickOutsideHandler);
-  useKeyUpPress("Escape", escapeKeyHandler);
 
   // useEffect(() => {
   //   if (listRef.current) {
@@ -34,10 +17,28 @@ const ProjectsDropdown = ({
   //   }
   // });
 
+  const [dropdownRef, dropdownSize] = useRectSize();
+
+  let style = {
+    left: position.left,
+    right: position.right,
+    top: position.top,
+  };
+
+  style.left = Math.min(
+    position.left,
+    document.body.clientWidth - dropdownSize.width - 16,
+  );
+
+  style.right = Math.min(
+    position.right,
+    document.body.clientWidth - dropdownSize.width - 16,
+  );
+
   return (
     <Portal id="projects-dropdown-portal">
       <div className="ProjectsDropdown__Overlay">
-        <ul className={listClasses} ref={dropdownRef}>
+        <ul className="ProjectsDropdown__List" ref={dropdownRef} style={style}>
           {projects.map((project) => (
             <li
               className="ProjectsDropdown__Item"

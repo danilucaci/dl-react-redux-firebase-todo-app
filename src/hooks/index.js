@@ -8,3 +8,5 @@ export { default as useKeyDownPress } from "./useKeyDownPress";
 export { default as useKeyUpPress } from "./useKeyUpPress";
 export { default as useOnClickOutside } from "./useOnClickOutside";
 export { default as usePortal } from "./usePortal";
+export { default as useLogger } from "./useLogger";
+export { default as useRectSize } from "./useRectSize";

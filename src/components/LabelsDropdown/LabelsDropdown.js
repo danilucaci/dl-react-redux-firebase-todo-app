@@ -1,32 +1,14 @@
-import React, {
-  useRef,
-  // useEffect
-} from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { array } from "prop-types";
-import classnames from "classnames";
 
 import "./LabelsDropdown.styles.scss";
 import Portal from "../Portal/Portal";
 import { labelsSelector } from "../../redux/labels/labels-selectors";
-import { useOnClickOutside, useKeyUpPress } from "../../hooks";
+import { useRectSize } from "../../hooks";
 
-function LabelsDropdown({
-  labels,
-  onChangeHandler,
-  escapeKeyHandler,
-  clickOutsideHandler,
-}) {
-  const listClasses = classnames({
-    LabelsDropdown__List: true,
-    // [`LabelsDropdown__List--Visible`]: Boolean(visible),
-  });
-
-  const dropdownRef = useRef(null);
+const LabelsDropdown = ({ labels, onChangeHandler, position }) => {
   // const listRef = useRef(null);
-
-  useOnClickOutside(dropdownRef, clickOutsideHandler);
-  useKeyUpPress("Escape", escapeKeyHandler);
 
   // useEffect(() => {
   //   if (listRef.current) {
@@ -34,10 +16,28 @@ function LabelsDropdown({
   //   }
   // });
 
+  const [dropdownRef, dropdownSize] = useRectSize();
+
+  let style = {
+    left: position.left,
+    right: position.right,
+    top: position.top,
+  };
+
+  style.left = Math.min(
+    position.left,
+    document.body.clientWidth - dropdownSize.width - 16,
+  );
+
+  style.right = Math.min(
+    position.right,
+    document.body.clientWidth - dropdownSize.width - 16,
+  );
+
   return labels ? (
     <Portal id="labels-dropdown-portal">
       <div className="LabelsDropdown__Overlay">
-        <ul className={listClasses} ref={dropdownRef}>
+        <ul className="LabelsDropdown__List" ref={dropdownRef} style={style}>
           {labels.map((label) => (
             <li
               className="LabelsDropdown__Item"
@@ -61,7 +61,7 @@ function LabelsDropdown({
       </div>
     </Portal>
   ) : null;
-}
+};
 
 LabelsDropdown.propTypes = {
   labels: array.isRequired,
