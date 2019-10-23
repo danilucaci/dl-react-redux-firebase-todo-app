@@ -6,7 +6,7 @@ const INITIAL_STATE = {
     isTransitioning: false,
   },
   modals: {
-    addTodoModalActive: true,
+    addTodoModalActive: false,
   },
 };
 

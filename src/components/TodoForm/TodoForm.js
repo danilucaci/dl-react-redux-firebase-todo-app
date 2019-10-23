@@ -21,11 +21,25 @@ function TodoForm(props) {
   } = props;
 
   const [todoValue, setTodoValue] = useState(todoLabel || "");
+  const [showProjects, setShowProjects] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(project);
+  const [showLabels, setShowLabels] = useState(false);
+  const [selectedLabels, setSelectedLabels] = useState(labels);
+
+  console.log(selectedLabels);
 
   const inputRef = useRef();
   const todoWrapperRef = useRef();
 
   function handleClickOutside() {
+    if (showProjects) {
+      setShowProjects(false);
+      return;
+    }
+    if (showLabels) {
+      setShowLabels(false);
+      return;
+    }
     toggleIsEditing();
   }
 
@@ -71,17 +85,37 @@ function TodoForm(props) {
             {project && (
               <TodoProjectTag
                 buttonAdditionalClasses="Todo__Form__Project"
-                projectName={project.name}
-                projectColorValue={project.colorValue}
+                projectName={selectedProject.name}
+                projectColorValue={selectedProject.colorValue}
                 iconSide="left"
-                onClick={(e) => e.preventDefault()}
+                onClick={() => setShowProjects(!showProjects)}
+                isVisible={showProjects}
+                onChangeHandler={(project) =>
+                  setSelectedProject({
+                    projectID: project.id,
+                    name: project.name,
+                    colorName: project.color.colorName,
+                    colorValue: project.color.colorValue,
+                  })
+                }
               />
             )}
 
             <TodoLabelTag
               condensed
-              labels={labels}
-              onClick={(e) => e.preventDefault()}
+              labels={selectedLabels}
+              onClick={() => setShowLabels(!showLabels)}
+              isVisible={showLabels}
+              onChangeHandler={(label) =>
+                setSelectedLabels([
+                  {
+                    colorName: label.color.colorName,
+                    colorValue: label.color.colorValue,
+                    projectID: label.id,
+                    name: label.name,
+                  },
+                ])
+              }
             />
 
             <TodoDueDate

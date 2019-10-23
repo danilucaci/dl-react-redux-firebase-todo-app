@@ -12,7 +12,6 @@ import {
   useDisableModalBackground,
   useKeyUpPress,
   // useLogger,
-  useRectSize,
 } from "../../hooks";
 
 import Portal from "../Portal/Portal";
@@ -20,8 +19,6 @@ import Input from "../Input/Input";
 import TodoProjectTag from "../TodoProjectTag/TodoProjectTag";
 import TodoLabelTag from "../TodoLabelTag/TodoLabelTag";
 import TodoDueDate from "../TodoDueDate/TodoDueDate";
-import ProjectsDropdown from "../ProjectsDropdown/ProjectsDropdown";
-import LabelsDropdown from "../LabelsDropdown/LabelsDropdown";
 import { closeAddTodoModal } from "../../redux/localState/localState-actions";
 import { inboxProjectSelector } from "../../redux/projects/projects-selectors";
 import { addTodo } from "../../redux/todos/todos-actions";
@@ -64,9 +61,6 @@ function Modal({
     showDates,
     todo,
   } = state;
-
-  const [projectsTagRef, projectsTagSize] = useRectSize();
-  const [labelsTagRef, labelsTagSize] = useRectSize();
 
   const setTodoName = (todoName) => dispatch(setTodoNameAction(todoName));
   const toggleShowProjects = () => dispatch(toggleShowProjectsAction());
@@ -158,40 +152,16 @@ function Modal({
                   projectColorValue={todo.project.colorValue}
                   iconSide="left"
                   onClick={() => toggleShowProjects()}
-                  ref={projectsTagRef}
+                  isVisible={showProjects}
+                  onChangeHandler={setSelectedProject}
                 />
               ) : null}
-              {showProjects && (
-                <ProjectsDropdown
-                  onChangeHandler={setSelectedProject}
-                  position={{
-                    left: projectsTagSize.left + window.scrollX || 0,
-                    right: projectsTagSize.right + window.scrollX || 0,
-                    top:
-                      projectsTagSize.top +
-                        window.scrollY +
-                        projectsTagSize.height || 0,
-                  }}
-                />
-              )}
               <TodoLabelTag
                 labels={todo.labels}
                 onClick={() => toggleShowLabels()}
-                ref={labelsTagRef}
+                isVisible={showLabels}
+                onChangeHandler={setSelectedLabel}
               />
-              {showLabels && (
-                <LabelsDropdown
-                  onChangeHandler={setSelectedLabel}
-                  position={{
-                    left: labelsTagSize.left + window.scrollX || 0,
-                    right: labelsTagSize.right + window.scrollX || 0,
-                    top:
-                      labelsTagSize.top +
-                        window.scrollY +
-                        labelsTagSize.height || 0,
-                  }}
-                />
-              )}
               <TodoDueDate
                 dueDate={todo.dueDate}
                 additionalClasses="Modal__DueDate"
