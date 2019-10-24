@@ -2,8 +2,6 @@ import React from "react";
 import { string, object } from "prop-types";
 import classNames from "classnames";
 
-import "react-day-picker/lib/style.css";
-import "./DateInputPicker.styles.scss";
 import "./TodoDueDate.styles.scss";
 
 import { formatTodoDueDate } from "../../utils/dates";
@@ -49,8 +47,8 @@ function TodoDueDate({
           position={{
             left: dateButtonSize.left + window.scrollX || 0,
             right: dateButtonSize.right + window.scrollX || 0,
-            top:
-              dateButtonSize.top + window.scrollY + dateButtonSize.height || 0,
+            top: dateButtonSize.top || 0,
+            bottom: dateButtonSize.bottom || 0,
           }}
         />
       )}

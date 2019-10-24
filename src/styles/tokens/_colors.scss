@@ -33,8 +33,17 @@ $color-background-outlined-focus: colors.$grey100;
 $color-background-outlined-focus-polyfill: colors.$grey200;
 $color-background-outlined-disabled: transparent;
 
+// Date picker
 $color-background-date-enabled: colors.$grey00;
+$color-background-date-selected: colors.$primary600;
 $color-background-date-hover: colors.$grey100;
+$color-background-date-today: colors.$grey100;
+$color-background-date-disabled: colors.$grey00;
+$color-text-date-enabled: colors.$grey900;
+$color-text-date-selected: colors.$grey00;
+$color-text-date-hover: colors.$grey900;
+$color-text-date-today: colors.$grey900;
+$color-text-date-disabled: colors.$grey500;
 
 $color-background-text-button-enabled: transparent;
 $color-background-text-button-hover: colors.$grey50;
