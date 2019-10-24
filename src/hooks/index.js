@@ -10,3 +10,4 @@ export { default as useOnClickOutside } from "./useOnClickOutside";
 export { default as usePortal } from "./usePortal";
 export { default as useLogger } from "./useLogger";
 export { default as useRectSize } from "./useRectSize";
+export { default as useMultipleKeysPressed } from "./useMultipleKeysPressed";
