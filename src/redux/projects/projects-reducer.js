@@ -4,7 +4,7 @@ import uuid from "uuid";
 export const INITIAL_STATE = {
   projects: [
     {
-      id: uuid.v4(),
+      id: "project-01",
       uid: uuid.v4(),
       name: "Inbox",
       todosCount: 2,
@@ -15,7 +15,7 @@ export const INITIAL_STATE = {
       },
     },
     {
-      id: uuid.v4(),
+      id: "project-02",
       uid: uuid.v4(),
       name: "Personal",
       todosCount: 2,
@@ -26,7 +26,7 @@ export const INITIAL_STATE = {
       },
     },
     {
-      id: uuid.v4(),
+      id: "project-03",
       uid: uuid.v4(),
       name: "Work",
       todosCount: 12,

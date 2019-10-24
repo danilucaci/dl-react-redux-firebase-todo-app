@@ -25,16 +25,7 @@ function Project(props) {
           <ul className="Section__Todos__List">
             {projectOverdueTodos &&
               projectOverdueTodos.map((todo) => (
-                <Todo
-                  iconColor={todo.iconColor}
-                  labels={todo.labels}
-                  project={todo.project}
-                  dueDate={todo.dueDate}
-                  completed={todo.completed}
-                  key={todo.id}
-                  todoLabel={todo.name}
-                  id={todo.id}
-                />
+                <Todo key={todo.id} todo={todo} />
               ))}
           </ul>
         </section>
@@ -46,18 +37,7 @@ function Project(props) {
         </header>
         <ul className="Section__Todos__List">
           {projectTodos &&
-            projectTodos.map((todo) => (
-              <Todo
-                iconColor={todo.iconColor}
-                labels={todo.labels}
-                project={todo.project}
-                dueDate={todo.dueDate}
-                completed={todo.completed}
-                key={todo.id}
-                todoLabel={todo.name}
-                id={todo.id}
-              />
-            ))}
+            projectTodos.map((todo) => <Todo key={todo.id} todo={todo} />)}
         </ul>
         <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
       </section>

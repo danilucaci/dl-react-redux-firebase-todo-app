@@ -18,3 +18,10 @@ export const addTodo = (todo) => {
     payload: todo,
   };
 };
+
+export const updateTodo = (todo) => {
+  return {
+    type: TodosTypes.UPDATE_TODO,
+    payload: todo,
+  };
+};

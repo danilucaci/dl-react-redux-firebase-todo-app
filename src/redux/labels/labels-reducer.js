@@ -4,7 +4,7 @@ import uuid from "uuid";
 export const INITIAL_STATE = {
   labels: [
     {
-      id: uuid.v4(),
+      id: "label-01",
       uid: uuid.v4(),
       name: "pending",
       todosCount: 1,
@@ -15,7 +15,7 @@ export const INITIAL_STATE = {
       },
     },
     {
-      id: uuid.v4(),
+      id: "label-02",
       uid: uuid.v4(),
       name: "soon",
       todosCount: 3,
@@ -26,7 +26,7 @@ export const INITIAL_STATE = {
       },
     },
     {
-      id: uuid.v4(),
+      id: "label-03",
       uid: uuid.v4(),
       name: "relax",
       todosCount: 0,

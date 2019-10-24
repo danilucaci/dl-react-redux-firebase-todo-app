@@ -183,10 +183,10 @@ const INITIAL_STATE = {
           colorValue: "#F19D4B",
         },
         {
-          labelID: "label-02",
-          name: "soon",
-          colorName: "Teal",
-          colorValue: "#428DAA",
+          labelID: "label-03",
+          name: "relax",
+          colorName: "Green",
+          colorValue: "#4B9144",
         },
       ],
     },
@@ -220,6 +220,20 @@ const todosReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         todos: [...state.todos, action.payload],
+      };
+    }
+    case TodosTypes.UPDATE_TODO: {
+      return {
+        ...state,
+        todos: state.todos.map((todo) => {
+          if (todo.id === action.payload.id) {
+            return {
+              ...action.payload,
+            };
+          }
+
+          return todo;
+        }),
       };
     }
     default:

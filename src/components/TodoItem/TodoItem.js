@@ -10,16 +10,8 @@ import TodoProjectTag from "../TodoProjectTag/TodoProjectTag";
 import TodoLabelTag from "../TodoLabelTag/TodoLabelTag";
 import TodoDueDate from "../TodoDueDate/TodoDueDate";
 
-function Todo(props) {
-  const {
-    labels,
-    project,
-    dueDate,
-    completed,
-    todoLabel,
-    setIsEditingTodo,
-    id,
-  } = props;
+function Todo({ todo, setIsEditingTodo }) {
+  const { id, name, completed, labels, project, dueDate } = todo;
 
   const todoButtonClassnames = classnames({
     Todo__Button: true,
@@ -46,10 +38,10 @@ function Todo(props) {
         <div className="Todo__Name__Row">
           <button
             className="Todo__Name"
-            aria-label={`Edit todo ${todoLabel}`}
+            aria-label={`Edit todo ${name}`}
             onClick={() => setIsEditingTodo(true)}
           >
-            {todoLabel}
+            {name}
           </button>
 
           {project && (
@@ -86,23 +78,27 @@ function Todo(props) {
 }
 
 Todo.propTypes = {
-  labels: arrayOf(
-    shape({
-      labelID: string,
-      name: string,
-      colorName: string,
-      colorValue: string,
-    }),
-  ),
-  project: shape({
-    projectID: string.isRequired,
+  todo: shape({
+    labels: arrayOf(
+      shape({
+        labelID: string,
+        name: string,
+        colorName: string,
+        colorValue: string,
+      }),
+    ),
+    project: shape({
+      projectID: string.isRequired,
+      name: string.isRequired,
+      colorName: string.isRequired,
+      colorValue: string.isRequired,
+    }).isRequired,
+    dueDate: object,
+    completed: bool.isRequired,
     name: string.isRequired,
-    colorName: string.isRequired,
-    colorValue: string.isRequired,
-  }).isRequired,
-  dueDate: object,
-  completed: bool.isRequired,
-  todoLabel: string.isRequired,
+    uid: string.isRequired,
+    id: string.isRequired,
+  }),
   setIsEditingTodo: func.isRequired,
 };
 

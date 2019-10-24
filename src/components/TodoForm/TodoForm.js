@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { useDispatch } from "react-redux";
 import { arrayOf, object, shape, string, bool, func } from "prop-types";
 
 import "./TodoForm.styles.scss";
@@ -9,18 +10,12 @@ import TodoProjectTag from "../TodoProjectTag/TodoProjectTag";
 import TodoLabelTag from "../TodoLabelTag/TodoLabelTag";
 import { useKeyUpPress, useOnClickOutside, useFocusRef } from "../../hooks";
 import TodoDueDate from "../TodoDueDate/TodoDueDate";
+import { updateTodo } from "../../redux/todos/todos-actions";
 
-function TodoForm(props) {
-  const {
-    labels,
-    project,
-    dueDate,
-    todoLabel,
-    isEditingTodo,
-    setIsEditingTodo,
-  } = props;
+function TodoForm({ todo, isEditingTodo, setIsEditingTodo }) {
+  const { id, labels, project, dueDate, name } = todo;
 
-  const [todoValue, setTodoValue] = useState(todoLabel || "");
+  const [newTodoName, setNewTodoName] = useState(name || "");
   const [showProjects, setShowProjects] = useState(false);
   const [selectedProject, setSelectedProject] = useState(project);
   const [showLabels, setShowLabels] = useState(false);
@@ -30,6 +25,8 @@ function TodoForm(props) {
 
   const inputRef = useRef();
   const todoWrapperRef = useRef();
+
+  const dispatch = useDispatch();
 
   function handleClickOutside() {
     if (showProjects) {
@@ -70,6 +67,22 @@ function TodoForm(props) {
 
   function handleFormSubmit(e) {
     e.preventDefault();
+    console.log({ newTodoName });
+    console.log({ selectedDate });
+    console.log({ selectedProject });
+    console.log({ selectedLabels });
+
+    const todoData = {
+      ...todo,
+      name: newTodoName,
+      dueDate: selectedDate,
+      project: selectedProject,
+      labels: selectedLabels,
+    };
+
+    console.log({ todoData });
+
+    dispatch(updateTodo(todoData));
     toggleIsEditing();
   }
 
@@ -94,8 +107,8 @@ function TodoForm(props) {
         <input
           type="text"
           className="Todo__Form__Input"
-          value={todoValue}
-          onChange={(e) => setTodoValue(e.target.value)}
+          value={newTodoName}
+          onChange={(e) => setNewTodoName(e.target.value)}
           ref={inputRef}
         />
         <div className="Todo__Form__ButtonsContainer">
@@ -163,7 +176,6 @@ function TodoForm(props) {
             <PrimaryButton
               type="submit"
               additionalClasses="Todo__Form__SubmitButton PrimaryButton--Medium"
-              onClick={() => console.log("Submitted with Primary Button")}
             >
               Save
             </PrimaryButton>
@@ -175,25 +187,28 @@ function TodoForm(props) {
 }
 
 TodoForm.propTypes = {
-  labels: arrayOf(
-    shape({
-      labelID: string,
-      name: string,
-      colorName: string,
-      colorValue: string,
-    }),
-  ),
-  project: shape({
-    projectID: string.isRequired,
+  todo: shape({
+    labels: arrayOf(
+      shape({
+        labelID: string,
+        name: string,
+        colorName: string,
+        colorValue: string,
+      }),
+    ),
+    project: shape({
+      projectID: string.isRequired,
+      name: string.isRequired,
+      colorName: string.isRequired,
+      colorValue: string.isRequired,
+    }).isRequired,
+    dueDate: object,
+    completed: bool.isRequired,
     name: string.isRequired,
-    colorName: string.isRequired,
-    colorValue: string.isRequired,
-  }).isRequired,
-  dueDate: object,
-  completed: bool.isRequired,
-  todoLabel: string.isRequired,
+    uid: string.isRequired,
+    id: string.isRequired,
+  }),
   setIsEditingTodo: func.isRequired,
-  id: string.isRequired,
 };
 
 TodoForm.defaultProps = {

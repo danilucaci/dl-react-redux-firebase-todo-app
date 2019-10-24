@@ -35,18 +35,7 @@ function Today(props) {
           </header>
           <ul className="Section__Todos__List">
             {overdueTodos &&
-              overdueTodos.map((todo) => (
-                <Todo
-                  iconColor={todo.iconColor}
-                  labels={todo.labels}
-                  project={todo.project}
-                  dueDate={todo.dueDate}
-                  completed={todo.completed}
-                  key={todo.id}
-                  todoLabel={todo.name}
-                  id={todo.id}
-                />
-              ))}
+              overdueTodos.map((todo) => <Todo key={todo.id} todo={todo} />)}
           </ul>
         </section>
       ) : null}
@@ -58,18 +47,7 @@ function Today(props) {
         </header>
         <ul className="Section__Todos__List">
           {todayTodos &&
-            todayTodos.map((todo) => (
-              <Todo
-                iconColor={todo.iconColor}
-                labels={todo.labels}
-                project={todo.project}
-                dueDate={todo.dueDate}
-                completed={todo.completed}
-                key={todo.id}
-                todoLabel={todo.name}
-                id={todo.id}
-              />
-            ))}
+            todayTodos.map((todo) => <Todo key={todo.id} todo={todo} />)}
         </ul>
         <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
       </section>
