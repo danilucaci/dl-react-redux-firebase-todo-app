@@ -103,8 +103,10 @@ Todo.propTypes = {
 };
 
 Todo.defaultProps = {
-  labels: null,
-  dueDate: null,
+  todo: {
+    labels: null,
+    dueDate: null,
+  },
 };
 
 export default Todo;

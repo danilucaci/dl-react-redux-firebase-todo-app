@@ -32,7 +32,7 @@ import {
   closeShowProjectsAction,
   setSelectedProjectAction,
   setInitialSelectedProjectAction,
-  toggleShowLabelsAction,
+  setShowLabelsAction,
   closeShowLabelsAction,
   setSelectedLabelAction,
   setShowDateAction,
@@ -64,7 +64,7 @@ function AddTodoModal({ inboxProject, closeModal, addTodo }) {
   const setSelectedProject = (project) =>
     dispatch(setSelectedProjectAction(project));
 
-  const toggleShowLabels = () => dispatch(toggleShowLabelsAction());
+  const setShowLabels = () => dispatch(setShowLabelsAction());
   const closeShowLabels = () => dispatch(closeShowLabelsAction());
   const setSelectedLabel = (labels) => dispatch(setSelectedLabelAction(labels));
 
@@ -97,7 +97,6 @@ function AddTodoModal({ inboxProject, closeModal, addTodo }) {
       return;
     }
     if (showLabels) {
-      closeShowLabels();
       return;
     }
     if (showDate) {
@@ -174,12 +173,15 @@ function AddTodoModal({ inboxProject, closeModal, addTodo }) {
                   onChangeHandler={setSelectedProject}
                 />
               ) : null}
+
               <TodoLabelTag
                 labels={todo.labels}
-                onClick={() => toggleShowLabels()}
+                onClick={() => setShowLabels()}
                 isVisible={showLabels}
                 onChangeHandler={setSelectedLabel}
+                onCloseHandler={() => closeShowLabels()}
               />
+
               <TodoDueDate
                 dueDate={todo.dueDate}
                 additionalClasses="AddTodoModal__DueDate"

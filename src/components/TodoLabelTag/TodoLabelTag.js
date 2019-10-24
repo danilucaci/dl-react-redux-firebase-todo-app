@@ -13,6 +13,8 @@ export const LabelTag = ({
   additionalClasses,
   isVisible,
   onChangeHandler,
+  onCloseHandler,
+  labels,
   ...props
 }) => {
   const addedClasses = getClassesFromProps(additionalClasses);
@@ -29,10 +31,12 @@ export const LabelTag = ({
       {isVisible && (
         <LabelsDropdown
           onChangeHandler={onChangeHandler}
+          onCloseHandler={onCloseHandler}
+          labels={labels}
           position={{
             left: labelsTagSize.left + window.scrollX || 0,
             right: labelsTagSize.right + window.scrollX || 0,
-            top: labelsTagSize.top + window.scrollY + labelsTagSize.height || 0,
+            top: labelsTagSize.top + labelsTagSize.height + 8 || 0,
           }}
         />
       )}
@@ -54,9 +58,9 @@ export const LabelTag = ({
 const TodoLabelTag = ({
   labels,
   additionalClasses,
-  condensed,
   isVisible,
   onChangeHandler,
+  onCloseHandler,
   ...props
 }) => {
   if (!Boolean(labels) || !Array.isArray(labels) || labels.length === 0) {
@@ -67,6 +71,8 @@ const TodoLabelTag = ({
         additionalClasses={additionalClasses}
         isVisible={isVisible}
         onChangeHandler={onChangeHandler}
+        onCloseHandler={onCloseHandler}
+        labels={labels}
         {...props}
       />
     );
@@ -78,30 +84,32 @@ const TodoLabelTag = ({
         additionalClasses={additionalClasses}
         isVisible={isVisible}
         onChangeHandler={onChangeHandler}
+        onCloseHandler={onCloseHandler}
+        labels={labels}
         {...props}
       />
     );
   } else if (Array.isArray(labels) && labels.length > 1) {
-    return condensed ? (
+    let labelName;
+
+    if (labels.length === 2) {
+      labelName = `${labels[0].name}, ${labels[1].name}`;
+    }
+    if (labels.length > 2) {
+      labelName = `${labels[0].name} and ${labels.length - 1} more labels`;
+    }
+
+    return (
       <LabelTag
-        labelName={`${labels.length} labels`}
-        labelColorValue="#81878f"
+        labelName={labelName}
+        labelColorValue={labels[0].colorValue}
         additionalClasses={additionalClasses}
         isVisible={isVisible}
         onChangeHandler={onChangeHandler}
+        onCloseHandler={onCloseHandler}
+        labels={labels}
         {...props}
       />
-    ) : (
-      labels.map((label) => (
-        <TodoLabelTag
-          key={label.labelID}
-          labelName={label.name}
-          labelColorValue={label.colorValue}
-          isVisible={isVisible}
-          onChangeHandler={onChangeHandler}
-          {...props}
-        />
-      ))
     );
   } else {
     return null;
@@ -110,10 +118,11 @@ const TodoLabelTag = ({
 
 LabelTag.propTypes = {
   labelName: string.isRequired,
-  labelColorValue: string,
+  labelColorValue: string.isRequired,
   additionalClasses: string,
-  isVisible: bool,
+  isVisible: bool.isRequired,
   onChangeHandler: func,
+  onCloseHandler: func,
 };
 
 LabelTag.defaultProps = {
@@ -121,22 +130,23 @@ LabelTag.defaultProps = {
   additionalClasses: null,
   isVisible: false,
   onChangeHandler: null,
+  onCloseHandler: null,
 };
 
 TodoLabelTag.propTypes = {
   labels: array,
-  condensed: bool,
   additionalClasses: string,
   isVisible: bool,
   onChangeHandler: func,
+  onCloseHandler: func,
 };
 
 TodoLabelTag.defaultProps = {
   labels: null,
-  condensed: false,
   additionalClasses: null,
   isVisible: false,
   onChangeHandler: null,
+  onCloseHandler: null,
 };
 
 export default TodoLabelTag;

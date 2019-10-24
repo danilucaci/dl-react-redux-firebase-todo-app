@@ -13,7 +13,7 @@ import TodoDueDate from "../TodoDueDate/TodoDueDate";
 import { updateTodo } from "../../redux/todos/todos-actions";
 
 function TodoForm({ todo, isEditingTodo, setIsEditingTodo }) {
-  const { id, labels, project, dueDate, name } = todo;
+  const { labels, project, dueDate, name } = todo;
 
   const [newTodoName, setNewTodoName] = useState(name || "");
   const [showProjects, setShowProjects] = useState(false);
@@ -22,6 +22,9 @@ function TodoForm({ todo, isEditingTodo, setIsEditingTodo }) {
   const [selectedLabels, setSelectedLabels] = useState(labels);
   const [showDate, setShowDate] = useState(false);
   const [selectedDate, setSelectedDate] = useState(dueDate);
+
+  // console.log({ labels });
+  // console.log({ selectedLabels });
 
   const inputRef = useRef();
   const todoWrapperRef = useRef();
@@ -34,7 +37,6 @@ function TodoForm({ todo, isEditingTodo, setIsEditingTodo }) {
       return;
     }
     if (showLabels) {
-      setShowLabels(false);
       return;
     }
     if (showDate) {
@@ -67,20 +69,22 @@ function TodoForm({ todo, isEditingTodo, setIsEditingTodo }) {
 
   function handleFormSubmit(e) {
     e.preventDefault();
-    console.log({ newTodoName });
-    console.log({ selectedDate });
-    console.log({ selectedProject });
-    console.log({ selectedLabels });
+
+    let newLabels;
+
+    if (Array.isArray(selectedLabels) && selectedLabels.length > 0) {
+      newLabels = [...selectedLabels];
+    } else {
+      newLabels = null;
+    }
 
     const todoData = {
       ...todo,
       name: newTodoName,
       dueDate: selectedDate,
       project: selectedProject,
-      labels: selectedLabels,
+      labels: newLabels,
     };
-
-    console.log({ todoData });
 
     dispatch(updateTodo(todoData));
     toggleIsEditing();
@@ -133,20 +137,11 @@ function TodoForm({ todo, isEditingTodo, setIsEditingTodo }) {
             )}
 
             <TodoLabelTag
-              condensed
               labels={selectedLabels}
-              onClick={() => setShowLabels(!showLabels)}
+              onClick={() => setShowLabels(true)}
               isVisible={showLabels}
-              onChangeHandler={(label) =>
-                setSelectedLabels([
-                  {
-                    colorName: label.color.colorName,
-                    colorValue: label.color.colorValue,
-                    projectID: label.id,
-                    name: label.name,
-                  },
-                ])
-              }
+              onChangeHandler={setSelectedLabels}
+              onCloseHandler={() => setShowLabels(false)}
             />
 
             <TodoDueDate
@@ -212,8 +207,10 @@ TodoForm.propTypes = {
 };
 
 TodoForm.defaultProps = {
-  labels: null,
-  dueDate: null,
+  todo: {
+    labels: null,
+    dueDate: null,
+  },
 };
 
 export default TodoForm;

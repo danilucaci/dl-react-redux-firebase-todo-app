@@ -1,8 +1,9 @@
 @use "../../styles/tokens";
+@use "../../styles/base/placeholders";
 
 .LabelsDropdown {
   &__Overlay {
-    overflow-x: auto;
+    overflow-x: visible;
     background-color: transparent;
     z-index: tokens.$z-index-modal-popup;
     position: fixed;
@@ -11,28 +12,39 @@
     left: 0;
     width: 100%;
     height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    display: block;
   }
 
-  &__List {
+  &__Wrapper {
     background-color: tokens.$color-background-dropdown-inner;
     box-shadow: tokens.$shadow-dropdown;
     border-radius: tokens.$border-radius-components-default;
     display: block;
     width: 100%;
     max-width: tokens.$size-dropdown-projects;
-    padding: tokens.$spacing-c-02 0;
+    padding-top: tokens.$spacing-c-03;
+    margin-bottom: tokens.$spacing-l-07;
 
     position: absolute;
+  }
 
+  &__List {
     & li {
       list-style-type: none;
     }
   }
 
+  &__ButtonsRow {
+    @extend %top-divider--on-white;
+
+    display: flex;
+    justify-content: center;
+    margin: tokens.$spacing-c-03;
+    padding-top: tokens.$spacing-c-02;
+  }
+
   &__Item {
+    background-color: tokens.$color-dropdown-item-enabled;
     text-decoration: none;
     color: inherit;
     font-size: inherit;
@@ -43,22 +55,21 @@
 
     padding: {
       top: tokens.$spacing-c-03;
-      right: tokens.$spacing-c-05;
+      right: tokens.$spacing-c-04;
       bottom: tokens.$spacing-c-03;
       left: tokens.$spacing-c-04;
     }
 
     &:hover {
-      background-color: tokens.$color-background-sidebar-item-hover;
+      background-color: tokens.$color-dropdown-item-hover;
       color: tokens.$color-text-body-default;
       text-decoration: none;
       cursor: pointer;
     }
 
-    &--Active {
-      background-color: tokens.$color-background-sidebar-item-hover;
-      font-family: tokens.$font-family-display;
-      font-weight: 700;
+    &__Name {
+      margin-right: auto;
+      text-align: left;
     }
 
     &__Count {
@@ -73,6 +84,17 @@
       width: tokens.$size-icon-m;
       height: tokens.$size-icon-m;
       margin-right: tokens.$spacing-c-04;
+    }
+
+    &__Check {
+      width: tokens.$size-icon-m;
+      height: tokens.$size-icon-m;
+      margin-left: tokens.$spacing-c-04;
+      fill: tokens.$color-icon-default-active;
+    }
+
+    &--Selected {
+      background-color: tokens.$color-dropdown-item-selected;
     }
   }
 }

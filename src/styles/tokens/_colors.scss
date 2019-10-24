@@ -95,6 +95,11 @@ $color-background-modal-overlay: rgba(102, 102, 102, 0.4);
 $color-background-modal-inner: colors.$grey00;
 $color-background-dropdown-inner: colors.$grey00;
 
+// Dropdown items
+$color-dropdown-item-enabled: colors.$grey00;
+$color-dropdown-item-selected: colors.$grey50;
+$color-dropdown-item-hover: colors.$grey100;
+
 // Page Backgrounds
 $color-background-page-lightest: colors.$grey00;
 $color-background-page-lighter: colors.$grey50;
@@ -121,6 +126,7 @@ $color-icon-todo-checkbox-completed-hover: colors.$grey00;
 $color-icon-todo-checkbox-completed-disabled: colors.$grey00;
 
 $color-icon-default: colors.$grey600;
+$color-icon-default-active: colors.$grey800;
 
 $color-icon-button-primary-enabled: colors.$primary600;
 $color-icon-button-primary-hover: colors.$primary500;

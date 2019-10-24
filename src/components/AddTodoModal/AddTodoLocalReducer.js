@@ -81,10 +81,10 @@ export const addTodoReducer = (state, { type, payload }) => {
         },
       };
     }
-    case AddTodoTypes.TOGGLE_SHOW_LABELS: {
+    case AddTodoTypes.SET_SHOW_LABELS: {
       return {
         ...state,
-        showLabels: !state.showLabels,
+        showLabels: true,
         showProjects: false,
         showDate: false,
       };
@@ -98,17 +98,9 @@ export const addTodoReducer = (state, { type, payload }) => {
     case AddTodoTypes.SET_SELECTED_LABEL: {
       return {
         ...state,
-        showLabels: !state.showLabels,
         todo: {
           ...state.todo,
-          labels: [
-            {
-              colorName: payload.color.colorName,
-              colorValue: payload.color.colorValue,
-              projectID: payload.id,
-              name: payload.name,
-            },
-          ],
+          labels: [...payload],
         },
       };
     }
@@ -164,8 +156,8 @@ export const setSelectedProjectAction = (project) => ({
   payload: project,
 });
 
-export const toggleShowLabelsAction = () => ({
-  type: AddTodoTypes.TOGGLE_SHOW_LABELS,
+export const setShowLabelsAction = () => ({
+  type: AddTodoTypes.SET_SHOW_LABELS,
 });
 
 export const closeShowLabelsAction = () => ({

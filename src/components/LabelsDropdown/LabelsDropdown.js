@@ -6,16 +6,67 @@ import "./LabelsDropdown.styles.scss";
 import Portal from "../Portal/Portal";
 import { labelsSelector } from "../../redux/labels/labels-selectors";
 import { useRectSize } from "../../hooks";
+import TextButton from "../TextButton/TextButton";
 
-const LabelsDropdown = ({ labels, onChangeHandler, position }) => {
-  // const listRef = useRef(null);
+function areEqual(a, b) {
+  return a === b;
+}
 
-  // useEffect(() => {
-  //   if (listRef.current) {
-  //     console.log(listRef.current);
-  //   }
-  // });
+function existsIn(arr) {
+  return function item(id) {
+    if (Array.isArray(arr)) {
+      return arr.some((el) => areEqual(el.labelID, id));
+    }
+    return false;
+  };
+}
 
+function filterOut(arr) {
+  return function item(id) {
+    return arr.filter((el) => !areEqual(el.labelID, id));
+  };
+}
+
+function addIn(prevLabels) {
+  return function newLabel(newLabel) {
+    if (Array.isArray(prevLabels)) {
+      return [
+        ...prevLabels,
+        {
+          labelID: newLabel.id,
+          name: newLabel.name,
+          colorName: newLabel.color.colorName,
+          colorValue: newLabel.color.colorValue,
+        },
+      ];
+    }
+    return [
+      {
+        labelID: newLabel.id,
+        name: newLabel.name,
+        colorName: newLabel.color.colorName,
+        colorValue: newLabel.color.colorValue,
+      },
+    ];
+  };
+}
+
+function getNewlabels(prevLabels) {
+  return function compare(selectedLabel) {
+    if (existsIn(prevLabels)(selectedLabel.id)) {
+      return filterOut(prevLabels)(selectedLabel.id);
+    }
+    return addIn(prevLabels)(selectedLabel);
+  };
+}
+
+const LabelsDropdown = ({
+  appLabels,
+  labels,
+  onChangeHandler,
+  onCloseHandler,
+  position,
+}) => {
   const [dropdownRef, dropdownSize] = useRectSize();
 
   let style = {
@@ -34,41 +85,69 @@ const LabelsDropdown = ({ labels, onChangeHandler, position }) => {
     document.body.clientWidth - dropdownSize.width - 16,
   );
 
-  return labels ? (
+  function handleLabelSelect(currLabel) {
+    const newLabels = getNewlabels(labels)(currLabel);
+    onChangeHandler(newLabels);
+  }
+
+  return appLabels ? (
     <Portal id="labels-dropdown-portal">
       <div className="LabelsDropdown__Overlay">
-        <ul className="LabelsDropdown__List" ref={dropdownRef} style={style}>
-          {labels.map((label) => (
-            <li
-              className="LabelsDropdown__Item"
-              key={label.id}
-              onClick={() => onChangeHandler(label)}
-              // ref={listRef}
-            >
-              <svg
-                className="LabelsDropdown__Item__ColorIcon"
-                fill={label.color.colorValue}
+        <div
+          className="LabelsDropdown__Wrapper"
+          ref={dropdownRef}
+          style={style}
+        >
+          <ul className="LabelsDropdown__List">
+            {appLabels.map((appLabel) => (
+              <li
+                className={`LabelsDropdown__Item ${
+                  existsIn(labels)(appLabel.id)
+                    ? `LabelsDropdown__Item--Selected`
+                    : null
+                }`}
+                key={appLabel.id}
+                onClick={() => handleLabelSelect(appLabel)}
               >
-                <use xlinkHref="#tag" />
-              </svg>
-              {label.name}
-              <span className="LabelsDropdown__Item__Count">
-                {label.todosCount}
-              </span>
-            </li>
-          ))}
-        </ul>
+                <svg
+                  className="LabelsDropdown__Item__ColorIcon"
+                  fill={appLabel.color.colorValue}
+                >
+                  <use xlinkHref="#tag" />
+                </svg>
+                <span className="LabelsDropdown__Item__Name">
+                  {appLabel.name}
+                </span>
+                {existsIn(labels)(appLabel.id) && (
+                  <svg className="LabelsDropdown__Item__Check">
+                    <use xlinkHref="#check-24" />
+                  </svg>
+                )}
+              </li>
+            ))}
+          </ul>
+          <div className="LabelsDropdown__ButtonsRow">
+            <TextButton
+              additionalClasses="TextButton--Small"
+              onClick={onCloseHandler}
+              type="button"
+            >
+              Close
+            </TextButton>
+          </div>
+        </div>
       </div>
     </Portal>
   ) : null;
 };
 
 LabelsDropdown.propTypes = {
-  labels: array.isRequired,
+  labels: array,
+  appLabels: array.isRequired,
 };
 
 export const mapStateToProps = (state) => ({
-  labels: labelsSelector(state),
+  appLabels: labelsSelector(state),
 });
 
 export default connect(mapStateToProps)(LabelsDropdown);
