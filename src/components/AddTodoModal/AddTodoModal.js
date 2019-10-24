@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useReducer } from "react";
+import { object, func } from "prop-types";
 import { connect } from "react-redux";
 import uuid from "uuid";
 
@@ -39,13 +40,7 @@ import {
   setSelectedDateAction,
 } from "./AddTodoLocalReducer";
 
-function Modal({
-  ctaLabel = "Add todo",
-  modalTitle = "Add a new todo",
-  inboxProject,
-  closeModal,
-  addTodo,
-}) {
+function AddTodoModal({ inboxProject, closeModal, addTodo }) {
   const modalRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -213,7 +208,7 @@ function Modal({
                 type="submit"
                 disabled={!todo.name.length}
               >
-                {ctaLabel}
+                Add todo
               </PrimaryButton>
             </div>
           </form>
@@ -222,6 +217,12 @@ function Modal({
     </Portal>
   );
 }
+
+AddTodoModal.propTypes = {
+  inboxProject: object.isRequired,
+  closeModal: func.isRequired,
+  addTodo: func.isRequired,
+};
 
 export const mapStateToProps = (state) => ({
   inboxProject: inboxProjectSelector(state),
@@ -235,4 +236,4 @@ export const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Modal);
+)(AddTodoModal);
