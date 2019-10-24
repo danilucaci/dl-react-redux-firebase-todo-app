@@ -1,7 +1,7 @@
 @use "../../styles/tokens";
 @use "../../styles/base/placeholders";
 
-.Modal {
+.AddTodoModal {
   // @extend %bg-debug;
   overflow-x: auto;
 
@@ -67,6 +67,11 @@
 
   &__CloseButton {
     margin-left: auto;
+  }
+
+  &__Form {
+    display: flex;
+    flex-direction: column;
   }
 
   &__MetaRow {

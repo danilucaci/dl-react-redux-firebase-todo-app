@@ -144,13 +144,13 @@ function Modal({
 
   return (
     <Portal id="add-todo-portal">
-      <div className="Modal__Overlay">
-        <div className="Modal__Inner" ref={modalRef}>
-          <div className="Modal__TitleRow">
-            <h2 className="Modal__Title">{modalTitle}</h2>
+      <div className="AddTodoModal__Overlay">
+        <div className="AddTodoModal__Inner" ref={modalRef}>
+          <div className="AddTodoModal__TitleRow">
+            <h2 className="AddTodoModal__Title">Add a new todo</h2>
             <IconButton
               icon="close"
-              additionalClasses="IconButton--Medium  Modal__CloseButton"
+              additionalClasses="IconButton--Medium  AddTodoModal__CloseButton"
               ariaText="Close modal"
               type="button"
               onClick={closeModal}
@@ -158,7 +158,7 @@ function Modal({
           </div>
           <form
             method="post"
-            className="Todo__Form__FormWrapper"
+            className="AddTodoModal__Todo"
             onSubmit={handleFormSubmit}
           >
             <Input
@@ -167,10 +167,10 @@ function Modal({
               placeholder="Todo name"
               ref={inputRef}
             />
-            <div className="Modal__MetaRow">
+            <div className="AddTodoModal__MetaRow">
               {todo.project ? (
                 <TodoProjectTag
-                  buttonAdditionalClasses="Modal__Project"
+                  buttonAdditionalClasses="AddTodoModal__Project"
                   projectName={todo.project.name}
                   projectColorValue={todo.project.colorValue}
                   iconSide="left"
@@ -187,7 +187,7 @@ function Modal({
               />
               <TodoDueDate
                 dueDate={todo.dueDate}
-                additionalClasses="Modal__DueDate"
+                additionalClasses="AddTodoModal__DueDate"
                 isVisible={showDate}
                 onChangeHandler={setSelectedDate}
                 onCloseHandler={() => {
@@ -200,9 +200,9 @@ function Modal({
                 }}
               />
             </div>
-            <div className="Modal__CTARow">
+            <div className="AddTodoModal__CTARow">
               <TextButton
-                additionalClasses="TextButton--Medium Modal__CancelBtn"
+                additionalClasses="TextButton--Medium AddTodoModal__CancelBtn"
                 type="button"
                 onClick={closeModal}
               >
