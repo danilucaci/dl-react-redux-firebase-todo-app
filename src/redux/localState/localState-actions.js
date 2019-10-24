@@ -19,3 +19,19 @@ export const openAddTodoModal = () => ({
 export const closeAddTodoModal = () => ({
   type: LocalStateTypes.CLOSE_ADD_TODO_MODAL,
 });
+
+export const openAddProjectModal = () => ({
+  type: LocalStateTypes.OPEN_ADD_PROJECT_MODAL,
+});
+
+export const closeAddProjectModal = () => ({
+  type: LocalStateTypes.CLOSE_ADD_PROJECT_MODAL,
+});
+
+export const openAddLabelModal = () => ({
+  type: LocalStateTypes.OPEN_ADD_LABEL_MODAL,
+});
+
+export const closeAddLabelModal = () => ({
+  type: LocalStateTypes.CLOSE_ADD_LABEL_MODAL,
+});

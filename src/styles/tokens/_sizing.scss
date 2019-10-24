@@ -11,6 +11,7 @@ $size-site-nav-m: functions.rem(64);
 // Buttons
 $size-border-button-default: functions.rem(2);
 $size-border-input-default: functions.rem(1);
+$size-border-select-default: functions.rem(1);
 $size-button-icon-l: functions.rem(48);
 $size-button-icon-m: functions.rem(40);
 $size-button-icon-s: functions.rem(32);
@@ -41,7 +42,8 @@ $size-modal-xl: functions.rem(520);
 // Dropdowns
 $size-dropdown-projects: functions.rem(240);
 $size-dropdown-labels: functions.rem(240);
-$size-dropdown-colors: functions.rem(240);
+$size-dropdown-colors-width: functions.rem(240);
+$size-dropdown-colors-height: functions.rem(388);
 $size-dropdown-datepicker: functions.rem(296);
 
 // Border Radius

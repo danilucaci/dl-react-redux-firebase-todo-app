@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 import "./Projects.styles.scss";
@@ -7,16 +7,20 @@ import Main from "../../components/Main/Main";
 import AddNew from "../../components/AddNew/AddNew";
 
 import { projectsSelector } from "../../redux/projects/projects-selectors";
+import { openAddProjectModal } from "../../redux/localState/localState-actions";
 
 function Projects(props) {
   const { projects } = props;
+  const dispatch = useDispatch();
 
   return (
     <Main>
       <section className="Section">
         <header className="Projects__Section__Header">
           <h1 className="Section__Title">Projects</h1>
-          <AddNew>Add project</AddNew>
+          <AddNew onClick={() => dispatch(openAddProjectModal())}>
+            Add project
+          </AddNew>
         </header>
         {projects ? (
           <div className="row-nested">

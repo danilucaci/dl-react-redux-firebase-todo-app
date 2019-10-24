@@ -33,6 +33,13 @@ $spacing-button-default-horizontal-s: functions.rem(12) -
 $spacing-button-default-vertical-s: functions.rem(4) -
   sizing.$size-border-button-default;
 
+//Select
+$spacing-select-vertical: functions.rem(12) - sizing.$size-border-input-default;
+$spacing-select-horizontal-left: functions.rem(8) -
+  sizing.$size-border-input-default;
+$spacing-select-horizontal-right: functions.rem(12) -
+  sizing.$size-border-input-default;
+
 $spacing-button-with-icon-left-l: functions.rem(12) -
   sizing.$size-border-button-default;
 $spacing-button-with-icon-right-l: functions.rem(16) -

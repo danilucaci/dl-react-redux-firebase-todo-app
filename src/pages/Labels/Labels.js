@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 import "./Labels.styles.scss";
@@ -7,16 +7,20 @@ import Main from "../../components/Main/Main";
 import AddNew from "../../components/AddNew/AddNew";
 
 import { labelsSelector } from "../../redux/labels/labels-selectors";
+import { openAddLabelModal } from "../../redux/localState/localState-actions";
 
 function Labels(props) {
   const { labels } = props;
+  const dispatch = useDispatch();
 
   return (
     <Main>
       <section className="Section">
         <header className="Labels__Section__Header">
           <h1 className="Section__Title">Labels</h1>
-          <AddNew>Add label</AddNew>
+          <AddNew onClick={() => dispatch(openAddLabelModal())}>
+            Add label
+          </AddNew>
         </header>
         {labels ? (
           <div className="row-nested">

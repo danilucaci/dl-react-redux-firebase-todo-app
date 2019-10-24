@@ -26,6 +26,12 @@ $color-text-input-active: colors.$grey900;
 $color-text-input-disabled: colors.$grey500;
 $color-background-input: colors.$grey00;
 
+// Select
+$color-text-select-enabled: colors.$grey700;
+$color-text-select-active: colors.$grey900;
+$color-text-select-disabled: colors.$grey500;
+$color-background-select: colors.$grey00;
+
 $color-background-outlined-enabled: transparent;
 $color-background-outlined-hover: colors.$grey100;
 $color-background-outlined-active: colors.$grey200;
@@ -154,6 +160,13 @@ $color-border-text-button-active: transparent;
 $color-border-text-button-focus: colors.$grey900;
 $color-border-text-button-focus-polyfill: transparent;
 $color-border-text-button-disabled: transparent;
+
+$color-border-select-enabled: colors.$grey300;
+$color-border-select-hover: colors.$grey300;
+$color-border-select-active: colors.$grey900;
+$color-border-select-focus: colors.$grey900;
+$color-border-select-focus-polyfill: colors.$grey300;
+$color-border-select-disabled: colors.$grey500;
 
 $color-border-input-enabled: colors.$grey300;
 $color-border-input-hover: colors.$grey300;

@@ -1,36 +1,37 @@
 import ProjectsTypes from "./projects-types";
+import uuid from "uuid";
 
 export const INITIAL_STATE = {
   projects: [
     {
-      id: "project-01",
-      uid: "user-01",
+      id: uuid.v4(),
+      uid: uuid.v4(),
       name: "Inbox",
       todosCount: 2,
       color: {
-        colorID: new Date() + Math.random(),
+        colorID: uuid.v4(),
         colorName: "Grey",
         colorValue: "#B8B8B8",
       },
     },
     {
-      id: "project-02",
-      uid: "project-02",
+      id: uuid.v4(),
+      uid: uuid.v4(),
       name: "Personal",
       todosCount: 2,
       color: {
-        colorID: new Date() + Math.random(),
+        colorID: uuid.v4(),
         colorName: "Blue",
         colorValue: "#4B75F6",
       },
     },
     {
-      id: "project-03",
-      uid: "project-03",
+      id: uuid.v4(),
+      uid: uuid.v4(),
       name: "Work",
       todosCount: 12,
       color: {
-        colorID: new Date() + Math.random(),
+        colorID: uuid.v4(),
         colorName: "Mint Green",
         colorValue: "#82CABC",
       },
@@ -44,6 +45,12 @@ const projectsReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         projects: action.payload,
+      };
+    }
+    case ProjectsTypes.ADD_PROJECT: {
+      return {
+        ...state,
+        projects: [...state.projects, action.payload],
       };
     }
     default:

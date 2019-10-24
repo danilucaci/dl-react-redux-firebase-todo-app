@@ -1,0 +1,89 @@
+@use "../../styles/tokens";
+@use "../../styles/base/placeholders";
+
+.ColorSelect {
+  &__Button {
+    display: flex;
+    align-items: center;
+    background-color: tokens.$color-background-select;
+    border-radius: tokens.$border-radius-button-default;
+    border: tokens.$size-border-select-default
+      tokens.$color-border-select-enabled solid;
+    color: tokens.$color-text-select-enabled;
+
+    font: {
+      size: tokens.$font-size-select;
+      family: tokens.$font-family-body;
+      weight: tokens.$font-weight-body;
+    }
+
+    line-height: tokens.$font-line-height-select;
+
+    width: 100%;
+
+    padding: {
+      top: tokens.$spacing-select-vertical;
+      right: tokens.$spacing-select-horizontal-right;
+      bottom: tokens.$spacing-select-vertical;
+      left: tokens.$spacing-select-horizontal-right;
+    }
+
+    &:hover {
+      border-color: tokens.$color-border-select-hover;
+      box-shadow: none;
+      outline: none;
+      cursor: pointer;
+    }
+
+    &:focus {
+      border-color: tokens.$color-border-select-focus;
+      box-shadow: tokens.$shadow-select-focus;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .js-focus-visible &:focus:not([data-focus-visible-added]) {
+      border-color: tokens.$color-border-select-focus-polyfill;
+      box-shadow: none;
+      outline: none;
+      cursor: pointer;
+    }
+
+    &:active {
+      border-color: tokens.$color-border-select-active;
+      box-shadow: none;
+      outline: none;
+      cursor: pointer;
+    }
+
+    &:disabled {
+      border-color: tokens.$color-border-select-disabled;
+      box-shadow: none;
+      outline: none;
+      cursor: not-allowed;
+
+      &:hover,
+      &:focus {
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  &__Label {
+    text-align: left;
+    width: 100%;
+    margin-right: tokens.$spacing-c-05;
+    margin-left: tokens.$spacing-c-03;
+  }
+
+  &__Color__Icon {
+    width: tokens.$size-icon-m;
+    height: tokens.$size-icon-m;
+  }
+
+  &__Chevron {
+    fill: tokens.$color-icon-default;
+    width: tokens.$size-icon-m;
+    height: tokens.$size-icon-m;
+  }
+}

@@ -20,6 +20,8 @@ import Projects from "./pages/Projects/Projects";
 import Label from "./pages/Label/Label";
 import Labels from "./pages/Labels/Labels";
 import AddTodoModal from "./components/AddTodoModal/AddTodoModal";
+import AddProjectModal from "./components/AddProjectModal/AddProjectModal";
+import AddLabelModal from "./components/AddLabelModal/AddLabelModal";
 
 import { projectsSelector } from "./redux/projects/projects-selectors";
 import { labelsSelector } from "./redux/labels/labels-selectors";
@@ -38,7 +40,11 @@ function App(props) {
     modalsState,
   } = props;
 
-  const { addTodoModalActive } = modalsState;
+  const {
+    addTodoModalActive,
+    addProjectModalActive,
+    addLabelModalActive,
+  } = modalsState;
 
   return (
     <div className={appClasses}>
@@ -83,6 +89,8 @@ function App(props) {
         </Route>
       </Switch>
       {addTodoModalActive && <AddTodoModal />}
+      {addProjectModalActive && <AddProjectModal />}
+      {addLabelModalActive && <AddLabelModal />}
     </div>
   );
 }
