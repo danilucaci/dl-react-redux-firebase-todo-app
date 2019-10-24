@@ -11,6 +11,10 @@ import { projectsSelector } from "../../redux/projects/projects-selectors";
 import { labelsSelector } from "../../redux/labels/labels-selectors";
 import { menuSelector } from "../../redux/localState/localState-selectors";
 import { closeMenu } from "../../redux/localState/localState-actions";
+import {
+  openAddLabelModal,
+  openAddProjectModal,
+} from "../../redux/localState/localState-actions";
 
 function Sidebar(props) {
   const { projects, labels, menu } = props;
@@ -139,7 +143,9 @@ function Sidebar(props) {
               </SidebarItem>
             ))}
           <li className="Sidebar__AddNew__Button">
-            <AddNew>Add project</AddNew>
+            <AddNew onClick={() => dispatch(openAddProjectModal())}>
+              Add project
+            </AddNew>
           </li>
         </ul>
         <ul className="Sidebar__Section">
@@ -166,7 +172,9 @@ function Sidebar(props) {
               </SidebarItem>
             ))}
           <li className="Sidebar__AddNew__Button">
-            <AddNew>Add label</AddNew>
+            <AddNew onClick={() => dispatch(openAddLabelModal())}>
+              Add label
+            </AddNew>
           </li>
         </ul>
       </nav>
