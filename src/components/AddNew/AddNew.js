@@ -6,9 +6,7 @@ import "./AddNew.styles.scss";
 
 import { getClassesFromProps } from "../../utils/helpers";
 
-function AddNew(props) {
-  const { children, additionalClasses } = props;
-
+function AddNew({ children, additionalClasses, ...props }) {
   const addedClasses = getClassesFromProps(additionalClasses);
 
   const addNewClasses = classnames({
@@ -17,7 +15,7 @@ function AddNew(props) {
   });
 
   return (
-    <button className={addNewClasses}>
+    <button className={addNewClasses} type="button" {...props}>
       <svg className="AddNew__Icon">
         <use xlinkHref="#add-24" />
       </svg>
