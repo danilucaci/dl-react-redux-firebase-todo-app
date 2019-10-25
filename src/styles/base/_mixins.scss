@@ -17,12 +17,12 @@
 
 @mixin media-max($breakpoint) {
   @if map.has-key(grid.$breakpoints, $breakpoint) {
-    $breakpoint: map.get(grid.$breakpoints, $breakpoint);
+    $breakpoint-value: map.get(grid.$breakpoints, $breakpoint);
     @media (max-width: $breakpoint-value) {
       @content;
     }
   } @else {
-    @warn 'Invalid breakpoint: #{$breakpoint} in `media-max`.';
+    @warn 'Invalid breakpoint: #{$breakpoint-value} in `media-max`.';
   }
 }
 
