@@ -3,10 +3,12 @@
 
 .Main {
   margin-top: tokens.$spacing-main-top-s;
+  padding-bottom: tokens.$spacing-l-06;
 
   @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
     background-color: tokens.$color-background-page-lightest;
     margin-top: 0;
+    padding-bottom: tokens.$spacing-l-10;
     padding-top: tokens.$spacing-main-top-s;
   }
 
@@ -49,6 +51,10 @@
       left: tokens.$spacing-l-04;
       right: tokens.$spacing-l-04;
     }
+  }
+
+  &:last-of-type {
+    margin-bottom: 0;
   }
 }
 

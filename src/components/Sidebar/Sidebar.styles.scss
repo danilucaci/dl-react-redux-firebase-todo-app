@@ -17,6 +17,7 @@
   transition: transform ease-out tokens.$timing-menu-transition;
 
   margin-top: tokens.$spacing-c-06;
+  padding-bottom: tokens.$spacing-l-08;
 
   @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
     background-color: tokens.$color-background-page-lighter;
