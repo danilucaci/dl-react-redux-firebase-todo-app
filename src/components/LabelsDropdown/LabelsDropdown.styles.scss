@@ -45,7 +45,7 @@
   }
 
   &__Item {
-    background-color: tokens.$color-dropdown-item-enabled;
+    background-color: tokens.$color-background-dropdown-item-enabled;
     text-decoration: none;
     color: inherit;
     font-size: inherit;
@@ -62,7 +62,7 @@
     }
 
     &:hover {
-      background-color: tokens.$color-dropdown-item-hover;
+      background-color: tokens.$color-background-dropdown-item-hover;
       color: tokens.$color-text-body-default;
       text-decoration: none;
       cursor: pointer;
@@ -95,7 +95,7 @@
     }
 
     &--Selected {
-      background-color: tokens.$color-dropdown-item-selected;
+      background-color: tokens.$color-background-dropdown-item-selected;
     }
   }
 }

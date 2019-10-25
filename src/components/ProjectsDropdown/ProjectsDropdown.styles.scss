@@ -49,14 +49,14 @@
     }
 
     &:hover {
-      background-color: tokens.$color-background-sidebar-item-hover;
+      background-color: tokens.$color-background-dropdown-item-hover;
       color: tokens.$color-text-body-default;
       text-decoration: none;
       cursor: pointer;
     }
 
     &--Active {
-      background-color: tokens.$color-background-sidebar-item-hover;
+      background-color: tokens.$color-background-dropdown-item-selected;
       font-family: tokens.$font-family-display;
       font-weight: 700;
     }

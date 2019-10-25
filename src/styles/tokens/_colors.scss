@@ -95,15 +95,18 @@ $color-background-input-enabled: colors.$grey00;
 $color-background-search-bar-enabled: colors.$grey50;
 $color-background-search-bar-active: colors.$grey00;
 
+// Sidebar items
+$color-background-sidebar-item-selected: colors.$grey100;
 $color-background-sidebar-item-hover: colors.$grey100;
+
 $color-background-modal-overlay: rgba(102, 102, 102, 0.4);
 $color-background-modal-inner: colors.$grey00;
-$color-background-dropdown-inner: colors.$grey00;
 
 // Dropdown items
-$color-dropdown-item-enabled: colors.$grey00;
-$color-dropdown-item-selected: colors.$grey50;
-$color-dropdown-item-hover: colors.$grey100;
+$color-background-dropdown-inner: colors.$grey00;
+$color-background-dropdown-item-enabled: colors.$grey00;
+$color-background-dropdown-item-selected: colors.$grey50;
+$color-background-dropdown-item-hover: colors.$grey100;
 
 // Page Backgrounds
 $color-background-page-lightest: colors.$grey00;

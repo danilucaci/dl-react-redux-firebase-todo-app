@@ -89,7 +89,7 @@
   }
 
   &:active {
-    background-color: tokens.$color-background-sidebar-item-hover;
+    background-color: tokens.$color-background-sidebar-item-selected;
     color: tokens.$color-text-body-default;
     cursor: pointer;
   }
@@ -106,7 +106,7 @@
   }
 
   &--Active {
-    background-color: tokens.$color-background-sidebar-item-hover;
+    background-color: tokens.$color-background-sidebar-item-selected;
     font-family: tokens.$font-family-display;
     font-weight: 700;
   }
@@ -238,14 +238,14 @@
   }
 
   &:hover {
-    background-color: transparent;
+    background-color: tokens.$color-background-sidebar-item-hover;
     color: tokens.$color-text-body-default;
     text-decoration: none;
     cursor: pointer;
   }
 
   &:active {
-    background-color: transparent;
+    background-color: tokens.$color-background-sidebar-item-selected;
     color: tokens.$color-text-body-default;
     cursor: pointer;
   }
