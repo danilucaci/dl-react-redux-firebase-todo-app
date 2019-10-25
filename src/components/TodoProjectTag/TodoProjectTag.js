@@ -64,9 +64,7 @@ const TodoProjectTag = ({
           position={{
             left: projectsTagSize.left + window.scrollX || 0,
             right: projectsTagSize.right + window.scrollX || 0,
-            top:
-              projectsTagSize.top + window.scrollY + projectsTagSize.height ||
-              0,
+            top: projectsTagSize.top + projectsTagSize.height + 8 || 0,
           }}
         />
       )}
