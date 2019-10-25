@@ -13,6 +13,8 @@ $grid-spacing-m: functions.rem(12);
 // Max page width
 $desktop-max-page-width: functions.rem(1152);
 $desktop-max-page-width-col10: functions.rem(984);
+$desktop-max-page-width-col8: functions.rem(792);
+$desktop-max-page-width-col6: functions.rem(600);
 
 // Breakpoint at which the gutters change size from 16px to 24px
 // Also where fonts change sizes

@@ -38,6 +38,18 @@
     max-width: grid.$desktop-max-page-width-col10;
   }
 
+  &--contain-8 {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: grid.$desktop-max-page-width-col8;
+  }
+
+  &--contain-6 {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: grid.$desktop-max-page-width-col6;
+  }
+
   &-nested {
     @extend %clearfix;
 

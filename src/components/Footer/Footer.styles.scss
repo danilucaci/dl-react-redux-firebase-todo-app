@@ -1,0 +1,71 @@
+@use "../../styles/tokens";
+@use "../../styles/base/placeholders";
+
+.Footer {
+  @extend %top-divider--on-white;
+
+  background-color: tokens.$color-background-page-lightest;
+  padding-top: tokens.$spacing-c-09;
+  padding-bottom: tokens.$spacing-c-10;
+
+  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+    padding-top: tokens.$spacing-c-12;
+  }
+
+  &__Title {
+    font-size: tokens.$font-size-mobile-display-l;
+    line-height: tokens.$font-line-height-mobile-display-l;
+
+    margin-top: tokens.$spacing-c-05;
+    margin-bottom: tokens.$spacing-c-05;
+
+    @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+      font-size: tokens.$font-size-desktop-display-l;
+      line-height: tokens.$font-line-height-desktop-display-l;
+    }
+  }
+
+  &__Header {
+    margin-bottom: tokens.$spacing-c-09;
+    @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+      text-align: center;
+    }
+  }
+
+  &__Links__Section {
+    margin-bottom: tokens.$spacing-c-07;
+    @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+      text-align: center;
+    }
+  }
+
+  &__Links__Subhead {
+    margin-bottom: tokens.$spacing-c-03;
+  }
+
+  &__Social__Links {
+    color: tokens.$color-text-link-default;
+  }
+
+  &__Stack__Section {
+    margin-top: tokens.$spacing-c-09;
+
+    & ul {
+      list-style-type: none;
+      margin-left: 0;
+      margin-bottom: tokens.$spacing-c-07;
+    }
+
+    @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+      margin-top: tokens.$spacing-c-12;
+    }
+  }
+
+  &__Stack__Subhead {
+    margin-bottom: tokens.$spacing-c-05;
+  }
+
+  &__Divider {
+    margin-bottom: tokens.$spacing-c-07;
+  }
+}

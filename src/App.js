@@ -8,6 +8,7 @@ import { Switch, Route } from "react-router-dom";
 
 import SVGSprite from "./components/SVGSprite/SVGSprite";
 import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
 
 import Home from "./pages/Home/Home";
 import Profile from "./pages/Profile/Profile";
@@ -91,6 +92,7 @@ function App(props) {
       {addTodoModalActive && <AddTodoModal />}
       {addProjectModalActive && <AddProjectModal />}
       {addLabelModalActive && <AddLabelModal />}
+      <Footer />
     </div>
   );
 }
