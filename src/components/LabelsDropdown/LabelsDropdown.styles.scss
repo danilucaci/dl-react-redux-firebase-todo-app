@@ -29,9 +29,10 @@
   }
 
   &__List {
-    & li {
-      list-style-type: none;
-    }
+    margin-left: 0;
+    max-height: 40vh;
+    list-style-type: none;
+    overflow-x: auto;
   }
 
   &__ButtonsRow {

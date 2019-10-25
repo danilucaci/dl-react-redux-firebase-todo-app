@@ -76,10 +76,21 @@
     left: tokens.$grid-gutter-s;
   }
 
+  &:visited,
+  &:link {
+    color: tokens.$color-text-body-default;
+  }
+
   &:hover {
     background-color: tokens.$color-background-sidebar-item-hover;
     color: tokens.$color-text-body-default;
     text-decoration: none;
+    cursor: pointer;
+  }
+
+  &:active {
+    background-color: tokens.$color-background-sidebar-item-hover;
+    color: tokens.$color-text-body-default;
     cursor: pointer;
   }
 
@@ -164,6 +175,24 @@
   font-weight: 400;
   color: tokens.$color-text-body-subdued;
   margin-left: auto;
+
+  &:visited,
+  &:link {
+    color: tokens.$color-text-body-default;
+  }
+
+  &:hover {
+    background-color: transparent;
+    color: tokens.$color-text-body-default;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  &:active {
+    background-color: transparent;
+    color: tokens.$color-text-body-default;
+    cursor: pointer;
+  }
 }
 
 .Sidebar__Avatar {
@@ -203,9 +232,21 @@
     }
   }
 
+  &:visited,
+  &:link {
+    color: tokens.$color-text-body-default;
+  }
+
   &:hover {
+    background-color: transparent;
     color: tokens.$color-text-body-default;
     text-decoration: none;
+    cursor: pointer;
+  }
+
+  &:active {
+    background-color: transparent;
+    color: tokens.$color-text-body-default;
     cursor: pointer;
   }
 }
@@ -297,9 +338,21 @@
   display: flex;
   flex: 0 1 auto;
 
+  &:visited,
+  &:link {
+    color: tokens.$color-text-body-default;
+  }
+
   &:hover {
+    background-color: transparent;
     color: tokens.$color-text-body-default;
     text-decoration: none;
+    cursor: pointer;
+  }
+
+  &:active {
+    background-color: transparent;
+    color: tokens.$color-text-body-default;
     cursor: pointer;
   }
 

@@ -10,7 +10,23 @@
 
   text-decoration: none;
 
+  &:visited,
+  &:link {
+    color: tokens.$color-text-body-default;
+  }
+
   &:hover {
+    background-color: transparent;
     color: tokens.$color-text-link-hover;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  &:active {
+    background-color: transparent;
+    font-family: tokens.$font-family-display;
+    font-weight: 700;
+    color: tokens.$color-text-body-default;
+    cursor: pointer;
   }
 }

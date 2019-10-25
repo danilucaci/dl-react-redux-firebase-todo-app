@@ -25,9 +25,8 @@
 
     position: absolute;
 
-    & li {
-      list-style-type: none;
-    }
+    margin-left: 0;
+    list-style-type: none;
   }
 
   &__Item {

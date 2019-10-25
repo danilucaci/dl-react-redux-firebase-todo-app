@@ -21,15 +21,14 @@
     display: block;
     width: 100%;
     max-width: tokens.$size-dropdown-colors-width;
-    max-height: tokens.$size-dropdown-colors-height;
+    height: tokens.$size-dropdown-colors-height;
+    max-height: 36vh;
     padding: tokens.$spacing-c-02 0;
     overflow-x: auto;
 
     position: absolute;
-
-    & li {
-      list-style-type: none;
-    }
+    margin-left: 0;
+    list-style-type: none;
   }
 
   &__Item {

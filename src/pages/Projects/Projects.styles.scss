@@ -21,8 +21,23 @@
   margin-bottom: tokens.$grid-gutter-s;
   padding: tokens.$spacing-c-05;
 
+  &:visited,
+  &:link {
+    color: tokens.$color-text-body-default;
+  }
+
   &:hover {
+    background-color: tokens.$color-background-page-lighter;
     box-shadow: tokens.$shadow-project-card;
+    color: tokens.$color-text-body-default;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  &:active {
+    background-color: tokens.$color-background-page-lighter;
+    color: tokens.$color-text-body-default;
+    cursor: pointer;
   }
 
   @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
