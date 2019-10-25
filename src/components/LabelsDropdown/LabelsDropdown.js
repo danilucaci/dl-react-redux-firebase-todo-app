@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { array } from "prop-types";
+import { array, bool, object, func } from "prop-types";
 
 import "./LabelsDropdown.styles.scss";
 import Portal from "../Portal/Portal";
@@ -65,6 +65,7 @@ const LabelsDropdown = ({
   labels,
   onChangeHandler,
   onCloseHandler,
+  bottomFixed,
   position,
 }) => {
   const [dropdownRef, dropdownSize] = useRectSize();
@@ -84,6 +85,16 @@ const LabelsDropdown = ({
     position.right,
     document.body.clientWidth - dropdownSize.width - 16,
   );
+
+  if (
+    bottomFixed &&
+    position.top + dropdownSize.height > document.body.clientHeight
+  ) {
+    style.top =
+      position.top -
+      8 -
+      (position.top + dropdownSize.height - document.body.clientHeight);
+  }
 
   function handleLabelSelect(currLabel) {
     const newLabels = getNewlabels(labels)(currLabel);
@@ -144,6 +155,15 @@ const LabelsDropdown = ({
 LabelsDropdown.propTypes = {
   labels: array,
   appLabels: array.isRequired,
+  onChangeHandler: func.isRequired,
+  onCloseHandler: func.isRequired,
+  bottomFixed: bool,
+  position: object.isRequired,
+};
+
+LabelsDropdown.defaultProps = {
+  bottomFixed: false,
+  labels: null,
 };
 
 export const mapStateToProps = (state) => ({

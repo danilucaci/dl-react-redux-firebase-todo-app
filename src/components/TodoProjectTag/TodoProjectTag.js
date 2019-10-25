@@ -1,5 +1,5 @@
 import React from "react";
-import { string } from "prop-types";
+import { string, func, bool } from "prop-types";
 import classNames from "classnames";
 
 import "./TodoProjectTag.styles.scss";
@@ -14,6 +14,7 @@ const TodoProjectTag = ({
   buttonAdditionalClasses,
   iconAdditionalClasses,
   isVisible,
+  bottomFixed,
   onChangeHandler,
   ...props
 }) => {
@@ -61,9 +62,10 @@ const TodoProjectTag = ({
       {isVisible && (
         <ProjectsDropdown
           onChangeHandler={onChangeHandler}
+          bottomFixed={bottomFixed}
           position={{
-            left: projectsTagSize.left + window.scrollX || 0,
-            right: projectsTagSize.right + window.scrollX || 0,
+            left: projectsTagSize.left || 0,
+            right: projectsTagSize.right || 0,
             top: projectsTagSize.top + projectsTagSize.height + 8 || 0,
           }}
         />
@@ -78,6 +80,9 @@ TodoProjectTag.propTypes = {
   iconSide: string,
   buttonAdditionalClasses: string,
   iconAdditionalClasses: string,
+  bottomFixed: bool,
+  isVisible: bool,
+  onChangeHandler: func,
 };
 
 TodoProjectTag.defaultProps = {
@@ -85,6 +90,9 @@ TodoProjectTag.defaultProps = {
   iconSide: "left",
   buttonAdditionalClasses: null,
   iconAdditionalClasses: null,
+  bottomFixed: false,
+  isVisible: false,
+  onChangeHandler: null,
 };
 
 export default TodoProjectTag;

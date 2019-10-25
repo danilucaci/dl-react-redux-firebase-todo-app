@@ -1,5 +1,5 @@
 import React from "react";
-import { string, object } from "prop-types";
+import { string, object, bool, func } from "prop-types";
 import classNames from "classnames";
 
 import "./TodoDueDate.styles.scss";
@@ -15,6 +15,7 @@ function TodoDueDate({
   dueDate,
   additionalClasses,
   isVisible,
+  bottomFixed,
   onChangeHandler,
   onCloseHandler,
   ...props
@@ -44,9 +45,10 @@ function TodoDueDate({
           dueDate={dueDate}
           onChangeHandler={onChangeHandler}
           onCloseHandler={onCloseHandler}
+          bottomFixed={bottomFixed}
           position={{
-            left: dateButtonSize.left + window.scrollX || 0,
-            right: dateButtonSize.right + window.scrollX || 0,
+            left: dateButtonSize.left || 0,
+            right: dateButtonSize.right || 0,
             top: dateButtonSize.top || 0,
             bottom: dateButtonSize.bottom || 0,
           }}
@@ -59,11 +61,19 @@ function TodoDueDate({
 TodoDueDate.propTypes = {
   dueDate: object,
   additionalClasses: string,
+  bottomFixed: bool,
+  isVisible: bool,
+  onChangeHandler: func,
+  onCloseHandler: func,
 };
 
 TodoDueDate.defaultProps = {
   additionalClasses: null,
   dueDate: null,
+  bottomFixed: false,
+  isVisible: false,
+  onChangeHandler: null,
+  onCloseHandler: null,
 };
 
 export default TodoDueDate;

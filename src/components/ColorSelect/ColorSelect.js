@@ -37,11 +37,9 @@ const ColorSelect = ({
         <ColorsDropdown
           onChangeHandler={onChangeHandler}
           position={{
-            left: colorSelectSize.left + window.scrollX || 0,
-            right: colorSelectSize.right + window.scrollX || 0,
-            top:
-              colorSelectSize.top + window.scrollY + colorSelectSize.height ||
-              0,
+            left: colorSelectSize.left || 0,
+            right: colorSelectSize.right || 0,
+            top: colorSelectSize.top + colorSelectSize.height || 0,
           }}
         />
       )}

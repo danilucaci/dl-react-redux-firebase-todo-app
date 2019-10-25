@@ -16,7 +16,7 @@
     height: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
   }
 
   &__Inner {
@@ -30,14 +30,26 @@
     padding: tokens.$spacing-c-05;
 
     margin: {
-      top: tokens.$spacing-c-05;
+      top: tokens.$spacing-modal-top-s;
       right: tokens.$spacing-c-05;
       bottom: tokens.$spacing-c-05;
       left: tokens.$spacing-c-05;
     }
 
+    @include tokens.media-min(s) {
+      margin-top: tokens.$spacing-modal-top-m;
+    }
+
+    @include tokens.media-min(l) {
+      margin-top: tokens.$spacing-modal-top-xl;
+    }
+
     @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
       padding: tokens.$spacing-c-07;
+    }
+
+    @include tokens.media-max-height(xl) {
+      margin-top: tokens.$spacing-modal-top-small-height;
     }
   }
 

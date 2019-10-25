@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { array } from "prop-types";
+import { array, bool, object, func } from "prop-types";
 
 import "./ProjectsDropdown.styles.scss";
 
@@ -8,7 +8,12 @@ import Portal from "../Portal/Portal";
 import { allProjectsSelector } from "../../redux/projects/projects-selectors";
 import { useRectSize } from "../../hooks";
 
-const ProjectsDropdown = ({ projects, onChangeHandler, position }) => {
+const ProjectsDropdown = ({
+  projects,
+  onChangeHandler,
+  bottomFixed,
+  position,
+}) => {
   // const listRef = useRef(null);
 
   // useEffect(() => {
@@ -25,15 +30,20 @@ const ProjectsDropdown = ({ projects, onChangeHandler, position }) => {
     top: position.top,
   };
 
-  style.left = Math.min(
-    position.left,
-    document.body.clientWidth - dropdownSize.width - 16,
-  );
-
   style.right = Math.min(
     position.right,
     document.body.clientWidth - dropdownSize.width - 16,
   );
+
+  if (
+    bottomFixed &&
+    position.top + dropdownSize.height > document.body.clientHeight
+  ) {
+    style.top =
+      position.top -
+      8 -
+      (position.top + dropdownSize.height - document.body.clientHeight);
+  }
 
   return (
     <Portal id="projects-dropdown-portal">
@@ -67,6 +77,14 @@ const ProjectsDropdown = ({ projects, onChangeHandler, position }) => {
 
 ProjectsDropdown.propTypes = {
   projects: array.isRequired,
+  onChangeHandler: func,
+  bottomFixed: bool,
+  position: object.isRequired,
+};
+
+ProjectsDropdown.defaultProps = {
+  onChangeHandler: null,
+  bottomFixed: false,
 };
 
 export const mapStateToProps = (state) => ({

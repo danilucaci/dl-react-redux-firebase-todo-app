@@ -12,6 +12,7 @@ export const LabelTag = ({
   labelColorValue,
   additionalClasses,
   isVisible,
+  bottomFixed,
   onChangeHandler,
   onCloseHandler,
   labels,
@@ -32,10 +33,11 @@ export const LabelTag = ({
         <LabelsDropdown
           onChangeHandler={onChangeHandler}
           onCloseHandler={onCloseHandler}
+          bottomFixed={bottomFixed}
           labels={labels}
           position={{
-            left: labelsTagSize.left + window.scrollX || 0,
-            right: labelsTagSize.right + window.scrollX || 0,
+            left: labelsTagSize.left || 0,
+            right: labelsTagSize.right || 0,
             top: labelsTagSize.top + labelsTagSize.height + 8 || 0,
           }}
         />
@@ -123,6 +125,8 @@ LabelTag.propTypes = {
   isVisible: bool.isRequired,
   onChangeHandler: func,
   onCloseHandler: func,
+  labels: array,
+  bottomFixed: bool,
 };
 
 LabelTag.defaultProps = {
@@ -131,6 +135,7 @@ LabelTag.defaultProps = {
   isVisible: false,
   onChangeHandler: null,
   onCloseHandler: null,
+  bottomFixed: false,
 };
 
 TodoLabelTag.propTypes = {
@@ -139,6 +144,7 @@ TodoLabelTag.propTypes = {
   isVisible: bool,
   onChangeHandler: func,
   onCloseHandler: func,
+  bottomFixed: bool,
 };
 
 TodoLabelTag.defaultProps = {
@@ -147,6 +153,7 @@ TodoLabelTag.defaultProps = {
   isVisible: false,
   onChangeHandler: null,
   onCloseHandler: null,
+  bottomFixed: false,
 };
 
 export default TodoLabelTag;

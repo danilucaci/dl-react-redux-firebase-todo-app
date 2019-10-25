@@ -23,6 +23,9 @@
     max-width: tokens.$size-dropdown-projects;
     padding: tokens.$spacing-c-02 0;
 
+    max-height: 40vh;
+    overflow-x: auto;
+
     position: absolute;
 
     margin-left: 0;

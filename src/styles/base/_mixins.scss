@@ -26,6 +26,17 @@
   }
 }
 
+@mixin media-max-height($breakpoint) {
+  @if map.has-key(grid.$breakpoints, $breakpoint) {
+    $breakpoint-value: map.get(grid.$breakpoints, $breakpoint);
+    @media (max-height: $breakpoint-value) {
+      @content;
+    }
+  } @else {
+    @warn 'Invalid breakpoint: #{$breakpoint} in `media-min`.';
+  }
+}
+
 @mixin media-between($lower, $upper) {
   @if map.has-key(grid.$breakpoints, $lower) and
     map.has-key(grid.$breakpoints, $upper)

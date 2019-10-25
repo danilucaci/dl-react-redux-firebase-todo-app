@@ -170,6 +170,7 @@ function AddTodoModal({ inboxProject, closeModal, addTodo }) {
                   iconSide="left"
                   onClick={() => toggleShowProjects()}
                   isVisible={showProjects}
+                  bottomFixed={true}
                   onChangeHandler={setSelectedProject}
                 />
               ) : null}
@@ -178,6 +179,7 @@ function AddTodoModal({ inboxProject, closeModal, addTodo }) {
                 labels={todo.labels}
                 onClick={() => setShowLabels()}
                 isVisible={showLabels}
+                bottomFixed={true}
                 onChangeHandler={setSelectedLabel}
                 onCloseHandler={() => closeShowLabels()}
               />
@@ -186,6 +188,7 @@ function AddTodoModal({ inboxProject, closeModal, addTodo }) {
                 dueDate={todo.dueDate}
                 additionalClasses="AddTodoModal__DueDate"
                 isVisible={showDate}
+                bottomFixed={true}
                 onChangeHandler={setSelectedDate}
                 onCloseHandler={() => {
                   closeShowDate();

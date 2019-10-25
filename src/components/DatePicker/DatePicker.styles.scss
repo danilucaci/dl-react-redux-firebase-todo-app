@@ -20,9 +20,6 @@
     box-shadow: tokens.$shadow-dropdown;
     border-radius: tokens.$border-radius-components-default;
     display: block;
-    width: 100%;
-    max-width: tokens.$size-dropdown-datepicker;
-    padding: tokens.$spacing-c-02 0;
 
     position: absolute;
   }
@@ -52,7 +49,8 @@
 // react-day-picker overides
 .DayPicker {
   display: inline-block;
-  font-size: 0.9375rem;
+  font-size: tokens.$font-size-body-m;
+  line-height: tokens.$font-line-height-body-m;
 
   &-TodayButton {
   }
@@ -100,12 +98,12 @@
   }
 
   &-Day {
-    padding: 0.625em;
+    padding: 0.5em;
     border-radius: 0 !important;
   }
 
   &-WeekNumber {
-    padding: 0.625em;
+    padding: 0.5em;
     min-width: 1em;
     border-right: 1px solid #eaecec;
     color: #8b9898;

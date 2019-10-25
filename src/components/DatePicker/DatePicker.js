@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { object, bool, func } from "prop-types";
 import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
 
@@ -10,30 +11,34 @@ import { useRectSize } from "../../hooks";
 import { isPastDate } from "../../utils/dates";
 import { isToday } from "date-fns";
 
-const DatePicker = ({ dueDate, onChangeHandler, onCloseHandler, position }) => {
+const DatePicker = ({
+  dueDate,
+  onChangeHandler,
+  onCloseHandler,
+  bottomFixed,
+  position,
+}) => {
   const [datePickerRef, datePickerSize] = useRectSize();
   const [message, setMessage] = useState(null);
 
   let style = {
-    left: position.left,
-    right: position.right,
+    left: position.right - datePickerSize.width,
+    top: position.bottom,
   };
 
-  style.left = Math.min(
-    position.left,
-    document.body.clientWidth - datePickerSize.width - 16,
-  );
+  if (position.right - datePickerSize.width < 16) {
+    style.left = 16;
+  }
 
-  style.right = Math.min(
-    position.right,
-    document.body.clientWidth - datePickerSize.width - 16,
-  );
-
-  style.top = position.bottom;
-
-  // if (window.innerHeight < position.bottom + datePickerSize.height) {
-  //   style.top = position.bottom - datePickerSize.height - 24;
-  // }
+  if (
+    bottomFixed &&
+    position.bottom + datePickerSize.height > document.body.clientHeight
+  ) {
+    style.top =
+      position.bottom -
+      8 -
+      (position.bottom + datePickerSize.height - document.body.clientHeight);
+  }
 
   function handleDateChange(date) {
     if (isPastDate(date) && !isToday(date)) {
@@ -74,6 +79,17 @@ const DatePicker = ({ dueDate, onChangeHandler, onCloseHandler, position }) => {
   );
 };
 
-DatePicker.propTypes = {};
+DatePicker.propTypes = {
+  dueDate: object,
+  position: object.isRequired,
+  bottomFixed: bool,
+  onChangeHandler: func.isRequired,
+  onCloseHandler: func.isRequired,
+};
+
+DatePicker.defaultProps = {
+  bottomFixed: false,
+  dueDate: null,
+};
 
 export default DatePicker;

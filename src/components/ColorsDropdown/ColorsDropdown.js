@@ -17,14 +17,9 @@ const ColorsDropdown = ({ onChangeHandler, position, colors }) => {
     top: position.top,
   };
 
-  style.left = Math.min(
-    position.left,
-    document.body.clientWidth - dropdownSize.width - 16,
-  );
-
   style.right = Math.min(
     position.right,
-    document.body.clientWidth - dropdownSize.width - 16,
+    document.body.clientWidth - dropdownSize.width,
   );
 
   return (
