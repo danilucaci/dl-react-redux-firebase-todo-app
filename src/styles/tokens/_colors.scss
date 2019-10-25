@@ -8,6 +8,8 @@ $color-text-body-default: colors.$grey900;
 $color-text-body-subdued: colors.$grey700;
 $color-text-body-error: colors.$danger600;
 $color-text-display-default: colors.$grey900;
+$color-text-subhead-default: colors.$grey700;
+$color-text-subhead-dark: colors.$grey900;
 $color-text-button-primary-enabled: colors.$primary50;
 $color-text-button-primary-disabled: colors.$grey00;
 $color-text-button-outlined-enabled: colors.$grey900;
@@ -19,6 +21,9 @@ $color-text-button-text-disabled: colors.$grey700;
 $color-text-link-default: colors.$primary600;
 $color-text-link-hover: colors.$primary500;
 $color-text-link-active: colors.$primary700;
+$color-background-link-default: colors.$grey00;
+$color-background-link-hover: colors.$primary50;
+$color-background-link-active: colors.$primary100;
 
 // Input fields
 $color-text-input-enabled: colors.$grey700;

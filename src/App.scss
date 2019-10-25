@@ -9,7 +9,59 @@
   // @extend %bg-debug;
 }
 
-h1 {
+ul {
+  list-style-type: disc;
+}
+
+ul,
+ol {
+  margin-left: 1em;
+  list-style-position: outside;
+}
+
+hr,
+.HR--on-white {
+  width: 100%;
+  display: block;
+  border: none;
+  border-top: tokens.$size-divider-s solid tokens.$color-divider-on-white;
+}
+
+.HR--on-grey {
+  width: 100%;
+  display: block;
+  border: none;
+  border-top: tokens.$size-divider-s solid tokens.$color-divider-on-grey;
+}
+
+a {
+  font-size: tokens.$font-size-body-m;
+  line-height: tokens.$font-line-height-body-m;
+  color: tokens.$color-text-link-default;
+  text-decoration: underline;
+  font-style: normal;
+  font-weight: 400;
+
+  &:visited,
+  &:link {
+    color: tokens.$color-text-link-default;
+  }
+
+  &:hover {
+    background-color: tokens.$color-background-link-hover;
+    color: tokens.$color-text-link-hover;
+    cursor: pointer;
+  }
+
+  &:active {
+    background-color: tokens.$color-background-link-active;
+    color: tokens.$color-text-link-active;
+    cursor: pointer;
+  }
+}
+
+h1,
+.H1 {
   color: tokens.$color-text-display-default;
 
   font-size: tokens.$font-size-mobile-display-xl;
@@ -26,7 +78,8 @@ h1 {
   }
 }
 
-h2 {
+h2,
+.H2 {
   color: tokens.$color-text-display-default;
 
   font-size: tokens.$font-size-mobile-display-l;
@@ -43,7 +96,8 @@ h2 {
   }
 }
 
-h3 {
+h3,
+.H3 {
   color: tokens.$color-text-display-default;
 
   font-size: tokens.$font-size-mobile-display-m;
@@ -60,7 +114,8 @@ h3 {
   }
 }
 
-h4 {
+h4,
+.H4 {
   color: tokens.$color-text-display-default;
 
   font-size: tokens.$font-size-mobile-display-s;
@@ -77,7 +132,8 @@ h4 {
   }
 }
 
-h5 {
+h5,
+.H5 {
   color: tokens.$color-text-display-default;
 
   font-size: tokens.$font-size-mobile-display-xs;
@@ -92,4 +148,17 @@ h5 {
     font-size: tokens.$font-size-desktop-display-xs;
     line-height: tokens.$font-line-height-desktop-display-xs;
   }
+}
+
+.Subhead {
+  color: tokens.$color-text-subhead-default;
+
+  font-size: tokens.$font-size-subhead;
+  line-height: tokens.$font-line-height-subhead;
+  font-family: tokens.$font-family-display;
+  font-weight: 600;
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: tokens.$font-letter-spacing-subhead;
+  margin: 0;
 }
