@@ -73,7 +73,7 @@ function AddTodoModal({ inboxProject, closeModal, addTodo }) {
   const setSelectedDate = (date) => dispatch(setSelectedDateAction(date));
 
   useOnClickOutside(modalRef, handleClickOutside);
-  useDisableModalBackground(modalRef);
+  useDisableModalBackground(modalRef, todo.name);
   useKeyUpPress("Escape", escapeKeyHandler);
 
   useEffect(() => {

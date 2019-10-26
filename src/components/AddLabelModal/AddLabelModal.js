@@ -31,7 +31,7 @@ function AddLabelModal({ colors, closeModal, addLabel }) {
   const [colorsVisible, setColorsVisible] = useState(false);
 
   useOnClickOutside(modalRef, onCloseHandler);
-  useDisableModalBackground(modalRef);
+  useDisableModalBackground(modalRef, labelName);
   useKeyUpPress("Escape", onCloseHandler);
 
   useEffect(() => {

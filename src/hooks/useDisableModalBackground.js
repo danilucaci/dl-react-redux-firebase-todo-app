@@ -1,9 +1,19 @@
 import { useEffect } from "react";
 import { disableBodyScroll, clearAllBodyScrollLocks } from "body-scroll-lock";
 
-import { toggleTabIndex } from "../utils/a11y";
+import {
+  getFirstAndLastFocusableNode,
+  getAllFocusableNodes,
+} from "../utils/a11y";
 
-function useDisableModalBackground(keepVisibleNodeRef) {
+/**
+ *
+ * @param {*} dependency
+ * Used to update the focusable nodes list if an element is first `disabled`
+ * and then `enabled` when is state changes.
+ */
+
+function useDisableModalBackground(keepVisibleNodeRef, dependency) {
   useEffect(() => {
     if (keepVisibleNodeRef.current) {
       disableBodyScroll(keepVisibleNodeRef.current, {
@@ -11,15 +21,41 @@ function useDisableModalBackground(keepVisibleNodeRef) {
       });
     }
 
-    const reactRootElement = document.getElementById("root");
+    const [first, last] = getFirstAndLastFocusableNode(
+      getAllFocusableNodes(keepVisibleNodeRef.current),
+    );
 
-    toggleTabIndex("off", reactRootElement);
+    function onTabShiftKeyDown(e) {
+      if (e.key === "Tab" && e.shiftKey) {
+        last.focus();
+        e.preventDefault();
+      }
+    }
+
+    function onTabKeyDown(e) {
+      if (e.key === "Tab") {
+        first.focus();
+        e.preventDefault();
+      }
+    }
+
+    if (first && last) {
+      first.addEventListener("keydown", onTabShiftKeyDown);
+      last.addEventListener("keydown", onTabKeyDown);
+    }
+
+    console.log(
+      ...getFirstAndLastFocusableNode(
+        getAllFocusableNodes(keepVisibleNodeRef.current),
+      ),
+    );
 
     return () => {
-      toggleTabIndex("on", reactRootElement);
+      first.removeEventListener("keydown", onTabShiftKeyDown);
+      last.removeEventListener("keydown", onTabKeyDown);
       clearAllBodyScrollLocks();
     };
-  }, [keepVisibleNodeRef]);
+  }, [keepVisibleNodeRef, dependency]);
 }
 
 export default useDisableModalBackground;

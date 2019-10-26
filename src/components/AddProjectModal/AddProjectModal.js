@@ -31,7 +31,7 @@ function AddProjectModal({ colors, closeModal, addProject }) {
   const [colorsVisible, setColorsVisible] = useState(false);
 
   useOnClickOutside(modalRef, onCloseHandler);
-  useDisableModalBackground(modalRef);
+  useDisableModalBackground(modalRef, projectName);
   useKeyUpPress("Escape", onCloseHandler);
 
   useEffect(() => {
