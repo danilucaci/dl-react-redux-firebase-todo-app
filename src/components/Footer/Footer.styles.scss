@@ -1,7 +1,7 @@
 @use "../../styles/tokens";
 @use "../../styles/base/placeholders";
 
-.Footer {
+.Site__Footer {
   @extend %top-divider--on-white;
 
   background-color: tokens.$color-background-page-lightest;
