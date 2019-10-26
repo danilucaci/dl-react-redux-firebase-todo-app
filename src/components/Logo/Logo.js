@@ -4,7 +4,7 @@ import "./Logo.styles.scss";
 
 function Logo() {
   return (
-    <Link to="/" className="Logo col col-4 col-m-3 col-xl-4">
+    <Link to="/" className="Logo col col-4 col-l-3 col-xl-4">
       TodoThis
     </Link>
   );

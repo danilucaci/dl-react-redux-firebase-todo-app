@@ -11,3 +11,7 @@ export { default as usePortal } from "./usePortal";
 export { default as useLogger } from "./useLogger";
 export { default as useRectSize } from "./useRectSize";
 export { default as useMultipleKeysPressed } from "./useMultipleKeysPressed";
+export {
+  default as useDisableSidebarBackground,
+} from "./useDisableSidebarBackground";
+export { default as useAnimation } from "./useAnimation";

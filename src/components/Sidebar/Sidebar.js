@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import React, { useEffect, useRef } from "react";
+import { NavLink } from "react-router-dom";
 import classnames from "classnames";
 import { connect, useDispatch } from "react-redux";
 
@@ -15,19 +15,24 @@ import {
   openAddLabelModal,
   openAddProjectModal,
 } from "../../redux/localState/localState-actions";
+import { useDisableSidebarBackground, useAnimation } from "../../hooks";
 
 function Sidebar(props) {
   const { projects, labels, menu } = props;
-  const { menuOpen, isTransitioning } = menu;
+  const { menuOpen } = menu;
   const dispatch = useDispatch();
-  let location = useLocation();
+  const sidebarRef = useRef(null);
 
-  // Breakpoint at which the gutters change size from 16px to 24px
-  // Also where fonts change sizes
-  // AKA: $grid-gutter-breakpoint-change: "l";
-  const mql = window.matchMedia("(min-width: 42.5rem)");
+  useDisableSidebarBackground(sidebarRef, menuOpen);
+
+  const [isVisible, isTransitioning] = useAnimation(menuOpen);
 
   useEffect(() => {
+    // Breakpoint at which the gutters change size from 16px to 24px
+    // Also where fonts change sizes
+    // AKA: $grid-gutter-breakpoint-change: "l";
+    const mql = window.matchMedia("(min-width: 42.5rem)");
+
     mql.addEventListener("change", handleMatchMedia);
 
     function handleMatchMedia(e) {
@@ -40,24 +45,25 @@ function Sidebar(props) {
 
     return () => {
       mql.removeEventListener("change", handleMatchMedia);
-
-      if (menuOpen) {
-        dispatch(closeMenu());
-      }
     };
-  }, [dispatch, location, menuOpen, mql]);
+  }, [dispatch, isVisible, menuOpen]);
 
   const sidebarClasses = classnames({
     Sidebar: true,
-    [`Sidebar--Visible`]: menuOpen,
-    [`Sidebar--IsTransitioning`]: isTransitioning,
+    [`Sidebar--Visible`]: isVisible,
+    [`Sidebar--isTransitioning`]: isTransitioning,
     col: true,
     [`col-l-3`]: true,
     [`col-xl-4`]: true,
   });
 
   return (
-    <aside className={sidebarClasses}>
+    <aside
+      className={sidebarClasses}
+      ref={sidebarRef}
+      aria-expanded={menuOpen ? true : false}
+      aria-label="Navigation sidebar"
+    >
       <nav>
         <ul className="Sidebar__Section">
           <NavLink

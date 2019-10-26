@@ -5,18 +5,20 @@
   display: none;
   background-color: tokens.$color-background-page-lightest;
 
+  overflow-y: auto;
+  z-index: tokens.$z-index-modal;
+  height: 100%;
+
+  top: tokens.$size-site-nav-s;
+  left: -#{tokens.$grid-spacing-s};
+  right: -#{tokens.$grid-spacing-s};
+
   will-change: transform;
   position: fixed;
-  z-index: 1000;
-  top: tokens.$size-site-nav-s;
-  left: tokens.$grid-spacing-s;
-  right: tokens.$grid-spacing-s;
-
-  transform: translateX(-120%);
+  transform: translateX(120%);
   pointer-events: none;
-  transition: transform ease-out tokens.$timing-menu-transition;
+  transition: transform ease tokens.$timing-menu-transition;
 
-  margin-top: tokens.$spacing-c-06;
   padding-bottom: tokens.$spacing-l-08;
 
   @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
@@ -26,20 +28,17 @@
     transform: none;
     transition: none;
     pointer-events: auto;
-  }
-
-  @include tokens.media-min(xl) {
-    margin-top: tokens.$spacing-c-08;
-  }
-
-  &--IsTransitioning {
-    display: block !important;
+    overflow: visible;
+    z-index: tokens.$z-index-default;
   }
 
   &--Visible {
-    display: block;
     transform: translateY(0);
     pointer-events: auto;
+  }
+
+  &--isTransitioning {
+    display: block !important;
   }
 }
 
@@ -50,9 +49,8 @@
     margin-bottom: tokens.$spacing-c-08;
   }
 
-  & li {
-    list-style-type: none;
-  }
+  margin-left: 0;
+  list-style-type: none;
 }
 
 .Sidebar__Link {
@@ -64,16 +62,11 @@
   display: flex;
   flex: 1 1 auto;
 
-  margin: {
-    left: -#{tokens.$grid-gutter-s};
-    right: -#{tokens.$grid-gutter-s};
-  }
-
   padding: {
     top: tokens.$spacing-c-03;
     right: tokens.$grid-gutter-s;
     bottom: tokens.$spacing-c-03;
-    left: tokens.$grid-gutter-s;
+    left: tokens.$spacing-c-04;
   }
 
   &:visited,
@@ -124,13 +117,11 @@
   display: block;
 
   margin: {
-    left: -#{tokens.$grid-gutter-s};
-    right: -#{tokens.$grid-gutter-s};
     top: tokens.$spacing-c-05;
   }
 
   padding: {
-    left: tokens.$grid-gutter-s;
+    left: tokens.$spacing-c-04;
     right: tokens.$grid-gutter-s;
   }
 
@@ -209,8 +200,7 @@
   display: flex;
 
   margin: {
-    left: -#{tokens.$grid-gutter-s};
-    right: -#{tokens.$grid-gutter-s};
+    top: tokens.$spacing-c-06;
     bottom: tokens.$spacing-c-03;
   }
 
@@ -230,6 +220,10 @@
       left: tokens.$grid-gutter-m;
       right: tokens.$grid-gutter-m;
     }
+  }
+
+  @include tokens.media-min(xl) {
+    margin-top: tokens.$spacing-c-08;
   }
 
   &:visited,
@@ -266,13 +260,11 @@
   @extend %bottom-divider--on-white;
 
   margin: {
-    left: -#{tokens.$grid-gutter-s};
-    right: -#{tokens.$grid-gutter-s};
     bottom: tokens.$spacing-c-05;
   }
 
   padding: {
-    left: tokens.$grid-gutter-s;
+    left: tokens.$spacing-c-04;
     right: tokens.$grid-gutter-s;
     top: tokens.$spacing-c-03;
     bottom: tokens.$spacing-c-03;

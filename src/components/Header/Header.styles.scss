@@ -1,6 +1,6 @@
 @use "../../styles/tokens";
 
-.Site__Header__Wrapper {
+.Site__Header {
   background-color: tokens.$color-background-page-lightest;
   border-bottom: 1px solid tokens.$color-border-header;
   height: tokens.$size-site-nav-s;
@@ -14,35 +14,31 @@
     padding-top: tokens.$spacing-site-nav-vertical-m;
     padding-bottom: tokens.$spacing-site-nav-vertical-m;
   }
-}
 
-.Buttons__Wrapper {
-  display: flex;
-  align-items: center;
-}
+  &__Nav {
+    display: flex;
+    align-items: center;
+  }
 
-.Site__Header__Nav {
-  display: flex;
-  align-items: center;
-}
+  &__Search__Buttons {
+    display: flex;
+    align-items: center;
+  }
 
-.Buttons {
-  display: flex;
-  margin-left: auto;
-}
+  &__Buttons__Wrapper {
+    display: flex;
+    margin-left: auto;
+    margin-right: -#{tokens.$grid-spacing-s};
 
-.Menu {
-  display: inline-block;
-  margin-left: tokens.rem(8);
-
-  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
-    display: none;
+    @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+      margin-right: 0;
+    }
   }
 }
 
 .SearchButton {
   display: inline-block;
-  margin-left: tokens.rem(8);
+  margin-left: tokens.$spacing-c-03;
 
   @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
     display: none;
@@ -50,7 +46,7 @@
 }
 
 .AddTodoMobile {
-  margin-left: tokens.rem(8);
+  margin-left: tokens.$spacing-c-03;
   display: inline-block;
 
   @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {

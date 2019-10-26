@@ -4,27 +4,25 @@ import "./Header.styles.scss";
 
 import Logo from "../Logo/Logo";
 import IconButton from "../IconButton/IconButton";
+import MenuButton from "../MenuButton/MenuButton";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
 import SearchBar from "../SearchBar/SearchBar";
-import {
-  toggleMenu,
-  openAddTodoModal,
-} from "../../redux/localState/localState-actions";
+import { openAddTodoModal } from "../../redux/localState/localState-actions";
 
 function Header() {
   const dispatch = useDispatch();
 
   return (
-    <header className="Site__Header__Wrapper" role="banner">
+    <header className="Site__Header" role="banner">
       <nav
         className="Site__Header__Nav row row--contain-10"
         aria-label="Page Menu"
         role="navigation"
       >
         <Logo />
-        <div className="Buttons__Wrapper col col-8 col-m-5 col-xl-8">
+        <div className="Site__Header__Search__Buttons col col-8 col-l-5 col-xl-8">
           <SearchBar />
-          <div className="Buttons">
+          <div className="Site__Header__Buttons__Wrapper">
             <PrimaryButton
               icon="add-24"
               additionalClasses="PrimaryButton--Medium AddTodoDesktop"
@@ -44,12 +42,7 @@ function Header() {
               ariaText="Search todos"
               onClick={() => console.log("Searching...")}
             />
-            <IconButton
-              icon="menu"
-              additionalClasses="IconButton--Medium Menu"
-              ariaText="Open menu"
-              onClick={() => dispatch(toggleMenu())}
-            />
+            <MenuButton additionalClasses="Menu" />
           </div>
         </div>
       </nav>

@@ -1,10 +1,10 @@
 import "./App.scss";
 import "focus-visible";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import classnames from "classnames";
 import { connect } from "react-redux";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useLocation } from "react-router-dom";
 
 import SVGSprite from "./components/SVGSprite/SVGSprite";
 import Header from "./components/Header/Header";
@@ -28,18 +28,39 @@ import { projectsSelector } from "./redux/projects/projects-selectors";
 import { labelsSelector } from "./redux/labels/labels-selectors";
 import { currentUserSelector } from "./redux/user/user-selectors";
 import { modalsSelector } from "./redux/localState/localState-selectors";
+import { menuSelector } from "./redux/localState/localState-selectors";
+import { closeMenu } from "./redux/localState/localState-actions";
 
 function App(props) {
   const appClasses = classnames({
     App: true,
   });
 
+  let location = useLocation();
+  const prevLocation = useRef(null);
+
   const {
     labels,
     projects,
     // currentUser
     modalsState,
+    menu: { menuOpen },
+    dispatch,
   } = props;
+
+  useEffect(() => {
+    if (menuOpen) {
+      if (prevLocation.current) {
+        if (prevLocation.current.pathname !== location.pathname) {
+          dispatch(closeMenu());
+        }
+      }
+    }
+
+    return () => {
+      prevLocation.current = location;
+    };
+  }, [dispatch, location, menuOpen]);
 
   const {
     addTodoModalActive,
@@ -102,6 +123,7 @@ export const mapStateToProps = (state) => ({
   labels: labelsSelector(state),
   currentUser: currentUserSelector(state),
   modalsState: modalsSelector(state),
+  menu: menuSelector(state),
 });
 
 export default connect(mapStateToProps)(App);
