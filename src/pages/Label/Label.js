@@ -20,7 +20,7 @@ function Label(props) {
       {labelOverdueTodos.length ? (
         <section className="Section">
           <header className="Section__Header">
-            <h1 className="Section__Title">Overdue</h1>
+            <h2 className="Section__Title">Overdue</h2>
           </header>
           <ul className="Section__Todos__List">
             {labelOverdueTodos &&
@@ -33,7 +33,7 @@ function Label(props) {
 
       <section className="Section">
         <header className="Section__Header">
-          <h1 className="Section__Title">Todos</h1>
+          <h2 className="Section__Title">Todos</h2>
         </header>
         <ul className="Section__Todos__List">
           {labelTodos &&
