@@ -32,12 +32,12 @@ const DatePicker = ({
 
   if (
     bottomFixed &&
-    position.bottom + datePickerSize.height > document.body.clientHeight
+    position.bottom + datePickerSize.height > window.innerHeight
   ) {
     style.top =
       position.bottom -
       8 -
-      (position.bottom + datePickerSize.height - document.body.clientHeight);
+      (position.bottom + datePickerSize.height - window.innerHeight);
   }
 
   function handleDateChange(date) {

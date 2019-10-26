@@ -86,14 +86,11 @@ const LabelsDropdown = ({
     document.body.clientWidth - dropdownSize.width - 16,
   );
 
-  if (
-    bottomFixed &&
-    position.top + dropdownSize.height > document.body.clientHeight
-  ) {
+  if (bottomFixed && position.top + dropdownSize.height > window.innerHeight) {
     style.top =
       position.top -
       8 -
-      (position.top + dropdownSize.height - document.body.clientHeight);
+      (position.top + dropdownSize.height - window.innerHeight);
   }
 
   function handleLabelSelect(currLabel) {
