@@ -3,10 +3,12 @@ import { disableBodyScroll, clearAllBodyScrollLocks } from "body-scroll-lock";
 
 import { toggleTabIndex } from "../utils/a11y";
 
-function useDisableModalBackground(modalRef) {
+function useDisableModalBackground(keepVisibleNodeRef) {
   useEffect(() => {
-    if (modalRef.current) {
-      disableBodyScroll(modalRef.current, { reserveScrollBarGap: true });
+    if (keepVisibleNodeRef.current) {
+      disableBodyScroll(keepVisibleNodeRef.current, {
+        reserveScrollBarGap: true,
+      });
     }
 
     const reactRootElement = document.getElementById("root");
@@ -17,7 +19,7 @@ function useDisableModalBackground(modalRef) {
       toggleTabIndex("on", reactRootElement);
       clearAllBodyScrollLocks();
     };
-  }, [modalRef]);
+  }, [keepVisibleNodeRef]);
 }
 
 export default useDisableModalBackground;
