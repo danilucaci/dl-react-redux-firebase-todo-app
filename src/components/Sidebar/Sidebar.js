@@ -33,8 +33,6 @@ function Sidebar(props) {
     // AKA: $grid-gutter-breakpoint-change: "l";
     const mql = window.matchMedia("(min-width: 42.5rem)");
 
-    mql.addEventListener("change", handleMatchMedia);
-
     function handleMatchMedia(e) {
       if (e.matches) {
         if (menuOpen) {
@@ -43,8 +41,13 @@ function Sidebar(props) {
       }
     }
 
+    /**
+     *  `addEventListener` doesn’t work in Safari
+     */
+    mql.addListener(handleMatchMedia);
+
     return () => {
-      mql.removeEventListener("change", handleMatchMedia);
+      mql.removeListener(handleMatchMedia);
     };
   }, [dispatch, isVisible, menuOpen]);
 
