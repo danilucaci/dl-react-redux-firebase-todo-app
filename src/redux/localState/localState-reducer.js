@@ -17,7 +17,14 @@ const localStateReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         menu: {
+          ...state.menu,
           menuOpen: !state.menu.menuOpen,
+        },
+        modals: {
+          ...state.modals,
+          addTodoModalActive: false,
+          addProjectModalActive: false,
+          addLabelModalActive: false,
         },
       };
     }
@@ -25,6 +32,7 @@ const localStateReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         menu: {
+          ...state.menu,
           menuOpen: false,
         },
       };
@@ -32,9 +40,15 @@ const localStateReducer = (state = INITIAL_STATE, action) => {
     case LocalStateTypes.OPEN_ADD_TODO_MODAL: {
       return {
         ...state,
+        menu: {
+          ...state.menu,
+          menuOpen: false,
+        },
         modals: {
           ...state.modals,
           addTodoModalActive: true,
+          addProjectModalActive: false,
+          addLabelModalActive: false,
         },
       };
     }
@@ -50,9 +64,15 @@ const localStateReducer = (state = INITIAL_STATE, action) => {
     case LocalStateTypes.OPEN_ADD_PROJECT_MODAL: {
       return {
         ...state,
+        menu: {
+          ...state.menu,
+          menuOpen: false,
+        },
         modals: {
           ...state.modals,
           addProjectModalActive: true,
+          addTodoModalActive: false,
+          addLabelModalActive: false,
         },
       };
     }
@@ -68,8 +88,14 @@ const localStateReducer = (state = INITIAL_STATE, action) => {
     case LocalStateTypes.OPEN_ADD_LABEL_MODAL: {
       return {
         ...state,
+        menu: {
+          ...state.menu,
+          menuOpen: false,
+        },
         modals: {
           ...state.modals,
+          addProjectModalActive: false,
+          addTodoModalActive: false,
           addLabelModalActive: true,
         },
       };
