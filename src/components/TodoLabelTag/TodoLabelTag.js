@@ -5,7 +5,7 @@ import classNames from "classnames";
 import "./TodoLabelTag.styles.scss";
 import { getClassesFromProps } from "../../utils/helpers";
 import { useRectSize } from "../../hooks";
-import LabelsDropdown from "../LabelsDropdown/LabelsDropdown";
+import LabelsDropdownContainer from "../../redux/containers/components/LabelsDropdownContainer";
 
 export const LabelTag = ({
   labelName,
@@ -30,7 +30,7 @@ export const LabelTag = ({
   return (
     <>
       {isVisible && (
-        <LabelsDropdown
+        <LabelsDropdownContainer
           onChangeHandler={onChangeHandler}
           onCloseHandler={onCloseHandler}
           bottomFixed={bottomFixed}

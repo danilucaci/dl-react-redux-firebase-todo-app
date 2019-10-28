@@ -1,10 +1,8 @@
 import React from "react";
-import { connect } from "react-redux";
 import { array, bool, object, func } from "prop-types";
 
 import "./LabelsDropdown.styles.scss";
 import Portal from "../Portal/Portal";
-import { labelsSelector } from "../../redux/labels/labels-selectors";
 import { useRectSize } from "../../hooks";
 import TextButton from "../TextButton/TextButton";
 
@@ -163,8 +161,4 @@ LabelsDropdown.defaultProps = {
   labels: null,
 };
 
-export const mapStateToProps = (state) => ({
-  appLabels: labelsSelector(state),
-});
-
-export default connect(mapStateToProps)(LabelsDropdown);
+export default LabelsDropdown;
