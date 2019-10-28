@@ -9,17 +9,14 @@ import {
   func,
 } from "prop-types";
 import classnames from "classnames";
-import { connect } from "react-redux";
 
 import "./TodoItem.styles.scss";
 
-import { toggleTodoCompleted } from "../../redux/todos/todos-actions";
 import TodoProjectTag from "../TodoProjectTag/TodoProjectTag";
 import TodoLabelTag from "../TodoLabelTag/TodoLabelTag";
 import TodoDueDate from "../TodoDueDate/TodoDueDate";
-import { todoSelector } from "../../redux/todos/todos-selectors";
 
-function TodoItem({ todo, setIsEditingTodo, dispatch }) {
+function TodoItem({ todo, setIsEditingTodo, toggleTodoCompleted }) {
   const { id, name, completed, labels, project, dueDate } = todo;
 
   const todoButtonClassnames = classnames({
@@ -35,7 +32,7 @@ function TodoItem({ todo, setIsEditingTodo, dispatch }) {
     <li className={todoItemClassnames}>
       <button
         className={todoButtonClassnames}
-        onClick={() => dispatch(toggleTodoCompleted(id))}
+        onClick={() => toggleTodoCompleted(id)}
       >
         <svg className="Todo__Button__Icon">
           <use xlinkHref="#check-20" />
@@ -107,6 +104,7 @@ TodoItem.propTypes = {
     id: string.isRequired,
   }),
   setIsEditingTodo: func.isRequired,
+  toggleTodoCompleted: func.isRequired,
 };
 
 TodoItem.defaultProps = {
@@ -116,8 +114,4 @@ TodoItem.defaultProps = {
   },
 };
 
-export const mapStateToProps = (state, ownProps) => ({
-  todo: todoSelector(state, ownProps.todoID),
-});
-
-export default connect(mapStateToProps)(TodoItem);
+export default TodoItem;

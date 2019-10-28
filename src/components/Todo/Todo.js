@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import { string } from "prop-types";
 
-import TodoForm from "../TodoForm/TodoForm";
-import TodoItem from "../TodoItem/TodoItem";
+import TodoFormContainer from "../../redux/containers/components/TodoFormContainer";
+import TodoItemContainer from "../../redux/containers/components/TodoItemContainer";
 
 export function Todo({ todoID }) {
   const [isEditingTodo, setIsEditingTodo] = useState(false);
 
   return isEditingTodo ? (
-    <TodoForm
+    <TodoFormContainer
       todoID={todoID}
       isEditingTodo={isEditingTodo}
       setIsEditingTodo={setIsEditingTodo}
     />
   ) : (
-    <TodoItem todoID={todoID} setIsEditingTodo={setIsEditingTodo} />
+    <TodoItemContainer todoID={todoID} setIsEditingTodo={setIsEditingTodo} />
   );
 }
 

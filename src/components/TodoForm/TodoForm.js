@@ -1,5 +1,4 @@
 import React, { useState, useRef } from "react";
-import { connect } from "react-redux";
 import {
   arrayOf,
   shape,
@@ -18,12 +17,10 @@ import TodoProjectTag from "../TodoProjectTag/TodoProjectTag";
 import TodoLabelTag from "../TodoLabelTag/TodoLabelTag";
 import { useKeyUpPress, useOnClickOutside, useFocusRef } from "../../hooks";
 import TodoDueDate from "../TodoDueDate/TodoDueDate";
-import { updateTodo } from "../../redux/todos/todos-actions";
-import { todoSelector } from "../../redux/todos/todos-selectors";
 
 import { parseDate } from "../../utils/dates";
 
-function TodoForm({ todo, isEditingTodo, setIsEditingTodo, dispatch }) {
+function TodoForm({ todo, isEditingTodo, setIsEditingTodo, updateTodo }) {
   const { labels, project, dueDate, name } = todo;
 
   const [newTodoName, setNewTodoName] = useState(name || "");
@@ -93,7 +90,7 @@ function TodoForm({ todo, isEditingTodo, setIsEditingTodo, dispatch }) {
       labels: newLabels,
     };
 
-    dispatch(updateTodo(todoData));
+    updateTodo(todoData);
     toggleIsEditing();
   }
 
@@ -220,8 +217,4 @@ TodoForm.defaultProps = {
   },
 };
 
-export const mapStateToProps = (state, ownProps) => ({
-  todo: todoSelector(state, ownProps.todoID),
-});
-
-export default connect(mapStateToProps)(TodoForm);
+export default TodoForm;
