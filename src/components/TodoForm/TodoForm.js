@@ -32,7 +32,6 @@ function TodoForm({ todo, isEditingTodo, setIsEditingTodo, updateTodo }) {
 
   const [selectedDate, setSelectedDate] = useState(parseDate(dueDate));
 
-  const inputRef = useRef();
   const todoWrapperRef = useRef();
 
   function handleClickOutside() {
@@ -68,7 +67,7 @@ function TodoForm({ todo, isEditingTodo, setIsEditingTodo, updateTodo }) {
   }
 
   useOnClickOutside(todoWrapperRef, handleClickOutside);
-  useFocusRef(inputRef);
+  const inputRef = useFocusRef();
   useKeyUpPress("Escape", escapeKeyHandler);
 
   function handleFormSubmit(e) {
