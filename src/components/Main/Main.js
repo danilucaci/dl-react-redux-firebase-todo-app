@@ -3,7 +3,7 @@ import { node } from "prop-types";
 import classnames from "classnames";
 
 import "./Main.styles.scss";
-import Sidebar from "../../components/Sidebar/Sidebar";
+import SidebarContainer from "../../redux/containers/components/SidebarContainer";
 
 function Main({ children }) {
   const mainClasses = classnames({
@@ -15,7 +15,7 @@ function Main({ children }) {
 
   return (
     <div className="row row--contain-10">
-      <Sidebar />
+      <SidebarContainer />
       <main className={mainClasses}>{children}</main>
     </div>
   );

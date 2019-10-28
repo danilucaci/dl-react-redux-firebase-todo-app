@@ -1,26 +1,24 @@
 import React, { useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import classnames from "classnames";
-import { connect, useDispatch } from "react-redux";
 
 import "./Sidebar.styles.scss";
 import avatarPlaceholder from "../../assets/img/avatar-placeholder.png";
 import SidebarItem from "../SidebarItem/SidebarItem";
 import AddNew from "../AddNew/AddNew";
-import { projectsSelector } from "../../redux/projects/projects-selectors";
-import { labelsSelector } from "../../redux/labels/labels-selectors";
-import { menuSelector } from "../../redux/localState/localState-selectors";
-import { closeMenu } from "../../redux/localState/localState-actions";
-import {
-  openAddLabelModal,
-  openAddProjectModal,
-} from "../../redux/localState/localState-actions";
+
 import { useDisableSidebarBackground, useAnimation } from "../../hooks";
 
-function Sidebar(props) {
-  const { projects, labels, menu } = props;
+function Sidebar({
+  projects,
+  labels,
+  menu,
+  closeMenu,
+  openAddProjectModal,
+  openAddLabelModal,
+}) {
   const { menuOpen } = menu;
-  const dispatch = useDispatch();
+
   const sidebarRef = useRef(null);
 
   useDisableSidebarBackground(sidebarRef, menuOpen);
@@ -36,7 +34,7 @@ function Sidebar(props) {
     function handleMatchMedia(e) {
       if (e.matches) {
         if (menuOpen) {
-          dispatch(closeMenu());
+          closeMenu();
         }
       }
     }
@@ -49,7 +47,7 @@ function Sidebar(props) {
     return () => {
       mql.removeListener(handleMatchMedia);
     };
-  }, [dispatch, isVisible, menuOpen]);
+  }, [closeMenu, isVisible, menuOpen]);
 
   const sidebarClasses = classnames({
     Sidebar: true,
@@ -152,9 +150,7 @@ function Sidebar(props) {
               </SidebarItem>
             ))}
           <li className="Sidebar__AddNew__Button">
-            <AddNew onClick={() => dispatch(openAddProjectModal())}>
-              Add project
-            </AddNew>
+            <AddNew onClick={() => openAddProjectModal()}>Add project</AddNew>
           </li>
         </ul>
         <ul className="Sidebar__Section">
@@ -181,9 +177,7 @@ function Sidebar(props) {
               </SidebarItem>
             ))}
           <li className="Sidebar__AddNew__Button">
-            <AddNew onClick={() => dispatch(openAddLabelModal())}>
-              Add label
-            </AddNew>
+            <AddNew onClick={() => openAddLabelModal()}>Add label</AddNew>
           </li>
         </ul>
       </nav>
@@ -191,10 +185,4 @@ function Sidebar(props) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  projects: projectsSelector(state),
-  labels: labelsSelector(state),
-  menu: menuSelector(state),
-});
-
-export default connect(mapStateToProps)(Sidebar);
+export default Sidebar;
