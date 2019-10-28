@@ -18,7 +18,7 @@ import TodoProjectTag from "../TodoProjectTag/TodoProjectTag";
 import TodoLabelTag from "../TodoLabelTag/TodoLabelTag";
 import TodoDueDate from "../TodoDueDate/TodoDueDate";
 
-function Todo({ todo, setIsEditingTodo }) {
+function TodoItem({ todo, setIsEditingTodo }) {
   const { id, name, completed, labels, project, dueDate } = todo;
 
   const todoButtonClassnames = classnames({
@@ -85,7 +85,7 @@ function Todo({ todo, setIsEditingTodo }) {
   );
 }
 
-Todo.propTypes = {
+TodoItem.propTypes = {
   todo: shape({
     labels: arrayOf(
       shape({
