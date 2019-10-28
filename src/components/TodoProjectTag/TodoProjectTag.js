@@ -5,7 +5,7 @@ import classNames from "classnames";
 import "./TodoProjectTag.styles.scss";
 import { getClassesFromProps } from "../../utils/helpers";
 import { useRectSize } from "../../hooks";
-import ProjectsDropdown from "../ProjectsDropdown/ProjectsDropdown";
+import ProjectsDropdownContainer from "../../redux/containers/components/ProjectsDropdownContainer";
 
 const TodoProjectTag = ({
   projectName,
@@ -60,7 +60,7 @@ const TodoProjectTag = ({
         )}
       </button>
       {isVisible && (
-        <ProjectsDropdown
+        <ProjectsDropdownContainer
           onChangeHandler={onChangeHandler}
           bottomFixed={bottomFixed}
           position={{

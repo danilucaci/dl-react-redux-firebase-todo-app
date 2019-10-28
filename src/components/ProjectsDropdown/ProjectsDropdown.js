@@ -1,11 +1,9 @@
 import React from "react";
-import { connect } from "react-redux";
 import { array, bool, object, func } from "prop-types";
 
 import "./ProjectsDropdown.styles.scss";
 
 import Portal from "../Portal/Portal";
-import { allProjectsSelector } from "../../redux/projects/projects-selectors";
 import { useRectSize } from "../../hooks";
 
 const ProjectsDropdown = ({
@@ -84,8 +82,4 @@ ProjectsDropdown.defaultProps = {
   bottomFixed: false,
 };
 
-export const mapStateToProps = (state) => ({
-  projects: allProjectsSelector(state),
-});
-
-export default connect(mapStateToProps)(ProjectsDropdown);
+export default ProjectsDropdown;
