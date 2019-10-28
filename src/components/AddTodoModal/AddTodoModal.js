@@ -11,6 +11,7 @@ import {
   useOnClickOutside,
   useDisableModalBackground,
   useKeyUpPress,
+  useFocusRef,
   // useLogger,
 } from "../../hooks";
 
@@ -38,7 +39,7 @@ import {
 
 function AddTodoModal({ inboxProject, closeModal, addTodo }) {
   const modalRef = useRef(null);
-  const inputRef = useRef(null);
+  const inputRef = useFocusRef();
 
   const [state, dispatch] = useReducer(addTodoReducer, addTodoReducerState);
   // const [state, dispatch] = useLogger(
@@ -71,12 +72,6 @@ function AddTodoModal({ inboxProject, closeModal, addTodo }) {
   useOnClickOutside(modalRef, handleClickOutside);
   useDisableModalBackground(modalRef, todo.name);
   useKeyUpPress("Escape", escapeKeyHandler);
-
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, []);
 
   useEffect(() => {
     const setInitialSelectedProject = (project) =>
