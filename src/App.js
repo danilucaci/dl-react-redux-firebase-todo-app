@@ -6,7 +6,7 @@ import classnames from "classnames";
 import { Switch, Route, useLocation } from "react-router-dom";
 
 import SVGSprite from "./components/SVGSprite/SVGSprite";
-import Header from "./components/Header/Header";
+import HeaderContainer from "./redux/containers/components/HeaderContainer";
 import Footer from "./components/Footer/Footer";
 
 import Home from "./pages/Home/Home";
@@ -63,7 +63,7 @@ function App({
   return (
     <div className={appClasses}>
       <SVGSprite />
-      <Header />
+      <HeaderContainer />
       <Switch>
         <Route path="/profile">
           <Profile />

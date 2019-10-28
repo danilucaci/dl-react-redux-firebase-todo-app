@@ -1,5 +1,4 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import "./Header.styles.scss";
 
 import Logo from "../Logo/Logo";
@@ -7,11 +6,8 @@ import IconButton from "../IconButton/IconButton";
 import MenuButtonContainer from "../../redux/containers/components/MenuButtonContainer";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
 import SearchBar from "../SearchBar/SearchBar";
-import { openAddTodoModal } from "../../redux/localState/localState-actions";
 
-function Header() {
-  const dispatch = useDispatch();
-
+function Header({ openAddTodoModal }) {
   return (
     <header className="Site__Header" role="banner">
       <nav
@@ -26,7 +22,7 @@ function Header() {
             <PrimaryButton
               icon="add-24"
               additionalClasses="PrimaryButton--Medium AddTodoDesktop"
-              onClick={() => dispatch(openAddTodoModal())}
+              onClick={() => openAddTodoModal()}
             >
               New todo
             </PrimaryButton>
@@ -34,7 +30,7 @@ function Header() {
               icon="add-24"
               additionalClasses="IconButton--Medium AddTodoMobile"
               ariaText="Add a new todo"
-              onClick={() => dispatch(openAddTodoModal())}
+              onClick={() => openAddTodoModal()}
             />
             <IconButton
               icon="search-24"
