@@ -1,28 +1,19 @@
 import React from "react";
-import { connect, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 import "./Labels.styles.scss";
 import Main from "../../components/Main/Main";
 import AddNew from "../../components/AddNew/AddNew";
 
-import { labelsSelector } from "../../redux/labels/labels-selectors";
-import { openAddLabelModal } from "../../redux/localState/localState-actions";
-
-function Labels(props) {
-  const { labels } = props;
-  const dispatch = useDispatch();
-
+function Labels({ labels, openAddLabelModal }) {
   return (
     <Main>
       <section className="Section">
         <header className="Labels__Section__Header">
           <h1 className="Section__Title">Labels</h1>
-          <AddNew onClick={() => dispatch(openAddLabelModal())}>
-            Add label
-          </AddNew>
+          <AddNew onClick={() => openAddLabelModal()}>Add label</AddNew>
         </header>
-        {labels ? (
+        {labels && labels.length ? (
           <div className="row-nested">
             {labels.map((label) => (
               <Link
@@ -44,15 +35,11 @@ function Labels(props) {
             ))}
           </div>
         ) : (
-          <p>TODO</p>
+          <p>Add a label to get started</p>
         )}
       </section>
     </Main>
   );
 }
 
-export const mapStateToProps = (state) => ({
-  labels: labelsSelector(state),
-});
-
-export default connect(mapStateToProps)(Labels);
+export default Labels;

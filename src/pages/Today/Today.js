@@ -1,15 +1,10 @@
 import React from "react";
-import { connect } from "react-redux";
 
 import "./Today.styles.scss";
 import Main from "../../components/Main/Main";
 import Todo from "../../components/Todo/Todo";
 import AddNew from "../../components/AddNew/AddNew";
 
-import {
-  overdueTodosSelector,
-  notOverdueTodayTodosSelector,
-} from "../../redux/todos/todos-selectors";
 import { formatTodaySectionDate } from "../../utils/dates";
 
 export function RenderTodayDateTime() {
@@ -26,7 +21,7 @@ function Today({ todayTodos, overdueTodos }) {
   return (
     <Main>
       <h1 className="Page__Title">Today</h1>
-      {overdueTodos.length ? (
+      {overdueTodos && overdueTodos.length ? (
         <section className="Section">
           <header className="Section__Header">
             <h1 className="Section__Title">Overdue</h1>
@@ -55,9 +50,4 @@ function Today({ todayTodos, overdueTodos }) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  overdueTodos: overdueTodosSelector(state),
-  todayTodos: notOverdueTodayTodosSelector(state),
-});
-
-export default connect(mapStateToProps)(Today);
+export default Today;

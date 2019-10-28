@@ -1,15 +1,8 @@
 import React from "react";
-import { connect } from "react-redux";
 
 import Main from "../../components/Main/Main";
 import Todo from "../../components/Todo/Todo";
 import AddNew from "../../components/AddNew/AddNew";
-
-import {
-  labelOverdueTodosSelector,
-  labelNotOverdueTodosSelector,
-  labelSelector,
-} from "../../redux/labels/labels-selectors";
 
 function Label({ labelTodos, labelOverdueTodos, label }) {
   return (
@@ -43,10 +36,4 @@ function Label({ labelTodos, labelOverdueTodos, label }) {
   );
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  labelOverdueTodos: labelOverdueTodosSelector(state, ownProps.labelID),
-  labelTodos: labelNotOverdueTodosSelector(state, ownProps.labelID),
-  label: labelSelector(state, ownProps.labelID),
-});
-
-export default connect(mapStateToProps)(Label);
+export default Label;

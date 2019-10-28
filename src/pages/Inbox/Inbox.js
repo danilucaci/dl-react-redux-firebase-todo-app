@@ -1,14 +1,8 @@
 import React from "react";
-import { connect } from "react-redux";
 
 import Main from "../../components/Main/Main";
 import Todo from "../../components/Todo/Todo";
 import AddNew from "../../components/AddNew/AddNew";
-
-import {
-  notOverdueInboxTodosSelector,
-  overdueInboxTodosSelector,
-} from "../../redux/todos/todos-selectors";
 
 function Inbox({ inboxTodos, overdueInboxTodos }) {
   return (
@@ -43,9 +37,4 @@ function Inbox({ inboxTodos, overdueInboxTodos }) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  overdueInboxTodos: overdueInboxTodosSelector(state),
-  inboxTodos: notOverdueInboxTodosSelector(state),
-});
-
-export default connect(mapStateToProps)(Inbox);
+export default Inbox;

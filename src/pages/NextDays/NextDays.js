@@ -1,21 +1,9 @@
 import React from "react";
-import { connect } from "react-redux";
 
 import "./NextDays.styles.scss";
 import Main from "../../components/Main/Main";
 import Todo from "../../components/Todo/Todo";
 import AddNew from "../../components/AddNew/AddNew";
-
-import {
-  overdueTodosSelector,
-  todayTodosSelector,
-  nextDaysPlus1TodosSelector,
-  nextDaysPlus2TodosSelector,
-  nextDaysPlus3TodosSelector,
-  nextDaysPlus4TodosSelector,
-  nextDaysPlus5TodosSelector,
-  nextDaysPlus6TodosSelector,
-} from "../../redux/todos/todos-selectors";
 
 import {
   formatTodaySectionDate,
@@ -55,7 +43,7 @@ function NextDays({
   return (
     <Main>
       <h1 className="Page__Title">Next 7 days</h1>
-      {overdueTodos.length ? (
+      {overdueTodos && overdueTodos.length ? (
         <section className="Section">
           <header className="Section__Header">
             <h1 className="Section__Title">Overdue</h1>
@@ -161,15 +149,4 @@ function NextDays({
   );
 }
 
-const mapStateToProps = (state) => ({
-  overdueTodos: overdueTodosSelector(state),
-  todayTodos: todayTodosSelector(state),
-  nextDaysPlus1Todos: nextDaysPlus1TodosSelector(state),
-  nextDaysPlus2Todos: nextDaysPlus2TodosSelector(state),
-  nextDaysPlus3Todos: nextDaysPlus3TodosSelector(state),
-  nextDaysPlus4Todos: nextDaysPlus4TodosSelector(state),
-  nextDaysPlus5Todos: nextDaysPlus5TodosSelector(state),
-  nextDaysPlus6Todos: nextDaysPlus6TodosSelector(state),
-});
-
-export default connect(mapStateToProps)(NextDays);
+export default NextDays;

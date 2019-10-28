@@ -3,7 +3,6 @@ import "focus-visible";
 
 import React, { useEffect, useRef } from "react";
 import classnames from "classnames";
-import { connect } from "react-redux";
 import { Switch, Route, useLocation } from "react-router-dom";
 
 import SVGSprite from "./components/SVGSprite/SVGSprite";
@@ -12,26 +11,28 @@ import Footer from "./components/Footer/Footer";
 
 import Home from "./pages/Home/Home";
 import Profile from "./pages/Profile/Profile";
-import Inbox from "./pages/Inbox/Inbox";
+import InboxContainer from "./redux/containers/pages/InboxContainer";
 import NotFound from "./pages/NotFound/NotFound";
-import Today from "./pages/Today/Today";
-import NextDays from "./pages/NextDays/NextDays";
-import Project from "./pages/Project/Project";
-import Projects from "./pages/Projects/Projects";
-import Label from "./pages/Label/Label";
-import Labels from "./pages/Labels/Labels";
+import TodayContainer from "./redux/containers/pages/TodayContainer";
+import NextDaysContainer from "./redux/containers/pages/NextDaysContainer";
+import ProjectContainer from "./redux/containers/pages/ProjectContainer";
+import ProjectsContainer from "./redux/containers/pages/ProjectsContainer";
+import LabelContainer from "./redux/containers/pages/LabelContainer";
+import LabelsContainer from "./redux/containers/pages/LabelsContainer";
 import AddTodoModal from "./components/AddTodoModal/AddTodoModal";
 import AddProjectModal from "./components/AddProjectModal/AddProjectModal";
 import AddLabelModal from "./components/AddLabelModal/AddLabelModal";
 
-import { projectsSelector } from "./redux/projects/projects-selectors";
-import { labelsSelector } from "./redux/labels/labels-selectors";
-import { currentUserSelector } from "./redux/user/user-selectors";
-import { modalsSelector } from "./redux/localState/localState-selectors";
-import { menuSelector } from "./redux/localState/localState-selectors";
-import { closeMenu } from "./redux/localState/localState-actions";
+function App({
+  labels,
+  projects,
+  // currentUser
+  modalsState,
+  menu,
+  closeMenu,
+}) {
+  const { menuOpen } = menu;
 
-function App(props) {
   const appClasses = classnames({
     App: true,
   });
@@ -39,20 +40,11 @@ function App(props) {
   let location = useLocation();
   const prevLocation = useRef(null);
 
-  const {
-    labels,
-    projects,
-    // currentUser
-    modalsState,
-    menu: { menuOpen },
-    dispatch,
-  } = props;
-
   useEffect(() => {
     if (menuOpen) {
       if (prevLocation.current) {
         if (prevLocation.current.pathname !== location.pathname) {
-          dispatch(closeMenu());
+          closeMenu();
         }
       }
     }
@@ -60,7 +52,7 @@ function App(props) {
     return () => {
       prevLocation.current = location;
     };
-  }, [dispatch, location, menuOpen]);
+  }, [location, menuOpen, closeMenu]);
 
   const {
     addTodoModalActive,
@@ -77,31 +69,31 @@ function App(props) {
           <Profile />
         </Route>
         <Route path="/inbox">
-          <Inbox />
+          <InboxContainer />
         </Route>
         <Route path="/today">
-          <Today />
+          <TodayContainer />
         </Route>
         <Route path="/next-days">
-          <NextDays />
+          <NextDaysContainer />
         </Route>
         {projects &&
           projects.map((project) => (
             <Route key={project.id} path={`/project/${project.name}`}>
-              <Project projectID={project.id} />
+              <ProjectContainer projectID={project.id} />
             </Route>
           ))}
         <Route path="/projects">
-          <Projects />
+          <ProjectsContainer />
         </Route>
         {labels &&
           labels.map((label) => (
             <Route key={label.id} path={`/label/${label.name}`}>
-              <Label labelID={label.id} />
+              <LabelContainer labelID={label.id} />
             </Route>
           ))}
         <Route path="/labels">
-          <Labels />
+          <LabelsContainer />
         </Route>
         <Route path="/" exact>
           <Home />
@@ -118,12 +110,4 @@ function App(props) {
   );
 }
 
-export const mapStateToProps = (state) => ({
-  projects: projectsSelector(state),
-  labels: labelsSelector(state),
-  currentUser: currentUserSelector(state),
-  modalsState: modalsSelector(state),
-  menu: menuSelector(state),
-});
-
-export default connect(mapStateToProps)(App);
+export default App;
