@@ -22,9 +22,7 @@ export function RenderTodayDateTime() {
   );
 }
 
-function Today(props) {
-  const { todayTodos, overdueTodos } = props;
-
+function Today({ todayTodos, overdueTodos }) {
   return (
     <Main>
       <h1 className="Page__Title">Today</h1>

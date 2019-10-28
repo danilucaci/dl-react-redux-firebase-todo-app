@@ -11,9 +11,7 @@ import {
   projectSelector,
 } from "../../redux/projects/projects-selectors";
 
-function Project(props) {
-  const { projectTodos, projectOverdueTodos, project } = props;
-
+function Project({ projectTodos, projectOverdueTodos, project }) {
   return (
     <Main>
       <h1 className="Page__Title">{project.name}</h1>

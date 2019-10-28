@@ -11,9 +11,7 @@ import {
   labelSelector,
 } from "../../redux/labels/labels-selectors";
 
-function Label(props) {
-  const { labelTodos, labelOverdueTodos, label } = props;
-
+function Label({ labelTodos, labelOverdueTodos, label }) {
   return (
     <Main>
       <h1 className="Page__Title Page__Title--Label">{label.name}</h1>

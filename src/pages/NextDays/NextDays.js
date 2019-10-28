@@ -42,18 +42,16 @@ export function RenderNextDaysDateTime(dateCount) {
   );
 }
 
-function NextDays(props) {
-  const {
-    overdueTodos,
-    todayTodos,
-    nextDaysPlus1Todos,
-    nextDaysPlus2Todos,
-    nextDaysPlus3Todos,
-    nextDaysPlus4Todos,
-    nextDaysPlus5Todos,
-    nextDaysPlus6Todos,
-  } = props;
-
+function NextDays({
+  overdueTodos,
+  todayTodos,
+  nextDaysPlus1Todos,
+  nextDaysPlus2Todos,
+  nextDaysPlus3Todos,
+  nextDaysPlus4Todos,
+  nextDaysPlus5Todos,
+  nextDaysPlus6Todos,
+}) {
   return (
     <Main>
       <h1 className="Page__Title">Next 7 days</h1>

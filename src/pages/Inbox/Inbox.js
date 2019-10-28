@@ -10,9 +10,7 @@ import {
   overdueInboxTodosSelector,
 } from "../../redux/todos/todos-selectors";
 
-function Inbox(props) {
-  const { inboxTodos, overdueInboxTodos } = props;
-
+function Inbox({ inboxTodos, overdueInboxTodos }) {
   return (
     <Main>
       <h1 className="Page__Title">Inbox</h1>
