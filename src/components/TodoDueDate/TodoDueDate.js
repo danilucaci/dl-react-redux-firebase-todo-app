@@ -1,5 +1,5 @@
 import React from "react";
-import { string, object, bool, func } from "prop-types";
+import { string, instanceOf, oneOfType, bool, func } from "prop-types";
 import classNames from "classnames";
 
 import "./TodoDueDate.styles.scss";
@@ -59,7 +59,7 @@ function TodoDueDate({
 }
 
 TodoDueDate.propTypes = {
-  dueDate: object,
+  dueDate: oneOfType([instanceOf(Date), string]),
   additionalClasses: string,
   bottomFixed: bool,
   isVisible: bool,

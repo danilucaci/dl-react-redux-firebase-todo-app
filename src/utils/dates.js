@@ -7,20 +7,25 @@ import {
   isToday,
   isTomorrow,
   formatRelative,
+  parseJSON,
 } from "date-fns";
+
+export function parseDate(date) {
+  return parseJSON(date);
+}
 
 export function getNthDate(date, dateCount = 0) {
   const dateAdded = addDays(new Date(), dateCount);
 
-  return isSameDay(date, dateAdded);
+  return isSameDay(parseDate(date), dateAdded);
 }
 
 export function formatTodoDueDate(date) {
-  if (isToday(date) || isTomorrow(date)) {
-    return formatRelative(date, new Date(), { weekStartsOn: 1 });
+  if (isToday(parseDate(date)) || isTomorrow(parseDate(date))) {
+    return formatRelative(parseDate(date), new Date(), { weekStartsOn: 1 });
   }
 
-  return format(date, "EEE dd MMM kk:mm", { weekStartsOn: 1 });
+  return format(parseDate(date), "EEE dd MMM kk:mm", { weekStartsOn: 1 });
 }
 
 export function formatTodaySectionDate() {
@@ -55,13 +60,13 @@ export function formatAndAddDay(dateCount = 0) {
 }
 
 export function isPastDate(date) {
-  return isPast(date);
+  return isPast(parseDate(date));
 }
 
 export function isFutureDate(date) {
-  return isFuture(date);
+  return isFuture(parseDate(date));
 }
 
 export function isTodayDate(date) {
-  return isToday(date);
+  return isToday(parseDate(date));
 }

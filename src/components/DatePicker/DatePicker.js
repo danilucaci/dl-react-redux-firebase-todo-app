@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { object, bool, func } from "prop-types";
+import { object, oneOfType, instanceOf, bool, string, func } from "prop-types";
 import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
 
@@ -80,7 +80,7 @@ const DatePicker = ({
 };
 
 DatePicker.propTypes = {
-  dueDate: object,
+  dueDate: oneOfType([instanceOf(Date), string]),
   position: object.isRequired,
   bottomFixed: bool,
   onChangeHandler: func.isRequired,

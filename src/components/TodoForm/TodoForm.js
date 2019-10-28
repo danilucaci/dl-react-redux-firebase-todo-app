@@ -1,6 +1,14 @@
 import React, { useState, useRef } from "react";
-import { useDispatch } from "react-redux";
-import { arrayOf, object, shape, string, bool, func } from "prop-types";
+import { connect } from "react-redux";
+import {
+  arrayOf,
+  shape,
+  oneOfType,
+  instanceOf,
+  string,
+  bool,
+  func,
+} from "prop-types";
 
 import "./TodoForm.styles.scss";
 
@@ -11,6 +19,7 @@ import TodoLabelTag from "../TodoLabelTag/TodoLabelTag";
 import { useKeyUpPress, useOnClickOutside, useFocusRef } from "../../hooks";
 import TodoDueDate from "../TodoDueDate/TodoDueDate";
 import { updateTodo } from "../../redux/todos/todos-actions";
+import { parseDate } from "../../utils/dates";
 
 function TodoForm({ todo, isEditingTodo, setIsEditingTodo }) {
   const { labels, project, dueDate, name } = todo;
@@ -21,10 +30,8 @@ function TodoForm({ todo, isEditingTodo, setIsEditingTodo }) {
   const [showLabels, setShowLabels] = useState(false);
   const [selectedLabels, setSelectedLabels] = useState(labels);
   const [showDate, setShowDate] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(dueDate);
 
-  // console.log({ labels });
-  // console.log({ selectedLabels });
+  const [selectedDate, setSelectedDate] = useState(parseDate(dueDate));
 
   const inputRef = useRef();
   const todoWrapperRef = useRef();
@@ -197,7 +204,7 @@ TodoForm.propTypes = {
       colorName: string.isRequired,
       colorValue: string.isRequired,
     }).isRequired,
-    dueDate: object,
+    dueDate: oneOfType([instanceOf(Date), string]),
     completed: bool.isRequired,
     name: string.isRequired,
     uid: string.isRequired,

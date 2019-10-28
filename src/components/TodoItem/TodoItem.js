@@ -1,5 +1,13 @@
 import React from "react";
-import { arrayOf, object, shape, string, bool, func } from "prop-types";
+import {
+  arrayOf,
+  oneOfType,
+  instanceOf,
+  shape,
+  string,
+  bool,
+  func,
+} from "prop-types";
 import classnames from "classnames";
 import { useDispatch } from "react-redux";
 
@@ -93,7 +101,7 @@ Todo.propTypes = {
       colorName: string.isRequired,
       colorValue: string.isRequired,
     }).isRequired,
-    dueDate: object,
+    dueDate: oneOfType([instanceOf(Date), string]),
     completed: bool.isRequired,
     name: string.isRequired,
     uid: string.isRequired,
