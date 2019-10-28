@@ -4,7 +4,7 @@ import { bool, func, object } from "prop-types";
 import "./ColorSelect.styles.scss";
 
 import { useRectSize } from "../../hooks";
-import ColorsDropdown from "../ColorsDropdown/ColorsDropdown";
+import ColorsDropdownContainer from "../../redux/containers/components/ColorsDropdownContainer";
 
 const ColorSelect = ({
   selectedColor,
@@ -34,7 +34,7 @@ const ColorSelect = ({
         </svg>
       </button>
       {isVisible && (
-        <ColorsDropdown
+        <ColorsDropdownContainer
           onChangeHandler={onChangeHandler}
           position={{
             left: colorSelectSize.left || 0,

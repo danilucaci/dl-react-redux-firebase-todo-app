@@ -1,11 +1,9 @@
 import React from "react";
-import { connect } from "react-redux";
 import { array, func, object } from "prop-types";
 
 import "./ColorsDropdown.styles.scss";
 
 import Portal from "../Portal/Portal";
-import { colorsSelector } from "../../redux/colors/colors-selectors";
 import { useRectSize } from "../../hooks";
 
 const ColorsDropdown = ({ onChangeHandler, position, colors }) => {
@@ -54,8 +52,4 @@ ColorsDropdown.propTypes = {
   position: object.isRequired,
 };
 
-export const mapStateToProps = (state) => ({
-  colors: colorsSelector(state),
-});
-
-export default connect(mapStateToProps)(ColorsDropdown);
+export default ColorsDropdown;
