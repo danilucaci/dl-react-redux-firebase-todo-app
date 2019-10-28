@@ -1,14 +1,12 @@
 import React from "react";
 import { string } from "prop-types";
-import { connect } from "react-redux";
+
 import classNames from "classnames";
 
 import "./MenuButton.styles.scss";
 import { getClassesFromProps } from "../../utils/helpers";
-import { menuSelector } from "../../redux/localState/localState-selectors";
-import { toggleMenu } from "../../redux/localState/localState-actions";
 
-function MenuButton({ additionalClasses, menu, dispatch, ...props }) {
+function MenuButton({ additionalClasses, menu, toggleMenu, ...props }) {
   const addedClasses = getClassesFromProps(additionalClasses);
   const { menuOpen } = menu;
 
@@ -28,7 +26,7 @@ function MenuButton({ additionalClasses, menu, dispatch, ...props }) {
       className={buttonClassNames}
       aria-label={`${menuOpen ? `Close` : `Open`} the navigation sidebar.`}
       aria-haspopup="true"
-      onClick={() => dispatch(toggleMenu())}
+      onClick={() => toggleMenu()}
       {...props}
     >
       <svg className={svgClassNames}>
@@ -46,8 +44,4 @@ MenuButton.defaultProps = {
   additionalClasses: null,
 };
 
-const mapStateToProps = (state) => ({
-  menu: menuSelector(state),
-});
-
-export default connect(mapStateToProps)(MenuButton);
+export default MenuButton;

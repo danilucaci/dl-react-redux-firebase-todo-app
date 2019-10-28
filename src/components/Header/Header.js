@@ -4,7 +4,7 @@ import "./Header.styles.scss";
 
 import Logo from "../Logo/Logo";
 import IconButton from "../IconButton/IconButton";
-import MenuButton from "../MenuButton/MenuButton";
+import MenuButtonContainer from "../../redux/containers/components/MenuButtonContainer";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
 import SearchBar from "../SearchBar/SearchBar";
 import { openAddTodoModal } from "../../redux/localState/localState-actions";
@@ -42,7 +42,7 @@ function Header() {
               ariaText="Search todos"
               onClick={() => console.log("Searching...")}
             />
-            <MenuButton additionalClasses="Menu" />
+            <MenuButtonContainer additionalClasses="Menu" />
           </div>
         </div>
       </nav>
