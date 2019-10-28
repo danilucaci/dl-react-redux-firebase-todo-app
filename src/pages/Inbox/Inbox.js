@@ -23,7 +23,7 @@ function Inbox(props) {
           </header>
           <ul className="Section__Todos__List">
             {overdueInboxTodos.map((todo) => (
-              <Todo key={todo.id} todo={todo} />
+              <Todo key={todo.id} todoID={todo.id} />
             ))}
           </ul>
         </section>
@@ -35,7 +35,7 @@ function Inbox(props) {
         {inboxTodos.length ? (
           <ul className="Section__Todos__List">
             {inboxTodos.map((todo) => (
-              <Todo key={todo.id} todo={todo} />
+              <Todo key={todo.id} todoID={todo.id} />
             ))}
           </ul>
         ) : null}

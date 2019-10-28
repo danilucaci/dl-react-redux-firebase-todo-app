@@ -9,7 +9,7 @@ import {
   func,
 } from "prop-types";
 import classnames from "classnames";
-import { useDispatch } from "react-redux";
+import { connect } from "react-redux";
 
 import "./TodoItem.styles.scss";
 
@@ -17,8 +17,9 @@ import { toggleTodoCompleted } from "../../redux/todos/todos-actions";
 import TodoProjectTag from "../TodoProjectTag/TodoProjectTag";
 import TodoLabelTag from "../TodoLabelTag/TodoLabelTag";
 import TodoDueDate from "../TodoDueDate/TodoDueDate";
+import { todoSelector } from "../../redux/todos/todos-selectors";
 
-function TodoItem({ todo, setIsEditingTodo }) {
+function TodoItem({ todo, setIsEditingTodo, dispatch }) {
   const { id, name, completed, labels, project, dueDate } = todo;
 
   const todoButtonClassnames = classnames({
@@ -29,8 +30,6 @@ function TodoItem({ todo, setIsEditingTodo }) {
   const todoItemClassnames = classnames({
     Todo__Item: true,
   });
-
-  const dispatch = useDispatch();
 
   return (
     <li className={todoItemClassnames}>
@@ -110,11 +109,15 @@ TodoItem.propTypes = {
   setIsEditingTodo: func.isRequired,
 };
 
-Todo.defaultProps = {
+TodoItem.defaultProps = {
   todo: {
     labels: null,
     dueDate: null,
   },
 };
 
-export default Todo;
+export const mapStateToProps = (state, ownProps) => ({
+  todo: todoSelector(state, ownProps.todoID),
+});
+
+export default connect(mapStateToProps)(TodoItem);

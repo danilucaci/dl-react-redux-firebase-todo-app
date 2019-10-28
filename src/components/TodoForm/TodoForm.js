@@ -19,9 +19,11 @@ import TodoLabelTag from "../TodoLabelTag/TodoLabelTag";
 import { useKeyUpPress, useOnClickOutside, useFocusRef } from "../../hooks";
 import TodoDueDate from "../TodoDueDate/TodoDueDate";
 import { updateTodo } from "../../redux/todos/todos-actions";
+import { todoSelector } from "../../redux/todos/todos-selectors";
+
 import { parseDate } from "../../utils/dates";
 
-function TodoForm({ todo, isEditingTodo, setIsEditingTodo }) {
+function TodoForm({ todo, isEditingTodo, setIsEditingTodo, dispatch }) {
   const { labels, project, dueDate, name } = todo;
 
   const [newTodoName, setNewTodoName] = useState(name || "");
@@ -35,8 +37,6 @@ function TodoForm({ todo, isEditingTodo, setIsEditingTodo }) {
 
   const inputRef = useRef();
   const todoWrapperRef = useRef();
-
-  const dispatch = useDispatch();
 
   function handleClickOutside() {
     if (showProjects) {
@@ -220,4 +220,8 @@ TodoForm.defaultProps = {
   },
 };
 
-export default TodoForm;
+export const mapStateToProps = (state, ownProps) => ({
+  todo: todoSelector(state, ownProps.todoID),
+});
+
+export default connect(mapStateToProps)(TodoForm);

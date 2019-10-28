@@ -6,7 +6,18 @@ import {
   getNthDate,
 } from "../../utils/dates";
 
-export const selectTodos = (state) => state.todos.todos;
+export const selectTodos = (state) => {
+  return state.todos.todos;
+};
+
+export const selectTodo = (state, todoID) => {
+  return state.todos.todos.filter((todo) => todo.id === todoID);
+};
+
+export const todoSelector = createSelector(
+  [selectTodo],
+  (todo) => todo[0],
+);
 
 export const inboxTodosSelector = createSelector(
   [selectTodos],

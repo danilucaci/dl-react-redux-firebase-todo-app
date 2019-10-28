@@ -1,5 +1,5 @@
 import React from "react";
-import { connect, useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 import "./Projects.styles.scss";
@@ -9,10 +9,7 @@ import AddNew from "../../components/AddNew/AddNew";
 import { projectsSelector } from "../../redux/projects/projects-selectors";
 import { openAddProjectModal } from "../../redux/localState/localState-actions";
 
-function Projects(props) {
-  const { projects } = props;
-  const dispatch = useDispatch();
-
+function Projects({ projects, dispatch }) {
   return (
     <Main>
       <section className="Section">

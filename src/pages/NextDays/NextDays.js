@@ -64,7 +64,9 @@ function NextDays(props) {
           </header>
           <ul className="Section__Todos__List">
             {overdueTodos &&
-              overdueTodos.map((todo) => <Todo key={todo.id} todo={todo} />)}
+              overdueTodos.map((todo) => (
+                <Todo key={todo.id} todoID={todo.id} />
+              ))}
           </ul>
         </section>
       ) : null}
@@ -75,7 +77,7 @@ function NextDays(props) {
         </header>
         <ul className="Section__Todos__List">
           {todayTodos &&
-            todayTodos.map((todo) => <Todo key={todo.id} todo={todo} />)}
+            todayTodos.map((todo) => <Todo key={todo.id} todoID={todo.id} />)}
         </ul>
         <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
       </section>
@@ -87,7 +89,7 @@ function NextDays(props) {
         <ul className="Section__Todos__List">
           {nextDaysPlus1Todos &&
             nextDaysPlus1Todos.map((todo) => (
-              <Todo key={todo.id} todo={todo} />
+              <Todo key={todo.id} todoID={todo.id} />
             ))}
         </ul>
         <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
@@ -100,7 +102,7 @@ function NextDays(props) {
         <ul className="Section__Todos__List">
           {nextDaysPlus2Todos &&
             nextDaysPlus2Todos.map((todo) => (
-              <Todo key={todo.id} todo={todo} />
+              <Todo key={todo.id} todoID={todo.id} />
             ))}
         </ul>
         <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
@@ -113,7 +115,7 @@ function NextDays(props) {
         <ul className="Section__Todos__List">
           {nextDaysPlus3Todos &&
             nextDaysPlus3Todos.map((todo) => (
-              <Todo key={todo.id} todo={todo} />
+              <Todo key={todo.id} todoID={todo.id} />
             ))}
         </ul>
         <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
@@ -126,7 +128,7 @@ function NextDays(props) {
         <ul className="Section__Todos__List">
           {nextDaysPlus4Todos &&
             nextDaysPlus4Todos.map((todo) => (
-              <Todo key={todo.id} todo={todo} />
+              <Todo key={todo.id} todoID={todo.id} />
             ))}
         </ul>
         <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
@@ -139,7 +141,7 @@ function NextDays(props) {
         <ul className="Section__Todos__List">
           {nextDaysPlus5Todos &&
             nextDaysPlus5Todos.map((todo) => (
-              <Todo key={todo.id} todo={todo} />
+              <Todo key={todo.id} todoID={todo.id} />
             ))}
         </ul>
         <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
@@ -152,7 +154,7 @@ function NextDays(props) {
         <ul className="Section__Todos__List">
           {nextDaysPlus6Todos &&
             nextDaysPlus6Todos.map((todo) => (
-              <Todo key={todo.id} todo={todo} />
+              <Todo key={todo.id} todoID={todo.id} />
             ))}
         </ul>
         <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>

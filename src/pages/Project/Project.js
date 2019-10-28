@@ -25,7 +25,7 @@ function Project(props) {
           <ul className="Section__Todos__List">
             {projectOverdueTodos &&
               projectOverdueTodos.map((todo) => (
-                <Todo key={todo.id} todo={todo} />
+                <Todo key={todo.id} todoID={todo.id} />
               ))}
           </ul>
         </section>
@@ -37,7 +37,7 @@ function Project(props) {
         </header>
         <ul className="Section__Todos__List">
           {projectTodos &&
-            projectTodos.map((todo) => <Todo key={todo.id} todo={todo} />)}
+            projectTodos.map((todo) => <Todo key={todo.id} todoID={todo.id} />)}
         </ul>
         <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
       </section>
