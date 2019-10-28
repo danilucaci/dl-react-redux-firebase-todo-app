@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
 import { array, func } from "prop-types";
 import uuid from "uuid";
 
@@ -12,6 +12,7 @@ import {
   useOnClickOutside,
   useDisableModalBackground,
   useKeyUpPress,
+  useFocusRef,
 } from "../../hooks";
 
 import Portal from "../Portal/Portal";
@@ -19,7 +20,7 @@ import Input from "../Input/Input";
 
 function AddProjectModal({ colors, closeModal, addProject }) {
   const modalRef = useRef(null);
-  const inputRef = useRef(null);
+  const inputRef = useFocusRef();
 
   const [projectName, setProjectName] = useState("");
   const [selectedColor, setSelectedColor] = useState(colors[0]);
@@ -28,12 +29,6 @@ function AddProjectModal({ colors, closeModal, addProject }) {
   useOnClickOutside(modalRef, onCloseHandler);
   useDisableModalBackground(modalRef, projectName);
   useKeyUpPress("Escape", onCloseHandler);
-
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, []);
 
   function onCloseHandler() {
     if (colorsVisible) {
