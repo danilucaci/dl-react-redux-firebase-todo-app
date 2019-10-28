@@ -44,12 +44,6 @@ function useDisableModalBackground(keepVisibleNodeRef, dependency) {
       last.addEventListener("keydown", onTabKeyDown);
     }
 
-    console.log(
-      ...getFirstAndLastFocusableNode(
-        getAllFocusableNodes(keepVisibleNodeRef.current),
-      ),
-    );
-
     return () => {
       first.removeEventListener("keydown", onTabShiftKeyDown);
       last.removeEventListener("keydown", onTabKeyDown);
