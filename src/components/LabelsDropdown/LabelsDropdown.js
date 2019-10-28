@@ -92,8 +92,7 @@ const LabelsDropdown = ({
   }
 
   function handleLabelSelect(currLabel) {
-    const newLabels = getNewlabels(labels)(currLabel);
-    onChangeHandler(newLabels);
+    return onChangeHandler(getNewlabels(labels)(currLabel));
   }
 
   return appLabels ? (
