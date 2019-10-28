@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
 import { array, func } from "prop-types";
-import { connect } from "react-redux";
 import uuid from "uuid";
 
 import "./AddLabelModal.styles.scss";
@@ -17,10 +16,6 @@ import {
 
 import Portal from "../Portal/Portal";
 import Input from "../Input/Input";
-
-import { closeAddLabelModal } from "../../redux/localState/localState-actions";
-import { addLabel } from "../../redux/labels/labels-actions";
-import { colorsSelector } from "../../redux/colors/colors-selectors";
 
 function AddLabelModal({ colors, closeModal, addLabel }) {
   const modalRef = useRef(null);
@@ -130,16 +125,4 @@ AddLabelModal.propTypes = {
   addLabel: func.isRequired,
 };
 
-export const mapStateToProps = (state) => ({
-  colors: colorsSelector(state),
-});
-
-export const mapDispatchToProps = (dispatch) => ({
-  closeModal: () => dispatch(closeAddLabelModal()),
-  addLabel: (label) => dispatch(addLabel(label)),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(AddLabelModal);
+export default AddLabelModal;

@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useReducer } from "react";
 import { object, func } from "prop-types";
-import { connect } from "react-redux";
 import uuid from "uuid";
 
 import "./AddTodoModal.styles.scss";
@@ -20,9 +19,6 @@ import Input from "../Input/Input";
 import TodoProjectTag from "../TodoProjectTag/TodoProjectTag";
 import TodoLabelTag from "../TodoLabelTag/TodoLabelTag";
 import TodoDueDate from "../TodoDueDate/TodoDueDate";
-import { closeAddTodoModal } from "../../redux/localState/localState-actions";
-import { inboxProjectSelector } from "../../redux/projects/projects-selectors";
-import { addTodo } from "../../redux/todos/todos-actions";
 
 import {
   addTodoReducerState,
@@ -229,16 +225,4 @@ AddTodoModal.propTypes = {
   addTodo: func.isRequired,
 };
 
-export const mapStateToProps = (state) => ({
-  inboxProject: inboxProjectSelector(state),
-});
-
-export const mapDispatchToProps = (dispatch) => ({
-  closeModal: () => dispatch(closeAddTodoModal()),
-  addTodo: (todo) => dispatch(addTodo(todo)),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(AddTodoModal);
+export default AddTodoModal;

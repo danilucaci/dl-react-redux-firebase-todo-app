@@ -19,9 +19,9 @@ import ProjectContainer from "./redux/containers/pages/ProjectContainer";
 import ProjectsContainer from "./redux/containers/pages/ProjectsContainer";
 import LabelContainer from "./redux/containers/pages/LabelContainer";
 import LabelsContainer from "./redux/containers/pages/LabelsContainer";
-import AddTodoModal from "./components/AddTodoModal/AddTodoModal";
-import AddProjectModal from "./components/AddProjectModal/AddProjectModal";
-import AddLabelModal from "./components/AddLabelModal/AddLabelModal";
+import AddTodoModalContainer from "./redux/containers/components/AddTodoModalContainer";
+import AddProjectModalContainer from "./redux/containers/components/AddProjectModalContainer";
+import AddLabelModalContainer from "./redux/containers/components/AddLabelModalContainer";
 
 function App({
   labels,
@@ -102,9 +102,9 @@ function App({
           <NotFound />
         </Route>
       </Switch>
-      {addTodoModalActive && <AddTodoModal />}
-      {addProjectModalActive && <AddProjectModal />}
-      {addLabelModalActive && <AddLabelModal />}
+      {addTodoModalActive && <AddTodoModalContainer />}
+      {addProjectModalActive && <AddProjectModalContainer />}
+      {addLabelModalActive && <AddLabelModalContainer />}
       <Footer />
     </div>
   );

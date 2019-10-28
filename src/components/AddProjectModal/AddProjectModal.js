@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
 import { array, func } from "prop-types";
-import { connect } from "react-redux";
 import uuid from "uuid";
 
 import "./AddProjectModal.styles.scss";
@@ -17,10 +16,6 @@ import {
 
 import Portal from "../Portal/Portal";
 import Input from "../Input/Input";
-
-import { closeAddProjectModal } from "../../redux/localState/localState-actions";
-import { addProject } from "../../redux/projects/projects-actions";
-import { colorsSelector } from "../../redux/colors/colors-selectors";
 
 function AddProjectModal({ colors, closeModal, addProject }) {
   const modalRef = useRef(null);
@@ -130,16 +125,4 @@ AddProjectModal.propTypes = {
   addProject: func.isRequired,
 };
 
-export const mapStateToProps = (state) => ({
-  colors: colorsSelector(state),
-});
-
-export const mapDispatchToProps = (dispatch) => ({
-  closeModal: () => dispatch(closeAddProjectModal()),
-  addProject: (project) => dispatch(addProject(project)),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(AddProjectModal);
+export default AddProjectModal;
