@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "TodoThis",
+  "name": "Todo app made by Dani Lucaci",
   "icons": [
     {
       "src": "favicon.ico",
