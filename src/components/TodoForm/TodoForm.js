@@ -30,7 +30,9 @@ function TodoForm({ todo, isEditingTodo, setIsEditingTodo, updateTodo }) {
   const [selectedLabels, setSelectedLabels] = useState(labels);
   const [showDate, setShowDate] = useState(false);
 
-  const [selectedDate, setSelectedDate] = useState(parseDate(dueDate));
+  const [selectedDate, setSelectedDate] = useState(
+    dueDate ? parseDate(dueDate) : null,
+  );
 
   const todoWrapperRef = useRef();
 
