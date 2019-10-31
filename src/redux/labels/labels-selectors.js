@@ -3,13 +3,13 @@ import { createSelector } from "reselect";
 import { isPastDate, isFutureDate } from "../../utils/dates";
 
 export const selectLabel = (state, labelID) =>
-  state.labels.labels.filter((label) => label.id === labelID);
+  state.labels.labels.byID[labelID];
 
-export const selectLabels = (state) => state.labels.labels;
+export const selectLabels = (state) => Object.values(state.labels.labels.byID);
 
 export const selectTodosWithLabels = (state) =>
   // Boolean(null) => false
-  state.todos.todos.filter((todo) => Boolean(todo.labels));
+  Object.values(state.todos.todos.byID).filter((todo) => Boolean(todo.labels));
 
 export const selectLabelTodos = (state, labelID) => {
   return selectTodosWithLabels(state).filter((todo) => {
@@ -29,16 +29,19 @@ export const labelsSelector = createSelector(
 
 export const labelSelector = createSelector(
   [selectLabel],
-  (label) => label[0],
+  (label) => label,
 );
 
 export const labelOverdueTodosSelector = createSelector(
   [selectLabelTodos],
-  (todos) => todos.filter((todo) => isPastDate(todo.dueDate)),
+  (todos) =>
+    todos.filter((todo) => isPastDate(todo.dueDate)).map((todo) => todo.id),
 );
 
 export const labelNotOverdueTodosSelector = createSelector(
   [selectLabelTodos],
   (todos) =>
-    todos.filter((todo) => isFutureDate(todo.dueDate) || todo.dueDate === null),
+    todos
+      .filter((todo) => isFutureDate(todo.dueDate) || todo.dueDate === null)
+      .map((todo) => todo.id),
 );

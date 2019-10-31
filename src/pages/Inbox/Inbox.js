@@ -14,8 +14,8 @@ function Inbox({ inboxTodos, overdueInboxTodos }) {
             <h2 className="Section__Title">Overdue</h2>
           </header>
           <ul className="Section__Todos__List">
-            {overdueInboxTodos.map((todo) => (
-              <Todo key={todo.id} todoID={todo.id} />
+            {overdueInboxTodos.map((todoID) => (
+              <Todo key={todoID} todoID={todoID} />
             ))}
           </ul>
         </section>
@@ -26,8 +26,8 @@ function Inbox({ inboxTodos, overdueInboxTodos }) {
         </header>
         {inboxTodos.length ? (
           <ul className="Section__Todos__List">
-            {inboxTodos.map((todo) => (
-              <Todo key={todo.id} todoID={todo.id} />
+            {inboxTodos.map((todoID) => (
+              <Todo key={todoID} todoID={todoID} />
             ))}
           </ul>
         ) : null}

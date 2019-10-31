@@ -28,8 +28,8 @@ function Today({ todayTodos, overdueTodos }) {
           </header>
           <ul className="Section__Todos__List">
             {overdueTodos &&
-              overdueTodos.map((todo) => (
-                <Todo key={todo.id} todoID={todo.id} />
+              overdueTodos.map((todoID) => (
+                <Todo key={todoID} todoID={todoID} />
               ))}
           </ul>
         </section>
@@ -42,7 +42,7 @@ function Today({ todayTodos, overdueTodos }) {
         </header>
         <ul className="Section__Todos__List">
           {todayTodos &&
-            todayTodos.map((todo) => <Todo key={todo.id} todoID={todo.id} />)}
+            todayTodos.map((todoID) => <Todo key={todoID} todoID={todoID} />)}
         </ul>
         <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
       </section>

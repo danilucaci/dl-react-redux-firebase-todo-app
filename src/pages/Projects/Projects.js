@@ -1,11 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 import "./Projects.styles.scss";
 import Main from "../../components/Main/Main";
 import AddNew from "../../components/AddNew/AddNew";
+import ProjectsCardContainer from "../../redux/containers/components/ProjectsCardContainer";
 
-function Projects({ projects, openAddProjectModal }) {
+function Projects({ projects = null, openAddProjectModal }) {
   return (
     <Main>
       <section className="Section">
@@ -16,24 +16,7 @@ function Projects({ projects, openAddProjectModal }) {
         {projects && projects.length ? (
           <div className="row-nested">
             {projects.map((project) => (
-              <Link
-                to={`/project/${project.name.toLowerCase()}`}
-                className="col col-xl-6 Project__Card"
-                key={project.id}
-              >
-                <div className="Project__Card__Header">
-                  <h2 className="Project__Card__Title">{project.name}</h2>
-                  <svg
-                    className="Project__Card__Icon"
-                    fill={project.color.colorValue}
-                  >
-                    <use xlinkHref="#color" />
-                  </svg>
-                </div>
-                <p className="Project__Card__Count">
-                  {project.todosCount} todos
-                </p>
-              </Link>
+              <ProjectsCardContainer key={project.id} projectID={project.id} />
             ))}
           </div>
         ) : (

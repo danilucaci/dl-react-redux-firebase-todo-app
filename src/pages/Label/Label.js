@@ -15,8 +15,8 @@ function Label({ labelTodos, labelOverdueTodos, label }) {
           </header>
           <ul className="Section__Todos__List">
             {labelOverdueTodos &&
-              labelOverdueTodos.map((todo) => (
-                <Todo key={todo.id} todoID={todo.id} />
+              labelOverdueTodos.map((todoID) => (
+                <Todo key={todoID} todoID={todoID} />
               ))}
           </ul>
         </section>
@@ -28,7 +28,7 @@ function Label({ labelTodos, labelOverdueTodos, label }) {
         </header>
         <ul className="Section__Todos__List">
           {labelTodos &&
-            labelTodos.map((todo) => <Todo key={todo.id} todoID={todo.id} />)}
+            labelTodos.map((todoID) => <Todo key={todoID} todoID={todoID} />)}
         </ul>
         <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
       </section>

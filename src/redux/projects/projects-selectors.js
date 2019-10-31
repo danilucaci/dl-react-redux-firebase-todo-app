@@ -3,18 +3,25 @@ import { createSelector } from "reselect";
 import { isPastDate, isFutureDate } from "../../utils/dates";
 
 export const selectProject = (state, projectID) =>
-  state.projects.projects.filter((project) => project.id === projectID);
+  state.projects.projects.byID[projectID];
 
-export const selectAllProjects = (state) => state.projects.projects;
+export const selectAllProjects = (state) =>
+  Object.values(state.projects.projects.byID);
 
 export const selectProjects = (state) =>
-  state.projects.projects.filter((project) => project.name !== "Inbox");
+  Object.values(state.projects.projects.byID).filter(
+    (project) => project.name !== "Inbox",
+  );
 
 export const selectProjectTodos = (state, projectID) =>
-  state.todos.todos.filter((todo) => todo.project.projectID === projectID);
+  Object.values(state.todos.todos.byID).filter(
+    (todo) => todo.project.projectID === projectID,
+  );
 
 export const selectInboxProject = (state) =>
-  state.projects.projects.filter((project) => project.name === "Inbox");
+  Object.values(state.projects.projects.byID).filter(
+    (project) => project.name === "Inbox",
+  );
 
 export const allProjectsSelector = createSelector(
   [selectAllProjects],
@@ -28,7 +35,7 @@ export const projectsSelector = createSelector(
 
 export const projectSelector = createSelector(
   [selectProject],
-  (project) => project[0],
+  (project) => project,
 );
 
 export const inboxProjectSelector = createSelector(
@@ -38,11 +45,14 @@ export const inboxProjectSelector = createSelector(
 
 export const projectOverdueTodosSelector = createSelector(
   [selectProjectTodos],
-  (todos) => todos.filter((todo) => isPastDate(todo.dueDate)),
+  (todos) =>
+    todos.filter((todo) => isPastDate(todo.dueDate)).map((todo) => todo.id),
 );
 
 export const projectNotOverdueTodosSelector = createSelector(
   [selectProjectTodos],
   (todos) =>
-    todos.filter((todo) => isFutureDate(todo.dueDate) || todo.dueDate === null),
+    todos
+      .filter((todo) => isFutureDate(todo.dueDate) || todo.dueDate === null)
+      .map((todo) => todo.id),
 );

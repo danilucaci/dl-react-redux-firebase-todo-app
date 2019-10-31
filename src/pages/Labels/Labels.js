@@ -1,9 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
-
 import "./Labels.styles.scss";
 import Main from "../../components/Main/Main";
 import AddNew from "../../components/AddNew/AddNew";
+import LabelsCardContainer from "../../redux/containers/components/LabelsCardContainer";
 
 function Labels({ labels, openAddLabelModal }) {
   return (
@@ -16,22 +15,7 @@ function Labels({ labels, openAddLabelModal }) {
         {labels && labels.length ? (
           <div className="row-nested">
             {labels.map((label) => (
-              <Link
-                to={`/label/${label.name.toLowerCase()}`}
-                className="col col-xl-6 Project__Card"
-                key={label.id}
-              >
-                <div className="Project__Card__Header">
-                  <h2 className="Project__Card__Title">{label.name}</h2>
-                  <svg
-                    className="Project__Card__Icon"
-                    fill={label.color.colorValue}
-                  >
-                    <use xlinkHref="#color" />
-                  </svg>
-                </div>
-                <p className="Project__Card__Count">{label.todosCount} todos</p>
-              </Link>
+              <LabelsCardContainer key={label.id} labelID={label.id} />
             ))}
           </div>
         ) : (

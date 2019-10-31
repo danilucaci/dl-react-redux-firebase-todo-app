@@ -4,7 +4,9 @@ import classnames from "classnames";
 
 import "./Sidebar.styles.scss";
 import avatarPlaceholder from "../../assets/img/avatar-placeholder.png";
-import SidebarItem from "../SidebarItem/SidebarItem";
+import LabelSidebarItemContainer from "../../redux/containers/components/LabelSidebarItemContainer";
+import ProjectSidebarItemContainer from "../../redux/containers/components/ProjectSidebarItemContainer";
+
 import AddNew from "../AddNew/AddNew";
 
 import { useDisableSidebarBackground, useAnimation } from "../../hooks";
@@ -140,14 +142,10 @@ function Sidebar({
           </li>
           {projects &&
             projects.map((project) => (
-              <SidebarItem
+              <ProjectSidebarItemContainer
                 key={project.id}
-                iconColor={project.color.colorValue}
-                todosCount={project.todosCount}
-                path={`/project/${project.name}`}
-              >
-                {project.name}
-              </SidebarItem>
+                projectID={project.id}
+              />
             ))}
           <li className="Sidebar__AddNew__Button">
             <AddNew onClick={() => openAddProjectModal()}>Add project</AddNew>
@@ -167,14 +165,7 @@ function Sidebar({
           </li>
           {labels &&
             labels.map((label) => (
-              <SidebarItem
-                key={label.id}
-                iconColor={label.color.colorValue}
-                todosCount={label.todosCount}
-                path={`/label/${label.name}`}
-              >
-                {label.name}
-              </SidebarItem>
+              <LabelSidebarItemContainer key={label.id} labelID={label.id} />
             ))}
           <li className="Sidebar__AddNew__Button">
             <AddNew onClick={() => openAddLabelModal()}>Add label</AddNew>
