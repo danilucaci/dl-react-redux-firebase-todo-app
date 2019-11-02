@@ -21,38 +21,11 @@
   margin-left: tokens.$spacing-c-05;
 }
 
-.Todo__Form__Input {
-  background-color: tokens.$color-background-input-enabled;
-  border-radius: tokens.$border-radius-input-default;
-  border: tokens.$size-border-input-default tokens.$color-border-input-enabled
-    solid;
-  color: tokens.$color-text-input-enabled;
-
-  font: {
-    size: tokens.$font-size-input-m;
-    family: tokens.$font-family-body;
-    weight: tokens.$font-weight-body;
-  }
-
-  line-height: tokens.$font-line-height-button-s;
-
-  white-space: nowrap;
-  height: tokens.$size-input-m;
-
-  padding: {
-    top: tokens.$spacing-input-vertical-m;
-    left: tokens.$spacing-input-horizontal-m;
-    right: tokens.$spacing-input-horizontal-m;
-    bottom: tokens.$spacing-input-vertical-m;
-  }
-
-  margin-bottom: tokens.$spacing-c-03;
-}
-
 .Todo__Form__ButtonsContainer {
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
+  margin-top: tokens.$spacing-c-03;
 }
 
 .Todo__Form__MetaRow {

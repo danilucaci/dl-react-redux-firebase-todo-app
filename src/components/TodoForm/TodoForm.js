@@ -11,6 +11,7 @@ import {
 
 import "./TodoForm.styles.scss";
 
+import Input from "../Input/Input";
 import TextButton from "../TextButton/TextButton";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
 import TodoProjectTag from "../TodoProjectTag/TodoProjectTag";
@@ -113,9 +114,7 @@ function TodoForm({ todo, isEditingTodo, setIsEditingTodo, updateTodo }) {
         className="Todo__Form__FormWrapper"
         onSubmit={handleFormSubmit}
       >
-        <input
-          type="text"
-          className="Todo__Form__Input"
+        <Input
           value={newTodoName}
           onChange={(e) => setNewTodoName(e.target.value)}
           ref={inputRef}
