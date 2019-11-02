@@ -132,22 +132,28 @@
   flex: 1 1 auto;
   text-align: left;
   background-color: transparent;
-
-  border: none;
+  border: tokens.$size-border-button-default
+    tokens.$color-border-text-button-enabled solid;
 
   &:hover {
     cursor: pointer;
   }
 
   &:focus {
-    cursor: pointer;
     border-radius: tokens.$border-radius-button-default;
+    background-color: tokens.$color-background-todo-meta-focus;
+    border-color: tokens.$color-border-text-button-focus;
+    box-shadow: tokens.$shadow-button-text-focus;
+    cursor: pointer;
+    outline: none;
   }
 
   .js-focus-visible &:focus:not([data-focus-visible-added]) {
-    outline: none;
+    background-color: tokens.$color-background-todo-meta-focus-polyfill;
+    border-color: tokens.$color-border-text-button-focus-polyfill;
     box-shadow: none;
     cursor: pointer;
+    outline: none;
   }
 
   &:active {
