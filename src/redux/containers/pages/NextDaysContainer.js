@@ -10,6 +10,7 @@ import {
   nextDaysPlus5TodosSelector,
   nextDaysPlus6TodosSelector,
 } from "../../../redux/todos/todos-selectors";
+import { openAddTodoModal } from "../../../redux/localState/localState-actions";
 
 import NextDays from "../../../pages/NextDays/NextDays";
 
@@ -24,4 +25,11 @@ const mapStateToProps = (state) => ({
   nextDaysPlus6Todos: nextDaysPlus6TodosSelector(state),
 });
 
-export default connect(mapStateToProps)(NextDays);
+export const mapDispatchToProps = (dispatch) => ({
+  openAddTodoModal: () => dispatch(openAddTodoModal()),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(NextDays);

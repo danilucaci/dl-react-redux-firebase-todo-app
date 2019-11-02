@@ -17,7 +17,7 @@ export function RenderTodayDateTime() {
   );
 }
 
-function Today({ todayTodos, overdueTodos }) {
+function Today({ todayTodos, overdueTodos, openAddTodoModal }) {
   return (
     <Main>
       <h1 className="Page__Title">Today</h1>
@@ -44,7 +44,12 @@ function Today({ todayTodos, overdueTodos }) {
           {todayTodos &&
             todayTodos.map((todoID) => <Todo key={todoID} todoID={todoID} />)}
         </ul>
-        <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
+        <AddNew
+          additionalClasses="Section__AddNew"
+          onClick={() => openAddTodoModal()}
+        >
+          Add todo
+        </AddNew>
       </section>
     </Main>
   );

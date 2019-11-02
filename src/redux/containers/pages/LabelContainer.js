@@ -5,6 +5,7 @@ import {
   labelNotOverdueTodosSelector,
   labelSelector,
 } from "../../../redux/labels/labels-selectors";
+import { openAddTodoModal } from "../../../redux/localState/localState-actions";
 
 import Label from "../../../pages/Label/Label";
 
@@ -14,4 +15,11 @@ const mapStateToProps = (state, ownProps) => ({
   label: labelSelector(state, ownProps.labelID),
 });
 
-export default connect(mapStateToProps)(Label);
+export const mapDispatchToProps = (dispatch) => ({
+  openAddTodoModal: () => dispatch(openAddTodoModal()),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Label);

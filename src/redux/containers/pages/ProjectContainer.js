@@ -5,6 +5,7 @@ import {
   projectNotOverdueTodosSelector,
   projectSelector,
 } from "../../../redux/projects/projects-selectors";
+import { openAddTodoModal } from "../../../redux/localState/localState-actions";
 
 import Project from "../../../pages/Project/Project";
 
@@ -14,4 +15,11 @@ const mapStateToProps = (state, ownProps) => ({
   project: projectSelector(state, ownProps.projectID),
 });
 
-export default connect(mapStateToProps)(Project);
+export const mapDispatchToProps = (dispatch) => ({
+  openAddTodoModal: () => dispatch(openAddTodoModal()),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Project);

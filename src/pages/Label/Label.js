@@ -4,7 +4,7 @@ import Main from "../../components/Main/Main";
 import Todo from "../../components/Todo/Todo";
 import AddNew from "../../components/AddNew/AddNew";
 
-function Label({ labelTodos, labelOverdueTodos, label }) {
+function Label({ labelTodos, labelOverdueTodos, label, openAddTodoModal }) {
   return (
     <Main>
       <h1 className="Page__Title Page__Title--Label">{label.name}</h1>
@@ -30,7 +30,12 @@ function Label({ labelTodos, labelOverdueTodos, label }) {
           {labelTodos &&
             labelTodos.map((todoID) => <Todo key={todoID} todoID={todoID} />)}
         </ul>
-        <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
+        <AddNew
+          additionalClasses="Section__AddNew"
+          onClick={() => openAddTodoModal()}
+        >
+          Add todo
+        </AddNew>
       </section>
     </Main>
   );

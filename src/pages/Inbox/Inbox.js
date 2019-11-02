@@ -4,7 +4,7 @@ import Main from "../../components/Main/Main";
 import Todo from "../../components/Todo/Todo";
 import AddNew from "../../components/AddNew/AddNew";
 
-function Inbox({ inboxTodos, overdueInboxTodos }) {
+function Inbox({ inboxTodos, overdueInboxTodos, openAddTodoModal }) {
   return (
     <Main>
       <h1 className="Page__Title">Inbox</h1>
@@ -31,7 +31,12 @@ function Inbox({ inboxTodos, overdueInboxTodos }) {
             ))}
           </ul>
         ) : null}
-        <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
+        <AddNew
+          additionalClasses="Section__AddNew"
+          onClick={() => openAddTodoModal()}
+        >
+          Add todo
+        </AddNew>
       </section>
     </Main>
   );

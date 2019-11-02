@@ -4,7 +4,12 @@ import Main from "../../components/Main/Main";
 import Todo from "../../components/Todo/Todo";
 import AddNew from "../../components/AddNew/AddNew";
 
-function Project({ projectTodos, projectOverdueTodos, project }) {
+function Project({
+  projectTodos,
+  projectOverdueTodos,
+  project,
+  openAddTodoModal,
+}) {
   return (
     <Main>
       {project && <h1 className="Page__Title">{project.name}</h1>}
@@ -30,7 +35,12 @@ function Project({ projectTodos, projectOverdueTodos, project }) {
           {projectTodos &&
             projectTodos.map((todoID) => <Todo key={todoID} todoID={todoID} />)}
         </ul>
-        <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
+        <AddNew
+          additionalClasses="Section__AddNew"
+          onClick={() => openAddTodoModal()}
+        >
+          Add todo
+        </AddNew>
       </section>
     </Main>
   );

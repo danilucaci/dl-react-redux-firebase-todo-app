@@ -39,6 +39,7 @@ function NextDays({
   nextDaysPlus4Todos,
   nextDaysPlus5Todos,
   nextDaysPlus6Todos,
+  openAddTodoModal,
 }) {
   return (
     <Main>
@@ -65,7 +66,12 @@ function NextDays({
           {todayTodos &&
             todayTodos.map((todoID) => <Todo key={todoID} todoID={todoID} />)}
         </ul>
-        <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
+        <AddNew
+          additionalClasses="Section__AddNew"
+          onClick={() => openAddTodoModal()}
+        >
+          Add todo
+        </AddNew>
       </section>
       <section className="Section">
         <header className="Section__Header">
@@ -78,7 +84,12 @@ function NextDays({
               <Todo key={todoID} todoID={todoID} />
             ))}
         </ul>
-        <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
+        <AddNew
+          additionalClasses="Section__AddNew"
+          onClick={() => openAddTodoModal()}
+        >
+          Add todo
+        </AddNew>
       </section>
       <section className="Section">
         <header className="Section__Header">
@@ -91,7 +102,12 @@ function NextDays({
               <Todo key={todoID} todoID={todoID} />
             ))}
         </ul>
-        <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
+        <AddNew
+          additionalClasses="Section__AddNew"
+          onClick={() => openAddTodoModal()}
+        >
+          Add todo
+        </AddNew>
       </section>
       <section className="Section">
         <header className="Section__Header">
@@ -104,7 +120,12 @@ function NextDays({
               <Todo key={todoID} todoID={todoID} />
             ))}
         </ul>
-        <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
+        <AddNew
+          additionalClasses="Section__AddNew"
+          onClick={() => openAddTodoModal()}
+        >
+          Add todo
+        </AddNew>
       </section>
       <section className="Section">
         <header className="Section__Header">
@@ -117,7 +138,12 @@ function NextDays({
               <Todo key={todoID} todoID={todoID} />
             ))}
         </ul>
-        <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
+        <AddNew
+          additionalClasses="Section__AddNew"
+          onClick={() => openAddTodoModal()}
+        >
+          Add todo
+        </AddNew>
       </section>
       <section className="Section">
         <header className="Section__Header">
@@ -130,7 +156,12 @@ function NextDays({
               <Todo key={todoID} todoID={todoID} />
             ))}
         </ul>
-        <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
+        <AddNew
+          additionalClasses="Section__AddNew"
+          onClick={() => openAddTodoModal()}
+        >
+          Add todo
+        </AddNew>
       </section>
       <section className="Section">
         <header className="Section__Header">
@@ -143,7 +174,12 @@ function NextDays({
               <Todo key={todoID} todoID={todoID} />
             ))}
         </ul>
-        <AddNew additionalClasses="Section__AddNew">Add todo</AddNew>
+        <AddNew
+          additionalClasses="Section__AddNew"
+          onClick={() => openAddTodoModal()}
+        >
+          Add todo
+        </AddNew>
       </section>
     </Main>
   );
