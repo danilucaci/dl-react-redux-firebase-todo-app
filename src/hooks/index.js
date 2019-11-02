@@ -14,4 +14,7 @@ export { default as useMultipleKeysPressed } from "./useMultipleKeysPressed";
 export {
   default as useDisableSidebarBackground,
 } from "./useDisableSidebarBackground";
+export {
+  default as useDisableBodyBackground,
+} from "./useDisableBodyBackground";
 export { default as useAnimation } from "./useAnimation";
