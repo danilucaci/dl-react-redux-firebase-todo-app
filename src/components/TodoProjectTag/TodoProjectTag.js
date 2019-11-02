@@ -14,6 +14,7 @@ const TodoProjectTag = ({
   buttonAdditionalClasses,
   iconAdditionalClasses,
   isVisible,
+  toggleVisibility,
   bottomFixed,
   onChangeHandler,
   ...props
@@ -41,6 +42,7 @@ const TodoProjectTag = ({
         className={buttonClassNames}
         type="button"
         ref={projectsTagRef}
+        onClick={toggleVisibility}
         {...props}
       >
         {iconSide === "left" ? (
@@ -63,6 +65,8 @@ const TodoProjectTag = ({
         <ProjectsDropdownContainer
           onChangeHandler={onChangeHandler}
           bottomFixed={bottomFixed}
+          isVisible={isVisible}
+          toggleVisibility={toggleVisibility}
           position={{
             left: projectsTagSize.left || 0,
             right: projectsTagSize.right || 0,
@@ -82,6 +86,7 @@ TodoProjectTag.propTypes = {
   iconAdditionalClasses: string,
   bottomFixed: bool,
   isVisible: bool,
+  toggleVisibility: func,
   onChangeHandler: func,
 };
 
@@ -92,6 +97,7 @@ TodoProjectTag.defaultProps = {
   iconAdditionalClasses: null,
   bottomFixed: false,
   isVisible: false,
+  toggleVisibility: null,
   onChangeHandler: null,
 };
 

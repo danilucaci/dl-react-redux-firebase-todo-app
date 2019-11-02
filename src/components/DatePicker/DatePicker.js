@@ -2,19 +2,22 @@ import React, { useState } from "react";
 import { object, oneOfType, instanceOf, bool, string, func } from "prop-types";
 import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
+import ReactModal from "react-modal";
 
 import "./DatePicker.styles.scss";
 
-import Portal from "../Portal/Portal";
 import TextButton from "../TextButton/TextButton";
 import { useRectSize } from "../../hooks";
 import { isPastDate } from "../../utils/dates";
 import { isToday } from "date-fns";
 
+ReactModal.setAppElement("#root");
+
 const DatePicker = ({
   dueDate,
   onChangeHandler,
-  onCloseHandler,
+  isVisible,
+  toggleVisibility,
   bottomFixed,
   position,
 }) => {
@@ -45,7 +48,6 @@ const DatePicker = ({
       setMessage("Please select a date after today.");
     } else {
       onChangeHandler(date);
-      onCloseHandler();
       if (message) {
         setMessage(null);
       }
@@ -53,29 +55,37 @@ const DatePicker = ({
   }
 
   return (
-    <Portal id="datePicker-portal">
-      <div className="DatePicker__Overlay">
-        <div className="DatePicker__Inner" style={style} ref={datePickerRef}>
-          <DayPicker
-            numberOfMonths={1}
-            fromMonth={dueDate}
-            onDayClick={handleDateChange}
-            selectedDays={dueDate}
-            disabledDays={{ before: new Date() }}
-          />
-          {message && <div className="DatePicker__ErrorMessage">{message}</div>}
-          <div className="DatePicker__ButtonsRow">
-            <TextButton
-              additionalClasses="TextButton--Small"
-              onClick={onCloseHandler}
-              type="button"
-            >
-              Close
-            </TextButton>
-          </div>
-        </div>
+    <ReactModal
+      isOpen={isVisible}
+      contentLabel="Add a due date"
+      onRequestClose={toggleVisibility}
+      contentRef={datePickerRef}
+      className="DatePicker__Inner"
+      overlayClassName="DatePicker__Overlay"
+      style={{
+        content: {
+          ...style,
+        },
+      }}
+    >
+      <DayPicker
+        numberOfMonths={1}
+        fromMonth={dueDate}
+        onDayClick={handleDateChange}
+        selectedDays={dueDate}
+        disabledDays={{ before: new Date() }}
+      />
+      {message && <div className="DatePicker__ErrorMessage">{message}</div>}
+      <div className="DatePicker__ButtonsRow">
+        <TextButton
+          additionalClasses="TextButton--Small"
+          onClick={toggleVisibility}
+          type="button"
+        >
+          Close
+        </TextButton>
       </div>
-    </Portal>
+    </ReactModal>
   );
 };
 
@@ -83,8 +93,9 @@ DatePicker.propTypes = {
   dueDate: oneOfType([instanceOf(Date), string]),
   position: object.isRequired,
   bottomFixed: bool,
+  isVisible: bool.isRequired,
+  toggleVisibility: func.isRequired,
   onChangeHandler: func.isRequired,
-  onCloseHandler: func.isRequired,
 };
 
 DatePicker.defaultProps = {

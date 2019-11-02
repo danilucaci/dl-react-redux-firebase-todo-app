@@ -10,11 +10,15 @@ export function Todo({ todoID }) {
   return isEditingTodo ? (
     <TodoFormContainer
       todoID={todoID}
-      isEditingTodo={isEditingTodo}
-      setIsEditingTodo={setIsEditingTodo}
+      isVisible={isEditingTodo}
+      toggleVisibility={() => setIsEditingTodo(!isEditingTodo)}
     />
   ) : (
-    <TodoItemContainer todoID={todoID} setIsEditingTodo={setIsEditingTodo} />
+    <TodoItemContainer
+      todoID={todoID}
+      isVisible={isEditingTodo}
+      toggleVisibility={() => setIsEditingTodo(!isEditingTodo)}
+    />
   );
 }
 

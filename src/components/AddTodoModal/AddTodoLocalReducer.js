@@ -14,14 +14,11 @@ export const addTodoReducerState = {
 
 export const AddTodoTypes = {
   TOGGLE_SHOW_PROJECTS: "TOGGLE_SHOW_PROJECTS",
-  CLOSE_SHOW_PROJECTS: "CLOSE_SHOW_PROJECTS",
   SET_INITIAL_SELECTED_PROJECT: "SET_INITIAL_SELECTED_PROJECT",
   SET_SELECTED_PROJECT: "SET_SELECTED_PROJECT",
   TOGGLE_SHOW_LABELS: "TOGGLE_SHOW_LABELS",
-  CLOSE_SHOW_LABELS: "CLOSE_SHOW_LABELS",
   SET_SELECTED_LABEL: "SET_SELECTED_LABEL",
-  SET_SHOW_DATE: "SET_SHOW_DATE",
-  CLOSE_SHOW_DATE: "CLOSE_SHOW_DATE",
+  TOGGLE_SHOW_DATE: "TOGGLE_SHOW_DATE",
   SET_SELECTED_DATE: "SET_SELECTED_DATE",
   SET_TODO_NAME: "SET_TODO_NAME",
 };
@@ -45,16 +42,10 @@ export const addTodoReducer = (state, { type, payload }) => {
         showDate: false,
       };
     }
-    case AddTodoTypes.CLOSE_SHOW_PROJECTS: {
-      return {
-        ...state,
-        showProjects: false,
-      };
-    }
     case AddTodoTypes.SET_INITIAL_SELECTED_PROJECT: {
       return {
         ...state,
-        initialSelectedProjectSet: false,
+        initialSelectedProjectSet: true,
         todo: {
           ...state.todo,
           project: {
@@ -81,18 +72,12 @@ export const addTodoReducer = (state, { type, payload }) => {
         },
       };
     }
-    case AddTodoTypes.SET_SHOW_LABELS: {
+    case AddTodoTypes.TOGGLE_SHOW_LABELS: {
       return {
         ...state,
-        showLabels: true,
         showProjects: false,
+        showLabels: !state.showLabels,
         showDate: false,
-      };
-    }
-    case AddTodoTypes.CLOSE_SHOW_LABELS: {
-      return {
-        ...state,
-        showLabels: false,
       };
     }
     case AddTodoTypes.SET_SELECTED_LABEL: {
@@ -104,18 +89,12 @@ export const addTodoReducer = (state, { type, payload }) => {
         },
       };
     }
-    case AddTodoTypes.SET_SHOW_DATE: {
+    case AddTodoTypes.TOGGLE_SHOW_DATE: {
       return {
         ...state,
-        showDate: true,
-        showLabels: false,
         showProjects: false,
-      };
-    }
-    case AddTodoTypes.CLOSE_SHOW_DATE: {
-      return {
-        ...state,
-        showDate: false,
+        showLabels: false,
+        showDate: !state.showDate,
       };
     }
     case AddTodoTypes.SET_SELECTED_DATE: {
@@ -142,10 +121,6 @@ export const toggleShowProjectsAction = () => ({
   type: AddTodoTypes.TOGGLE_SHOW_PROJECTS,
 });
 
-export const closeShowProjectsAction = () => ({
-  type: AddTodoTypes.CLOSE_SHOW_PROJECTS,
-});
-
 export const setInitialSelectedProjectAction = (project) => ({
   type: AddTodoTypes.SET_INITIAL_SELECTED_PROJECT,
   payload: project,
@@ -156,12 +131,8 @@ export const setSelectedProjectAction = (project) => ({
   payload: project,
 });
 
-export const setShowLabelsAction = () => ({
-  type: AddTodoTypes.SET_SHOW_LABELS,
-});
-
-export const closeShowLabelsAction = () => ({
-  type: AddTodoTypes.CLOSE_SHOW_LABELS,
+export const toggleShowLabelsAction = () => ({
+  type: AddTodoTypes.TOGGLE_SHOW_LABELS,
 });
 
 export const setSelectedLabelAction = (label) => ({
@@ -169,12 +140,8 @@ export const setSelectedLabelAction = (label) => ({
   payload: label,
 });
 
-export const setShowDateAction = () => ({
-  type: AddTodoTypes.SET_SHOW_DATE,
-});
-
-export const closeShowDateAction = () => ({
-  type: AddTodoTypes.CLOSE_SHOW_DATE,
+export const toggleShowDateAction = () => ({
+  type: AddTodoTypes.TOGGLE_SHOW_DATE,
 });
 
 export const setSelectedDateAction = (date) => ({

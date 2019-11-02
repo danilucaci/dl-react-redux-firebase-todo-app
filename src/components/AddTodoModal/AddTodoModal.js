@@ -1,21 +1,15 @@
 import React, { useRef, useEffect, useReducer } from "react";
-import { object, func } from "prop-types";
+import { object, bool, func, shape } from "prop-types";
 import uuid from "uuid";
+import ReactModal from "react-modal";
 
 import "./AddTodoModal.styles.scss";
 
 import IconButton from "../IconButton/IconButton";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
 import TextButton from "../TextButton/TextButton";
-import {
-  useOnClickOutside,
-  useDisableModalBackground,
-  useKeyUpPress,
-  useFocusRef,
-  // useLogger,
-} from "../../hooks";
+import { useFocusRef, useDisableBodyBackground } from "../../hooks";
 
-import Portal from "../Portal/Portal";
 import Input from "../Input/Input";
 import TodoProjectTag from "../TodoProjectTag/TodoProjectTag";
 import TodoLabelTag from "../TodoLabelTag/TodoLabelTag";
@@ -26,52 +20,55 @@ import {
   addTodoReducer,
   setTodoNameAction,
   toggleShowProjectsAction,
-  closeShowProjectsAction,
   setSelectedProjectAction,
   setInitialSelectedProjectAction,
-  setShowLabelsAction,
-  closeShowLabelsAction,
+  toggleShowLabelsAction,
   setSelectedLabelAction,
-  setShowDateAction,
-  closeShowDateAction,
+  toggleShowDateAction,
   setSelectedDateAction,
 } from "./AddTodoLocalReducer";
 
-function AddTodoModal({ inboxProject, closeModal, addTodo }) {
+ReactModal.setAppElement("#root");
+
+function AddTodoModal({
+  inboxProject,
+  closeModal,
+  addTodo,
+  modalsState: { addTodoModalActive = false } = {},
+}) {
   const modalRef = useRef(null);
   const inputRef = useFocusRef();
 
   const [state, dispatch] = useReducer(addTodoReducer, addTodoReducerState);
-  // const [state, dispatch] = useLogger(
-  //   useReducer(addTodoReducer, addTodoReducerState),
-  // );
 
   const {
-    showProjects,
-    initialSelectedProjectSet,
-    showLabels,
-    showDate,
-    todo,
+    showProjects = false,
+    initialSelectedProjectSet = false,
+    showLabels = false,
+    showDate = false,
+    todo = {
+      todo: {
+        name: "",
+        dueDate: null,
+        completed: false,
+        project: null,
+        labels: null,
+      },
+    },
   } = state;
 
   const setTodoName = (todoName) => dispatch(setTodoNameAction(todoName));
   const toggleShowProjects = () => dispatch(toggleShowProjectsAction());
-  const closeShowProjects = () => dispatch(closeShowProjectsAction());
-
   const setSelectedProject = (project) =>
     dispatch(setSelectedProjectAction(project));
 
-  const setShowLabels = () => dispatch(setShowLabelsAction());
-  const closeShowLabels = () => dispatch(closeShowLabelsAction());
+  const toggleShowLabels = () => dispatch(toggleShowLabelsAction());
   const setSelectedLabel = (labels) => dispatch(setSelectedLabelAction(labels));
 
-  const setShowDate = () => dispatch(setShowDateAction());
-  const closeShowDate = () => dispatch(closeShowDateAction());
+  const toggleShowDate = () => dispatch(toggleShowDateAction());
   const setSelectedDate = (date) => dispatch(setSelectedDateAction(date));
 
-  useOnClickOutside(modalRef, handleClickOutside);
-  useDisableModalBackground(modalRef, todo.name);
-  useKeyUpPress("Escape", escapeKeyHandler);
+  useDisableBodyBackground(modalRef);
 
   useEffect(() => {
     const setInitialSelectedProject = (project) =>
@@ -81,38 +78,6 @@ function AddTodoModal({ inboxProject, closeModal, addTodo }) {
       setInitialSelectedProject(inboxProject);
     }
   }, [dispatch, inboxProject, initialSelectedProjectSet]);
-
-  function handleClickOutside() {
-    if (showProjects) {
-      closeShowProjects();
-      return;
-    }
-    if (showLabels) {
-      return;
-    }
-    if (showDate) {
-      return;
-    }
-
-    closeModal();
-  }
-
-  function escapeKeyHandler() {
-    if (showProjects) {
-      closeShowProjects();
-      return;
-    }
-    if (showLabels) {
-      closeShowLabels();
-      return;
-    }
-    if (showDate) {
-      closeShowDate();
-      return;
-    }
-
-    closeModal();
-  }
 
   function handleFormSubmit(e) {
     e.preventDefault();
@@ -128,89 +93,84 @@ function AddTodoModal({ inboxProject, closeModal, addTodo }) {
   }
 
   return (
-    <Portal id="add-todo-portal">
-      <div className="AddTodoModal__Overlay">
-        <div className="AddTodoModal__Inner" ref={modalRef}>
-          <div className="AddTodoModal__TitleRow">
-            <h2 className="AddTodoModal__Title">Add a new todo</h2>
-            <IconButton
-              icon="close"
-              additionalClasses="IconButton--Medium  AddTodoModal__CloseButton"
-              ariaText="Close modal"
-              type="button"
-              onClick={closeModal}
-            />
-          </div>
-          <form
-            method="post"
-            className="AddTodoModal__Todo"
-            onSubmit={handleFormSubmit}
-          >
-            <Input
-              onChange={(e) => setTodoName(e.target.value)}
-              value={todo.name}
-              placeholder="Todo name"
-              ref={inputRef}
-            />
-            <div className="AddTodoModal__MetaRow">
-              {todo.project ? (
-                <TodoProjectTag
-                  buttonAdditionalClasses="AddTodoModal__Project"
-                  projectName={todo.project.name}
-                  projectColorValue={todo.project.colorValue}
-                  iconSide="left"
-                  onClick={() => toggleShowProjects()}
-                  isVisible={showProjects}
-                  bottomFixed={true}
-                  onChangeHandler={setSelectedProject}
-                />
-              ) : null}
-
-              <TodoLabelTag
-                labels={todo.labels}
-                onClick={() => setShowLabels()}
-                isVisible={showLabels}
-                bottomFixed={true}
-                onChangeHandler={setSelectedLabel}
-                onCloseHandler={() => closeShowLabels()}
-              />
-
-              <TodoDueDate
-                dueDate={todo.dueDate}
-                additionalClasses="AddTodoModal__DueDate"
-                isVisible={showDate}
-                bottomFixed={true}
-                onChangeHandler={setSelectedDate}
-                onCloseHandler={() => {
-                  closeShowDate();
-                }}
-                onClick={() => {
-                  if (!showDate) {
-                    setShowDate();
-                  }
-                }}
-              />
-            </div>
-            <div className="AddTodoModal__CTARow">
-              <TextButton
-                additionalClasses="TextButton--Medium AddTodoModal__CancelBtn"
-                type="button"
-                onClick={closeModal}
-              >
-                Cancel
-              </TextButton>
-              <PrimaryButton
-                additionalClasses="PrimaryButton--Medium"
-                type="submit"
-                disabled={!todo.name.length}
-              >
-                Add todo
-              </PrimaryButton>
-            </div>
-          </form>
-        </div>
+    <ReactModal
+      isOpen={addTodoModalActive}
+      contentLabel="Add a new todo"
+      onRequestClose={closeModal}
+      contentRef={(ref) => (modalRef.current = ref)}
+      className="AddTodoModal__Inner"
+      overlayClassName="AddTodoModal__Overlay"
+    >
+      <div className="AddTodoModal__TitleRow">
+        <h2 className="AddTodoModal__Title">Add a new todo</h2>
+        <IconButton
+          icon="close"
+          additionalClasses="IconButton--Medium  AddTodoModal__CloseButton"
+          ariaText="Close modal"
+          type="button"
+          onClick={closeModal}
+        />
       </div>
-    </Portal>
+      <form
+        method="post"
+        className="AddTodoModal__Todo"
+        onSubmit={handleFormSubmit}
+      >
+        <Input
+          onChange={(e) => setTodoName(e.target.value)}
+          value={todo.name}
+          placeholder="Todo name"
+          ref={inputRef}
+        />
+        <div className="AddTodoModal__MetaRow">
+          {todo.project ? (
+            <TodoProjectTag
+              buttonAdditionalClasses="AddTodoModal__Project"
+              projectName={todo.project.name}
+              projectColorValue={todo.project.colorValue}
+              iconSide="left"
+              isVisible={showProjects}
+              toggleVisibility={() => toggleShowProjects()}
+              bottomFixed={true}
+              onChangeHandler={setSelectedProject}
+            />
+          ) : null}
+
+          <TodoLabelTag
+            labels={todo.labels}
+            isVisible={showLabels}
+            toggleVisibility={() => toggleShowLabels()}
+            bottomFixed={true}
+            onChangeHandler={setSelectedLabel}
+          />
+
+          <TodoDueDate
+            dueDate={todo.dueDate}
+            additionalClasses="AddTodoModal__DueDate"
+            isVisible={showDate}
+            toggleVisibility={() => toggleShowDate()}
+            bottomFixed={true}
+            onChangeHandler={setSelectedDate}
+          />
+        </div>
+        <div className="AddTodoModal__CTARow">
+          <TextButton
+            additionalClasses="TextButton--Medium AddTodoModal__CancelBtn"
+            type="button"
+            onClick={closeModal}
+          >
+            Cancel
+          </TextButton>
+          <PrimaryButton
+            additionalClasses="PrimaryButton--Medium"
+            type="submit"
+            disabled={!todo.name.length}
+          >
+            Add todo
+          </PrimaryButton>
+        </div>
+      </form>
+    </ReactModal>
   );
 }
 
@@ -218,6 +178,9 @@ AddTodoModal.propTypes = {
   inboxProject: object.isRequired,
   closeModal: func.isRequired,
   addTodo: func.isRequired,
+  modalsState: shape({
+    addTodoModalActive: bool.isRequired,
+  }).isRequired,
 };
 
 export default AddTodoModal;

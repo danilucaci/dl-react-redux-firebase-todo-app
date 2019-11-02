@@ -15,9 +15,9 @@ function TodoDueDate({
   dueDate,
   additionalClasses,
   isVisible,
+  toggleVisibility,
   bottomFixed,
   onChangeHandler,
-  onCloseHandler,
   ...props
 }) {
   const addedClasses = getClassesFromProps(additionalClasses);
@@ -36,6 +36,7 @@ function TodoDueDate({
         className={dueDateClassNames}
         type="button"
         ref={dateButtonRef}
+        onClick={toggleVisibility}
         {...props}
       >
         {dueDate ? formatTodoDueDate(dueDate) : "Schedule"}
@@ -43,8 +44,9 @@ function TodoDueDate({
       {isVisible && (
         <DatePicker
           dueDate={dueDate}
+          isVisible={isVisible}
+          toggleVisibility={toggleVisibility}
           onChangeHandler={onChangeHandler}
-          onCloseHandler={onCloseHandler}
           bottomFixed={bottomFixed}
           position={{
             left: dateButtonSize.left || 0,
@@ -62,18 +64,16 @@ TodoDueDate.propTypes = {
   dueDate: oneOfType([instanceOf(Date), string]),
   additionalClasses: string,
   bottomFixed: bool,
-  isVisible: bool,
+  isVisible: bool.isRequired,
+  toggleVisibility: func.isRequired,
   onChangeHandler: func,
-  onCloseHandler: func,
 };
 
 TodoDueDate.defaultProps = {
   additionalClasses: null,
   dueDate: null,
   bottomFixed: false,
-  isVisible: false,
   onChangeHandler: null,
-  onCloseHandler: null,
 };
 
 export default TodoDueDate;

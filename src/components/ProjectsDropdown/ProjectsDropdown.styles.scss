@@ -28,8 +28,10 @@
 
     position: absolute;
 
-    margin-left: 0;
-    list-style-type: none;
+    ul {
+      margin-left: 0;
+      list-style-type: none;
+    }
   }
 
   &__Item {

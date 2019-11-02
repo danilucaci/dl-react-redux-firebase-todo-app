@@ -1,25 +1,21 @@
 import React from "react";
 import { array, bool, object, func } from "prop-types";
+import ReactModal from "react-modal";
 
 import "./ProjectsDropdown.styles.scss";
 
-import Portal from "../Portal/Portal";
 import { useRectSize } from "../../hooks";
+
+ReactModal.setAppElement("#root");
 
 const ProjectsDropdown = ({
   projects,
   onChangeHandler,
   bottomFixed,
   position,
+  isVisible,
+  toggleVisibility,
 }) => {
-  // const listRef = useRef(null);
-
-  // useEffect(() => {
-  //   if (listRef.current) {
-  //     console.log(listRef.current);
-  //   }
-  // });
-
   const [dropdownRef, dropdownSize] = useRectSize();
 
   let style = {
@@ -41,32 +37,43 @@ const ProjectsDropdown = ({
   }
 
   return (
-    <Portal id="projects-dropdown-portal">
-      <div className="ProjectsDropdown__Overlay">
-        <ul className="ProjectsDropdown__List" ref={dropdownRef} style={style}>
-          {projects.map((project) => (
-            <li
-              className="ProjectsDropdown__Item"
-              key={project.id}
-              onClick={() => onChangeHandler(project)}
-              tabIndex="-1"
-              // ref={listRef}
+    <ReactModal
+      isOpen={isVisible}
+      contentLabel="Add a new todo"
+      onRequestClose={() => {
+        toggleVisibility();
+      }}
+      contentRef={(ref) => (dropdownRef.current = ref)}
+      className="ProjectsDropdown__List"
+      overlayClassName="ProjectsDropdown__Overlay"
+      style={{
+        content: {
+          ...style,
+        },
+      }}
+    >
+      <ul>
+        {projects.map((project) => (
+          <li
+            className="ProjectsDropdown__Item"
+            key={project.id}
+            onClick={() => onChangeHandler(project)}
+            tabIndex="-1"
+          >
+            <svg
+              className="ProjectsDropdown__Item__ColorIcon"
+              fill={project.color.colorValue}
             >
-              <svg
-                className="ProjectsDropdown__Item__ColorIcon"
-                fill={project.color.colorValue}
-              >
-                <use xlinkHref="#color" />
-              </svg>
-              {project.name}
-              <span className="ProjectsDropdown__Item__Count">
-                {project.todosCount}
-              </span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </Portal>
+              <use xlinkHref="#color" />
+            </svg>
+            {project.name}
+            <span className="ProjectsDropdown__Item__Count">
+              {project.todosCount}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </ReactModal>
   );
 };
 
@@ -75,6 +82,8 @@ ProjectsDropdown.propTypes = {
   onChangeHandler: func,
   bottomFixed: bool,
   position: object.isRequired,
+  isVisible: bool.isRequired,
+  toggleVisibility: func.isRequired,
 };
 
 ProjectsDropdown.defaultProps = {

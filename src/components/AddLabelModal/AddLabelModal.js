@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
-import { array, func } from "prop-types";
+import { array, func, shape, bool } from "prop-types";
 import uuid from "uuid";
+import ReactModal from "react-modal";
 
 import "./AddLabelModal.styles.scss";
 
@@ -8,17 +9,18 @@ import IconButton from "../IconButton/IconButton";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
 import ColorSelect from "../ColorSelect/ColorSelect";
 import TextButton from "../TextButton/TextButton";
-import {
-  useOnClickOutside,
-  useDisableModalBackground,
-  useKeyUpPress,
-  useFocusRef,
-} from "../../hooks";
+import { useDisableBodyBackground, useFocusRef } from "../../hooks";
 
-import Portal from "../Portal/Portal";
 import Input from "../Input/Input";
 
-function AddLabelModal({ colors, closeModal, addLabel }) {
+ReactModal.setAppElement("#root");
+
+function AddLabelModal({
+  colors,
+  closeModal,
+  addLabel,
+  modalsState: { addLabelModalActive = false } = {},
+}) {
   const modalRef = useRef(null);
   const inputRef = useFocusRef();
 
@@ -26,18 +28,7 @@ function AddLabelModal({ colors, closeModal, addLabel }) {
   const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [colorsVisible, setColorsVisible] = useState(false);
 
-  useOnClickOutside(modalRef, onCloseHandler);
-  useDisableModalBackground(modalRef, labelName);
-  useKeyUpPress("Escape", onCloseHandler);
-
-  function onCloseHandler() {
-    if (colorsVisible) {
-      setColorsVisible(!colorsVisible);
-      return;
-    }
-
-    closeModal();
-  }
+  useDisableBodyBackground(modalRef);
 
   function handleFormSubmit(e) {
     e.preventDefault();
@@ -58,59 +49,67 @@ function AddLabelModal({ colors, closeModal, addLabel }) {
     closeModal();
   }
 
+  function handleColorSelect(color) {
+    setSelectedColor(color);
+    setColorsVisible(false);
+  }
+
   return (
-    <Portal id="add-label-portal">
-      <div className="LabelModal__Overlay">
-        <div className="LabelModal__Inner" ref={modalRef}>
-          <div className="LabelModal__TitleRow">
-            <h2 className="LabelModal__Title">Add a new label</h2>
-            <IconButton
-              icon="close"
-              additionalClasses="IconButton--Medium LabelModal__CloseButton"
-              ariaText="Close modal"
-              type="button"
-              onClick={closeModal}
-            />
-          </div>
-          <form
-            method="post"
-            className="LabelModal__Todo"
-            onSubmit={handleFormSubmit}
-          >
-            <Input
-              onChange={(e) => setLabelName(e.target.value)}
-              value={labelName}
-              placeholder="Label name"
-              ref={inputRef}
-            />
-            <div className="LabelModal__MetaRow">
-              <ColorSelect
-                selectedColor={selectedColor}
-                onChangeHandler={setSelectedColor}
-                isVisible={colorsVisible}
-                toggleIsVisible={() => setColorsVisible(!colorsVisible)}
-              />
-            </div>
-            <div className="LabelModal__CTARow">
-              <TextButton
-                additionalClasses="TextButton--Medium LabelModal__CancelBtn"
-                type="button"
-                onClick={closeModal}
-              >
-                Cancel
-              </TextButton>
-              <PrimaryButton
-                additionalClasses="PrimaryButton--Medium"
-                type="submit"
-                disabled={!labelName.length}
-              >
-                Add label
-              </PrimaryButton>
-            </div>
-          </form>
-        </div>
+    <ReactModal
+      isOpen={addLabelModalActive}
+      contentLabel="Add a new label"
+      onRequestClose={closeModal}
+      contentRef={(ref) => (modalRef.current = ref)}
+      className="LabelModal__Inner"
+      overlayClassName="LabelModal__Overlay"
+    >
+      <div className="LabelModal__TitleRow">
+        <h2 className="LabelModal__Title">Add a new label</h2>
+        <IconButton
+          icon="close"
+          additionalClasses="IconButton--Medium LabelModal__CloseButton"
+          ariaText="Close modal"
+          type="button"
+          onClick={closeModal}
+        />
       </div>
-    </Portal>
+      <form
+        method="post"
+        className="LabelModal__Todo"
+        onSubmit={handleFormSubmit}
+      >
+        <Input
+          onChange={(e) => setLabelName(e.target.value)}
+          value={labelName}
+          placeholder="Label name"
+          ref={inputRef}
+        />
+        <div className="LabelModal__MetaRow">
+          <ColorSelect
+            selectedColor={selectedColor}
+            onChangeHandler={handleColorSelect}
+            isVisible={colorsVisible}
+            toggleVisibility={() => setColorsVisible(!colorsVisible)}
+          />
+        </div>
+        <div className="LabelModal__CTARow">
+          <TextButton
+            additionalClasses="TextButton--Medium LabelModal__CancelBtn"
+            type="button"
+            onClick={closeModal}
+          >
+            Cancel
+          </TextButton>
+          <PrimaryButton
+            additionalClasses="PrimaryButton--Medium"
+            type="submit"
+            disabled={!labelName.length}
+          >
+            Add label
+          </PrimaryButton>
+        </div>
+      </form>
+    </ReactModal>
   );
 }
 
@@ -118,6 +117,9 @@ AddLabelModal.propTypes = {
   colors: array.isRequired,
   closeModal: func.isRequired,
   addLabel: func.isRequired,
+  modalsState: shape({
+    addLabelModalActive: bool.isRequired,
+  }).isRequired,
 };
 
 export default AddLabelModal;

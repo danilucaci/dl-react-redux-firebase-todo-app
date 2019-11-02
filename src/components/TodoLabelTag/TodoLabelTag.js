@@ -12,9 +12,9 @@ export const LabelTag = ({
   labelColorValue,
   additionalClasses,
   isVisible,
+  toggleVisibility,
   bottomFixed,
   onChangeHandler,
-  onCloseHandler,
   labels,
   ...props
 }) => {
@@ -32,7 +32,8 @@ export const LabelTag = ({
       {isVisible && (
         <LabelsDropdownContainer
           onChangeHandler={onChangeHandler}
-          onCloseHandler={onCloseHandler}
+          isVisible={isVisible}
+          toggleVisibility={toggleVisibility}
           bottomFixed={bottomFixed}
           labels={labels}
           position={{
@@ -46,6 +47,7 @@ export const LabelTag = ({
         className={buttonClassNames}
         type="button"
         ref={labelsTagRef}
+        onClick={toggleVisibility}
         {...props}
       >
         <svg className="Todo__Label__Tag__Icon" fill={labelColorValue}>
@@ -61,8 +63,8 @@ const TodoLabelTag = ({
   labels,
   additionalClasses,
   isVisible,
+  toggleVisibility,
   onChangeHandler,
-  onCloseHandler,
   ...props
 }) => {
   if (!Boolean(labels) || !Array.isArray(labels) || labels.length === 0) {
@@ -72,8 +74,8 @@ const TodoLabelTag = ({
         labelColorValue="#81878f"
         additionalClasses={additionalClasses}
         isVisible={isVisible}
+        toggleVisibility={toggleVisibility}
         onChangeHandler={onChangeHandler}
-        onCloseHandler={onCloseHandler}
         labels={labels}
         {...props}
       />
@@ -85,8 +87,8 @@ const TodoLabelTag = ({
         labelColorValue={labels[0].colorValue}
         additionalClasses={additionalClasses}
         isVisible={isVisible}
+        toggleVisibility={toggleVisibility}
         onChangeHandler={onChangeHandler}
-        onCloseHandler={onCloseHandler}
         labels={labels}
         {...props}
       />
@@ -107,8 +109,8 @@ const TodoLabelTag = ({
         labelColorValue={labels[0].colorValue}
         additionalClasses={additionalClasses}
         isVisible={isVisible}
+        toggleVisibility={toggleVisibility}
         onChangeHandler={onChangeHandler}
-        onCloseHandler={onCloseHandler}
         labels={labels}
         {...props}
       />
@@ -123,8 +125,8 @@ LabelTag.propTypes = {
   labelColorValue: string.isRequired,
   additionalClasses: string,
   isVisible: bool.isRequired,
+  toggleVisibility: func,
   onChangeHandler: func,
-  onCloseHandler: func,
   labels: array,
   bottomFixed: bool,
 };
@@ -133,8 +135,8 @@ LabelTag.defaultProps = {
   labels: null,
   additionalClasses: null,
   isVisible: false,
+  toggleVisibility: null,
   onChangeHandler: null,
-  onCloseHandler: null,
   bottomFixed: false,
 };
 
@@ -142,8 +144,8 @@ TodoLabelTag.propTypes = {
   labels: array,
   additionalClasses: string,
   isVisible: bool,
+  toggleVisibility: func,
   onChangeHandler: func,
-  onCloseHandler: func,
   bottomFixed: bool,
 };
 
@@ -151,8 +153,8 @@ TodoLabelTag.defaultProps = {
   labels: null,
   additionalClasses: null,
   isVisible: false,
+  toggleVisibility: null,
   onChangeHandler: null,
-  onCloseHandler: null,
   bottomFixed: false,
 };
 

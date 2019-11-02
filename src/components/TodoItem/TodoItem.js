@@ -16,7 +16,7 @@ import TodoProjectTag from "../TodoProjectTag/TodoProjectTag";
 import TodoLabelTag from "../TodoLabelTag/TodoLabelTag";
 import TodoDueDate from "../TodoDueDate/TodoDueDate";
 
-function TodoItem({ todo, setIsEditingTodo, toggleTodoCompleted }) {
+function TodoItem({ todo, isVisible, toggleVisibility, toggleTodoCompleted }) {
   const { id, name, completed, labels, project, dueDate } = todo;
 
   const todoButtonClassnames = classnames({
@@ -43,7 +43,7 @@ function TodoItem({ todo, setIsEditingTodo, toggleTodoCompleted }) {
           <button
             className="Todo__Name"
             aria-label={`Edit todo ${name}`}
-            onClick={() => setIsEditingTodo(true)}
+            onClick={() => toggleVisibility(!isVisible)}
           >
             {name}
           </button>
@@ -54,7 +54,8 @@ function TodoItem({ todo, setIsEditingTodo, toggleTodoCompleted }) {
               projectName={project.name}
               projectColorValue={project.colorValue}
               iconSide="right"
-              onClick={() => setIsEditingTodo(true)}
+              isVisible={isVisible}
+              toggleVisibility={toggleVisibility}
             />
           )}
         </div>
@@ -64,13 +65,15 @@ function TodoItem({ todo, setIsEditingTodo, toggleTodoCompleted }) {
               {labels && (
                 <TodoLabelTag
                   labels={labels}
-                  onClick={() => setIsEditingTodo(true)}
+                  isVisible={isVisible}
+                  toggleVisibility={toggleVisibility}
                 />
               )}
               {dueDate && (
                 <TodoDueDate
                   dueDate={dueDate}
-                  onClick={() => setIsEditingTodo(true)}
+                  isVisible={isVisible}
+                  toggleVisibility={toggleVisibility}
                 />
               )}
             </div>
@@ -103,7 +106,8 @@ TodoItem.propTypes = {
     uid: string.isRequired,
     id: string.isRequired,
   }),
-  setIsEditingTodo: func.isRequired,
+  isVisible: bool.isRequired,
+  toggleVisibility: func.isRequired,
   toggleTodoCompleted: func.isRequired,
 };
 

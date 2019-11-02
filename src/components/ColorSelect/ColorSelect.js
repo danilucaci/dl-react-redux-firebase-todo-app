@@ -10,7 +10,7 @@ const ColorSelect = ({
   selectedColor,
   onChangeHandler,
   isVisible,
-  toggleIsVisible,
+  toggleVisibility,
 }) => {
   const [colorSelectRef, colorSelectSize] = useRectSize();
 
@@ -20,7 +20,7 @@ const ColorSelect = ({
         className="ColorSelect__Button"
         type="button"
         ref={colorSelectRef}
-        onClick={toggleIsVisible}
+        onClick={toggleVisibility}
       >
         <svg
           className="ColorSelect__Color__Icon"
@@ -36,6 +36,8 @@ const ColorSelect = ({
       {isVisible && (
         <ColorsDropdownContainer
           onChangeHandler={onChangeHandler}
+          isVisible={isVisible}
+          toggleVisibility={toggleVisibility}
           position={{
             left: colorSelectSize.left || 0,
             right: colorSelectSize.right || 0,
@@ -51,6 +53,7 @@ ColorSelect.propTypes = {
   selectedColor: object.isRequired,
   onChangeHandler: func.isRequired,
   isVisible: bool.isRequired,
+  toggleVisibility: func.isRequired,
 };
 
 export default ColorSelect;

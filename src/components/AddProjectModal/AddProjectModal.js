@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
-import { array, func } from "prop-types";
+import { array, func, shape, bool } from "prop-types";
 import uuid from "uuid";
+import ReactModal from "react-modal";
 
 import "./AddProjectModal.styles.scss";
 
@@ -8,17 +9,18 @@ import IconButton from "../IconButton/IconButton";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
 import ColorSelect from "../ColorSelect/ColorSelect";
 import TextButton from "../TextButton/TextButton";
-import {
-  useOnClickOutside,
-  useDisableModalBackground,
-  useKeyUpPress,
-  useFocusRef,
-} from "../../hooks";
+import { useDisableBodyBackground, useFocusRef } from "../../hooks";
 
-import Portal from "../Portal/Portal";
 import Input from "../Input/Input";
 
-function AddProjectModal({ colors, closeModal, addProject }) {
+ReactModal.setAppElement("#root");
+
+function AddProjectModal({
+  colors,
+  closeModal,
+  addProject,
+  modalsState: { addProjectModalActive = false } = {},
+}) {
   const modalRef = useRef(null);
   const inputRef = useFocusRef();
 
@@ -26,18 +28,7 @@ function AddProjectModal({ colors, closeModal, addProject }) {
   const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [colorsVisible, setColorsVisible] = useState(false);
 
-  useOnClickOutside(modalRef, onCloseHandler);
-  useDisableModalBackground(modalRef, projectName);
-  useKeyUpPress("Escape", onCloseHandler);
-
-  function onCloseHandler() {
-    if (colorsVisible) {
-      setColorsVisible(!colorsVisible);
-      return;
-    }
-
-    closeModal();
-  }
+  useDisableBodyBackground(modalRef);
 
   function handleFormSubmit(e) {
     e.preventDefault();
@@ -58,59 +49,67 @@ function AddProjectModal({ colors, closeModal, addProject }) {
     closeModal();
   }
 
+  function handleColorSelect(color) {
+    setSelectedColor(color);
+    setColorsVisible(false);
+  }
+
   return (
-    <Portal id="add-project-portal">
-      <div className="ProjectModal__Overlay">
-        <div className="ProjectModal__Inner" ref={modalRef}>
-          <div className="ProjectModal__TitleRow">
-            <h2 className="ProjectModal__Title">Add a new project</h2>
-            <IconButton
-              icon="close"
-              additionalClasses="IconButton--Medium ProjectModal__CloseButton"
-              ariaText="Close modal"
-              type="button"
-              onClick={closeModal}
-            />
-          </div>
-          <form
-            method="post"
-            className="ProjectModal__Todo"
-            onSubmit={handleFormSubmit}
-          >
-            <Input
-              onChange={(e) => setProjectName(e.target.value)}
-              value={projectName}
-              placeholder="Project name"
-              ref={inputRef}
-            />
-            <div className="ProjectModal__MetaRow">
-              <ColorSelect
-                selectedColor={selectedColor}
-                onChangeHandler={setSelectedColor}
-                isVisible={colorsVisible}
-                toggleIsVisible={() => setColorsVisible(!colorsVisible)}
-              />
-            </div>
-            <div className="ProjectModal__CTARow">
-              <TextButton
-                additionalClasses="TextButton--Medium ProjectModal__CancelBtn"
-                type="button"
-                onClick={closeModal}
-              >
-                Cancel
-              </TextButton>
-              <PrimaryButton
-                additionalClasses="PrimaryButton--Medium"
-                type="submit"
-                disabled={!projectName.length}
-              >
-                Add project
-              </PrimaryButton>
-            </div>
-          </form>
-        </div>
+    <ReactModal
+      isOpen={addProjectModalActive}
+      contentLabel="Add a new project"
+      onRequestClose={closeModal}
+      contentRef={(ref) => (modalRef.current = ref)}
+      className="ProjectModal__Inner"
+      overlayClassName="ProjectModal__Overlay"
+    >
+      <div className="ProjectModal__TitleRow">
+        <h2 className="ProjectModal__Title">Add a new project</h2>
+        <IconButton
+          icon="close"
+          additionalClasses="IconButton--Medium ProjectModal__CloseButton"
+          ariaText="Close modal"
+          type="button"
+          onClick={closeModal}
+        />
       </div>
-    </Portal>
+      <form
+        method="post"
+        className="ProjectModal__Todo"
+        onSubmit={handleFormSubmit}
+      >
+        <Input
+          onChange={(e) => setProjectName(e.target.value)}
+          value={projectName}
+          placeholder="Project name"
+          ref={inputRef}
+        />
+        <div className="ProjectModal__MetaRow">
+          <ColorSelect
+            selectedColor={selectedColor}
+            onChangeHandler={handleColorSelect}
+            isVisible={colorsVisible}
+            toggleVisibility={() => setColorsVisible(!colorsVisible)}
+          />
+        </div>
+        <div className="ProjectModal__CTARow">
+          <TextButton
+            additionalClasses="TextButton--Medium ProjectModal__CancelBtn"
+            type="button"
+            onClick={closeModal}
+          >
+            Cancel
+          </TextButton>
+          <PrimaryButton
+            additionalClasses="PrimaryButton--Medium"
+            type="submit"
+            disabled={!projectName.length}
+          >
+            Add project
+          </PrimaryButton>
+        </div>
+      </form>
+    </ReactModal>
   );
 }
 
@@ -118,6 +117,9 @@ AddProjectModal.propTypes = {
   colors: array.isRequired,
   closeModal: func.isRequired,
   addProject: func.isRequired,
+  modalsState: shape({
+    addProjectModalActive: bool.isRequired,
+  }).isRequired,
 };
 
 export default AddProjectModal;

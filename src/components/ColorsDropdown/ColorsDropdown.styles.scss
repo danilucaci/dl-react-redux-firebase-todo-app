@@ -14,7 +14,7 @@
     display: block;
   }
 
-  &__List {
+  &__Wrapper {
     background-color: tokens.$color-background-dropdown-inner;
     box-shadow: tokens.$shadow-dropdown;
     border-radius: tokens.$border-radius-components-default;
@@ -23,10 +23,13 @@
     max-width: tokens.$size-dropdown-colors-width;
     height: tokens.$size-dropdown-colors-height;
     max-height: 36vh;
-    padding: tokens.$spacing-c-02 0;
-    overflow-x: auto;
-
+    padding-top: tokens.$spacing-c-02;
+    padding-bottom: tokens.$spacing-c-02;
     position: absolute;
+    overflow-x: auto;
+  }
+
+  &__List {
     margin-left: 0;
     list-style-type: none;
   }

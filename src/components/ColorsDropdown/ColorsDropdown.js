@@ -1,12 +1,19 @@
 import React from "react";
-import { array, func, object } from "prop-types";
+import { array, func, object, bool } from "prop-types";
+import ReactModal from "react-modal";
 
 import "./ColorsDropdown.styles.scss";
-
-import Portal from "../Portal/Portal";
 import { useRectSize } from "../../hooks";
 
-const ColorsDropdown = ({ onChangeHandler, position, colors }) => {
+ReactModal.setAppElement("#root");
+
+const ColorsDropdown = ({
+  onChangeHandler,
+  isVisible,
+  toggleVisibility,
+  position,
+  colors,
+}) => {
   const [dropdownRef, dropdownSize] = useRectSize();
 
   let style = {
@@ -21,34 +28,46 @@ const ColorsDropdown = ({ onChangeHandler, position, colors }) => {
   );
 
   return (
-    <Portal id="colors-dropdown-portal">
-      <div className="ColorsDropdown__Overlay">
-        <ul className="ColorsDropdown__List" ref={dropdownRef} style={style}>
-          {colors.map((color) => (
-            <li
-              className="ColorsDropdown__Item"
-              key={color.id}
-              onClick={() => onChangeHandler(color)}
-              tabIndex="-1"
+    <ReactModal
+      isOpen={isVisible}
+      contentLabel="Add a new label"
+      onRequestClose={toggleVisibility}
+      contentRef={(ref) => (dropdownRef.current = ref)}
+      className="ColorsDropdown__Wrapper"
+      overlayClassName="ColorsDropdown__Overlay"
+      style={{
+        content: {
+          ...style,
+        },
+      }}
+    >
+      <ul className="ColorsDropdown__List">
+        {colors.map((color) => (
+          <li
+            className="ColorsDropdown__Item"
+            key={color.id}
+            onClick={() => onChangeHandler(color)}
+            tabIndex="-1"
+          >
+            <svg
+              className="ColorsDropdown__Item__ColorIcon"
+              fill={color.colorValue}
             >
-              <svg
-                className="ColorsDropdown__Item__ColorIcon"
-                fill={color.colorValue}
-              >
-                <use xlinkHref="#color" />
-              </svg>
-              {color.colorName}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </Portal>
+              <use xlinkHref="#color" />
+            </svg>
+            {color.colorName}
+          </li>
+        ))}
+      </ul>
+    </ReactModal>
   );
 };
 
 ColorsDropdown.propTypes = {
   colors: array.isRequired,
   onChangeHandler: func.isRequired,
+  isVisible: bool.isRequired,
+  toggleVisibility: func.isRequired,
   position: object.isRequired,
 };
 

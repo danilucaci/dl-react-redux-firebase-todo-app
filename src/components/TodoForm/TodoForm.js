@@ -16,12 +16,16 @@ import TextButton from "../TextButton/TextButton";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
 import TodoProjectTag from "../TodoProjectTag/TodoProjectTag";
 import TodoLabelTag from "../TodoLabelTag/TodoLabelTag";
-import { useKeyUpPress, useOnClickOutside, useFocusRef } from "../../hooks";
+import {
+  // useKeyUpPress,
+  useOnClickOutside,
+  useFocusRef,
+} from "../../hooks";
 import TodoDueDate from "../TodoDueDate/TodoDueDate";
 
 import { parseDate } from "../../utils/dates";
 
-function TodoForm({ todo, isEditingTodo, setIsEditingTodo, updateTodo }) {
+function TodoForm({ todo, isVisible, toggleVisibility, updateTodo }) {
   const { labels, project, dueDate, name } = todo;
 
   const [newTodoName, setNewTodoName] = useState(name || "");
@@ -37,41 +41,31 @@ function TodoForm({ todo, isEditingTodo, setIsEditingTodo, updateTodo }) {
 
   const todoWrapperRef = useRef();
 
+  function handleDateChange(date) {
+    setSelectedDate(date);
+    setShowDate(false);
+  }
+
   function handleClickOutside() {
-    if (showProjects) {
-      setShowProjects(false);
-      return;
-    }
-    if (showLabels) {
-      return;
-    }
-    if (showDate) {
+    if (showProjects || showLabels || showDate) {
       return;
     }
 
-    toggleIsEditing();
+    toggleVisibility();
   }
 
-  function escapeKeyHandler() {
-    if (showProjects) {
-      setShowProjects(false);
-      return;
-    }
-    if (showLabels) {
-      setShowLabels(false);
-      return;
-    }
-    if (showDate) {
-      setShowDate(false);
-      return;
-    }
-
-    toggleIsEditing();
-  }
+  // @TODO: Fix this
+  // function escapeKeyHandler() {
+  //   if (showProjects || showLabels || showDate) {
+  //     console.log("Was open");
+  //     return;
+  //   }
+  //   toggleVisibility();
+  // }
 
   useOnClickOutside(todoWrapperRef, handleClickOutside);
   const inputRef = useFocusRef();
-  useKeyUpPress("Escape", escapeKeyHandler);
+  // useKeyUpPress("Escape", escapeKeyHandler);
 
   function handleFormSubmit(e) {
     e.preventDefault();
@@ -93,18 +87,12 @@ function TodoForm({ todo, isEditingTodo, setIsEditingTodo, updateTodo }) {
     };
 
     updateTodo(todoData);
-    toggleIsEditing();
+    toggleVisibility();
   }
 
   function handleCancelEdit(e) {
     e.preventDefault();
-    toggleIsEditing();
-  }
-
-  function toggleIsEditing() {
-    if (isEditingTodo) {
-      setIsEditingTodo(false);
-    }
+    toggleVisibility();
   }
 
   return (
@@ -127,8 +115,8 @@ function TodoForm({ todo, isEditingTodo, setIsEditingTodo, updateTodo }) {
                 projectName={selectedProject.name}
                 projectColorValue={selectedProject.colorValue}
                 iconSide="left"
-                onClick={() => setShowProjects(!showProjects)}
                 isVisible={showProjects}
+                toggleVisibility={() => setShowProjects(!showProjects)}
                 onChangeHandler={(project) =>
                   setSelectedProject({
                     projectID: project.id,
@@ -144,23 +132,16 @@ function TodoForm({ todo, isEditingTodo, setIsEditingTodo, updateTodo }) {
               labels={selectedLabels}
               onClick={() => setShowLabels(true)}
               isVisible={showLabels}
+              toggleVisibility={() => setShowLabels(!showLabels)}
               onChangeHandler={setSelectedLabels}
-              onCloseHandler={() => setShowLabels(false)}
             />
 
             <TodoDueDate
               dueDate={selectedDate}
               additionalClasses="Todo__Form__DueDate"
               isVisible={showDate}
-              onChangeHandler={setSelectedDate}
-              onCloseHandler={() => {
-                setShowDate(false);
-              }}
-              onClick={() => {
-                if (!showDate) {
-                  setShowDate(true);
-                }
-              }}
+              toggleVisibility={() => setShowDate(!showDate)}
+              onChangeHandler={handleDateChange}
             />
           </div>
 
@@ -207,7 +188,8 @@ TodoForm.propTypes = {
     uid: string.isRequired,
     id: string.isRequired,
   }),
-  setIsEditingTodo: func.isRequired,
+  isVisible: bool.isRequired,
+  toggleVisibility: func.isRequired,
 };
 
 TodoForm.defaultProps = {

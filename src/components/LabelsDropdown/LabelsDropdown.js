@@ -1,10 +1,12 @@
 import React from "react";
 import { array, bool, object, func } from "prop-types";
+import ReactModal from "react-modal";
 
 import "./LabelsDropdown.styles.scss";
-import Portal from "../Portal/Portal";
 import { useRectSize } from "../../hooks";
 import TextButton from "../TextButton/TextButton";
+
+ReactModal.setAppElement("#root");
 
 function areEqual(a, b) {
   return a === b;
@@ -62,7 +64,8 @@ const LabelsDropdown = ({
   appLabels,
   labels,
   onChangeHandler,
-  onCloseHandler,
+  isVisible,
+  toggleVisibility,
   bottomFixed,
   position,
 }) => {
@@ -96,53 +99,55 @@ const LabelsDropdown = ({
   }
 
   return appLabels ? (
-    <Portal id="labels-dropdown-portal">
-      <div className="LabelsDropdown__Overlay">
-        <div
-          className="LabelsDropdown__Wrapper"
-          ref={dropdownRef}
-          style={style}
-        >
-          <ul className="LabelsDropdown__List">
-            {appLabels.map((appLabel) => (
-              <li
-                className={`LabelsDropdown__Item ${
-                  existsIn(labels)(appLabel.id)
-                    ? `LabelsDropdown__Item--Selected`
-                    : null
-                }`}
-                key={appLabel.id}
-                onClick={() => handleLabelSelect(appLabel)}
-              >
-                <svg
-                  className="LabelsDropdown__Item__ColorIcon"
-                  fill={appLabel.color.colorValue}
-                >
-                  <use xlinkHref="#tag" />
-                </svg>
-                <span className="LabelsDropdown__Item__Name">
-                  {appLabel.name}
-                </span>
-                {existsIn(labels)(appLabel.id) && (
-                  <svg className="LabelsDropdown__Item__Check">
-                    <use xlinkHref="#check-24" />
-                  </svg>
-                )}
-              </li>
-            ))}
-          </ul>
-          <div className="LabelsDropdown__ButtonsRow">
-            <TextButton
-              additionalClasses="TextButton--Small"
-              onClick={onCloseHandler}
-              type="button"
+    <ReactModal
+      isOpen={isVisible}
+      contentLabel="Add a new label"
+      onRequestClose={toggleVisibility}
+      contentRef={(ref) => (dropdownRef.current = ref)}
+      className="LabelsDropdown__Wrapper"
+      overlayClassName="LabelsDropdown__Overlay"
+      style={{
+        content: {
+          ...style,
+        },
+      }}
+    >
+      <ul className="LabelsDropdown__List">
+        {appLabels.map((appLabel) => (
+          <li
+            className={`LabelsDropdown__Item ${
+              existsIn(labels)(appLabel.id)
+                ? `LabelsDropdown__Item--Selected`
+                : null
+            }`}
+            key={appLabel.id}
+            onClick={() => handleLabelSelect(appLabel)}
+          >
+            <svg
+              className="LabelsDropdown__Item__ColorIcon"
+              fill={appLabel.color.colorValue}
             >
-              Close
-            </TextButton>
-          </div>
-        </div>
+              <use xlinkHref="#tag" />
+            </svg>
+            <span className="LabelsDropdown__Item__Name">{appLabel.name}</span>
+            {existsIn(labels)(appLabel.id) && (
+              <svg className="LabelsDropdown__Item__Check">
+                <use xlinkHref="#check-24" />
+              </svg>
+            )}
+          </li>
+        ))}
+      </ul>
+      <div className="LabelsDropdown__ButtonsRow">
+        <TextButton
+          additionalClasses="TextButton--Small"
+          onClick={toggleVisibility}
+          type="button"
+        >
+          Close
+        </TextButton>
       </div>
-    </Portal>
+    </ReactModal>
   ) : null;
 };
 
@@ -150,7 +155,8 @@ LabelsDropdown.propTypes = {
   labels: array,
   appLabels: array.isRequired,
   onChangeHandler: func.isRequired,
-  onCloseHandler: func.isRequired,
+  isVisible: bool.isRequired,
+  toggleVisibility: func.isRequired,
   bottomFixed: bool,
   position: object.isRequired,
 };
