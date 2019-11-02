@@ -9,6 +9,17 @@
   // @extend %bg-debug;
 }
 
+[tabindex="-1"] {
+  &:focus {
+    cursor: pointer;
+  }
+
+  .js-focus-visible &:focus:not([data-focus-visible-added]) {
+    cursor: pointer;
+    outline: none;
+  }
+}
+
 ul {
   list-style-type: disc;
 }
