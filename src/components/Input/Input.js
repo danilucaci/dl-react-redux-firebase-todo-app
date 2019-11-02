@@ -3,7 +3,7 @@ import classNames from "classnames";
 
 import "./Input.styles.scss";
 
-const Input = forwardRef(({ children, ...props }, ref) => {
+const Input = forwardRef(({ children, type = "text", ...props }, ref) => {
   const inputClasses = classNames({
     Input: true,
   });
@@ -14,7 +14,7 @@ const Input = forwardRef(({ children, ...props }, ref) => {
 
   return (
     <label htmlFor="input" className={labelClasses}>
-      <input type="text" className={inputClasses} {...props} ref={ref} />
+      <input type={type} className={inputClasses} {...props} ref={ref} />
     </label>
   );
 });
