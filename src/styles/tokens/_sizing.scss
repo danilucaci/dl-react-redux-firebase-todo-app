@@ -8,6 +8,9 @@
 $size-site-nav-s: functions.rem(56);
 $size-site-nav-m: functions.rem(64);
 
+// Component border sizes
+$size-border-components-default: functions.rem(1);
+
 // Buttons
 $size-border-button-default: functions.rem(1);
 $size-border-input-default: functions.rem(1);
@@ -38,6 +41,9 @@ $size-input-s: functions.rem(32);
 
 // Modal Windows
 $size-modal-xl: functions.rem(520);
+
+// Account pages
+$size-account-page-xl: functions.rem(552);
 
 // Dropdowns
 $size-dropdown-projects: functions.rem(240);

@@ -1,0 +1,90 @@
+@use "../../styles/tokens";
+
+.Login {
+  background-color: tokens.$color-background-page-lightest;
+  width: 100%;
+  max-width: tokens.$size-account-page-xl;
+  padding: 0 tokens.$spacing-c-05;
+  margin-top: tokens.$spacing-l-03;
+  margin-bottom: tokens.$spacing-l-06;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+    border: tokens.$color-border-components-default solid
+      tokens.$size-border-components-default;
+    border-radius: tokens.$border-radius-components-default;
+    padding: tokens.$spacing-c-07;
+    margin-top: tokens.$spacing-l-07;
+    margin-bottom: tokens.$spacing-l-10;
+  }
+
+  &__Title {
+    font-size: tokens.$font-size-mobile-display-l;
+    line-height: tokens.$font-line-height-mobile-display-l;
+    margin-bottom: tokens.$spacing-c-08;
+
+    @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+      font-size: tokens.$font-size-desktop-display-m;
+      line-height: tokens.$font-line-height-desktop-display-m;
+      margin-bottom: tokens.$spacing-c-09;
+    }
+  }
+
+  &__Input {
+    margin-bottom: tokens.$spacing-c-07;
+  }
+
+  &__OrDivider {
+    margin-bottom: tokens.$spacing-c-05;
+
+    @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+      margin-bottom: tokens.$spacing-c-07;
+    }
+  }
+
+  &__SubmitBtn {
+    width: 100%;
+    margin-top: tokens.$spacing-c-03;
+    margin-bottom: tokens.$spacing-c-05;
+  }
+
+  &__PasswordReset {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: tokens.$spacing-c-07;
+  }
+
+  &__GoogleBtn {
+    margin-bottom: tokens.$spacing-c-05;
+
+    @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+      margin-bottom: tokens.$spacing-c-07;
+    }
+  }
+
+  &__ButtonsNav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__PasswordReset {
+    margin-bottom: tokens.$spacing-c-07;
+  }
+
+  &__Divider {
+    margin-bottom: tokens.$spacing-c-05;
+  }
+
+  &__Footer {
+    display: flex;
+    align-items: center;
+    align-self: flex-start;
+
+    &__Btn {
+      margin-left: tokens.$spacing-c-05;
+    }
+  }
+}

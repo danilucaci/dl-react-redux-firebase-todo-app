@@ -9,6 +9,9 @@ import SVGSprite from "./components/SVGSprite/SVGSprite";
 import HeaderContainer from "./redux/containers/components/HeaderContainer";
 import Footer from "./components/Footer/Footer";
 
+import Login from "./pages/Login/Login";
+import Signup from "./pages/Signup/Signup";
+import PasswordReset from "./pages/PasswordReset/PasswordReset";
 import Home from "./pages/Home/Home";
 import Profile from "./pages/Profile/Profile";
 import InboxContainer from "./redux/containers/pages/InboxContainer";
@@ -94,6 +97,15 @@ function App({
           ))}
         <Route path="/labels">
           <LabelsContainer />
+        </Route>
+        <Route path="/login" exact>
+          <Login />
+        </Route>
+        <Route path="/signup" exact>
+          <Signup />
+        </Route>
+        <Route path="/password-reset" exact>
+          <PasswordReset />
         </Route>
         <Route path="/" exact>
           <Home />
