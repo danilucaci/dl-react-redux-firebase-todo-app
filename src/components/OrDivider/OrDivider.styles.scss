@@ -1,0 +1,25 @@
+@use "../../styles/tokens";
+@use "../../styles/base/placeholders";
+
+.OrDivider {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+
+  &--Left {
+    border-top: tokens.$size-divider-s solid tokens.$color-divider-on-white;
+    width: 100%;
+  }
+
+  &--Text {
+    text-align: center;
+    margin-left: tokens.$spacing-c-05;
+    margin-right: tokens.$spacing-c-05;
+  }
+
+  &--Right {
+    border-top: tokens.$size-divider-s solid tokens.$color-divider-on-white;
+    width: 100%;
+  }
+}
