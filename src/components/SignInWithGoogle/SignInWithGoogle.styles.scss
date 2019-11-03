@@ -1,0 +1,16 @@
+@use "../../styles/tokens";
+
+.SignInWithGoogle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.GoogleIcon {
+  width: tokens.$size-icon-m;
+  height: tokens.$size-icon-m;
+  display: inline-block;
+  position: static;
+  margin-right: tokens.$spacing-c-05;
+}
