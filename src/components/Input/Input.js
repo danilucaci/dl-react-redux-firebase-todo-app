@@ -1,22 +1,57 @@
 import React, { forwardRef } from "react";
+import { string } from "prop-types";
 import classNames from "classnames";
 
 import "./Input.styles.scss";
+import { getClassesFromProps } from "../../utils/helpers";
 
-const Input = forwardRef(({ children, type = "text", ...props }, ref) => {
-  const inputClasses = classNames({
-    Input: true,
-  });
+const Input = forwardRef(
+  (
+    { additionalClasses, label = "", type = "text", name = "input", ...props },
+    ref,
+  ) => {
+    const addedClasses = getClassesFromProps(additionalClasses);
 
-  const labelClasses = classNames({
-    Input__Label: true,
-  });
+    const inputClasses = classNames({
+      Input: true,
+      ...addedClasses,
+    });
 
-  return (
-    <label htmlFor="input" className={labelClasses}>
-      <input type={type} className={inputClasses} {...props} ref={ref} />
-    </label>
-  );
-});
+    const labelClasses = classNames({
+      Input__Label: true,
+    });
+
+    return (
+      <>
+        {label ? (
+          <label htmlFor={name} className={labelClasses}>
+            {label}
+          </label>
+        ) : null}
+        <input
+          type={type}
+          name={name}
+          className={inputClasses}
+          {...props}
+          ref={ref}
+        />
+      </>
+    );
+  },
+);
+
+Input.propTypes = {
+  additionalClasses: string,
+  label: string,
+  type: string,
+  name: string,
+};
+
+Input.defaultProps = {
+  additionalClasses: null,
+  label: "",
+  type: "text",
+  name: "input",
+};
 
 export default Input;

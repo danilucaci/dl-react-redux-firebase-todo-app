@@ -87,4 +87,9 @@
       cursor: not-allowed;
     }
   }
+
+  &__Label {
+    display: block;
+    margin-bottom: tokens.$spacing-c-03;
+  }
 }
