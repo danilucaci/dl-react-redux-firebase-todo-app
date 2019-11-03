@@ -154,12 +154,19 @@ $color-icon-button-text-active: colors.$grey900;
 $color-icon-button-text-focus: colors.$grey900;
 $color-icon-button-text-disabled: colors.$grey500;
 
-$color-border-outlined-enabled: transparent;
-$color-border-outlined-hover: colors.$grey100;
-$color-border-outlined-active: colors.$grey200;
+$color-border-outlined-enabled: colors.$grey700;
+$color-border-outlined-hover: colors.$grey700;
+$color-border-outlined-active: colors.$grey900;
 $color-border-outlined-focus: colors.$grey900;
-$color-border-outlined-focus-polyfill: transparent;
-$color-border-outlined-disabled: transparent;
+$color-border-outlined-focus-polyfill: colors.$grey900;
+$color-border-outlined-disabled: colors.$grey500;
+
+$color-border-icon-button-enabled: transparent;
+$color-border-icon-button-hover: colors.$grey100;
+$color-border-icon-button-active: colors.$grey200;
+$color-border-icon-button-focus: colors.$grey900;
+$color-border-icon-button-focus-polyfill: transparent;
+$color-border-icon-button-disabled: transparent;
 
 $color-border-primary-enabled: colors.$primary600;
 $color-border-primary-hover: colors.$primary500;
