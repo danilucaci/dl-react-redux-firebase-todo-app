@@ -1,0 +1,80 @@
+@use "../../styles/tokens";
+
+.OutlinedButton {
+  background-color: tokens.$color-background-outlined-enabled;
+  border-radius: tokens.$border-radius-button-default;
+  border: tokens.$size-border-button-default
+    tokens.$color-border-outlined-enabled solid;
+  color: tokens.$color-text-button-outlined-enabled;
+
+  font: {
+    size: tokens.$font-size-button-m;
+    family: tokens.$font-family-button;
+    weight: tokens.$font-weight-button;
+  }
+
+  line-height: tokens.$font-line-height-button-m;
+
+  white-space: nowrap;
+  height: tokens.$size-button-l;
+
+  padding: tokens.$spacing-button-default-vertical-l
+    tokens.$spacing-button-default-horizontal-l;
+
+  &--Medium {
+    height: tokens.$size-button-m;
+    padding: tokens.$spacing-button-default-vertical-m
+      tokens.$spacing-button-default-horizontal-m;
+  }
+
+  &--Small {
+    height: tokens.$size-button-s;
+    padding: tokens.$spacing-button-default-vertical-s
+      tokens.$spacing-button-default-horizontal-s;
+  }
+
+  &:hover {
+    background-color: tokens.$color-background-outlined-hover;
+    border-color: tokens.$color-border-outlined-hover;
+    box-shadow: none;
+    cursor: pointer;
+    outline: none;
+  }
+
+  &:focus {
+    background-color: tokens.$color-background-outlined-focus;
+    border-color: tokens.$color-border-outlined-focus;
+    box-shadow: tokens.$shadow-button-outlined-focus;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .js-focus-visible &:focus:not([data-focus-visible-added]) {
+    background-color: tokens.$color-background-outlined-focus-polyfill;
+    border-color: tokens.$color-border-outlined-focus-polyfill;
+    box-shadow: none;
+    cursor: pointer;
+  }
+
+  &:active {
+    background-color: tokens.$color-background-outlined-active;
+    border-color: tokens.$color-border-outlined-active;
+    box-shadow: none;
+    cursor: pointer;
+    outline: none;
+  }
+
+  &:disabled {
+    background-color: tokens.$color-background-outlined-disabled;
+    border-color: tokens.$color-border-outlined-disabled;
+    box-shadow: none;
+    outline: none;
+    cursor: not-allowed;
+    color: tokens.$color-text-button-outlined-disabled;
+
+    &:hover,
+    &:focus {
+      cursor: not-allowed;
+    }
+  }
+}
