@@ -1,10 +1,10 @@
 import { connect } from "react-redux";
 import { allProjectsSelector } from "../../../redux/projects/projects-selectors";
 
-import ProjectsDropdown from "../../../components/ProjectsDropdown/ProjectsDropdown";
+import TodoProjectTag from "../../../components/TodoProjectTag/TodoProjectTag";
 
 export const mapStateToProps = (state) => ({
   projects: allProjectsSelector(state),
 });
 
-export default connect(mapStateToProps)(ProjectsDropdown);
+export default connect(mapStateToProps)(TodoProjectTag);

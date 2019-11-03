@@ -11,8 +11,8 @@ import TextButton from "../TextButton/TextButton";
 import { useFocusRef, useDisableBodyBackground } from "../../hooks";
 
 import Input from "../Input/Input";
-import TodoProjectTag from "../TodoProjectTag/TodoProjectTag";
-import TodoLabelTag from "../TodoLabelTag/TodoLabelTag";
+import TodoProjectTagContainer from "../../redux/containers/components/TodoProjectTagContainer";
+import TodoLabelTagContainer from "../../redux/containers/components/TodoLabelTagContainer";
 import TodoDueDate from "../TodoDueDate/TodoDueDate";
 
 import {
@@ -42,9 +42,7 @@ function AddTodoModal({
   const [state, dispatch] = useReducer(addTodoReducer, addTodoReducerState);
 
   const {
-    showProjects = false,
     initialSelectedProjectSet = false,
-    showLabels = false,
     showDate = false,
     todo = {
       todo: {
@@ -124,23 +122,19 @@ function AddTodoModal({
         />
         <div className="AddTodoModal__MetaRow">
           {todo.project ? (
-            <TodoProjectTag
+            <TodoProjectTagContainer
               buttonAdditionalClasses="AddTodoModal__Project"
               projectName={todo.project.name}
               projectColorValue={todo.project.colorValue}
               iconSide="left"
-              isVisible={showProjects}
               toggleVisibility={() => toggleShowProjects()}
-              bottomFixed={true}
               onChangeHandler={setSelectedProject}
             />
           ) : null}
 
-          <TodoLabelTag
+          <TodoLabelTagContainer
             labels={todo.labels}
-            isVisible={showLabels}
             toggleVisibility={() => toggleShowLabels()}
-            bottomFixed={true}
             onChangeHandler={setSelectedLabel}
           />
 

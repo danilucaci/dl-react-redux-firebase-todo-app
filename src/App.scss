@@ -173,3 +173,20 @@ h5,
   letter-spacing: tokens.$font-letter-spacing-subhead;
   margin: 0;
 }
+
+[data-reach-menu-list],
+[data-reach-menu-items] {
+  display: block !important;
+  white-space: nowrap !important;
+  border: none !important;
+  background-color: tokens.$color-background-dropdown-item-enabled;
+  outline: none !important;
+  padding: 0 !important;
+  font-size: 100% !important;
+}
+
+[data-reach-menu-item][data-selected] {
+  background-color: tokens.$color-background-dropdown-item-hover !important;
+  color: tokens.$color-text-body-default !important;
+  outline: none;
+}

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@reach/menu-button": "^0.5.0",
     "body-scroll-lock": "^2.6.4",
     "classnames": "^2.2.6",
     "date-fns": "^2.6.0",

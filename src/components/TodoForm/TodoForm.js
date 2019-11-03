@@ -14,8 +14,8 @@ import "./TodoForm.styles.scss";
 import Input from "../Input/Input";
 import TextButton from "../TextButton/TextButton";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
-import TodoProjectTag from "../TodoProjectTag/TodoProjectTag";
-import TodoLabelTag from "../TodoLabelTag/TodoLabelTag";
+import TodoProjectTagContainer from "../../redux/containers/components/TodoProjectTagContainer";
+import TodoLabelTagContainer from "../../redux/containers/components/TodoLabelTagContainer";
 import {
   // useKeyUpPress,
   useOnClickOutside,
@@ -25,7 +25,7 @@ import TodoDueDate from "../TodoDueDate/TodoDueDate";
 
 import { parseDate } from "../../utils/dates";
 
-function TodoForm({ todo, isVisible, toggleVisibility, updateTodo }) {
+function TodoForm({ todo, toggleVisibility, updateTodo }) {
   const { labels, project, dueDate, name } = todo;
 
   const [newTodoName, setNewTodoName] = useState(name || "");
@@ -110,12 +110,11 @@ function TodoForm({ todo, isVisible, toggleVisibility, updateTodo }) {
         <div className="Todo__Form__ButtonsContainer">
           <div className="Todo__Form__MetaRow">
             {project && (
-              <TodoProjectTag
+              <TodoProjectTagContainer
                 buttonAdditionalClasses="Todo__Form__Project"
                 projectName={selectedProject.name}
                 projectColorValue={selectedProject.colorValue}
                 iconSide="left"
-                isVisible={showProjects}
                 toggleVisibility={() => setShowProjects(!showProjects)}
                 onChangeHandler={(project) =>
                   setSelectedProject({
@@ -128,11 +127,9 @@ function TodoForm({ todo, isVisible, toggleVisibility, updateTodo }) {
               />
             )}
 
-            <TodoLabelTag
+            <TodoLabelTagContainer
               labels={selectedLabels}
-              onClick={() => setShowLabels(true)}
-              isVisible={showLabels}
-              toggleVisibility={() => setShowLabels(!showLabels)}
+              toggleVisibility={() => setShowLabels(true)}
               onChangeHandler={setSelectedLabels}
             />
 

@@ -1,11 +1,11 @@
 import React from "react";
-import { string, func, bool } from "prop-types";
+import { string, func, array } from "prop-types";
 import classNames from "classnames";
+import { Menu, MenuList, MenuButton, MenuItem } from "@reach/menu-button";
+import "@reach/menu-button/styles.css";
 
 import "./TodoProjectTag.styles.scss";
 import { getClassesFromProps } from "../../utils/helpers";
-import { useRectSize } from "../../hooks";
-import ProjectsDropdownContainer from "../../redux/containers/components/ProjectsDropdownContainer";
 
 const TodoProjectTag = ({
   projectName,
@@ -13,10 +13,10 @@ const TodoProjectTag = ({
   iconSide,
   buttonAdditionalClasses,
   iconAdditionalClasses,
-  isVisible,
   toggleVisibility,
-  bottomFixed,
   onChangeHandler,
+  projects,
+  dispatch,
   ...props
 }) => {
   const buttonAddedClasses = getClassesFromProps(buttonAdditionalClasses);
@@ -34,14 +34,11 @@ const TodoProjectTag = ({
     ...iconAddedClasses,
   });
 
-  const [projectsTagRef, projectsTagSize] = useRectSize();
-
   return (
-    <>
-      <button
+    <Menu>
+      <MenuButton
         className={buttonClassNames}
         type="button"
-        ref={projectsTagRef}
         onClick={toggleVisibility}
         {...props}
       >
@@ -60,21 +57,29 @@ const TodoProjectTag = ({
             </svg>
           </>
         )}
-      </button>
-      {isVisible && (
-        <ProjectsDropdownContainer
-          onChangeHandler={onChangeHandler}
-          bottomFixed={bottomFixed}
-          isVisible={isVisible}
-          toggleVisibility={toggleVisibility}
-          position={{
-            left: projectsTagSize.left || 0,
-            right: projectsTagSize.right || 0,
-            top: projectsTagSize.top + projectsTagSize.height + 8 || 0,
-          }}
-        />
-      )}
-    </>
+        <MenuList className="Todo__Project__Tag__List">
+          {projects &&
+            projects.map((project) => (
+              <MenuItem
+                className="Todo__Project__Tag__Item"
+                key={project.id}
+                onSelect={() => onChangeHandler(project)}
+              >
+                <svg
+                  className="Todo__Project__Tag__Item__ColorIcon"
+                  fill={project.color.colorValue}
+                >
+                  <use xlinkHref="#color" />
+                </svg>
+                {project.name}
+                <span className="Todo__Project__Tag__Item__Count">
+                  {project.todosCount}
+                </span>
+              </MenuItem>
+            ))}
+        </MenuList>
+      </MenuButton>
+    </Menu>
   );
 };
 
@@ -84,10 +89,9 @@ TodoProjectTag.propTypes = {
   iconSide: string,
   buttonAdditionalClasses: string,
   iconAdditionalClasses: string,
-  bottomFixed: bool,
-  isVisible: bool,
   toggleVisibility: func,
   onChangeHandler: func,
+  projects: array,
 };
 
 TodoProjectTag.defaultProps = {
@@ -95,10 +99,9 @@ TodoProjectTag.defaultProps = {
   iconSide: "left",
   buttonAdditionalClasses: null,
   iconAdditionalClasses: null,
-  bottomFixed: false,
-  isVisible: false,
   toggleVisibility: null,
   onChangeHandler: null,
+  projects: null,
 };
 
 export default TodoProjectTag;

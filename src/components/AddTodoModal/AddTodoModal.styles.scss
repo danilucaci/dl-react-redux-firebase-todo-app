@@ -8,7 +8,6 @@
   &__Overlay {
     overflow-x: auto;
     background-color: tokens.$color-background-modal-overlay;
-    z-index: tokens.$z-index-overlay;
     position: fixed;
     margin: auto;
     top: 0;

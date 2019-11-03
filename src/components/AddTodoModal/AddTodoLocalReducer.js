@@ -76,7 +76,7 @@ export const addTodoReducer = (state, { type, payload }) => {
       return {
         ...state,
         showProjects: false,
-        showLabels: !state.showLabels,
+        showLabels: true,
         showDate: false,
       };
     }

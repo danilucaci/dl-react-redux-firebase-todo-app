@@ -14,6 +14,72 @@
   padding-left: tokens.$spacing-c-01;
 
   @extend %Todo__Form__Meta;
+
+  &__List {
+    background-color: tokens.$color-background-dropdown-inner;
+    box-shadow: tokens.$shadow-dropdown;
+    border-radius: tokens.$border-radius-components-default;
+    display: block;
+    width: tokens.$size-dropdown-projects;
+    padding: tokens.$spacing-c-02 0;
+
+    z-index: tokens.$z-index-modal-popup;
+
+    max-height: 40vh;
+    overflow-x: auto;
+
+    ul {
+      margin-left: 0;
+      list-style-type: none;
+    }
+  }
+
+  &__Item {
+    background-color: tokens.$color-background-dropdown-item-enabled;
+    text-decoration: none;
+    color: inherit;
+    font-size: inherit;
+    line-height: inherit;
+
+    display: flex;
+    flex: 1 1 auto;
+
+    padding: {
+      top: tokens.$spacing-c-03;
+      right: tokens.$spacing-c-04;
+      bottom: tokens.$spacing-c-03;
+      left: tokens.$spacing-c-04;
+    }
+
+    &:hover {
+      background-color: tokens.$color-background-dropdown-item-hover;
+      color: tokens.$color-text-body-default;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    &__Name {
+      margin-right: auto;
+      text-align: left;
+    }
+
+    &__ColorIcon {
+      width: tokens.$size-icon-m;
+      height: tokens.$size-icon-m;
+      margin-right: tokens.$spacing-c-04;
+    }
+
+    &__Check {
+      width: tokens.$size-icon-m;
+      height: tokens.$size-icon-m;
+      margin-left: tokens.$spacing-c-04;
+      fill: tokens.$color-icon-default-active;
+    }
+
+    &--Selected {
+      background-color: tokens.$color-background-dropdown-item-selected;
+    }
+  }
 }
 
 .Todo__Label__Tag__Icon {

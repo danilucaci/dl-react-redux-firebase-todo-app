@@ -1,21 +1,73 @@
 import React from "react";
-import { string, array, bool, func } from "prop-types";
+import { string, array, func } from "prop-types";
 import classNames from "classnames";
+import { Menu, MenuList, MenuButton, MenuItem } from "@reach/menu-button";
+import "@reach/menu-button/styles.css";
 
 import "./TodoLabelTag.styles.scss";
 import { getClassesFromProps } from "../../utils/helpers";
-import { useRectSize } from "../../hooks";
-import LabelsDropdownContainer from "../../redux/containers/components/LabelsDropdownContainer";
+
+function areEqual(a, b) {
+  return a === b;
+}
+
+function existsIn(arr) {
+  return function item(id) {
+    if (Array.isArray(arr)) {
+      return arr.some((el) => areEqual(el.labelID, id));
+    }
+    return false;
+  };
+}
+
+function filterOut(arr) {
+  return function item(id) {
+    return arr.filter((el) => !areEqual(el.labelID, id));
+  };
+}
+
+function addIn(prevLabels) {
+  return function newLabel(newLabel) {
+    if (Array.isArray(prevLabels)) {
+      return [
+        ...prevLabels,
+        {
+          labelID: newLabel.id,
+          name: newLabel.name,
+          colorName: newLabel.color.colorName,
+          colorValue: newLabel.color.colorValue,
+        },
+      ];
+    }
+    return [
+      {
+        labelID: newLabel.id,
+        name: newLabel.name,
+        colorName: newLabel.color.colorName,
+        colorValue: newLabel.color.colorValue,
+      },
+    ];
+  };
+}
+
+function getNewlabels(prevLabels) {
+  return function compare(selectedLabel) {
+    if (existsIn(prevLabels)(selectedLabel.id)) {
+      return filterOut(prevLabels)(selectedLabel.id);
+    }
+    return addIn(prevLabels)(selectedLabel);
+  };
+}
 
 export const LabelTag = ({
   labelName,
   labelColorValue,
   additionalClasses,
-  isVisible,
   toggleVisibility,
-  bottomFixed,
   onChangeHandler,
   labels,
+  appLabels,
+  dispatch,
   ...props
 }) => {
   const addedClasses = getClassesFromProps(additionalClasses);
@@ -25,28 +77,15 @@ export const LabelTag = ({
     ...addedClasses,
   });
 
-  const [labelsTagRef, labelsTagSize] = useRectSize();
+  function handleLabelSelect(currLabel) {
+    return onChangeHandler(getNewlabels(labels)(currLabel));
+  }
 
   return (
-    <>
-      {isVisible && (
-        <LabelsDropdownContainer
-          onChangeHandler={onChangeHandler}
-          isVisible={isVisible}
-          toggleVisibility={toggleVisibility}
-          bottomFixed={bottomFixed}
-          labels={labels}
-          position={{
-            left: labelsTagSize.left || 0,
-            right: labelsTagSize.right || 0,
-            top: labelsTagSize.top + labelsTagSize.height + 8 || 0,
-          }}
-        />
-      )}
-      <button
+    <Menu>
+      <MenuButton
         className={buttonClassNames}
         type="button"
-        ref={labelsTagRef}
         onClick={toggleVisibility}
         {...props}
       >
@@ -54,15 +93,42 @@ export const LabelTag = ({
           <use xlinkHref="#tag" />
         </svg>
         {labelName}
-      </button>
-    </>
+      </MenuButton>
+      <MenuList className="Todo__Label__Tag__List">
+        {appLabels.map((appLabel) => (
+          <MenuItem
+            className={`Todo__Label__Tag__Item ${
+              existsIn(labels)(appLabel.id)
+                ? `Todo__Label__Tag__Item--Selected`
+                : null
+            }`}
+            key={appLabel.id}
+            onSelect={() => handleLabelSelect(appLabel)}
+          >
+            <svg
+              className="Todo__Label__Tag__Item__ColorIcon"
+              fill={appLabel.color.colorValue}
+            >
+              <use xlinkHref="#tag" />
+            </svg>
+            <span className="Todo__Label__Tag__Item__Name">
+              {appLabel.name}
+            </span>
+            {existsIn(labels)(appLabel.id) && (
+              <svg className="Todo__Label__Tag__Item__Check">
+                <use xlinkHref="#check-24" />
+              </svg>
+            )}
+          </MenuItem>
+        ))}
+      </MenuList>
+    </Menu>
   );
 };
 
 const TodoLabelTag = ({
   labels,
   additionalClasses,
-  isVisible,
   toggleVisibility,
   onChangeHandler,
   ...props
@@ -73,7 +139,6 @@ const TodoLabelTag = ({
         labelName="Add Label"
         labelColorValue="#81878f"
         additionalClasses={additionalClasses}
-        isVisible={isVisible}
         toggleVisibility={toggleVisibility}
         onChangeHandler={onChangeHandler}
         labels={labels}
@@ -86,7 +151,6 @@ const TodoLabelTag = ({
         labelName={labels[0].name}
         labelColorValue={labels[0].colorValue}
         additionalClasses={additionalClasses}
-        isVisible={isVisible}
         toggleVisibility={toggleVisibility}
         onChangeHandler={onChangeHandler}
         labels={labels}
@@ -108,7 +172,6 @@ const TodoLabelTag = ({
         labelName={labelName}
         labelColorValue={labels[0].colorValue}
         additionalClasses={additionalClasses}
-        isVisible={isVisible}
         toggleVisibility={toggleVisibility}
         onChangeHandler={onChangeHandler}
         labels={labels}
@@ -124,38 +187,34 @@ LabelTag.propTypes = {
   labelName: string.isRequired,
   labelColorValue: string.isRequired,
   additionalClasses: string,
-  isVisible: bool.isRequired,
   toggleVisibility: func,
   onChangeHandler: func,
   labels: array,
-  bottomFixed: bool,
+  appLabels: array,
 };
 
 LabelTag.defaultProps = {
   labels: null,
+  appLabels: null,
   additionalClasses: null,
-  isVisible: false,
   toggleVisibility: null,
   onChangeHandler: null,
-  bottomFixed: false,
 };
 
 TodoLabelTag.propTypes = {
   labels: array,
+  appLabels: array,
   additionalClasses: string,
-  isVisible: bool,
   toggleVisibility: func,
   onChangeHandler: func,
-  bottomFixed: bool,
 };
 
 TodoLabelTag.defaultProps = {
   labels: null,
+  appLabels: null,
   additionalClasses: null,
-  isVisible: false,
   toggleVisibility: null,
   onChangeHandler: null,
-  bottomFixed: false,
 };
 
 export default TodoLabelTag;

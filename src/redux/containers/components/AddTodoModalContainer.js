@@ -13,10 +13,7 @@ export const mapStateToProps = (state) => ({
 });
 
 export const mapDispatchToProps = (dispatch) => ({
-  closeModal: () => {
-    console.log("Close modal");
-    return dispatch(closeAddTodoModal());
-  },
+  closeModal: () => dispatch(closeAddTodoModal()),
   addTodo: (todo) => dispatch(addTodo(todo)),
 });
 

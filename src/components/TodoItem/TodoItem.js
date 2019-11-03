@@ -12,8 +12,8 @@ import classnames from "classnames";
 
 import "./TodoItem.styles.scss";
 
-import TodoProjectTag from "../TodoProjectTag/TodoProjectTag";
-import TodoLabelTag from "../TodoLabelTag/TodoLabelTag";
+import TodoProjectTagContainer from "../../redux/containers/components/TodoProjectTagContainer";
+import TodoLabelTagContainer from "../../redux/containers/components/TodoLabelTagContainer";
 import TodoDueDate from "../TodoDueDate/TodoDueDate";
 
 function TodoItem({ todo, isVisible, toggleVisibility, toggleTodoCompleted }) {
@@ -49,12 +49,11 @@ function TodoItem({ todo, isVisible, toggleVisibility, toggleTodoCompleted }) {
           </button>
 
           {project && (
-            <TodoProjectTag
+            <TodoProjectTagContainer
               buttonAdditionalClasses="Todo__Item__Project"
               projectName={project.name}
               projectColorValue={project.colorValue}
               iconSide="right"
-              isVisible={isVisible}
               toggleVisibility={toggleVisibility}
             />
           )}
@@ -63,9 +62,8 @@ function TodoItem({ todo, isVisible, toggleVisibility, toggleTodoCompleted }) {
           <>
             <div className="Todo__Status__Row">
               {labels && (
-                <TodoLabelTag
+                <TodoLabelTagContainer
                   labels={labels}
-                  isVisible={isVisible}
                   toggleVisibility={toggleVisibility}
                 />
               )}
