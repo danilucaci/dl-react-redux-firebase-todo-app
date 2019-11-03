@@ -1,0 +1,110 @@
+@use "../../styles/tokens";
+
+.LinkButton {
+  background-color: tokens.$color-background-text-button-enabled;
+  border-radius: tokens.$border-radius-button-default;
+  border: tokens.$size-border-button-default
+    tokens.$color-border-text-button-enabled solid;
+  color: tokens.$color-text-button-text-enabled;
+  text-decoration: none;
+
+  font: {
+    size: tokens.$font-size-button-m;
+    family: tokens.$font-family-button;
+    weight: tokens.$font-weight-button;
+  }
+
+  line-height: tokens.$font-line-height-button-m;
+
+  white-space: nowrap;
+  height: tokens.$size-button-l;
+
+  padding: tokens.$spacing-button-default-vertical-l
+    tokens.$spacing-button-default-horizontal-l;
+
+  &--Medium {
+    height: tokens.$size-button-m;
+    padding: tokens.$spacing-button-default-vertical-m
+      tokens.$spacing-button-default-horizontal-m;
+  }
+
+  &--Small {
+    height: tokens.$size-button-s;
+    padding: tokens.$spacing-button-default-vertical-s
+      tokens.$spacing-button-default-horizontal-s;
+  }
+
+  &--WithIcon {
+    padding: tokens.$spacing-button-with-icon-vertical-l
+      tokens.$spacing-button-with-icon-right-l
+      tokens.$spacing-button-with-icon-vertical-l
+      tokens.$spacing-button-with-icon-left-l;
+
+    &--Medium {
+      height: tokens.$size-button-m;
+      padding: tokens.$spacing-button-with-icon-vertical-m
+        tokens.$spacing-button-with-icon-right-m
+        tokens.$spacing-button-with-icon-vertical-m
+        tokens.$spacing-button-with-icon-left-m;
+    }
+
+    &--Small {
+      height: tokens.$size-button-s;
+      padding: tokens.$spacing-button-with-icon-vertical-s
+        tokens.$spacing-button-with-icon-right-s
+        tokens.$spacing-button-with-icon-vertical-s
+        tokens.$spacing-button-with-icon-left-s;
+    }
+  }
+
+  &:visited,
+  &:link {
+    color: tokens.$color-text-button-text-enabled;
+  }
+
+  &:hover {
+    background-color: tokens.$color-background-text-button-hover;
+    border-color: tokens.$color-border-text-button-hover;
+    box-shadow: none;
+    cursor: pointer;
+    outline: none;
+  }
+
+  &:focus {
+    background-color: tokens.$color-background-text-button-focus;
+    border-color: tokens.$color-border-text-button-focus;
+    box-shadow: tokens.$shadow-button-text-focus;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .js-focus-visible &:focus:not([data-focus-visible-added]) {
+    background-color: tokens.$color-background-text-button-focus-polyfill;
+    border-color: tokens.$color-border-text-button-focus-polyfill;
+    box-shadow: none;
+    cursor: pointer;
+    outline: none;
+  }
+
+  &:active {
+    background-color: tokens.$color-background-text-button-active;
+    border-color: tokens.$color-border-text-button-active;
+    box-shadow: none;
+    cursor: pointer;
+    outline: none;
+  }
+
+  &:disabled {
+    background-color: tokens.$color-background-text-button-disabled;
+    border-color: tokens.$color-border-text-button-disabled;
+    box-shadow: none;
+    outline: none;
+    cursor: not-allowed;
+    color: tokens.$color-icon-button-text-disabled;
+
+    &:hover,
+    &:focus {
+      cursor: not-allowed;
+    }
+  }
+}
