@@ -7,7 +7,7 @@ import "./AddProjectModal.styles.scss";
 
 import IconButton from "../IconButton/IconButton";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
-import ColorSelect from "../ColorSelect/ColorSelect";
+import ColorsSelectContainer from "../../redux/containers/components/ColorsSelectContainer";
 import TextButton from "../TextButton/TextButton";
 import { useDisableBodyBackground, useFocusRef } from "../../hooks";
 
@@ -54,11 +54,21 @@ function AddProjectModal({
     setColorsVisible(false);
   }
 
+  function closeModalHandler() {
+    if (colorsVisible) {
+      console.log("Closed colors");
+      return setColorsVisible(false);
+    }
+
+    console.log("Closed all");
+    closeModal();
+  }
+
   return (
     <ReactModal
       isOpen={addProjectModalActive}
       contentLabel="Add a new project"
-      onRequestClose={closeModal}
+      onRequestClose={closeModalHandler}
       contentRef={(ref) => (modalRef.current = ref)}
       className="ProjectModal__Inner"
       overlayClassName="ProjectModal__Overlay"
@@ -85,10 +95,9 @@ function AddProjectModal({
           ref={inputRef}
         />
         <div className="ProjectModal__MetaRow">
-          <ColorSelect
+          <ColorsSelectContainer
             selectedColor={selectedColor}
             onChangeHandler={handleColorSelect}
-            isVisible={colorsVisible}
             toggleVisibility={() => setColorsVisible(!colorsVisible)}
           />
         </div>

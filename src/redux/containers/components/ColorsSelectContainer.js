@@ -2,10 +2,10 @@ import { connect } from "react-redux";
 
 import { colorsSelector } from "../../../redux/colors/colors-selectors";
 
-import ColorsDropdown from "../../../components/ColorsDropdown/ColorsDropdown";
+import ColorSelect from "../../../components/ColorSelect/ColorSelect";
 
 export const mapStateToProps = (state) => ({
   colors: colorsSelector(state),
 });
 
-export default connect(mapStateToProps)(ColorsDropdown);
+export default connect(mapStateToProps)(ColorSelect);
