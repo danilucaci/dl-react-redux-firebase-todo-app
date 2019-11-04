@@ -1,25 +1,21 @@
 import React from "react";
-import { bool, func, object } from "prop-types";
+import { func, object, array } from "prop-types";
+import { Menu, MenuList, MenuButton, MenuItem } from "@reach/menu-button";
+import "@reach/menu-button/styles.css";
 
 import "./ColorSelect.styles.scss";
-
-import { useRectSize } from "../../hooks";
-import ColorsDropdownContainer from "../../redux/containers/components/ColorsDropdownContainer";
 
 const ColorSelect = ({
   selectedColor,
   onChangeHandler,
-  isVisible,
   toggleVisibility,
+  colors,
 }) => {
-  const [colorSelectRef, colorSelectSize] = useRectSize();
-
   return (
-    <>
-      <button
+    <Menu>
+      <MenuButton
         className="ColorSelect__Button"
         type="button"
-        ref={colorSelectRef}
         onClick={toggleVisibility}
       >
         <svg
@@ -32,28 +28,34 @@ const ColorSelect = ({
         <svg className="ColorSelect__Chevron">
           <use xlinkHref="#select" />
         </svg>
-      </button>
-      {isVisible && (
-        <ColorsDropdownContainer
-          onChangeHandler={onChangeHandler}
-          isVisible={isVisible}
-          toggleVisibility={toggleVisibility}
-          position={{
-            left: colorSelectSize.left || 0,
-            right: colorSelectSize.right || 0,
-            top: colorSelectSize.top + colorSelectSize.height || 0,
-          }}
-        />
-      )}
-    </>
+        <MenuList className="ColorSelect__List">
+          {colors &&
+            colors.map((color) => (
+              <MenuItem
+                className="ColorSelect__Item"
+                key={color.id}
+                onSelect={() => onChangeHandler(color)}
+              >
+                <svg
+                  className="ColorSelect__Item__ColorIcon"
+                  fill={color.colorValue}
+                >
+                  <use xlinkHref="#color" />
+                </svg>
+                {color.colorName}
+              </MenuItem>
+            ))}
+        </MenuList>
+      </MenuButton>
+    </Menu>
   );
 };
 
 ColorSelect.propTypes = {
   selectedColor: object.isRequired,
   onChangeHandler: func.isRequired,
-  isVisible: bool.isRequired,
   toggleVisibility: func.isRequired,
+  colors: array.isRequired,
 };
 
 export default ColorSelect;
