@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { array, func, shape, bool } from "prop-types";
 import uuid from "uuid";
 import ReactModal from "react-modal";
@@ -21,14 +21,13 @@ function AddLabelModal({
   addLabel,
   modalsState: { addLabelModalActive = false } = {},
 }) {
-  const modalRef = useRef(null);
   const inputRef = useFocusRef();
 
   const [labelName, setLabelName] = useState("");
   const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [colorsVisible, setColorsVisible] = useState(false);
 
-  useDisableBodyBackground(modalRef);
+  const modalRef = useDisableBodyBackground();
 
   function handleFormSubmit(e) {
     e.preventDefault();
@@ -67,7 +66,7 @@ function AddLabelModal({
       isOpen={addLabelModalActive}
       contentLabel="Add a new label"
       onRequestClose={closeModalHandler}
-      contentRef={(ref) => (modalRef.current = ref)}
+      contentRef={modalRef}
       className="LabelModal__Inner"
       overlayClassName="LabelModal__Overlay"
     >

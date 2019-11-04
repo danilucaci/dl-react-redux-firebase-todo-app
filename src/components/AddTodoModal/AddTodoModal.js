@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import { object, bool, func, shape } from "prop-types";
 import uuid from "uuid";
 import ReactModal from "react-modal";
@@ -36,7 +36,6 @@ function AddTodoModal({
   addTodo,
   modalsState: { addTodoModalActive = false } = {},
 }) {
-  const modalRef = useRef(null);
   const inputRef = useFocusRef();
 
   const [state, dispatch] = useReducer(addTodoReducer, addTodoReducerState);
@@ -68,7 +67,7 @@ function AddTodoModal({
   const toggleShowDate = () => dispatch(toggleShowDateAction());
   const setSelectedDate = (date) => dispatch(setSelectedDateAction(date));
 
-  useDisableBodyBackground(modalRef);
+  const modalRef = useDisableBodyBackground();
 
   function closeModalHandler() {
     if (showProjects) {
@@ -111,7 +110,7 @@ function AddTodoModal({
       isOpen={addTodoModalActive}
       contentLabel="Add a new todo"
       onRequestClose={closeModalHandler}
-      contentRef={(ref) => (modalRef.current = ref)}
+      contentRef={modalRef}
       className="AddTodoModal__Inner"
       overlayClassName="AddTodoModal__Overlay"
     >

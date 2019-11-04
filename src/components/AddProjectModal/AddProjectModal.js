@@ -21,14 +21,13 @@ function AddProjectModal({
   addProject,
   modalsState: { addProjectModalActive = false } = {},
 }) {
-  const modalRef = useRef(null);
   const inputRef = useFocusRef();
 
   const [projectName, setProjectName] = useState("");
   const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [colorsVisible, setColorsVisible] = useState(false);
 
-  useDisableBodyBackground(modalRef);
+  const modalRef = useDisableBodyBackground();
 
   function handleFormSubmit(e) {
     e.preventDefault();
@@ -67,7 +66,7 @@ function AddProjectModal({
       isOpen={addProjectModalActive}
       contentLabel="Add a new project"
       onRequestClose={closeModalHandler}
-      contentRef={(ref) => (modalRef.current = ref)}
+      contentRef={modalRef}
       className="ProjectModal__Inner"
       overlayClassName="ProjectModal__Overlay"
     >
