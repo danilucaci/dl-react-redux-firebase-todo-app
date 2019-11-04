@@ -60,7 +60,7 @@ export const addTodoReducer = (state, { type, payload }) => {
     case AddTodoTypes.SET_SELECTED_PROJECT: {
       return {
         ...state,
-        showProjects: !state.showProjects,
+        showProjects: false,
         todo: {
           ...state.todo,
           project: {
@@ -76,13 +76,14 @@ export const addTodoReducer = (state, { type, payload }) => {
       return {
         ...state,
         showProjects: false,
-        showLabels: true,
+        showLabels: !state.showLabels,
         showDate: false,
       };
     }
     case AddTodoTypes.SET_SELECTED_LABEL: {
       return {
         ...state,
+        showLabels: false,
         todo: {
           ...state.todo,
           labels: [...payload],
@@ -100,7 +101,7 @@ export const addTodoReducer = (state, { type, payload }) => {
     case AddTodoTypes.SET_SELECTED_DATE: {
       return {
         ...state,
-        showDate: !state.showDate,
+        showDate: false,
         todo: {
           ...state.todo,
           dueDate: payload,

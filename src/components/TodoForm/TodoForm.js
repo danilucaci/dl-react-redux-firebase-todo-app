@@ -16,11 +16,7 @@ import TextButton from "../TextButton/TextButton";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
 import TodoProjectTagContainer from "../../redux/containers/components/TodoProjectTagContainer";
 import TodoLabelTagContainer from "../../redux/containers/components/TodoLabelTagContainer";
-import {
-  // useKeyUpPress,
-  useOnClickOutside,
-  useFocusRef,
-} from "../../hooks";
+import { useKeyUpPress, useOnClickOutside, useFocusRef } from "../../hooks";
 import TodoDueDate from "../TodoDueDate/TodoDueDate";
 
 import { parseDate } from "../../utils/dates";
@@ -41,31 +37,79 @@ function TodoForm({ todo, toggleVisibility, updateTodo }) {
 
   const todoWrapperRef = useRef();
 
+  function handleProjectChange(project) {
+    setSelectedProject({
+      projectID: project.id,
+      name: project.name,
+      colorName: project.color.colorName,
+      colorValue: project.color.colorValue,
+    });
+
+    setShowProjects(false);
+  }
+
+  function handleLabelChange(labels) {
+    setSelectedLabels(labels);
+    setShowLabels(false);
+  }
+
   function handleDateChange(date) {
     setSelectedDate(date);
     setShowDate(false);
   }
 
+  function handleProjectsVisibility() {
+    setShowProjects(true);
+    setShowLabels(false);
+    setShowDate(false);
+  }
+
+  function handleLabelsVisibility() {
+    setShowProjects(false);
+    setShowLabels(true);
+    setShowDate(false);
+  }
+
+  function handleDatesVisibility() {
+    setShowProjects(false);
+    setShowLabels(false);
+    setShowDate(!showDate);
+  }
+
   function handleClickOutside() {
-    if (showProjects || showLabels || showDate) {
+    if (showProjects) {
+      return setShowProjects(false);
+    }
+    if (showLabels) {
+      return setShowLabels(false);
+    }
+    if (showDate) {
+      /**
+       * Don’t close on click outside
+       * It is handled by ReactModal’s `onRequestClose` inside the component
+       */
+
       return;
     }
-
     toggleVisibility();
   }
 
-  // @TODO: Fix this
-  // function escapeKeyHandler() {
-  //   if (showProjects || showLabels || showDate) {
-  //     console.log("Was open");
-  //     return;
-  //   }
-  //   toggleVisibility();
-  // }
+  function escapeKeyHandler() {
+    if (showProjects) {
+      return setShowProjects(false);
+    }
+    if (showLabels) {
+      return setShowLabels(false);
+    }
+    if (showDate) {
+      return setShowDate(false);
+    }
+    toggleVisibility();
+  }
 
   useOnClickOutside(todoWrapperRef, handleClickOutside);
   const inputRef = useFocusRef();
-  // useKeyUpPress("Escape", escapeKeyHandler);
+  useKeyUpPress("Escape", escapeKeyHandler);
 
   function handleFormSubmit(e) {
     e.preventDefault();
@@ -115,29 +159,22 @@ function TodoForm({ todo, toggleVisibility, updateTodo }) {
                 projectName={selectedProject.name}
                 projectColorValue={selectedProject.colorValue}
                 iconSide="left"
-                toggleVisibility={() => setShowProjects(!showProjects)}
-                onChangeHandler={(project) =>
-                  setSelectedProject({
-                    projectID: project.id,
-                    name: project.name,
-                    colorName: project.color.colorName,
-                    colorValue: project.color.colorValue,
-                  })
-                }
+                toggleVisibility={handleProjectsVisibility}
+                onChangeHandler={handleProjectChange}
               />
             )}
 
             <TodoLabelTagContainer
               labels={selectedLabels}
-              toggleVisibility={() => setShowLabels(true)}
-              onChangeHandler={setSelectedLabels}
+              toggleVisibility={handleLabelsVisibility}
+              onChangeHandler={handleLabelChange}
             />
 
             <TodoDueDate
               dueDate={selectedDate}
               additionalClasses="Todo__Form__DueDate"
               isVisible={showDate}
-              toggleVisibility={() => setShowDate(!showDate)}
+              toggleVisibility={handleDatesVisibility}
               onChangeHandler={handleDateChange}
             />
           </div>

@@ -59,6 +59,12 @@ const DatePicker = ({
       isOpen={isVisible}
       contentLabel="Add a due date"
       onRequestClose={toggleVisibility}
+      /**
+       * `shouldCloseOnEsc={false}`
+       * Avoids closing both the parent modal and this current modal when pressing `Escape`
+       * Closing this modal on `Escape` key press is handled by the parent
+       */
+      shouldCloseOnEsc={false}
       contentRef={datePickerRef}
       className="DatePicker__Inner"
       overlayClassName="DatePicker__Overlay"

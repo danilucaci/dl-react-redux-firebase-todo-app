@@ -44,6 +44,8 @@ function AddTodoModal({
   const {
     initialSelectedProjectSet = false,
     showDate = false,
+    showLabels,
+    showProjects,
     todo = {
       todo: {
         name: "",
@@ -67,6 +69,20 @@ function AddTodoModal({
   const setSelectedDate = (date) => dispatch(setSelectedDateAction(date));
 
   useDisableBodyBackground(modalRef);
+
+  function closeModalHandler() {
+    if (showProjects) {
+      return toggleShowProjects();
+    }
+    if (showLabels) {
+      return toggleShowLabels();
+    }
+    if (showDate) {
+      return toggleShowDate();
+    }
+
+    closeModal();
+  }
 
   useEffect(() => {
     const setInitialSelectedProject = (project) =>
@@ -94,7 +110,7 @@ function AddTodoModal({
     <ReactModal
       isOpen={addTodoModalActive}
       contentLabel="Add a new todo"
-      onRequestClose={closeModal}
+      onRequestClose={closeModalHandler}
       contentRef={(ref) => (modalRef.current = ref)}
       className="AddTodoModal__Inner"
       overlayClassName="AddTodoModal__Overlay"
@@ -127,14 +143,14 @@ function AddTodoModal({
               projectName={todo.project.name}
               projectColorValue={todo.project.colorValue}
               iconSide="left"
-              toggleVisibility={() => toggleShowProjects()}
+              toggleVisibility={toggleShowProjects}
               onChangeHandler={setSelectedProject}
             />
           ) : null}
 
           <TodoLabelTagContainer
             labels={todo.labels}
-            toggleVisibility={() => toggleShowLabels()}
+            toggleVisibility={toggleShowLabels}
             onChangeHandler={setSelectedLabel}
           />
 
@@ -142,7 +158,7 @@ function AddTodoModal({
             dueDate={todo.dueDate}
             additionalClasses="AddTodoModal__DueDate"
             isVisible={showDate}
-            toggleVisibility={() => toggleShowDate()}
+            toggleVisibility={toggleShowDate}
             bottomFixed={true}
             onChangeHandler={setSelectedDate}
           />
