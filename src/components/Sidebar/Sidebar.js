@@ -3,6 +3,9 @@ import { NavLink } from "react-router-dom";
 import classnames from "classnames";
 
 import "./Sidebar.styles.scss";
+
+import * as ROUTES from "../../constants/routes";
+
 import avatarPlaceholder from "../../assets/img/avatar-placeholder.png";
 import LabelSidebarItemContainer from "../../redux/containers/components/LabelSidebarItemContainer";
 import ProjectSidebarItemContainer from "../../redux/containers/components/ProjectSidebarItemContainer";
@@ -72,7 +75,7 @@ function Sidebar({
           <NavLink
             activeClassName="Sidebar__Link--Active"
             className="Sidebar__Avatar__Link"
-            to="/profile"
+            to={ROUTES.PROFILE}
           >
             <li className="Sidebar__Avatar">
               <img
@@ -87,7 +90,7 @@ function Sidebar({
             <NavLink
               activeClassName="Sidebar__Link--Active"
               className="Sidebar__Link"
-              to="/Inbox"
+              to={ROUTES.INBOX}
             >
               <svg className="Sidebar__Section__Item__Icon">
                 <use xlinkHref="#home" />
@@ -100,7 +103,7 @@ function Sidebar({
             <NavLink
               activeClassName="Sidebar__Link--Active"
               className="Sidebar__Link"
-              to="/today"
+              to={ROUTES.TODAY}
             >
               <svg className="Sidebar__Section__Item__Icon Sidebar__Section__Item__Icon__Day">
                 <use xlinkHref="#calendar-day" />
@@ -118,7 +121,7 @@ function Sidebar({
             <NavLink
               activeClassName="Sidebar__Link--Active"
               className="Sidebar__Link"
-              to="/next-days"
+              to={ROUTES.NEXT_DAYS}
             >
               <svg className="Sidebar__Section__Item__Icon">
                 <use xlinkHref="#calendar-base" />
@@ -136,7 +139,10 @@ function Sidebar({
               </svg>
               Projects
             </button>
-            <NavLink className="Sidebar__Section__Title__SeeAll" to="/projects">
+            <NavLink
+              className="Sidebar__Section__Title__SeeAll"
+              to={ROUTES.PROJECTS}
+            >
               See all
             </NavLink>
           </li>
@@ -159,7 +165,10 @@ function Sidebar({
               </svg>
               Labels
             </button>
-            <NavLink className="Sidebar__Section__Title__SeeAll" to="/labels">
+            <NavLink
+              className="Sidebar__Section__Title__SeeAll"
+              to={ROUTES.LABELS}
+            >
               See all
             </NavLink>
           </li>

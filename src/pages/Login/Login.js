@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 import "./Login.styles.scss";
 
+import * as ROUTES from "../../constants/routes";
+
 import LinkButton from "../../components/LinkButton/LinkButton";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import SignInWithGoogle from "../../components/SignInWithGoogle/SignInWithGoogle";
@@ -55,7 +57,7 @@ function Login() {
         <LinkButton
           additionalClasses="LinkButton--Small Login__PasswordReset"
           aria-label="request password reset"
-          to="/password-reset"
+          to={ROUTES.PASSWORD_RESET}
         >
           Forgot password?
         </LinkButton>
@@ -65,7 +67,7 @@ function Login() {
           <LinkButton
             additionalClasses="LinkButton--Small Login__Footer__Btn"
             aria-label="sign up for a new account"
-            to="/signup"
+            to={ROUTES.SIGN_UP}
           >
             Sign up
           </LinkButton>

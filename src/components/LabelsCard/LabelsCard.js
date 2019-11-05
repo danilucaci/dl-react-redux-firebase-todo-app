@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./LabelsCard.styles.scss";
 
+import * as ROUTES from "../../constants/routes";
+
 function LabelsCard({
   label: {
     id,
@@ -13,7 +15,7 @@ function LabelsCard({
   return (
     <>
       <Link
-        to={`/label/${name.toLowerCase()}`}
+        to={`${ROUTES.LABEL}${name.toLowerCase()}`}
         className="col col-xl-6 Label__Card"
       >
         <div className="Label__Card__Header">

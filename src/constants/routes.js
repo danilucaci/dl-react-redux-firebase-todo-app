@@ -1,0 +1,13 @@
+export const LANDING = "/";
+export const NOT_FOUND = "*";
+export const PROFILE = "/profile";
+export const LOGIN = "/login";
+export const SIGN_UP = "/sign-up";
+export const PASSWORD_RESET = "/password-reset";
+export const INBOX = "/inbox";
+export const TODAY = "/today";
+export const NEXT_DAYS = "/next-days";
+export const PROJECTS = "/projects";
+export const PROJECT = "/project/";
+export const LABELS = "/labels";
+export const LABEL = "/label/";

@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 
 import "./ProjectsCard.styles.scss";
 
+import * as ROUTES from "../../constants/routes";
+
 function ProjectsCard({
   project: {
     name = "Project",
@@ -12,7 +14,7 @@ function ProjectsCard({
 }) {
   return (
     <Link
-      to={`/project/${name.toLowerCase()}`}
+      to={`${ROUTES.PROJECT}${name.toLowerCase()}`}
       className="col col-xl-6 Project__Card"
     >
       <div className="Project__Card__Header">

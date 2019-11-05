@@ -5,6 +5,8 @@ import React, { useEffect, useRef } from "react";
 import classnames from "classnames";
 import { Switch, Route, useLocation } from "react-router-dom";
 
+import * as ROUTES from "./constants/routes";
+
 import SVGSprite from "./components/SVGSprite/SVGSprite";
 import HeaderContainer from "./redux/containers/components/HeaderContainer";
 import Footer from "./components/Footer/Footer";
@@ -68,49 +70,49 @@ function App({
       <SVGSprite />
       <HeaderContainer />
       <Switch>
-        <Route path="/profile">
+        <Route path={ROUTES.PROFILE}>
           <Profile />
         </Route>
-        <Route path="/inbox">
+        <Route path={ROUTES.INBOX}>
           <InboxContainer />
         </Route>
-        <Route path="/today">
+        <Route path={ROUTES.TODAY}>
           <TodayContainer />
         </Route>
-        <Route path="/next-days">
+        <Route path={ROUTES.NEXT_DAYS}>
           <NextDaysContainer />
         </Route>
         {projects &&
           projects.map((project) => (
-            <Route key={project.id} path={`/project/${project.name}`}>
+            <Route key={project.id} path={`${ROUTES.PROJECT}${project.name}`}>
               <ProjectContainer projectID={project.id} />
             </Route>
           ))}
-        <Route path="/projects">
+        <Route path={ROUTES.PROJECTS}>
           <ProjectsContainer />
         </Route>
         {labels &&
           labels.map((label) => (
-            <Route key={label.id} path={`/label/${label.name}`}>
+            <Route key={label.id} path={`${ROUTES.LABEL}${label.name}`}>
               <LabelContainer labelID={label.id} />
             </Route>
           ))}
-        <Route path="/labels">
+        <Route path={ROUTES.LABELS}>
           <LabelsContainer />
         </Route>
-        <Route path="/login" exact>
+        <Route path={ROUTES.LOGIN} exact>
           <Login />
         </Route>
-        <Route path="/signup" exact>
+        <Route path={ROUTES.SIGN_UP} exact>
           <Signup />
         </Route>
-        <Route path="/password-reset" exact>
+        <Route path={ROUTES.PASSWORD_RESET} exact>
           <PasswordReset />
         </Route>
-        <Route path="/" exact>
+        <Route path={ROUTES.LANDING} exact>
           <Home />
         </Route>
-        <Route path="*" exact>
+        <Route path={ROUTES.NOT_FOUND} exact>
           <NotFound />
         </Route>
       </Switch>

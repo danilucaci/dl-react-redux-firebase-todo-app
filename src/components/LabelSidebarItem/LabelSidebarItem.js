@@ -3,6 +3,8 @@ import classnames from "classnames";
 import { NavLink } from "react-router-dom";
 // import { string, number } from "prop-types";
 
+import * as ROUTES from "../../constants/routes";
+
 function LabelSidebarItem({
   label: {
     name = "Label",
@@ -18,7 +20,7 @@ function LabelSidebarItem({
     <>
       <li className={sidebarItemClasses}>
         <NavLink
-          to={`/label/${name.toLowerCase()}`}
+          to={`${ROUTES.LABEL}${name.toLowerCase()}`}
           activeClassName="Sidebar__Link--Active"
           className="Sidebar__Link"
         >

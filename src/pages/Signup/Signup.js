@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 import "./Signup.styles.scss";
 
+import * as ROUTES from "../../constants/routes";
+
 import LinkButton from "../../components/LinkButton/LinkButton";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import SignUpWithGoogle from "../../components/SignUpWithGoogle/SignUpWithGoogle";
@@ -70,7 +72,7 @@ function Signup() {
           <LinkButton
             additionalClasses="LinkButton--Small Signup__Footer__Btn"
             aria-label="log into your account"
-            to="/login"
+            to={ROUTES.LOGIN}
           >
             Log in
           </LinkButton>
