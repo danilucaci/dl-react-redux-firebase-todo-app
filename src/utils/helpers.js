@@ -53,3 +53,17 @@ export function getClassesFromProps(additionalClasses) {
   );
   return null;
 }
+
+/**
+ * Check if the object is empty
+ *
+ * @param {Object} obj - An object to check if it is empty or not.
+ * @returns `true` if the object is empty.
+ *
+ * @link https://stackoverflow.com/questions/679915/how-do-i-test-for-an-empty-javascript-object
+ */
+export function isEmptyObj(obj = {}) {
+  // because Object.entries(new Date()).length === 0;
+  // we have to do some additional check
+  return Object.entries(obj).length === 0 && obj.constructor === Object;
+}
