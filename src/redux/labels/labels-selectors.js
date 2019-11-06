@@ -2,10 +2,9 @@ import { createSelector } from "reselect";
 
 import { isPastDate, isFutureDate } from "../../utils/dates";
 
-export const selectLabel = (state, labelID) =>
-  state.labels.labels.byID[labelID];
+export const selectLabel = (state, labelID) => state.labels.byID[labelID];
 
-export const selectLabels = (state) => Object.values(state.labels.labels.byID);
+export const selectLabels = (state) => Object.values(state.labels.byID);
 
 export const selectTodosWithLabels = (state) =>
   // Boolean(null) => false
