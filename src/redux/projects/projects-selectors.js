@@ -13,7 +13,7 @@ export const selectProjects = (state) =>
   );
 
 export const selectProjectTodos = (state, projectID) =>
-  Object.values(state.todos.todos.byID).filter(
+  Object.values(state.todos.byID).filter(
     (todo) => todo.project.projectID === projectID,
   );
 

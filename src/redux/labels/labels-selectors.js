@@ -8,7 +8,7 @@ export const selectLabels = (state) => Object.values(state.labels.byID);
 
 export const selectTodosWithLabels = (state) =>
   // Boolean(null) => false
-  Object.values(state.todos.todos.byID).filter((todo) => Boolean(todo.labels));
+  Object.values(state.todos.byID).filter((todo) => Boolean(todo.labels));
 
 export const selectLabelTodos = (state, labelID) => {
   return selectTodosWithLabels(state).filter((todo) => {

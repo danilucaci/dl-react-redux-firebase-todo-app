@@ -7,9 +7,9 @@ import {
 } from "../../utils/dates";
 
 export const selectTodos = (state) =>
-  Object.values(state.todos.todos.byID).map((todo) => todo);
+  Object.values(state.todos.byID).map((todo) => todo);
 
-export const selectTodo = (state, todoID) => state.todos.todos.byID[todoID];
+export const selectTodo = (state, todoID) => state.todos.byID[todoID];
 
 export const todoSelector = createSelector(
   [selectTodo],
