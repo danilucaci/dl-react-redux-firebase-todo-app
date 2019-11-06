@@ -9,17 +9,21 @@ export const selectAllProjects = (state) => Object.values(state.projects.byID);
 
 export const selectProjects = (state) =>
   Object.values(state.projects.byID).filter(
-    (project) => project.name !== "Inbox",
+    (project) => !project.hasOwnProperty("isInbox"),
   );
 
-export const selectProjectTodos = (state, projectID) =>
-  Object.values(state.todos.byID).filter(
-    (todo) => todo.project.projectID === projectID,
+export const selectProjectTodos = (state, projectID) => {
+  return Object.values(state.todos.byID).filter(
+    (todo) =>
+      todo.hasOwnProperty("project") &&
+      todo.project.hasOwnProperty("projectID") &&
+      todo.project.projectID === projectID,
   );
+};
 
 export const selectInboxProject = (state) =>
   Object.values(state.projects.byID).filter(
-    (project) => project.name === "Inbox",
+    (project) => project.hasOwnProperty("isInbox") && project.isInbox,
   );
 
 export const allProjectsSelector = createSelector(

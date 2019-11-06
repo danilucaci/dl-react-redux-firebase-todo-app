@@ -6,6 +6,12 @@ export const INITIAL_STATE = {
 
 const projectsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case ProjectsTypes.SET_PROJECTS: {
+      return {
+        ...state,
+        byID: { ...state.byID, ...action.payload },
+      };
+    }
     case ProjectsTypes.UPDATE_PROJECTS: {
       return {
         ...state,

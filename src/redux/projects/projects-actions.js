@@ -1,6 +1,11 @@
 import ProjectsTypes from "./projects-types";
 
-export const updateProjects = ({ projects }) => ({
+export const setProjects = (projects) => ({
+  type: ProjectsTypes.SET_PROJECTS,
+  payload: projects,
+});
+
+export const updateProjects = (projects) => ({
   type: ProjectsTypes.UPDATE_PROJECTS,
   payload: projects,
 });

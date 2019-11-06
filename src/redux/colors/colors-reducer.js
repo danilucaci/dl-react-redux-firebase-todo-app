@@ -6,6 +6,12 @@ export const INITIAL_STATE = {
 
 const colorsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case ColorsTypes.SET_COLORS: {
+      return {
+        ...state,
+        byID: { ...state.byID, ...action.payload },
+      };
+    }
     case ColorsTypes.UPDATE_COLORS: {
       return {
         ...state,

@@ -6,6 +6,12 @@ export const INITIAL_STATE = {
 
 const labelsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case LabelsTypes.SET_LABELS: {
+      return {
+        ...state,
+        byID: { ...state.byID, ...action.payload },
+      };
+    }
     case LabelsTypes.UPDATE_LABELS: {
       return {
         ...state,

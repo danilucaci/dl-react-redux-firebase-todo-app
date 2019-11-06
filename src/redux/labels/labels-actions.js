@@ -1,6 +1,11 @@
 import LabelsTypes from "./labels-types";
 
-export const updateLabels = ({ labels }) => ({
+export const setLabels = (labels) => ({
+  type: LabelsTypes.SET_LABELS,
+  payload: labels,
+});
+
+export const updateLabels = (labels) => ({
   type: LabelsTypes.UPDATE_LABELS,
   payload: labels,
 });

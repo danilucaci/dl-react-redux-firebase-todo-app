@@ -1,6 +1,11 @@
 import TodosTypes from "./todos-types";
 
-export const updateTodos = ({ todos }) => ({
+export const setTodos = (todos) => ({
+  type: TodosTypes.SET_TODOS,
+  payload: todos,
+});
+
+export const updateTodos = (todos) => ({
   type: TodosTypes.UPDATE_TODOS,
   payload: todos,
 });

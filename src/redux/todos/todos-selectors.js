@@ -18,7 +18,16 @@ export const todoSelector = createSelector(
 
 export const inboxTodosSelector = createSelector(
   [selectTodos],
-  (todos) => todos.filter((todo) => todo.project.name === "Inbox"),
+  (todos) => {
+    const ibT = todos.filter(
+      (todo) =>
+        todo.hasOwnProperty("project") &&
+        todo.project.hasOwnProperty("isInbox") &&
+        todo.project.isInbox,
+    );
+
+    return ibT;
+  },
 );
 
 export const notOverdueInboxTodosSelector = createSelector(
