@@ -13,6 +13,7 @@
     "firebase-functions": "^3.3.0",
     "firebase-tools": "^7.6.1",
     "focus-visible": "^5.0.2",
+    "javascript-time-ago": "^2.0.4",
     "logger": "0.0.1",
     "node-sass": "npm:sass@^1.23.0",
     "prop-types": "^15.7.2",
