@@ -3,13 +3,12 @@ import { createSelector } from "reselect";
 import { isPastDate, isFutureDate } from "../../utils/dates";
 
 export const selectProject = (state, projectID) =>
-  state.projects.projects.byID[projectID];
+  state.projects.byID[projectID];
 
-export const selectAllProjects = (state) =>
-  Object.values(state.projects.projects.byID);
+export const selectAllProjects = (state) => Object.values(state.projects.byID);
 
 export const selectProjects = (state) =>
-  Object.values(state.projects.projects.byID).filter(
+  Object.values(state.projects.byID).filter(
     (project) => project.name !== "Inbox",
   );
 
@@ -19,7 +18,7 @@ export const selectProjectTodos = (state, projectID) =>
   );
 
 export const selectInboxProject = (state) =>
-  Object.values(state.projects.projects.byID).filter(
+  Object.values(state.projects.byID).filter(
     (project) => project.name === "Inbox",
   );
 
