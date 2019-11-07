@@ -1,30 +1,8 @@
-import { firestore } from "./firebase";
-import { isEmptyObj } from "../utils/helpers";
-import * as COLLECTIONS from "../constants/collections";
+import { firestore } from "../../firebase/firebase";
+import { isEmptyObj } from "../helpers";
+import * as COLLECTIONS from "../../constants/collections";
 
-/**
- * Create an object with the shape of:
- * @example
- * {
- *   "entryID": {
- *     id: "entryID",
- *     ...otherData,
- *   }
- * }
- *
- * @param {array} docs - The `docs` array returned from `QuerySnapshot`.
- * @returns Transformed object to store in redux.
- */
-export function getDocsObject(docs = []) {
-  const obj = docs.reduce(function reduceDocs(docs, currDoc) {
-    return {
-      ...docs,
-      [currDoc.id]: { id: currDoc.id, ...currDoc.data() },
-    };
-  }, {});
-
-  return obj;
-}
+import getDocsObject from "./getDocsObject";
 
 /**
  * Add a new project in the `users` collection
@@ -32,6 +10,7 @@ export function getDocsObject(docs = []) {
  * @param {string} userID - The `id` of the users collection.
  * @param {Object} project - An object with the data of the new project to create.
  * @returns The document reference of the new project created.
+ * @returns {?Error} An error returned from firestore if any.
  */
 export async function addUserProject(userID = null, project = null) {
   if (
@@ -46,6 +25,7 @@ export async function addUserProject(userID = null, project = null) {
   let projectRef;
   let projectDoc;
   let projectData;
+  let projectError;
 
   try {
     projectRef = await firestore
@@ -57,10 +37,11 @@ export async function addUserProject(userID = null, project = null) {
     projectDoc = await projectRef.get();
     projectData = projectDoc.data();
   } catch (e) {
+    projectError = e.message;
     console.error(e.message);
   }
 
-  return projectData;
+  return [projectData, projectError];
 }
 
 /**
@@ -69,6 +50,7 @@ export async function addUserProject(userID = null, project = null) {
  * @param {string} userID - The `id` of the users collection.
  * @param {Object} label - An object with the data of the new label to create.
  * @returns The document reference of the new label created.
+ * @returns {?Error} An error returned from firestore if any.
  */
 export async function addUserLabel(userID = null, label = null) {
   if (!userID || !label || typeof userID !== "string" || isEmptyObj(label)) {
@@ -78,6 +60,7 @@ export async function addUserLabel(userID = null, label = null) {
   let labelRef;
   let labelDoc;
   let labelData;
+  let labelError = null;
 
   try {
     labelRef = await firestore
@@ -89,10 +72,11 @@ export async function addUserLabel(userID = null, label = null) {
     labelDoc = await labelRef.get();
     labelData = labelDoc.data();
   } catch (e) {
+    labelError = e.message;
     console.error(e.message);
   }
 
-  return labelData;
+  return [labelData, labelError];
 }
 
 /**
@@ -101,6 +85,7 @@ export async function addUserLabel(userID = null, label = null) {
  * @param {string} userID - The `id` of the users collection.
  * @param {Object} todo - An object with the data of the new todo to create.
  * @returns The document reference of the new todo created.
+ * @returns {?Error} An error returned from firestore if any.
  */
 export async function addUserTodo(userID = null, todo = null) {
   if (!userID || !todo || typeof userID !== "string" || isEmptyObj(todo)) {
@@ -110,6 +95,7 @@ export async function addUserTodo(userID = null, todo = null) {
   let todoRef;
   let todoDoc;
   let todoData;
+  let todoError;
 
   try {
     todoRef = await firestore
@@ -121,10 +107,11 @@ export async function addUserTodo(userID = null, todo = null) {
     todoDoc = await todoRef.get();
     todoData = todoDoc.data();
   } catch (e) {
+    todoError = e.message;
     console.error(e.message);
   }
 
-  return todoData;
+  return [todoData, todoError];
 }
 
 /**
@@ -132,6 +119,7 @@ export async function addUserTodo(userID = null, todo = null) {
  *
  * @param {string} userID - The `id` of the users collection.
  * @returns List of the user’s projects.
+ * @returns {?Error} An error returned from firestore if any.
  */
 export async function getUserProjects(userID = null) {
   if (!userID || typeof userID !== "string") {
@@ -139,6 +127,7 @@ export async function getUserProjects(userID = null) {
   }
 
   let projectsData;
+  let projectsError;
   let projectsSnapshot;
 
   try {
@@ -150,10 +139,11 @@ export async function getUserProjects(userID = null) {
 
     projectsData = getDocsObject(projectsSnapshot.docs);
   } catch (e) {
+    projectsError = e.message;
     console.error(e.message);
   }
 
-  return projectsData;
+  return [projectsData, projectsError];
 }
 
 /**
@@ -161,6 +151,7 @@ export async function getUserProjects(userID = null) {
  *
  * @param {string} userID - The `id` of the users collection.
  * @returns List of the user’s labels.
+ * @returns {?Error} An error returned from firestore if any.
  */
 export async function getUserLabels(userID = null) {
   if (!userID || typeof userID !== "string") {
@@ -168,6 +159,7 @@ export async function getUserLabels(userID = null) {
   }
 
   let labelsData;
+  let labelsError;
   let labelsSnapshot;
 
   try {
@@ -179,10 +171,11 @@ export async function getUserLabels(userID = null) {
 
     labelsData = getDocsObject(labelsSnapshot.docs);
   } catch (e) {
+    labelsError = e.message;
     console.error(e.message);
   }
 
-  return labelsData;
+  return [labelsData, labelsError];
 }
 
 /**
@@ -190,6 +183,7 @@ export async function getUserLabels(userID = null) {
  *
  * @param {string} userID - The `id` of the users collection.
  * @returns List of the user’s todos.
+ * @returns {?Error} An error returned from firestore if any.
  */
 export async function getUserTodos(userID = null) {
   if (!userID || typeof userID !== "string") {
@@ -197,6 +191,7 @@ export async function getUserTodos(userID = null) {
   }
 
   let todosData;
+  let todosError;
   let todosSnapshot;
 
   try {
@@ -208,19 +203,22 @@ export async function getUserTodos(userID = null) {
 
     todosData = getDocsObject(todosSnapshot.docs);
   } catch (e) {
+    todosError = e.message;
     console.error(e.message);
   }
 
-  return todosData;
+  return [todosData, todosError];
 }
 
 /**
  * Get all the global colors of the app
  *
  * @returns List of all the global colors of the app.
+ * @returns {?Error} An error returned from firestore if any.
  */
 export async function getGlobalColors() {
   let colorsData;
+  let colorsError;
   let colorsSnapshot;
 
   try {
@@ -231,8 +229,9 @@ export async function getGlobalColors() {
 
     colorsData = getDocsObject(colorsSnapshot.docs);
   } catch (e) {
+    colorsError = e.message;
     console.error(e.message);
   }
 
-  return colorsData;
+  return [colorsData, colorsError];
 }
