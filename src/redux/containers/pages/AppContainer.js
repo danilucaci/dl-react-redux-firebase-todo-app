@@ -6,6 +6,11 @@ import { currentUserSelector } from "../../../redux/user/user-selectors";
 import { modalsSelector } from "../../../redux/localState/localState-selectors";
 import { menuSelector } from "../../../redux/localState/localState-selectors";
 import { closeMenu } from "../../../redux/localState/localState-actions";
+import { appDataSelector } from "../../../redux/localState/localState-selectors";
+import {
+  setInitialDataLoaded,
+  setAppDataErrors,
+} from "../../../redux/localState/localState-actions";
 import { setColors } from "../../../redux/colors/colors-actions";
 import { setTodos } from "../../../redux/todos/todos-actions";
 import { setLabels } from "../../../redux/labels/labels-actions";
@@ -19,6 +24,7 @@ export const mapStateToProps = (state) => ({
   currentUser: currentUserSelector(state),
   modalsState: modalsSelector(state),
   menu: menuSelector(state),
+  appData: appDataSelector(state),
 });
 
 export const mapDispatchToProps = (dispatch) => ({
@@ -28,6 +34,8 @@ export const mapDispatchToProps = (dispatch) => ({
   setLabels: (labels) => dispatch(setLabels(labels)),
   setProjects: (projects) => dispatch(setProjects(projects)),
   batch: batch,
+  setInitialDataLoaded: () => dispatch(setInitialDataLoaded()),
+  setAppDataErrors: (errors) => dispatch(setAppDataErrors(errors)),
 });
 
 export default connect(

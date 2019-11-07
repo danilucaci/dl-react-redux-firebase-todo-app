@@ -1,6 +1,11 @@
 import LocalStateTypes from "./localState-types";
 
 const INITIAL_STATE = {
+  appData: {
+    loading: true,
+    initialDataLoaded: false,
+    errors: null,
+  },
   menu: {
     menuOpen: false,
   },
@@ -13,6 +18,27 @@ const INITIAL_STATE = {
 
 const localStateReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case LocalStateTypes.SET_INITIAL_DATA_LOADED: {
+      return {
+        ...state,
+        appData: {
+          ...state.appData,
+          initialDataLoaded: true,
+          loading: false,
+        },
+      };
+    }
+    case LocalStateTypes.SET_APP_DATA_ERRORS: {
+      return {
+        ...state,
+        appData: {
+          ...state.appData,
+          initialDataLoaded: true,
+          loading: false,
+          errors: action.payload,
+        },
+      };
+    }
     case LocalStateTypes.TOGGLE_MENU: {
       return {
         ...state,

@@ -6,6 +6,7 @@ import classnames from "classnames";
 import { Switch, Route, useLocation } from "react-router-dom";
 
 import * as ROUTES from "./constants/routes";
+import * as COLLECTIONS from "./constants/collections";
 
 import { firestore } from "./firebase/firebase";
 
@@ -29,16 +30,21 @@ import LabelsContainer from "./redux/containers/pages/LabelsContainer";
 import AddTodoModalContainer from "./redux/containers/components/AddTodoModalContainer";
 import AddProjectModalContainer from "./redux/containers/components/AddProjectModalContainer";
 import AddLabelModalContainer from "./redux/containers/components/AddLabelModalContainer";
-import {
-  addUserProject,
-  addUserLabel,
-  addUserTodo,
-  getUserProjects,
-  getUserLabels,
-  getUserTodos,
-  getGlobalColors,
-  getDocsObject,
-} from "./firebase/utils";
+
+import useCollection from "./hooks/firebase/useCollection";
+
+/**
+ * Takes in many arguments and filters out falsy values
+ * @param {?...any} errors
+ * @returns {[string]} Array of errors as strings
+ */
+export function filterErrors(...errors) {
+  return filterStrings(errors).filter(Boolean);
+}
+
+export function filterStrings(strings) {
+  return strings.filter((str) => typeof str === "string");
+}
 
 function App({
   labels,
@@ -51,9 +57,19 @@ function App({
   setTodos,
   setLabels,
   setProjects,
-  batch,
+  appData,
+  setInitialDataLoaded,
+  setAppDataErrors,
 }) {
-  const { menuOpen } = menu;
+  const { menuOpen = false } = menu;
+
+  const {
+    addTodoModalActive = false,
+    addProjectModalActive = false,
+    addLabelModalActive = false,
+  } = modalsState;
+
+  const { loaded: initialDataLoaded = false } = appData;
 
   const appClasses = classnames({
     App: true,
@@ -76,83 +92,89 @@ function App({
     };
   }, [location, menuOpen, closeMenu]);
 
+  const [projectsError, projectsLoading, projectsData] = useCollection(
+    firestore
+      .collection(COLLECTIONS.USERS)
+      .doc("BpYGPNAONjDAvdPXMzqf")
+      .collection(COLLECTIONS.PROJECTS),
+  );
+
+  const [labelsError, labelsLoading, labelsData] = useCollection(
+    firestore
+      .collection(COLLECTIONS.USERS)
+      .doc("BpYGPNAONjDAvdPXMzqf")
+      .collection(COLLECTIONS.LABELS),
+  );
+
+  const [todosError, todosLoading, todosData] = useCollection(
+    firestore
+      .collection(COLLECTIONS.USERS)
+      .doc("BpYGPNAONjDAvdPXMzqf")
+      .collection(COLLECTIONS.TODOS),
+  );
+
+  const [colorsError, colorsLoading, colorsData] = useCollection(
+    firestore.collection(COLLECTIONS.COLORS),
+  );
+
   useEffect(() => {
-    async function getData() {
-      // const newLabel = {
-      //   uid: "BpYGPNAONjDAvdPXMzqf",
-      //   name: "pending",
-      //   todosCount: 0,
-      //   color: {
-      //     colorID: "Q5Hl1k6qQVoGcWeMEaoP",
-      //     colorName: "Orange",
-      //     colorValue: "#f19d4b",
-      //   },
-      // };
-
-      // const newProject = {
-      //   uid: "BpYGPNAONjDAvdPXMzqf",
-      //   name: "Personal",
-      //   todosCount: 0,
-      //   color: {
-      //     colorID: "0Ov0dv6gYGAiHJvH4nYP",
-      //     colorName: "Violet",
-      //     colorValue: "#A146E3",
-      //   },
-      // };
-
-      // const todoData = {
-      //   uid: "BpYGPNAONjDAvdPXMzqf",
-      //   name: "Todo 002",
-      //   dueDate: new Date().toISOString(),
-      //   completed: true,
-      //   project: {
-      //     projectID: "0Ov0dv6gYGAiHJvH4nYP",
-      //     name: "Personal",
-      //     colorName: "Violet",
-      //     colorValue: "#7F55F6",
-      //   },
-      //   labels: null,
-      // };
-
-      // const project = await addUserProject("BpYGPNAONjDAvdPXMzqf", newProject);
-      // console.log(project);
-      // const label = await addUserLabel("BpYGPNAONjDAvdPXMzqf", newLabel);
-      // console.log(label);
-      // const todo = await addUserTodo("BpYGPNAONjDAvdPXMzqf", todoData);
-      // console.log(todo);
-
-      const projects = await getUserProjects("BpYGPNAONjDAvdPXMzqf");
-      // setProjects(projects);
-      // console.log(projects);
-
-      const labels = await getUserLabels("BpYGPNAONjDAvdPXMzqf");
-      // setLabels(labels);
-      // console.log(labels);
-
-      const todos = await getUserTodos("BpYGPNAONjDAvdPXMzqf");
-      // setTodos(todos);
-      // console.log(todos);
-
-      const colors = await getGlobalColors();
-      // setTodos(colors);
-      // console.log(colors);
-
-      batch(() => {
-        setProjects(projects);
-        setLabels(labels);
-        setTodos(todos);
-        setColors(colors);
-      });
+    if (projectsError || labelsError || todosError || colorsError) {
+      setAppDataErrors(
+        filterErrors(projectsError, labelsError, todosError, colorsError),
+      );
     }
+  }, [colorsError, labelsError, projectsError, todosError, setAppDataErrors]);
 
-    getData();
-  }, [batch, setColors, setLabels, setProjects, setTodos]);
+  useEffect(() => {
+    if (!projectsLoading && !projectsError) {
+      setProjects(projectsData);
+    }
+  }, [projectsData, projectsError, setProjects, projectsLoading]);
 
-  const {
-    addTodoModalActive,
-    addProjectModalActive,
-    addLabelModalActive,
-  } = modalsState;
+  useEffect(() => {
+    if (!labelsLoading && !labelsError) {
+      setLabels(labelsData);
+    }
+  }, [labelsData, labelsError, setLabels, labelsLoading]);
+
+  useEffect(() => {
+    if (!todosLoading && !todosError) {
+      setTodos(todosData);
+    }
+  }, [todosData, todosError, setTodos, todosLoading]);
+
+  useEffect(() => {
+    if (!colorsLoading && !colorsError) {
+      setColors(colorsData);
+    }
+  }, [colorsData, colorsError, setColors, colorsLoading]);
+
+  useEffect(() => {
+    if (
+      !initialDataLoaded &&
+      !projectsLoading &&
+      !labelsLoading &&
+      !todosLoading &&
+      !colorsLoading &&
+      !projectsError &&
+      !labelsError &&
+      !todosError &&
+      !colorsError
+    ) {
+      setInitialDataLoaded();
+    }
+  }, [
+    colorsError,
+    colorsLoading,
+    labelsError,
+    labelsLoading,
+    projectsError,
+    projectsLoading,
+    todosError,
+    todosLoading,
+    initialDataLoaded,
+    setInitialDataLoaded,
+  ]);
 
   return (
     <div className={appClasses}>

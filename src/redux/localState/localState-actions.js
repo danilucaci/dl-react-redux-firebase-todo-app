@@ -31,3 +31,12 @@ export const openAddLabelModal = () => ({
 export const closeAddLabelModal = () => ({
   type: LocalStateTypes.CLOSE_ADD_LABEL_MODAL,
 });
+
+export const setInitialDataLoaded = () => ({
+  type: LocalStateTypes.SET_INITIAL_DATA_LOADED,
+});
+
+export const setAppDataErrors = (errors) => ({
+  type: LocalStateTypes.SET_APP_DATA_ERRORS,
+  payload: errors,
+});

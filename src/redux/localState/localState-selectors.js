@@ -11,3 +11,8 @@ export const modalsSelector = createSelector(
   [selectLocalState],
   (localState) => localState.modals,
 );
+
+export const appDataSelector = createSelector(
+  [selectLocalState],
+  (localState) => localState.appData,
+);
