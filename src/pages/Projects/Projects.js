@@ -1,4 +1,5 @@
 import React from "react";
+import { func, array } from "prop-types";
 
 import "./Projects.styles.scss";
 import Main from "../../components/Main/Main";
@@ -26,5 +27,10 @@ function Projects({ projects = null, openAddProjectModal }) {
     </Main>
   );
 }
+
+Projects.propTypes = {
+  projects: array.isRequired,
+  openAddProjectModal: func.isRequired,
+};
 
 export default Projects;

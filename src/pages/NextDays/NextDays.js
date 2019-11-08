@@ -1,4 +1,5 @@
 import React from "react";
+import { func, array } from "prop-types";
 
 import "./NextDays.styles.scss";
 import Main from "../../components/Main/Main";
@@ -184,5 +185,17 @@ function NextDays({
     </Main>
   );
 }
+
+NextDays.propTypes = {
+  overdueTodos: array.isRequired,
+  todayTodos: array.isRequired,
+  nextDaysPlus1Todos: array.isRequired,
+  nextDaysPlus2Todos: array.isRequired,
+  nextDaysPlus3Todos: array.isRequired,
+  nextDaysPlus4Todos: array.isRequired,
+  nextDaysPlus5Todos: array.isRequired,
+  nextDaysPlus6Todos: array.isRequired,
+  openAddTodoModal: func.isRequired,
+};
 
 export default NextDays;

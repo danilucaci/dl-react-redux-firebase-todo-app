@@ -1,4 +1,5 @@
 import React from "react";
+import { func, array } from "prop-types";
 import "./Labels.styles.scss";
 import Main from "../../components/Main/Main";
 import AddNew from "../../components/AddNew/AddNew";
@@ -25,5 +26,10 @@ function Labels({ labels, openAddLabelModal }) {
     </Main>
   );
 }
+
+Labels.propTypes = {
+  labels: array.isRequired,
+  openAddLabelModal: func.isRequired,
+};
 
 export default Labels;

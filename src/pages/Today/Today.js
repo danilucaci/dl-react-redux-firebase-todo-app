@@ -1,4 +1,5 @@
 import React from "react";
+import { func, array } from "prop-types";
 
 import "./Today.styles.scss";
 import Main from "../../components/Main/Main";
@@ -17,7 +18,11 @@ export function RenderTodayDateTime() {
   );
 }
 
-function Today({ todayTodos, overdueTodos, openAddTodoModal }) {
+function Today({
+  todayTodos = null,
+  overdueTodos = null,
+  openAddTodoModal = null,
+}) {
   return (
     <Main>
       <h1 className="Page__Title">Today</h1>
@@ -54,5 +59,11 @@ function Today({ todayTodos, overdueTodos, openAddTodoModal }) {
     </Main>
   );
 }
+
+Today.propTypes = {
+  todayTodos: array.isRequired,
+  overdueTodos: array.isRequired,
+  openAddTodoModal: func.isRequired,
+};
 
 export default Today;

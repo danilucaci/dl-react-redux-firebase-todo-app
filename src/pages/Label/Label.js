@@ -1,4 +1,13 @@
 import React from "react";
+import {
+  func,
+  array,
+  string,
+  number,
+  oneOfType,
+  shape,
+  oneOf,
+} from "prop-types";
 
 import Main from "../../components/Main/Main";
 import Todo from "../../components/Todo/Todo";
@@ -40,5 +49,25 @@ function Label({ labelTodos, labelOverdueTodos, label, openAddTodoModal }) {
     </Main>
   );
 }
+
+Label.propTypes = {
+  labelTodos: array.isRequired,
+  labelOverdueTodos: array.isRequired,
+  label: shape({
+    id: string.isRequired,
+    uid: string.isRequired,
+    name: string.isRequired,
+    todosCount: number.isRequired,
+    color: oneOfType([
+      shape({
+        colorID: string,
+        colorName: string,
+        colorValue: string,
+      }),
+      oneOf([null]),
+    ]),
+  }).isRequired,
+  openAddTodoModal: func.isRequired,
+};
 
 export default Label;

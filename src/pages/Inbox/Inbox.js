@@ -1,4 +1,5 @@
 import React from "react";
+import { func, array } from "prop-types";
 
 import Main from "../../components/Main/Main";
 import Todo from "../../components/Todo/Todo";
@@ -41,5 +42,11 @@ function Inbox({ inboxTodos, overdueInboxTodos, openAddTodoModal }) {
     </Main>
   );
 }
+
+Inbox.propTypes = {
+  inboxTodos: array.isRequired,
+  overdueInboxTodos: array.isRequired,
+  openAddTodoModal: func.isRequired,
+};
 
 export default Inbox;
