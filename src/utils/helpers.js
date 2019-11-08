@@ -67,3 +67,6 @@ export function isEmptyObj(obj = {}) {
   // we have to do some additional check
   return Object.entries(obj).length === 0 && obj.constructor === Object;
 }
+export function getDisplayName(WrappedComponent) {
+  return WrappedComponent.displayName || WrappedComponent.name || "Component";
+}
