@@ -2,7 +2,7 @@ import React from "react";
 import { func, array } from "prop-types";
 
 import "./Today.styles.scss";
-import Main from "../../components/Main/Main";
+import AppMainContainer from "../../redux/containers/components/AppMainContainer";
 import Todo from "../../components/Todo/Todo";
 import AddNew from "../../components/AddNew/AddNew";
 
@@ -24,7 +24,7 @@ function Today({
   openAddTodoModal = null,
 }) {
   return (
-    <Main>
+    <AppMainContainer>
       <h1 className="Page__Title">Today</h1>
       {overdueTodos && overdueTodos.length ? (
         <section className="Section">
@@ -56,7 +56,7 @@ function Today({
           Add todo
         </AddNew>
       </section>
-    </Main>
+    </AppMainContainer>
   );
 }
 

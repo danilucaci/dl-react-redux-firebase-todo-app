@@ -1,0 +1,18 @@
+@use "../../styles/tokens";
+
+.PageSkeletonSection {
+  margin-bottom: tokens.$spacing-l-05;
+
+  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+    background-color: tokens.$color-background-page-lightest;
+
+    padding: {
+      left: tokens.$spacing-l-04;
+      right: tokens.$spacing-l-04;
+    }
+  }
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}

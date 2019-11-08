@@ -1,13 +1,13 @@
 import React from "react";
 import { func, array } from "prop-types";
 
-import Main from "../../components/Main/Main";
+import AppMainContainer from "../../redux/containers/components/AppMainContainer";
 import Todo from "../../components/Todo/Todo";
 import AddNew from "../../components/AddNew/AddNew";
 
 function Inbox({ inboxTodos, overdueInboxTodos, openAddTodoModal }) {
   return (
-    <Main>
+    <AppMainContainer>
       <h1 className="Page__Title">Inbox</h1>
       {overdueInboxTodos.length ? (
         <section className="Section">
@@ -39,7 +39,7 @@ function Inbox({ inboxTodos, overdueInboxTodos, openAddTodoModal }) {
           Add todo
         </AddNew>
       </section>
-    </Main>
+    </AppMainContainer>
   );
 }
 

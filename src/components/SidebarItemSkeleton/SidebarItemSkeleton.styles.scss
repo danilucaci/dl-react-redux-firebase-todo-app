@@ -1,0 +1,21 @@
+@use "../../styles/tokens";
+
+.SidebarItemSkeleton {
+  margin: {
+    top: tokens.$spacing-c-05;
+    right: tokens.$grid-gutter-s * 2;
+    bottom: tokens.$spacing-c-05;
+    left: tokens.$grid-spacing-s;
+  }
+
+  padding: {
+    left: tokens.$grid-spacing-m;
+  }
+
+  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+    margin: {
+      left: 0;
+      right: tokens.$grid-spacing-m;
+    }
+  }
+}

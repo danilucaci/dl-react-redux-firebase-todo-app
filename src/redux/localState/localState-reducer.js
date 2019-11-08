@@ -5,6 +5,8 @@ const INITIAL_STATE = {
     loading: true,
     initialDataLoaded: false,
     errors: null,
+    skeletonTodos: 3,
+    skeletonSidebarItems: 3,
   },
   menu: {
     menuOpen: false,

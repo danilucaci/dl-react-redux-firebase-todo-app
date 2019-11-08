@@ -2,13 +2,13 @@ import React from "react";
 import { func, array } from "prop-types";
 
 import "./Projects.styles.scss";
-import Main from "../../components/Main/Main";
+import AppMainContainer from "../../redux/containers/components/AppMainContainer";
 import AddNew from "../../components/AddNew/AddNew";
 import ProjectsCardContainer from "../../redux/containers/components/ProjectsCardContainer";
 
 function Projects({ projects = null, openAddProjectModal }) {
   return (
-    <Main>
+    <AppMainContainer>
       <section className="Section">
         <header className="Projects__Section__Header">
           <h1 className="Section__Title">Projects</h1>
@@ -24,7 +24,7 @@ function Projects({ projects = null, openAddProjectModal }) {
           <p>Add a project to get started</p>
         )}
       </section>
-    </Main>
+    </AppMainContainer>
   );
 }
 

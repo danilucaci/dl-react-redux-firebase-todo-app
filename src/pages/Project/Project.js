@@ -9,7 +9,7 @@ import {
   oneOf,
 } from "prop-types";
 
-import Main from "../../components/Main/Main";
+import AppMainContainer from "../../redux/containers/components/AppMainContainer";
 import Todo from "../../components/Todo/Todo";
 import AddNew from "../../components/AddNew/AddNew";
 
@@ -20,7 +20,7 @@ function Project({
   openAddTodoModal,
 }) {
   return (
-    <Main>
+    <AppMainContainer>
       {project && <h1 className="Page__Title">{project.name}</h1>}
       {projectOverdueTodos && projectOverdueTodos.length ? (
         <section className="Section">
@@ -51,7 +51,7 @@ function Project({
           Add todo
         </AddNew>
       </section>
-    </Main>
+    </AppMainContainer>
   );
 }
 

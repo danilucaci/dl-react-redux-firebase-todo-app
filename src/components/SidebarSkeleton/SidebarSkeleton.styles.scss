@@ -1,0 +1,15 @@
+@use "../../styles/tokens";
+
+.SidebarSkeleton {
+  &__Section {
+    margin-bottom: tokens.$spacing-c-07;
+
+    @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+      margin-bottom: tokens.$spacing-c-08;
+    }
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+}

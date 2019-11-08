@@ -1,0 +1,13 @@
+@use "../../styles/tokens";
+
+.PageTitleSkeleton {
+  margin-bottom: tokens.$spacing-c-05;
+
+  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+    padding: {
+      left: tokens.$spacing-l-04;
+    }
+
+    margin-bottom: tokens.$spacing-c-06;
+  }
+}

@@ -8,6 +8,7 @@ import {
   openAddLabelModal,
   openAddProjectModal,
 } from "../../../redux/localState/localState-actions";
+import { appDataSelector } from "../../../redux/localState/localState-selectors";
 
 import Sidebar from "../../../components/Sidebar/Sidebar";
 
@@ -15,6 +16,7 @@ export const mapStateToProps = (state) => ({
   projects: projectsSelector(state),
   labels: labelsSelector(state),
   menu: menuSelector(state),
+  appData: appDataSelector(state),
 });
 
 export const mapDispatchToProps = (dispatch) => ({
