@@ -2,7 +2,7 @@ import React from "react";
 import { func, array } from "prop-types";
 
 import "./NextDays.styles.scss";
-import AppMainContainer from "../../redux/containers/components/AppMainContainer";
+import DashboardMainContainer from "../../redux/containers/components/DashboardMainContainer";
 import Todo from "../../components/Todo/Todo";
 import AddNew from "../../components/AddNew/AddNew";
 
@@ -44,7 +44,7 @@ function NextDays({
   openAddTodoModal,
 }) {
   return (
-    <AppMainContainer>
+    <DashboardMainContainer>
       <h1 className="Page__Title">Next 7 days</h1>
       {overdueTodos && overdueTodos.length ? (
         <section className="Section">
@@ -183,7 +183,7 @@ function NextDays({
           Add todo
         </AddNew>
       </section>
-    </AppMainContainer>
+    </DashboardMainContainer>
   );
 }
 

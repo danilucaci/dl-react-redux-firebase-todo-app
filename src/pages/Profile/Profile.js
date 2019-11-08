@@ -1,16 +1,19 @@
 import React from "react";
 
 import "./Profile.styles.scss";
-import AppMainContainer from "../../redux/containers/components/AppMainContainer";
+import DashboardMainContainer from "../../redux/containers/components/DashboardMainContainer";
 import withProtectedRoute from "../../hoc/withProtectedRoute";
 
-function Profile() {
+function Profile({ currentUser }) {
   return (
-    <AppMainContainer>
+    <DashboardMainContainer>
       <section className="Section">
         <h1>Profile page</h1>
+        {currentUser && currentUser.displayName && (
+          <p>Hello {currentUser.displayName}</p>
+        )}
       </section>
-    </AppMainContainer>
+    </DashboardMainContainer>
   );
 }
 

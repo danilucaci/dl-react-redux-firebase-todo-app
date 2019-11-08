@@ -67,6 +67,20 @@ export function isEmptyObj(obj = {}) {
   // we have to do some additional check
   return Object.entries(obj).length === 0 && obj.constructor === Object;
 }
+
+/**
+ * Takes in many arguments and filters out falsy values
+ * @param {?...any} errors
+ * @returns {[string]} Array of errors as strings
+ */
+export function filterErrors(...errors) {
+  return filterStrings(errors).filter(Boolean);
+}
+
+export function filterStrings(strings) {
+  return strings.filter((str) => typeof str === "string");
+}
+
 export function getDisplayName(WrappedComponent) {
   return WrappedComponent.displayName || WrappedComponent.name || "Component";
 }

@@ -6,9 +6,6 @@ import classnames from "classnames";
 import { Switch, Route, useLocation } from "react-router-dom";
 
 import * as ROUTES from "./constants/routes";
-import * as COLLECTIONS from "./constants/collections";
-
-import { firestore } from "./firebase/firebase";
 
 import SVGSprite from "./components/SVGSprite/SVGSprite";
 import HeaderContainer from "./redux/containers/components/HeaderContainer";
@@ -30,37 +27,9 @@ import LabelsContainer from "./redux/containers/pages/LabelsContainer";
 import AddTodoModalContainer from "./redux/containers/components/AddTodoModalContainer";
 import AddProjectModalContainer from "./redux/containers/components/AddProjectModalContainer";
 import AddLabelModalContainer from "./redux/containers/components/AddLabelModalContainer";
+import DashboardContainer from "./redux/containers/components/DashboardContainer";
 
-import useCollection from "./hooks/firebase/useCollection";
-
-/**
- * Takes in many arguments and filters out falsy values
- * @param {?...any} errors
- * @returns {[string]} Array of errors as strings
- */
-export function filterErrors(...errors) {
-  return filterStrings(errors).filter(Boolean);
-}
-
-export function filterStrings(strings) {
-  return strings.filter((str) => typeof str === "string");
-}
-
-function App({
-  labels,
-  projects,
-  // currentUser
-  modalsState,
-  menu,
-  closeMenu,
-  setColors,
-  setTodos,
-  setLabels,
-  setProjects,
-  appData,
-  setInitialDataLoaded,
-  setAppDataErrors,
-}) {
+function App({ labels, projects, modalsState, menu, closeMenu }) {
   const { menuOpen = false } = menu;
 
   const {
@@ -68,8 +37,6 @@ function App({
     addProjectModalActive = false,
     addLabelModalActive = false,
   } = modalsState;
-
-  const { loaded: initialDataLoaded = false } = appData;
 
   const appClasses = classnames({
     App: true,
@@ -92,94 +59,13 @@ function App({
     };
   }, [location, menuOpen, closeMenu]);
 
-  const [projectsError, projectsLoading, projectsData] = useCollection(
-    firestore
-      .collection(COLLECTIONS.USERS)
-      .doc("BpYGPNAONjDAvdPXMzqf")
-      .collection(COLLECTIONS.PROJECTS),
-  );
-
-  const [labelsError, labelsLoading, labelsData] = useCollection(
-    firestore
-      .collection(COLLECTIONS.USERS)
-      .doc("BpYGPNAONjDAvdPXMzqf")
-      .collection(COLLECTIONS.LABELS),
-  );
-
-  const [todosError, todosLoading, todosData] = useCollection(
-    firestore
-      .collection(COLLECTIONS.USERS)
-      .doc("BpYGPNAONjDAvdPXMzqf")
-      .collection(COLLECTIONS.TODOS),
-  );
-
-  const [colorsError, colorsLoading, colorsData] = useCollection(
-    firestore.collection(COLLECTIONS.COLORS),
-  );
-
-  useEffect(() => {
-    if (projectsError || labelsError || todosError || colorsError) {
-      setAppDataErrors(
-        filterErrors(projectsError, labelsError, todosError, colorsError),
-      );
-    }
-  }, [colorsError, labelsError, projectsError, todosError, setAppDataErrors]);
-
-  useEffect(() => {
-    if (!projectsLoading && !projectsError) {
-      setProjects(projectsData);
-    }
-  }, [projectsData, projectsError, setProjects, projectsLoading]);
-
-  useEffect(() => {
-    if (!labelsLoading && !labelsError) {
-      setLabels(labelsData);
-    }
-  }, [labelsData, labelsError, setLabels, labelsLoading]);
-
-  useEffect(() => {
-    if (!todosLoading && !todosError) {
-      setTodos(todosData);
-    }
-  }, [todosData, todosError, setTodos, todosLoading]);
-
-  useEffect(() => {
-    if (!colorsLoading && !colorsError) {
-      setColors(colorsData);
-    }
-  }, [colorsData, colorsError, setColors, colorsLoading]);
-
-  useEffect(() => {
-    if (
-      !initialDataLoaded &&
-      !projectsLoading &&
-      !labelsLoading &&
-      !todosLoading &&
-      !colorsLoading &&
-      !projectsError &&
-      !labelsError &&
-      !todosError &&
-      !colorsError
-    ) {
-      setInitialDataLoaded();
-    }
-  }, [
-    colorsError,
-    colorsLoading,
-    labelsError,
-    labelsLoading,
-    projectsError,
-    projectsLoading,
-    todosError,
-    todosLoading,
-    initialDataLoaded,
-    setInitialDataLoaded,
-  ]);
-
   return (
     <div className={appClasses}>
       <SVGSprite />
       <HeaderContainer />
+      <Route path={ROUTES.DASHBOARD}>
+        <DashboardContainer />
+      </Route>
       <Switch>
         <Route path={ROUTES.PROFILE}>
           <Profile />

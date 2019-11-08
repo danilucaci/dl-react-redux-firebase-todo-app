@@ -9,14 +9,14 @@ import {
   oneOf,
 } from "prop-types";
 
-import AppMainContainer from "../../redux/containers/components/AppMainContainer";
+import DashboardMainContainer from "../../redux/containers/components/DashboardMainContainer";
 import Todo from "../../components/Todo/Todo";
 import AddNew from "../../components/AddNew/AddNew";
 import withProtectedRoute from "../../hoc/withProtectedRoute";
 
 function Label({ labelTodos, labelOverdueTodos, label, openAddTodoModal }) {
   return (
-    <AppMainContainer>
+    <DashboardMainContainer>
       <h1 className="Page__Title Page__Title--Label">{label.name}</h1>
       {labelOverdueTodos.length ? (
         <section className="Section">
@@ -47,7 +47,7 @@ function Label({ labelTodos, labelOverdueTodos, label, openAddTodoModal }) {
           Add todo
         </AddNew>
       </section>
-    </AppMainContainer>
+    </DashboardMainContainer>
   );
 }
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { func, array } from "prop-types";
 
-import AppMainContainer from "../../redux/containers/components/AppMainContainer";
+import DashboardMainContainer from "../../redux/containers/components/DashboardMainContainer";
 import Todo from "../../components/Todo/Todo";
 import AddNew from "../../components/AddNew/AddNew";
 
@@ -9,7 +9,7 @@ import withProtectedRoute from "../../hoc/withProtectedRoute";
 
 function Inbox({ inboxTodos, overdueInboxTodos, openAddTodoModal }) {
   return (
-    <AppMainContainer>
+    <DashboardMainContainer>
       <h1 className="Page__Title">Inbox</h1>
       {overdueInboxTodos.length ? (
         <section className="Section">
@@ -41,7 +41,7 @@ function Inbox({ inboxTodos, overdueInboxTodos, openAddTodoModal }) {
           Add todo
         </AddNew>
       </section>
-    </AppMainContainer>
+    </DashboardMainContainer>
   );
 }
 

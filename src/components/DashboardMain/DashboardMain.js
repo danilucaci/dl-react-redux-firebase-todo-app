@@ -2,13 +2,16 @@ import React from "react";
 import { node, shape, bool } from "prop-types";
 import classnames from "classnames";
 
-import "./Main.styles.scss";
+import "./DashboardMain.styles.scss";
 import SidebarContainer from "../../redux/containers/components/SidebarContainer";
 import PageSkeletonContainer from "../../redux/containers/components/PageSkeletonContainer";
 
-function Main({ children, appData: { initialDataLoaded = false } = {} }) {
+function DashboardMain({
+  children,
+  appData: { initialDataLoaded = false } = {},
+}) {
   const mainClasses = classnames({
-    Main: true,
+    DashboardMain: true,
     col: true,
     [`col-l-5`]: true,
     [`col-xl-8`]: true,
@@ -24,11 +27,11 @@ function Main({ children, appData: { initialDataLoaded = false } = {} }) {
   );
 }
 
-Main.propTypes = {
+DashboardMain.propTypes = {
   children: node.isRequired,
   appData: shape({
     initialDataLoaded: bool.isRequired,
   }),
 };
 
-export default Main;
+export default DashboardMain;

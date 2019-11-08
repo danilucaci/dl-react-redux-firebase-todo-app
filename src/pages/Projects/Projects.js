@@ -2,14 +2,14 @@ import React from "react";
 import { func, array } from "prop-types";
 
 import "./Projects.styles.scss";
-import AppMainContainer from "../../redux/containers/components/AppMainContainer";
+import DashboardMainContainer from "../../redux/containers/components/DashboardMainContainer";
 import AddNew from "../../components/AddNew/AddNew";
 import ProjectsCardContainer from "../../redux/containers/components/ProjectsCardContainer";
 import withProtectedRoute from "../../hoc/withProtectedRoute";
 
 function Projects({ projects = null, openAddProjectModal }) {
   return (
-    <AppMainContainer>
+    <DashboardMainContainer>
       <section className="Section">
         <header className="Projects__Section__Header">
           <h1 className="Section__Title">Projects</h1>
@@ -25,7 +25,7 @@ function Projects({ projects = null, openAddProjectModal }) {
           <p>Add a project to get started</p>
         )}
       </section>
-    </AppMainContainer>
+    </DashboardMainContainer>
   );
 }
 

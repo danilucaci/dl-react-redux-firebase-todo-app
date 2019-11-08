@@ -1,15 +1,15 @@
 import React from "react";
 
 import "./Home.styles.scss";
-import Main from "../../components/Main/Main";
+import AppMain from "../../components/AppMain/AppMain";
 
 function Home() {
   return (
-    <Main>
+    <AppMain>
       <section className="Section">
         <h1>Today</h1>
       </section>
-    </Main>
+    </AppMain>
   );
 }
 

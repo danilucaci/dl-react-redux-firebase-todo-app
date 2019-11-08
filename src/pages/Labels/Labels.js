@@ -2,14 +2,14 @@ import React from "react";
 import { func, array } from "prop-types";
 import "./Labels.styles.scss";
 
-import AppMainContainer from "../../redux/containers/components/AppMainContainer";
+import DashboardMainContainer from "../../redux/containers/components/DashboardMainContainer";
 import AddNew from "../../components/AddNew/AddNew";
 import LabelsCardContainer from "../../redux/containers/components/LabelsCardContainer";
 import withProtectedRoute from "../../hoc/withProtectedRoute";
 
 function Labels({ labels, openAddLabelModal }) {
   return (
-    <AppMainContainer>
+    <DashboardMainContainer>
       <section className="Section">
         <header className="Labels__Section__Header">
           <h1 className="Section__Title">Labels</h1>
@@ -25,7 +25,7 @@ function Labels({ labels, openAddLabelModal }) {
           <p>Add a label to get started</p>
         )}
       </section>
-    </AppMainContainer>
+    </DashboardMainContainer>
   );
 }
 
