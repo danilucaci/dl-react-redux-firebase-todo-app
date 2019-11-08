@@ -29,7 +29,7 @@ function Today({
       {overdueTodos && overdueTodos.length ? (
         <section className="Section">
           <header className="Section__Header">
-            <h1 className="Section__Title">Overdue</h1>
+            <h2 className="Section__Title">Overdue</h2>
           </header>
           <ul className="Section__Todos__List">
             {overdueTodos &&
@@ -42,7 +42,7 @@ function Today({
 
       <section className="Section">
         <header className="Section__Header">
-          <h1 className="Section__Title">Today</h1>
+          <h2 className="Section__Title">Today</h2>
           {RenderTodayDateTime()}
         </header>
         <ul className="Section__Todos__List">

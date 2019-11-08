@@ -48,7 +48,7 @@ function NextDays({
       {overdueTodos && overdueTodos.length ? (
         <section className="Section">
           <header className="Section__Header">
-            <h1 className="Section__Title">Overdue</h1>
+            <h2 className="Section__Title">Overdue</h2>
           </header>
           <ul className="Section__Todos__List">
             {overdueTodos &&
