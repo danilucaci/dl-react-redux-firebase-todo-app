@@ -1,15 +1,15 @@
 import React from "react";
 
 import "./Profile.styles.scss";
-import Main from "../../components/Main/Main";
+import AppMainContainer from "../../redux/containers/components/AppMainContainer";
 
-function Profile(props) {
+function Profile() {
   return (
-    <Main>
+    <AppMainContainer>
       <section className="Section">
         <h1>Profile page</h1>
       </section>
-    </Main>
+    </AppMainContainer>
   );
 }
 

@@ -1,15 +1,15 @@
 import React from "react";
 
 import "./NotFound.styles.scss";
-import Main from "../../components/Main/Main";
+import AppMainContainer from "../../redux/containers/components/AppMainContainer";
 
-function NotFound(props) {
+function NotFound() {
   return (
-    <Main>
+    <AppMainContainer>
       <section className="Section">
         <h1>NotFound page</h1>
       </section>
-    </Main>
+    </AppMainContainer>
   );
 }
 
