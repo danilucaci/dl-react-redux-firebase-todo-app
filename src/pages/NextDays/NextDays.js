@@ -11,6 +11,7 @@ import {
   formatAndAddDate,
   formatAndAddDay,
 } from "../../utils/dates";
+import withProtectedRoute from "../../hoc/withProtectedRoute";
 
 export function RenderTodayDateTime() {
   const { todayDate, todayFormattedDate } = formatTodaySectionDate();
@@ -198,4 +199,4 @@ NextDays.propTypes = {
   openAddTodoModal: func.isRequired,
 };
 
-export default NextDays;
+export default withProtectedRoute()(NextDays);

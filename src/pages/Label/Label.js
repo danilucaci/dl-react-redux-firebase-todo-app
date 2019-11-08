@@ -12,6 +12,7 @@ import {
 import AppMainContainer from "../../redux/containers/components/AppMainContainer";
 import Todo from "../../components/Todo/Todo";
 import AddNew from "../../components/AddNew/AddNew";
+import withProtectedRoute from "../../hoc/withProtectedRoute";
 
 function Label({ labelTodos, labelOverdueTodos, label, openAddTodoModal }) {
   return (
@@ -70,4 +71,4 @@ Label.propTypes = {
   openAddTodoModal: func.isRequired,
 };
 
-export default Label;
+export default withProtectedRoute()(Label);

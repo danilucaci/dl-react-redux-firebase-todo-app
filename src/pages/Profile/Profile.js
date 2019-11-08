@@ -2,6 +2,7 @@ import React from "react";
 
 import "./Profile.styles.scss";
 import AppMainContainer from "../../redux/containers/components/AppMainContainer";
+import withProtectedRoute from "../../hoc/withProtectedRoute";
 
 function Profile() {
   return (
@@ -13,4 +14,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default withProtectedRoute()(Profile);

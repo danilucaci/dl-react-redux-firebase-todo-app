@@ -12,6 +12,7 @@ import {
 import AppMainContainer from "../../redux/containers/components/AppMainContainer";
 import Todo from "../../components/Todo/Todo";
 import AddNew from "../../components/AddNew/AddNew";
+import withProtectedRoute from "../../hoc/withProtectedRoute";
 
 function Project({
   projectTodos,
@@ -75,4 +76,4 @@ Project.propTypes = {
   openAddTodoModal: func.isRequired,
 };
 
-export default Project;
+export default withProtectedRoute()(Project);

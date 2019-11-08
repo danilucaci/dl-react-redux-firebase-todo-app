@@ -5,6 +5,7 @@ import "./Labels.styles.scss";
 import AppMainContainer from "../../redux/containers/components/AppMainContainer";
 import AddNew from "../../components/AddNew/AddNew";
 import LabelsCardContainer from "../../redux/containers/components/LabelsCardContainer";
+import withProtectedRoute from "../../hoc/withProtectedRoute";
 
 function Labels({ labels, openAddLabelModal }) {
   return (
@@ -33,4 +34,4 @@ Labels.propTypes = {
   openAddLabelModal: func.isRequired,
 };
 
-export default Labels;
+export default withProtectedRoute()(Labels);

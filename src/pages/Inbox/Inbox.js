@@ -5,6 +5,8 @@ import AppMainContainer from "../../redux/containers/components/AppMainContainer
 import Todo from "../../components/Todo/Todo";
 import AddNew from "../../components/AddNew/AddNew";
 
+import withProtectedRoute from "../../hoc/withProtectedRoute";
+
 function Inbox({ inboxTodos, overdueInboxTodos, openAddTodoModal }) {
   return (
     <AppMainContainer>
@@ -49,4 +51,4 @@ Inbox.propTypes = {
   openAddTodoModal: func.isRequired,
 };
 
-export default Inbox;
+export default withProtectedRoute()(Inbox);

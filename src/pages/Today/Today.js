@@ -7,6 +7,7 @@ import Todo from "../../components/Todo/Todo";
 import AddNew from "../../components/AddNew/AddNew";
 
 import { formatTodaySectionDate } from "../../utils/dates";
+import withProtectedRoute from "../../hoc/withProtectedRoute";
 
 export function RenderTodayDateTime() {
   const { todayDate, todayFormattedDate } = formatTodaySectionDate();
@@ -66,4 +67,4 @@ Today.propTypes = {
   openAddTodoModal: func.isRequired,
 };
 
-export default Today;
+export default withProtectedRoute()(Today);

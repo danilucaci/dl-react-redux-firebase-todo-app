@@ -5,6 +5,7 @@ import "./Projects.styles.scss";
 import AppMainContainer from "../../redux/containers/components/AppMainContainer";
 import AddNew from "../../components/AddNew/AddNew";
 import ProjectsCardContainer from "../../redux/containers/components/ProjectsCardContainer";
+import withProtectedRoute from "../../hoc/withProtectedRoute";
 
 function Projects({ projects = null, openAddProjectModal }) {
   return (
@@ -33,4 +34,4 @@ Projects.propTypes = {
   openAddProjectModal: func.isRequired,
 };
 
-export default Projects;
+export default withProtectedRoute()(Projects);
