@@ -5,7 +5,7 @@ import ReactModal from "react-modal";
 
 import "./AddTodoModal.styles.scss";
 
-import IconButton from "../IconButton/IconButton";
+import OutlinedButton from "../OutlinedButton/OutlinedButton";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
 import TextButton from "../TextButton/TextButton";
 import { useFocusRef, useDisableBodyBackground } from "../../hooks";
@@ -116,9 +116,11 @@ function AddTodoModal({
     >
       <div className="AddTodoModal__TitleRow">
         <h2 className="AddTodoModal__Title">Add a new todo</h2>
-        <IconButton
+        <OutlinedButton
           icon="close"
-          additionalClasses="IconButton--Medium  AddTodoModal__CloseButton"
+          iconOnly
+          size="m"
+          additionalClasses="AddTodoModal__CloseButton"
           ariaText="Close modal"
           type="button"
           onClick={closeModal}

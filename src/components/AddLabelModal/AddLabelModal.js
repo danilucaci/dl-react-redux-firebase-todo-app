@@ -5,7 +5,7 @@ import ReactModal from "react-modal";
 
 import "./AddLabelModal.styles.scss";
 
-import IconButton from "../IconButton/IconButton";
+import OutlinedButton from "../OutlinedButton/OutlinedButton";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
 import ColorsSelectContainer from "../../redux/containers/components/ColorsSelectContainer";
 import TextButton from "../TextButton/TextButton";
@@ -72,9 +72,11 @@ function AddLabelModal({
     >
       <div className="LabelModal__TitleRow">
         <h2 className="LabelModal__Title">Add a new label</h2>
-        <IconButton
+        <OutlinedButton
           icon="close"
-          additionalClasses="IconButton--Medium LabelModal__CloseButton"
+          additionalClasses="LabelModal__CloseButton"
+          iconOnly
+          size="m"
           ariaText="Close modal"
           type="button"
           onClick={closeModal}

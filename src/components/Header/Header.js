@@ -2,7 +2,7 @@ import React from "react";
 import "./Header.styles.scss";
 
 import Logo from "../Logo/Logo";
-import IconButton from "../IconButton/IconButton";
+import OutlinedButton from "../OutlinedButton/OutlinedButton";
 import MenuButtonContainer from "../../redux/containers/components/MenuButtonContainer";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
 import SearchBar from "../SearchBar/SearchBar";
@@ -20,22 +20,19 @@ function Header({ openAddTodoModal, currentUser = {} }) {
           <div className="Site__Header__Search__Buttons col col-8 col-l-5 col-xl-8">
             <SearchBar />
             <div className="Site__Header__Buttons__Wrapper">
-              <PrimaryButton
+              <OutlinedButton
+                iconOnly
+                size="m"
                 icon="add-24"
-                additionalClasses="PrimaryButton--Medium AddTodoDesktop"
-                onClick={() => openAddTodoModal()}
-              >
-                New todo
-              </PrimaryButton>
-              <IconButton
-                icon="add-24"
-                additionalClasses="IconButton--Medium AddTodoMobile"
+                additionalClasses="AddTodoMobile"
                 ariaText="Add a new todo"
                 onClick={() => openAddTodoModal()}
               />
-              <IconButton
+              <OutlinedButton
+                iconOnly
+                size="m"
                 icon="search-24"
-                additionalClasses="IconButton--Medium SearchButton"
+                additionalClasses="SearchButton"
                 ariaText="Search todos"
                 onClick={() => console.log("Searching...")}
               />

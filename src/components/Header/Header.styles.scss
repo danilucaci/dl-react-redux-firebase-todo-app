@@ -48,16 +48,4 @@
 .AddTodoMobile {
   margin-left: tokens.$spacing-c-03;
   display: inline-block;
-
-  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
-    display: none;
-  }
-}
-
-.AddTodoDesktop {
-  display: none;
-
-  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
-    display: inline-block;
-  }
 }

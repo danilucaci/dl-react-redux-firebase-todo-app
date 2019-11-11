@@ -5,7 +5,7 @@ import ReactModal from "react-modal";
 
 import "./AddProjectModal.styles.scss";
 
-import IconButton from "../IconButton/IconButton";
+import OutlinedButton from "../OutlinedButton/OutlinedButton";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
 import ColorsSelectContainer from "../../redux/containers/components/ColorsSelectContainer";
 import TextButton from "../TextButton/TextButton";
@@ -72,9 +72,11 @@ function AddProjectModal({
     >
       <div className="ProjectModal__TitleRow">
         <h2 className="ProjectModal__Title">Add a new project</h2>
-        <IconButton
+        <OutlinedButton
           icon="close"
-          additionalClasses="IconButton--Medium ProjectModal__CloseButton"
+          iconOnly
+          size="m"
+          additionalClasses="ProjectModal__CloseButton"
           ariaText="Close modal"
           type="button"
           onClick={closeModal}
