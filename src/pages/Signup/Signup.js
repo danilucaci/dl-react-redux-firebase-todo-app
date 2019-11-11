@@ -70,7 +70,8 @@ function Signup() {
         <div className="Signup__Footer">
           <p>Already have an account?</p>
           <LinkButton
-            additionalClasses="LinkButton--Small Signup__Footer__Btn"
+            additionalClasses="Signup__Footer__Btn"
+            size="s"
             aria-label="log into your account"
             to={ROUTES.LOGIN}
           >

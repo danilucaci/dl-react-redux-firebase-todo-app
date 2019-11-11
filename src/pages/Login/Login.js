@@ -55,7 +55,8 @@ function Login() {
       </section>
       <nav className="Login__ButtonsNav">
         <LinkButton
-          additionalClasses="LinkButton--Small Login__PasswordReset"
+          additionalClasses="Login__PasswordReset"
+          size="s"
           aria-label="request password reset"
           to={ROUTES.PASSWORD_RESET}
         >
@@ -65,7 +66,8 @@ function Login() {
         <div className="Login__Footer">
           <p>Don’t have an account?</p>
           <LinkButton
-            additionalClasses="LinkButton--Small Login__Footer__Btn"
+            additionalClasses="Login__Footer__Btn"
+            size="s"
             aria-label="sign up for a new account"
             to={ROUTES.SIGN_UP}
           >
