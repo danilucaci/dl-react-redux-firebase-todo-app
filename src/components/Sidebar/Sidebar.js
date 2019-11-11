@@ -6,10 +6,10 @@ import "./Sidebar.styles.scss";
 
 import * as ROUTES from "../../constants/routes";
 
-import avatarPlaceholder from "../../assets/img/avatar-placeholder.png";
 import LabelSidebarItemContainer from "../../redux/containers/components/LabelSidebarItemContainer";
 import ProjectSidebarItemContainer from "../../redux/containers/components/ProjectSidebarItemContainer";
 import SidebarSkeletonContainer from "../../redux/containers/components/SidebarSkeletonContainer";
+import UserAvatarContainer from "../../redux/containers/components/UserAvatarContainer";
 import AddNew from "../AddNew/AddNew";
 
 import { useDisableSidebarBackground, useAnimation } from "../../hooks";
@@ -74,20 +74,21 @@ function Sidebar({
       {initialDataLoaded ? (
         <nav>
           <ul className="Sidebar__Section">
-            <NavLink
-              activeClassName="Sidebar__Link--Active"
-              className="Sidebar__Avatar__Link"
-              to={ROUTES.PROFILE}
-            >
-              <li className="Sidebar__Avatar">
-                <img
-                  src={avatarPlaceholder}
-                  alt="Dani’s profile"
-                  className="Sidebar__Avatar__Image"
-                />
-                Dani Lucaci
-              </li>
-            </NavLink>
+            <li className="Sidebar__CurrentUser_Wrapper">
+              <UserAvatarContainer />
+            </li>
+            <li className="Sidebar__Section__Item Sidebar__ProfileLink">
+              <NavLink
+                activeClassName="Sidebar__Link--Active"
+                className="Sidebar__Link"
+                to={ROUTES.PROFILE}
+              >
+                <svg className="Sidebar__Section__Item__Icon">
+                  <use xlinkHref="#settings" />
+                </svg>
+                My account
+              </NavLink>
+            </li>
             <li className="Sidebar__Section__Item">
               <NavLink
                 activeClassName="Sidebar__Link--Active"

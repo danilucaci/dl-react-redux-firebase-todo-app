@@ -1,0 +1,33 @@
+@use "../../styles/tokens";
+
+.UserAvatar {
+  display: flex;
+
+  &__Image {
+    width: tokens.$size-avatar-m;
+    height: tokens.$size-avatar-m;
+    border: tokens.$border-avatar-default tokens.$color-avatar-on-white solid;
+    border-radius: 50%;
+  }
+
+  &__Copy {
+    margin-left: tokens.$spacing-c-03;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__Name {
+    color: tokens.$color-text-body-default;
+    font-size: tokens.$font-size-body-s;
+    line-height: tokens.$font-line-height-body-s;
+    font-family: tokens.$font-family-display;
+    font-weight: 700;
+  }
+
+  &__Email {
+    color: tokens.$color-text-body-subdued;
+    font-size: tokens.$font-size-body-s;
+    line-height: tokens.$font-line-height-body-s;
+  }
+}

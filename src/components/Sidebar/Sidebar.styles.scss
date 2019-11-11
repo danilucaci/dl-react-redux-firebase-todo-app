@@ -30,6 +30,8 @@
     pointer-events: auto;
     overflow: visible;
     z-index: tokens.$z-index-default;
+
+    padding-top: tokens.$spacing-l-04;
   }
 
   &--Visible {
@@ -39,6 +41,40 @@
 
   &--isTransitioning {
     display: block !important;
+  }
+
+  &__CurrentUser_Wrapper {
+    padding: {
+      top: tokens.$spacing-c-05;
+      left: tokens.$grid-gutter-s;
+      bottom: tokens.$spacing-c-05;
+      right: tokens.$grid-gutter-s;
+    }
+
+    margin: {
+      left: -#{tokens.$grid-spacing-s};
+      right: -#{tokens.$grid-spacing-s};
+    }
+
+    @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+      display: none;
+    }
+  }
+
+  &__ProfileLink {
+    padding: {
+      top: tokens.$spacing-c-03;
+      bottom: tokens.$spacing-c-03;
+    }
+
+    margin-bottom: tokens.$spacing-c-03;
+
+    @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+      display: none !important;
+    }
+
+    @extend %top-divider--on-white;
+    @extend %bottom-divider--on-white;
   }
 }
 
@@ -184,74 +220,6 @@
     color: tokens.$color-text-body-default;
     cursor: pointer;
   }
-}
-
-.Sidebar__Avatar {
-  display: flex;
-  align-items: center;
-}
-
-.Sidebar__Avatar__Link {
-  text-decoration: none;
-  color: tokens.$color-text-body-default;
-  font-size: tokens.$font-size-body-m;
-  line-height: tokens.$font-line-height-body-m;
-
-  display: flex;
-
-  margin: {
-    top: tokens.$spacing-c-06;
-    bottom: tokens.$spacing-c-03;
-  }
-
-  padding: {
-    top: tokens.$spacing-c-03;
-    bottom: tokens.$spacing-c-03;
-    left: tokens.$grid-gutter-s;
-    right: tokens.$grid-gutter-s;
-  }
-
-  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
-    margin: {
-      left: -#{tokens.$grid-gutter-m};
-      right: -#{tokens.$grid-gutter-m};
-    }
-    padding: {
-      left: tokens.$grid-gutter-m;
-      right: tokens.$grid-gutter-m;
-    }
-  }
-
-  @include tokens.media-min(xl) {
-    margin-top: tokens.$spacing-c-08;
-  }
-
-  &:visited,
-  &:link {
-    color: tokens.$color-text-body-default;
-  }
-
-  &:hover {
-    background-color: tokens.$color-background-sidebar-item-hover;
-    color: tokens.$color-text-body-default;
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  &:active {
-    background-color: tokens.$color-background-sidebar-item-selected;
-    color: tokens.$color-text-body-default;
-    cursor: pointer;
-  }
-}
-
-.Sidebar__Avatar__Image {
-  width: tokens.$size-avatar-m;
-  height: tokens.$size-avatar-m;
-  margin-right: tokens.$spacing-c-03;
-  margin-left: -#{tokens.$spacing-c-03};
-  border: tokens.$border-avatar-default tokens.$color-avatar-on-white solid;
-  border-radius: 50%;
 }
 
 .Sidebar__Section__Title {
