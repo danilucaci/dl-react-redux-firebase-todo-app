@@ -28,7 +28,7 @@
   }
 
   @include tokens.media-min(l) {
-    margin-right: tokens.$grid-gutter-m;
+    margin-right: tokens.$spacing-c-05;
   }
 
   @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {

@@ -1,8 +1,8 @@
 import UserTypes from "./user-types";
-import ADMIN from "./test-user";
+// import ADMIN from "./test-user";
 
 export const INITIAL_STATE = {
-  currentUser: ADMIN,
+  currentUser: null,
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -10,7 +10,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
     case UserTypes.SET_CURRENT_USER: {
       return {
         ...state,
-        currentuser: action.payload,
+        currentUser: action.payload,
       };
     }
     default:

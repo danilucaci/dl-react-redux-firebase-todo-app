@@ -6,28 +6,22 @@ import {
   getNthDate,
 } from "../../utils/dates";
 
+import { INBOX_PROJECT_IDENTIFIER } from "../../constants/collections";
+
 export const selectTodos = (state) =>
   Object.values(state.todos.byID).map((todo) => todo);
 
 export const selectTodo = (state, todoID) => state.todos.byID[todoID];
 
-export const todoSelector = createSelector(
-  [selectTodo],
-  (todo) => todo,
-);
+export const todoSelector = createSelector([selectTodo], (todo) => todo);
 
-export const inboxTodosSelector = createSelector(
-  [selectTodos],
-  (todos) => {
-    const ibT = todos.filter(
-      (todo) =>
-        todo.hasOwnProperty("project") &&
-        todo.project.hasOwnProperty("isInbox") &&
-        todo.project.isInbox,
-    );
-
-    return ibT;
-  },
+export const inboxTodosSelector = createSelector([selectTodos], (todos) =>
+  todos.filter(
+    (todo) =>
+      todo.hasOwnProperty("project") &&
+      todo.project.hasOwnProperty(INBOX_PROJECT_IDENTIFIER) &&
+      todo.project[INBOX_PROJECT_IDENTIFIER],
+  ),
 );
 
 export const notOverdueInboxTodosSelector = createSelector(
@@ -44,16 +38,12 @@ export const overdueInboxTodosSelector = createSelector(
     todos.filter((todo) => isPastDate(todo.dueDate)).map((todo) => todo.id),
 );
 
-export const todayTodosSelector = createSelector(
-  [selectTodos],
-  (todos) =>
-    todos.filter((todo) => isTodayDate(todo.dueDate)).map((todo) => todo.id),
+export const todayTodosSelector = createSelector([selectTodos], (todos) =>
+  todos.filter((todo) => isTodayDate(todo.dueDate)).map((todo) => todo.id),
 );
 
-export const overdueTodosSelector = createSelector(
-  [selectTodos],
-  (todos) =>
-    todos.filter((todo) => isPastDate(todo.dueDate)).map((todo) => todo.id),
+export const overdueTodosSelector = createSelector([selectTodos], (todos) =>
+  todos.filter((todo) => isPastDate(todo.dueDate)).map((todo) => todo.id),
 );
 
 export const notOverdueTodayTodosSelector = createSelector(

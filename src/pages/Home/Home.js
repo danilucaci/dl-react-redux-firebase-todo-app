@@ -6,8 +6,8 @@ import AppMain from "../../components/AppMain/AppMain";
 function Home() {
   return (
     <AppMain>
-      <section className="Section">
-        <h1>Today</h1>
+      <section className="LandingPage">
+        <h1>Home Page</h1>
       </section>
     </AppMain>
   );

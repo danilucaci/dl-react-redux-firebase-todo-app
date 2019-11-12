@@ -11,10 +11,14 @@ import { setLabels } from "../../../redux/labels/labels-actions";
 import { setProjects } from "../../../redux/projects/projects-actions";
 import { currentUserSelector } from "../../user/user-selectors";
 import Dashboard from "../../../components/Dashboard/Dashboard";
+import { projectsSelector } from "../../../redux/projects/projects-selectors";
+import { labelsSelector } from "../../../redux/labels/labels-selectors";
 
 export const mapStateToProps = (state) => ({
   appData: appDataSelector(state),
   currentUser: currentUserSelector(state),
+  projects: projectsSelector(state),
+  labels: labelsSelector(state),
 });
 
 export const mapDispatchToProps = (dispatch) => ({
@@ -27,7 +31,4 @@ export const mapDispatchToProps = (dispatch) => ({
   setAppDataErrors: (errors) => dispatch(setAppDataErrors(errors)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Dashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

@@ -3,9 +3,10 @@ import "./Header.styles.scss";
 
 import Logo from "../Logo/Logo";
 import OutlinedButton from "../OutlinedButton/OutlinedButton";
+import LinkButton from "../LinkButton/LinkButton";
 import MenuButtonContainer from "../../redux/containers/components/MenuButtonContainer";
-import PrimaryButton from "../PrimaryButton/PrimaryButton";
 import SearchBar from "../SearchBar/SearchBar";
+import CurrentUserAvatar from "../CurrentUserAvatar/CurrentUserAvatar";
 
 function Header({ openAddTodoModal, currentUser = {} }) {
   return (
@@ -36,10 +37,31 @@ function Header({ openAddTodoModal, currentUser = {} }) {
                 ariaText="Search todos"
                 onClick={() => console.log("Searching...")}
               />
+              <CurrentUserAvatar
+                currentUser={currentUser}
+                additionalClasses="Site__Header__CurrentUserAvatar"
+              />
               <MenuButtonContainer additionalClasses="Menu" />
             </div>
           </div>
-        ) : null}
+        ) : (
+          <div className="Site__Header__Search__Buttons Site__Header__Login__Buttons__Wrapper col col-8 col-l-5 col-xl-8">
+            <LinkButton
+              to="/login"
+              size="m"
+              additionalClasses="Site__Header__LoginButton"
+            >
+              Login
+            </LinkButton>
+            <LinkButton
+              to="/sign-up"
+              size="m"
+              additionalClasses="Site__Header__LoginButton"
+            >
+              Sign up
+            </LinkButton>
+          </div>
+        )}
       </nav>
     </header>
   );

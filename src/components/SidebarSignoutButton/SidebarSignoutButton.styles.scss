@@ -1,0 +1,51 @@
+@use "../../styles/tokens";
+
+.SidebarSignoutButton {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  font-size: tokens.$font-size-button-m;
+  line-height: tokens.$font-line-height-button-m;
+  color: tokens.$color-text-button-outlined-enabled;
+  border-radius: tokens.$border-radius-button-text;
+  padding-right: tokens.$spacing-c-02;
+
+  &:hover {
+    cursor: pointer;
+    outline: none;
+  }
+
+  &:focus {
+    background-color: tokens.$color-background-text-button-focus;
+    box-shadow: tokens.$shadow-button-add-new-focus;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .js-focus-visible &:focus:not([data-focus-visible-added]) {
+    background-color: tokens.$color-background-text-button-focus-polyfill;
+    outline: none;
+    box-shadow: none;
+    cursor: pointer;
+  }
+
+  &:disabled {
+    outline: none;
+    cursor: not-allowed;
+    color: tokens.$color-text-button-outlined-disabled;
+
+    &:hover,
+    &:focus {
+      cursor: not-allowed;
+    }
+  }
+
+  &__Icon {
+    display: block;
+    width: tokens.$size-icon-m;
+    height: tokens.$size-icon-m;
+    margin-right: tokens.$spacing-c-04;
+    fill: tokens.$color-icon-default;
+  }
+}

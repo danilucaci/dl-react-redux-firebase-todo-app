@@ -173,6 +173,26 @@
   }
 }
 
+.Sidebar__Signout__Button {
+  display: block;
+
+  margin: {
+    top: tokens.$spacing-c-07;
+  }
+
+  @extend %top-divider--on-white;
+
+  padding: {
+    top: tokens.$spacing-c-05;
+    left: tokens.$spacing-c-05;
+    right: tokens.$grid-gutter-s;
+  }
+
+  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+    display: none;
+  }
+}
+
 .Sidebar__Section__Item__Icon {
   width: tokens.$size-icon-m;
   height: tokens.$size-icon-m;

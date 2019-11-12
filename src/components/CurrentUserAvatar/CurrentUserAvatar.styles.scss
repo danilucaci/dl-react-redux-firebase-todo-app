@@ -1,0 +1,122 @@
+@use "../../styles/tokens";
+@use "../../styles/base/placeholders";
+
+.CurrentUserAvatar {
+  width: tokens.$size-avatar-m;
+  height: tokens.$size-avatar-m;
+
+  &__Divider {
+    display: block;
+    margin: tokens.$spacing-c-03 0;
+    @extend %bottom-divider--on-white;
+  }
+
+  &__Info {
+    padding: {
+      top: tokens.$spacing-c-05;
+      right: tokens.$spacing-c-05;
+      bottom: tokens.$spacing-c-03;
+      left: tokens.$spacing-c-05;
+    }
+  }
+
+  &__Image {
+    width: tokens.$size-avatar-m;
+    height: tokens.$size-avatar-m;
+    border: tokens.$border-avatar-default tokens.$color-avatar-on-white solid;
+    border-radius: 50%;
+
+    &--Loaded {
+      animation: fadeAvatar tokens.$timing-avatar-fadein ease forwards;
+    }
+
+    @keyframes fadeAvatar {
+      from,
+      0% {
+        opacity: 0;
+      }
+      to,
+      100% {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__Button {
+    border: none;
+    width: tokens.$size-avatar-m;
+    height: tokens.$size-avatar-m;
+    border-radius: 50%;
+    background-color: transparent;
+
+    display: none;
+
+    @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+      display: block;
+    }
+  }
+
+  &__Icon {
+    width: tokens.$size-icon-m;
+    height: tokens.$size-icon-m;
+    fill: tokens.$color-icon-default;
+    margin-right: tokens.$spacing-c-04;
+  }
+
+  &__List {
+    background-color: tokens.$color-background-dropdown-inner;
+    box-shadow: tokens.$shadow-dropdown;
+    border-radius: tokens.$border-radius-components-default;
+    display: block;
+    width: tokens.$size-dropdown-projects;
+
+    padding: {
+      bottom: tokens.$spacing-c-03 !important;
+    }
+
+    &:hover {
+      cursor: auto !important;
+    }
+  }
+
+  &__Item {
+    text-decoration: none;
+    color: inherit;
+    font-size: inherit;
+    line-height: inherit;
+
+    display: flex;
+    flex: 1 1 auto;
+
+    padding: {
+      top: tokens.$spacing-c-03;
+      right: tokens.$spacing-c-05;
+      bottom: tokens.$spacing-c-03;
+      left: tokens.$spacing-c-07;
+    }
+
+    &:visited,
+    &:link {
+      color: tokens.$color-text-body-default;
+    }
+
+    &:hover {
+      background-color: tokens.$color-background-dropdown-item-hover;
+      color: tokens.$color-text-body-default;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    &:active {
+      background-color: tokens.$color-background-sidebar-item-selected;
+      color: tokens.$color-text-body-default;
+      cursor: pointer;
+    }
+
+    &--Active {
+      background-color: tokens.$color-background-dropdown-item-hover;
+      font-family: tokens.$font-family-display;
+      font-weight: 700;
+    }
+  }
+}

@@ -1,1 +1,10 @@
 @use "../../styles/tokens";
+
+.LandingPage {
+  padding: {
+    top: tokens.$spacing-l-06;
+    right: tokens.$spacing-l-05;
+    bottom: tokens.$spacing-l-10;
+    left: tokens.$spacing-l-05;
+  }
+}

@@ -6,7 +6,7 @@ import * as ROUTES from "../../constants/routes";
 
 import LinkButton from "../../components/LinkButton/LinkButton";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
-import SignUpWithGoogle from "../../components/SignUpWithGoogle/SignUpWithGoogle";
+import SignInWithGoogle from "../../components/SignInWithGoogle/SignInWithGoogle";
 import Input from "../../components/Input/Input";
 import OrDivider from "../../components/OrDivider/OrDivider";
 
@@ -25,7 +25,7 @@ function Signup() {
         <h1 className="Signup__Title">Sign up</h1>
       </header>
       <section>
-        <SignUpWithGoogle additionalClasses="Signup__GoogleBtn" />
+        <SignInWithGoogle additionalClasses="Signup__GoogleBtn" />
         <OrDivider additionalClasses="Signup__OrDivider" />
         <form method="post" onSubmit={handleSignup}>
           <Input

@@ -10,26 +10,20 @@ import * as ROUTES from "./constants/routes";
 import SVGSprite from "./components/SVGSprite/SVGSprite";
 import HeaderContainer from "./redux/containers/components/HeaderContainer";
 import Footer from "./components/Footer/Footer";
-
 import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
 import PasswordReset from "./pages/PasswordReset/PasswordReset";
 import Home from "./pages/Home/Home";
-import Profile from "./pages/Profile/Profile";
-import InboxContainer from "./redux/containers/pages/InboxContainer";
 import NotFound from "./pages/NotFound/NotFound";
-import TodayContainer from "./redux/containers/pages/TodayContainer";
-import NextDaysContainer from "./redux/containers/pages/NextDaysContainer";
-import ProjectContainer from "./redux/containers/pages/ProjectContainer";
-import ProjectsContainer from "./redux/containers/pages/ProjectsContainer";
-import LabelContainer from "./redux/containers/pages/LabelContainer";
-import LabelsContainer from "./redux/containers/pages/LabelsContainer";
+
 import AddTodoModalContainer from "./redux/containers/components/AddTodoModalContainer";
 import AddProjectModalContainer from "./redux/containers/components/AddProjectModalContainer";
 import AddLabelModalContainer from "./redux/containers/components/AddLabelModalContainer";
 import DashboardContainer from "./redux/containers/components/DashboardContainer";
 
-function App({ labels, projects, modalsState, menu, closeMenu }) {
+import withAuth from "./hoc/withAuth";
+
+function App({ modalsState, menu, closeMenu }) {
   const { menuOpen = false } = menu;
 
   const {
@@ -63,40 +57,7 @@ function App({ labels, projects, modalsState, menu, closeMenu }) {
     <div className={appClasses}>
       <SVGSprite />
       <HeaderContainer />
-      <Route path={ROUTES.DASHBOARD}>
-        <DashboardContainer />
-      </Route>
       <Switch>
-        <Route path={ROUTES.PROFILE}>
-          <Profile />
-        </Route>
-        <Route path={ROUTES.INBOX}>
-          <InboxContainer />
-        </Route>
-        <Route path={ROUTES.TODAY}>
-          <TodayContainer />
-        </Route>
-        <Route path={ROUTES.NEXT_DAYS}>
-          <NextDaysContainer />
-        </Route>
-        {projects &&
-          projects.map((project) => (
-            <Route key={project.id} path={`${ROUTES.PROJECT}${project.name}`}>
-              <ProjectContainer projectID={project.id} />
-            </Route>
-          ))}
-        <Route path={ROUTES.PROJECTS}>
-          <ProjectsContainer />
-        </Route>
-        {labels &&
-          labels.map((label) => (
-            <Route key={label.id} path={`${ROUTES.LABEL}${label.name}`}>
-              <LabelContainer labelID={label.id} />
-            </Route>
-          ))}
-        <Route path={ROUTES.LABELS}>
-          <LabelsContainer />
-        </Route>
         <Route path={ROUTES.LOGIN} exact>
           <Login />
         </Route>
@@ -109,6 +70,7 @@ function App({ labels, projects, modalsState, menu, closeMenu }) {
         <Route path={ROUTES.LANDING} exact>
           <Home />
         </Route>
+        <DashboardContainer />
         <Route path={ROUTES.NOT_FOUND} exact>
           <NotFound />
         </Route>
@@ -121,4 +83,4 @@ function App({ labels, projects, modalsState, menu, closeMenu }) {
   );
 }
 
-export default App;
+export default withAuth(App);

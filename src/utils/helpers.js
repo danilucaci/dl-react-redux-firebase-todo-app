@@ -84,3 +84,9 @@ export function filterStrings(strings) {
 export function getDisplayName(WrappedComponent) {
   return WrappedComponent.displayName || WrappedComponent.name || "Component";
 }
+
+export function log(message = "") {
+  if (process.env.NODE_ENV === "development") {
+    console.log(`%c ${message}`, "color: #07E33A; font-weight: 700");
+  }
+}

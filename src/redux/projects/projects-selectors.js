@@ -1,5 +1,7 @@
 import { createSelector } from "reselect";
 
+import { INBOX_PROJECT_IDENTIFIER } from "../../constants/collections";
+
 import { isPastDate, isFutureDate } from "../../utils/dates";
 
 export const selectProject = (state, projectID) =>
@@ -9,7 +11,7 @@ export const selectAllProjects = (state) => Object.values(state.projects.byID);
 
 export const selectProjects = (state) =>
   Object.values(state.projects.byID).filter(
-    (project) => !project.hasOwnProperty("isInbox"),
+    (project) => !project.hasOwnProperty(INBOX_PROJECT_IDENTIFIER),
   );
 
 export const selectProjectTodos = (state, projectID) => {
@@ -23,7 +25,9 @@ export const selectProjectTodos = (state, projectID) => {
 
 export const selectInboxProject = (state) =>
   Object.values(state.projects.byID).filter(
-    (project) => project.hasOwnProperty("isInbox") && project.isInbox,
+    (project) =>
+      project.hasOwnProperty(INBOX_PROJECT_IDENTIFIER) &&
+      project[INBOX_PROJECT_IDENTIFIER],
   );
 
 export const allProjectsSelector = createSelector(

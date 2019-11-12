@@ -34,11 +34,20 @@
       margin-right: 0;
     }
   }
+
+  &__Login__Buttons__Wrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__LoginButton {
+    margin-left: tokens.$spacing-c-03;
+    display: inline-block;
+  }
 }
 
 .SearchButton {
   display: inline-block;
-  margin-left: tokens.$spacing-c-03;
 
   @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
     display: none;
@@ -46,6 +55,11 @@
 }
 
 .AddTodoMobile {
-  margin-left: tokens.$spacing-c-03;
   display: inline-block;
+
+  margin-right: tokens.$spacing-c-03;
+
+  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+    margin-right: tokens.$spacing-c-05;
+  }
 }

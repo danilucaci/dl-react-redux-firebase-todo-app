@@ -149,11 +149,13 @@ function AddTodoModal({
             />
           ) : null}
 
-          <TodoLabelTagContainer
-            labels={todo.labels}
-            toggleVisibility={toggleShowLabels}
-            onChangeHandler={setSelectedLabel}
-          />
+          {todo.labels ? (
+            <TodoLabelTagContainer
+              labels={todo.labels}
+              toggleVisibility={toggleShowLabels}
+              onChangeHandler={setSelectedLabel}
+            />
+          ) : null}
 
           <TodoDueDate
             dueDate={todo.dueDate}
