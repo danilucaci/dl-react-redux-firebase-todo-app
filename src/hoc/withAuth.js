@@ -7,50 +7,62 @@ import { createUserProfileDocument } from "../utils/firebase/createUserProfileDo
 import { setCurrentUser } from "../redux/user/user-actions";
 import { getDisplayName } from "../utils/helpers";
 import { logOut } from "../redux/root-reducer";
+import { setAppDataErrors } from "../redux/localState/localState-actions";
 
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (currentUser) => dispatch(setCurrentUser(currentUser)),
+  setAppDataErrors: (error) => dispatch(setAppDataErrors(error)),
   logOut: () => dispatch(logOut()),
 });
 
 function withAuth(Component) {
   Component.displayName = `WithAuth(${getDisplayName(Component)})`;
 
-  function WithAuth({ setCurrentUser, logOut, ...props }) {
+  function WithAuth({ setCurrentUser, logOut, setAppDataErrors, ...props }) {
     const unsubscribeFromAuth = useRef(null);
     const unsubscribeFromUserDoc = useRef(null);
 
     useEffect(() => {
-      unsubscribeFromAuth.current = auth.onAuthStateChanged(async (user) => {
-        /* on sign in @returns: `user` */
-        /* on sign out @returns: `null` */
+      unsubscribeFromAuth.current = auth.onAuthStateChanged(
+        async function handleAuthStateChange(user) {
+          /* on sign in @returns: `user` */
+          /* on sign out @returns: `null` */
 
-        if (user) {
-          const [userRef, userRefErrors] = await createUserProfileDocument(
-            user,
-          );
+          if (user) {
+            const [userRef, userRefErrors] = await createUserProfileDocument(
+              user,
+            );
 
-          unsubscribeFromUserDoc.current = userRef.onSnapshot((snapshot) => {
-            // If the user is deleted from firestore clear the local storage
-            if (snapshot.exists) {
-              setCurrentUser(getGoogleAuthCurrentUserObject(snapshot));
-            } else logOut();
-          });
+            unsubscribeFromUserDoc.current = userRef.onSnapshot(
+              function handleUserSnapshot(snapshot) {
+                // If the user is deleted from firestore clear the local storage
+                if (snapshot.exists) {
+                  setCurrentUser(getGoogleAuthCurrentUserObject(snapshot));
+                } else logOut();
+              },
+              function handleUserSnapshotError(error) {
+                setAppDataErrors(`handleUserSnapshotError: ${error.message}`);
+              },
+            );
 
-          if (userRefErrors.length && process.env.NODE_ENV === "development") {
-            console.error(userRefErrors);
+            if (Array.isArray(userRefErrors)) {
+              setAppDataErrors(...userRefErrors);
+            }
+          } else {
+            /* User signed out => `user = null` */
+            logOut();
           }
-        } else {
-          /* User signed out => `user = null` */
-          logOut();
-        }
-      });
+        },
+        function handleAuthStateChangeError(error) {
+          setAppDataErrors(`handleAuthStateChangeError: ${error.message}`);
+        },
+      );
 
       return () => {
         unsubscribeFromAuth.current();
         unsubscribeFromUserDoc.current();
       };
-    }, [logOut, setCurrentUser]);
+    }, [logOut, setAppDataErrors, setCurrentUser]);
 
     return <Component {...props} />;
   }
