@@ -20,7 +20,7 @@ export const collectionReducer = (state, action) => {
     case "error": {
       return {
         ...state,
-        error: true,
+        error: action.payload,
         loading: false,
         data: null,
       };
@@ -35,7 +35,7 @@ export const collectionReducer = (state, action) => {
  * @param {firestore.Query} query The firestore query to subscribe to.
  * @returns {?Object} Error returned from firestore.
  * @returns {boolean} If the data is still loading.
- * @returns {?Object} The data fetched from firestore.
+ * @returns {?string} The data fetched from firestore.
  */
 function useCollection(query) {
   const collectionRef = useRef(query);
@@ -52,7 +52,7 @@ function useCollection(query) {
         return dispatch({ type: "save", payload: snapshot.docs });
       },
       function handleError(error) {
-        return dispatch({ type: "error", payload: error });
+        return dispatch({ type: "error", payload: error.message });
       },
     );
 
