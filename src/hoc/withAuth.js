@@ -50,6 +50,14 @@ function withAuth(Component) {
             }
           } else {
             /* User signed out => `user = null` */
+
+            /**
+             * First unsubscribe from the userDoc and the log out.
+             * Otherwise the request on firebase will not have a `auth.uid` and throw an error.
+             */
+            if (unsubscribeFromUserDoc.current) {
+              unsubscribeFromUserDoc.current();
+            }
             logOut();
           }
         },
