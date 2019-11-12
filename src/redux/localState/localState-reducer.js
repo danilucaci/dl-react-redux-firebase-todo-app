@@ -3,7 +3,7 @@ import LocalStateTypes from "./localState-types";
 const INITIAL_STATE = {
   appData: {
     initialDataLoaded: false,
-    errors: null,
+    errors: [],
     skeletonTodos: 3,
     skeletonSidebarItems: 3,
   },
@@ -34,7 +34,7 @@ const localStateReducer = (state = INITIAL_STATE, action) => {
         appData: {
           ...state.appData,
           initialDataLoaded: true,
-          errors: action.payload,
+          errors: [...state.appData.errors, action.payload],
         },
       };
     }
