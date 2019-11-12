@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import {
   arrayOf,
-  objectOf,
   oneOf,
   shape,
   oneOfType,
