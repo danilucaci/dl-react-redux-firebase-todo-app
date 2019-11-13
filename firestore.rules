@@ -1,0 +1,31 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // deny all by default, aka: locked mode
+     match /{document=**} {
+      allow read, write: if false;
+     }
+    
+    function isSignedIn() {
+      return request.auth.uid != null;
+    }
+    
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+    
+    match /colors/{color=**} {
+      allow read: if isSignedIn();
+    }
+    
+    match /users/{userId} {
+    allow create: if isSignedIn();
+    allow read, update, delete: if isOwner(userId);
+    
+     // Allow only authenticated content owners access
+     match /{documents=**} {
+    	allow read, write: if isOwner(userId);
+     }
+    }
+  }
+}
