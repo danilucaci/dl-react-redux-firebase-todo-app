@@ -87,4 +87,8 @@
       margin-left: tokens.$spacing-c-03;
     }
   }
+
+  &__SignUpErrorMsg {
+    margin-bottom: tokens.$spacing-c-07;
+  }
 }

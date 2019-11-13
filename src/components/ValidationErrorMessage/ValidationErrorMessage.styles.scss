@@ -1,0 +1,10 @@
+@use "../../styles/tokens";
+
+.ValidationErrorMessage {
+  background-color: tokens.$color-background-validation-error;
+  color: tokens.$color-text-validation-error;
+  font-size: tokens.$font-size-body-m;
+  line-height: tokens.$font-line-height-body-m;
+  border-radius: tokens.$border-radius-components-default;
+  padding: tokens.$spacing-c-03;
+}

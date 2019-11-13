@@ -25,6 +25,14 @@ $color-background-link-default: colors.$grey00;
 $color-background-link-hover: colors.$primary50;
 $color-background-link-active: colors.$primary100;
 
+// Validation
+$color-background-validation-error: colors.$danger50;
+$color-background-validation-success: colors.$success50;
+$color-border-validation-error: colors.$danger700;
+$color-border-validation-success: colors.$success600;
+$color-text-validation-error: colors.$danger900;
+$color-text-validation-success: colors.$success900;
+
 // Input fields
 $color-text-input-enabled: colors.$grey700;
 $color-text-input-active: colors.$grey900;

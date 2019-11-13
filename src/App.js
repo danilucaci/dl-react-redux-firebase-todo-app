@@ -10,8 +10,6 @@ import * as ROUTES from "./constants/routes";
 import SVGSprite from "./components/SVGSprite/SVGSprite";
 import HeaderContainer from "./redux/containers/components/HeaderContainer";
 import Footer from "./components/Footer/Footer";
-import Login from "./pages/Login/Login";
-import Signup from "./pages/Signup/Signup";
 import PasswordReset from "./pages/PasswordReset/PasswordReset";
 import Home from "./pages/Home/Home";
 import NotFound from "./pages/NotFound/NotFound";
@@ -20,6 +18,8 @@ import AddTodoModalContainer from "./redux/containers/components/AddTodoModalCon
 import AddProjectModalContainer from "./redux/containers/components/AddProjectModalContainer";
 import AddLabelModalContainer from "./redux/containers/components/AddLabelModalContainer";
 import DashboardContainer from "./redux/containers/components/DashboardContainer";
+import LoginContainer from "./redux/containers/pages/LoginContainer";
+import SignupContainer from "./redux/containers/pages/SignupContainer";
 
 import withAuth from "./hoc/withAuth";
 
@@ -59,10 +59,10 @@ function App({ modalsState, menu, closeMenu }) {
       <HeaderContainer />
       <Switch>
         <Route path={ROUTES.LOGIN} exact>
-          <Login />
+          <LoginContainer />
         </Route>
         <Route path={ROUTES.SIGN_UP} exact>
-          <Signup />
+          <SignupContainer />
         </Route>
         <Route path={ROUTES.PASSWORD_RESET} exact>
           <PasswordReset />
