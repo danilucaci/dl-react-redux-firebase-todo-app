@@ -1,105 +1,117 @@
 import { firestore } from "../../firebase/firebase";
 import * as COLLECTIONS from "../../constants/collections";
+import { isEmptyObj } from "../helpers";
 
 /**
+ * Creates a new user document in firestore when the user is logged in.
+ *
+ * 1. Checks if the user already exists.
+ * 2. If it doesn’t, it creates a new user with a default project.
+ * 3. If it already exists, return the userRef from firestore and any errors that were caught.
+ *
  * @param {Object} user The current signed in user.
  * @param {Object} additionalData Other props to store on the user document.
+ *
+ * @returns `firebase documentRef`
+ * @returns {?array} `Array` of errors caught.
  */
 export const createUserProfileDocument = async (
-  user = null,
+  user = {},
   additionalData = {},
 ) => {
-  if (!user) return;
-
-  let errors = [];
+  if (isEmptyObj(user) || !user.hasOwnProperty("email")) {
+    return [null, "Failed to get the user document. No user provided"];
+  }
 
   /**
    * 1. Get a reference to the place in the DB where a user profile might be.
    */
-  const userRef = firestore.doc(`${COLLECTIONS.USERS}/${user.uid}`);
+  const userRef = getUserDocumentRef(user.uid);
+
+  // If it fails to get the document fail early.
+  if (typeof userRef === "string") {
+    return [null, userRef];
+  }
 
   /**
    * 2. Go and fetch the document from that location
    */
   const snapshot = await userRef.get().catch((error) => {
-    errors = [...errors, error.message];
+    return [null, error.message];
   });
 
   /**
-   * 3. If the user doesn’t exist in the DB, create a new one.
+   * 3. Check if the user doesn’t exist in the DB, if not, create a new one.
    */
   if (!snapshot.exists) {
     const createdAt = new Date();
 
-    const {
-      displayName = "Default Dani",
-      email = "default@email.com",
-      photoURL = null,
-    } = user;
+    // Empty values come in as `null` so you can’t set a default value for these
+    // because default values are set only if the existing `value === undefined`.
+    const { displayName, email, photoURL } = user;
 
-    await userRef
-      .set({
+    try {
+      await userRef.set({
         displayName,
         email,
         photoURL,
         createdAt,
         ...additionalData,
-      })
-      .catch((error) => {
-        errors = [...errors, error.message];
       });
+    } catch (error) {
+      return [null, `Failed to create the user: ${error.message}`];
+    }
 
     /**
      * 4. Add an initial `Inbox` project document in the user’s `projects` sub-collection.
      * `Inbox` is the default project each user has when they sign up.
      */
-    const createDefaultUserProjectErrors = await createDefaultUserProject(
-      user.uid,
-    );
+    const createDefaultUserProjectResult = createDefaultUserProject(user.uid);
 
-    if (createDefaultUserProjectErrors.length) {
-      errors = [...errors, ...createDefaultUserProjectErrors];
+    if (!createDefaultUserProjectResult) {
+      return [null, "Could not create the default user project."];
+    }
+
+    if (typeof createDefaultUserProjectResult === "string") {
+      return [null, createDefaultUserProjectResult];
     }
   }
 
-  const [userDocument, userDocumentError] = await getUserDocument(user.uid);
-
-  if (userDocumentError) {
-    errors = [...errors, userDocumentError];
-  }
-
   /**
-   * 5. Return the new user `uid` and any errors that happened, if any.
+   * 5. Return the new user’s `uid` and null for the errors.
    */
-
-  return [userDocument, errors];
+  return [userRef, null];
 };
 
 /**
  * Get the `userRef` of the provided `uid`
  *
  * @param {string} uid The user uid from firestore.
- * @param {?array} errors Optional errors array to keep track of any errors that occur.
- * @returns {DocumentReference} The Firestore `DocumentReference` of the user.
+ *
+ * @returns Firestore `DocumentReference` of the user or the `errorMessage` that was caught.
  */
-export async function getUserDocument(uid = null) {
-  if (!uid) return [null, "No user id provided in `getUserDocument()`"];
+export function getUserDocumentRef(uid = null) {
+  if (!uid) {
+    return "No user id provided in `getUserDocumentRef()`";
+  }
 
   try {
-    return [firestore.collection(COLLECTIONS.USERS).doc(uid), null];
+    return firestore.collection(COLLECTIONS.USERS).doc(uid);
   } catch (error) {
-    return [null, error.message];
+    return error.message;
   }
 }
 
 /**
+ * Create the default project for each user when they sign up.
+ *
  * @param {Object} userID The current signed in user.
- * @returns {array} Errors caught while creating the user’s default project.
+ * @returns {null} `null` If the project was set correctly or an error message.
  */
 export async function createDefaultUserProject(userID = null) {
-  if (!userID) return ["No user id provided in `createDefaultUserProject()`"];
-
-  let errors = [];
+  if (!userID) {
+    return "No user id provided in `createDefaultUserProject()`";
+  }
 
   /**
    * https://firebase.google.com/docs/firestore/manage-data/add-data#add_a_document
@@ -111,7 +123,7 @@ export async function createDefaultUserProject(userID = null) {
    * 1. Get a ref to a new project document in the users’ `projects` sub-collection
    * (projects are stored as sub-collections of each user: `user/project/project-name`)
    */
-  const inboxProjectRef = await firestore
+  const inboxProjectRef = firestore
     .collection(COLLECTIONS.USERS)
     .doc(userID)
     .collection(COLLECTIONS.PROJECTS)
@@ -126,10 +138,14 @@ export async function createDefaultUserProject(userID = null) {
    *   colorValue: "#hex-value",
    * }
    */
-  const [inboxColorData, inboxColorError] = await getInboxColor();
+  const inboxColorResult = await getInboxColor();
 
-  if (inboxColorError) {
-    errors = [...errors, inboxColorError];
+  if (!inboxColorResult) {
+    return "Could not get the default project color data.";
+  }
+
+  if (typeof inboxColorResult === "string") {
+    return inboxColorResult;
   }
 
   /**
@@ -143,28 +159,28 @@ export async function createDefaultUserProject(userID = null) {
     name: COLLECTIONS.DEFAULT_USER_PROJECT_NAME,
     [COLLECTIONS.INBOX_PROJECT_IDENTIFIER]: true,
     todosCount: 0,
-    color: {
-      ...inboxColorData,
-    },
+    color: inboxColorResult,
   };
 
-  await inboxProjectRef
+  return await inboxProjectRef
     .set({
       ...newInboxProject,
     })
+    .then(() => {
+      return null;
+    })
     .catch((error) => {
-      errors = [...errors, error.message];
+      return error.message;
     });
-
-  return errors;
 }
 
 /**
  * Get the color info of the default user project.
  * When a new user signs up we need to create a default project.
  *
- * @returns {Object} The color values of the default project
- * @returns {?Error} Any errors caught from firestore.
+ * @returns {Object} `colorData` Object with the color data of the default project.
+ * @returns {string} `error` String with the error caught from firestore.
+ * @returns {null} `null` If no data was found.
  * @example
  *
  * Object with the color info from firebase
@@ -175,26 +191,28 @@ export async function createDefaultUserProject(userID = null) {
  * }
  */
 export async function getInboxColor() {
-  let colorData;
-  let colorError;
-  let colorSnapshot;
-
   try {
-    colorSnapshot = await firestore
+    const colorSnapshot = await firestore
       .collection(COLLECTIONS.COLORS)
       .where(COLLECTIONS.INBOX_COLOR_IDENTIFIER, "==", true)
       .get();
 
+    // If it is not empty return the color data of the default project
     if (!colorSnapshot.empty) {
-      colorData = {
-        colorID: colorSnapshot.docs[0].id,
-        colorName: colorSnapshot.docs[0].data().colorName,
-        colorValue: colorSnapshot.docs[0].data().colorValue,
-      };
-    }
-  } catch (e) {
-    colorError = e.message;
-  }
+      if (colorSnapshot.docs[0].exists) {
+        return {
+          colorID: colorSnapshot.docs[0].id,
+          colorName: colorSnapshot.docs[0].data().colorName,
+          colorValue: colorSnapshot.docs[0].data().colorValue,
+        };
+      }
 
-  return [colorData, colorError];
+      return null;
+    }
+
+    // If the snapshot was empty return null
+    return null;
+  } catch (e) {
+    return e.message;
+  }
 }

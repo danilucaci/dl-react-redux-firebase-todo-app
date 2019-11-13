@@ -23,42 +23,51 @@ function withAuth(Component) {
     const unsubscribeFromUserDoc = useRef(null);
 
     useEffect(() => {
+      function logOutUser() {
+        /**
+         * First unsubscribe from the userDoc and then log out.
+         * Otherwise the request on firebase will not have a `auth.uid` and throw an error.
+         */
+        if (unsubscribeFromUserDoc.current) {
+          unsubscribeFromUserDoc.current();
+        }
+        logOut();
+      }
+
       unsubscribeFromAuth.current = auth.onAuthStateChanged(
         async function handleAuthStateChange(user) {
           /* on sign in @returns: `user` */
           /* on sign out @returns: `null` */
 
           if (user) {
-            const [userRef, userRefErrors] = await createUserProfileDocument(
+            const [userRef, userRefError] = await createUserProfileDocument(
               user,
             );
 
-            unsubscribeFromUserDoc.current = userRef.onSnapshot(
-              function handleUserSnapshot(snapshot) {
-                // If the user is deleted from firestore clear the local storage
-                if (snapshot.exists) {
-                  setCurrentUser(getGoogleAuthCurrentUserObject(snapshot));
-                } else logOut();
-              },
-              function handleUserSnapshotError(error) {
-                setAppDataErrors(`handleUserSnapshotError: ${error.message}`);
-              },
-            );
+            // Only subscribe if we have a userRef.
+            if (userRef) {
+              unsubscribeFromUserDoc.current = userRef.onSnapshot(
+                function handleUserSnapshot(snapshot) {
+                  // If the user is deleted from firestore clear the local storage
+                  if (snapshot.exists) {
+                    setCurrentUser(getGoogleAuthCurrentUserObject(snapshot));
+                  } else logOut();
+                },
+                function handleUserSnapshotError(error) {
+                  setAppDataErrors(`handleUserSnapshotError: ${error.message}`);
+                },
+              );
+            } else {
+              // If there is no userRef
+              logOutUser();
+            }
 
-            if (Array.isArray(userRefErrors)) {
-              setAppDataErrors(...userRefErrors);
+            if (typeof userRefError == "string") {
+              setAppDataErrors(userRefError);
             }
           } else {
             /* User signed out => `user = null` */
-
-            /**
-             * First unsubscribe from the userDoc and the log out.
-             * Otherwise the request on firebase will not have a `auth.uid` and throw an error.
-             */
-            if (unsubscribeFromUserDoc.current) {
-              unsubscribeFromUserDoc.current();
-            }
-            logOut();
+            logOutUser();
           }
         },
         function handleAuthStateChangeError(error) {
