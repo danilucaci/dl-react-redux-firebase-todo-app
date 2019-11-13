@@ -6,8 +6,11 @@
   &__Image {
     width: tokens.$size-avatar-m;
     height: tokens.$size-avatar-m;
-    border: tokens.$border-avatar-default tokens.$color-avatar-on-white solid;
+    border: tokens.$border-avatar-default tokens.$color-border-avatar-on-white
+      solid;
+    background-color: tokens.$color-background-avatar-on-white;
     border-radius: 50%;
+    object-fit: cover;
   }
 
   &__Copy {
