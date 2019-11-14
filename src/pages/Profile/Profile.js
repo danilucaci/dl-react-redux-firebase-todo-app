@@ -9,21 +9,26 @@ import ValidationErrorMessage from "../../components/ValidationErrorMessage/Vali
 import { storage } from "../../firebase/firebase";
 import { getUserDocumentRef } from "../../utils/firebase/createUserProfileDocument";
 
+async function getUserRef(userId) {
+  return getUserDocumentRef(userId);
+}
+
 function Profile({ currentUser }) {
   const [displayName, setDisplayName] = useState("");
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(false);
   const fileRef = useRef(null);
 
-  const userRef = getUserDocumentRef(currentUser.id);
-
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true);
 
+    const userRef = await getUserRef(currentUser.id).catch((errorMessage) => {
+      setErrors((prevErrors) => [...prevErrors, errorMessage]);
+    });
+
     if (fileRef.current && fileRef.current.files.length) {
       const file = fileRef.current.files[0];
-      console.log(fileRef.current.files);
 
       const fileName = file.name || "profile_image";
 
@@ -38,28 +43,26 @@ function Profile({ currentUser }) {
           .put(file)
           .then((response) => response.ref.getDownloadURL())
           .then((photoURL) => userRef.update({ photoURL }))
+          .then(() => setLoading(false))
           .catch((error) => {
-            setErrors((prevErrors) => [...prevErrors, error]);
+            setErrors((prevErrors) => [...prevErrors, error.message]);
             setLoading(false);
           });
       } catch (error) {
-        setErrors((prevErrors) => [...prevErrors, error]);
+        setErrors((prevErrors) => [...prevErrors, error.message]);
         setLoading(false);
       }
     }
 
     if (displayName) {
-      console.log(displayName);
-
       await userRef
         .update({ displayName })
         .then(() => {
           setLoading(false);
         })
         .catch((error) => {
-          setErrors((prevErrors) => [...prevErrors, error]);
+          setErrors((prevErrors) => [...prevErrors, error.message]);
           setLoading(false);
-          console.error(error);
         });
     }
   }
@@ -93,8 +96,11 @@ function Profile({ currentUser }) {
           </PrimaryButton>
           {errors && (
             <>
-              {errors.map((error) => (
-                <ValidationErrorMessage additionalClasses="Profile__SignUpErrorMsg">
+              {errors.map((error, index) => (
+                <ValidationErrorMessage
+                  key={index}
+                  additionalClasses="Profile__SignUpErrorMsg"
+                >
                   {error}
                 </ValidationErrorMessage>
               ))}
