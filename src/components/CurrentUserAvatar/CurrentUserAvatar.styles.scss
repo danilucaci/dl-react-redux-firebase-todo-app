@@ -28,6 +28,7 @@
     background-color: tokens.$color-background-avatar-on-white;
     border-radius: 50%;
     object-fit: cover;
+    display: block;
 
     &--Loaded {
       animation: fadeAvatar tokens.$timing-avatar-fadein ease forwards;
