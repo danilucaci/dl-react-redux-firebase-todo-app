@@ -43,25 +43,28 @@ export function Dashboard({
     firestore
       .collection(COLLECTIONS.USERS)
       .doc(currentUser.id)
-      .collection(COLLECTIONS.PROJECTS),
+      .collection(COLLECTIONS.PROJECTS)
+      .limit(20),
   );
 
   const [labelsError, labelsLoading, labelsData] = useCollection(
     firestore
       .collection(COLLECTIONS.USERS)
       .doc(currentUser.id)
-      .collection(COLLECTIONS.LABELS),
+      .collection(COLLECTIONS.LABELS)
+      .limit(20),
   );
 
   const [todosError, todosLoading, todosData] = useCollection(
     firestore
       .collection(COLLECTIONS.USERS)
       .doc(currentUser.id)
-      .collection(COLLECTIONS.TODOS),
+      .collection(COLLECTIONS.TODOS)
+      .limit(40),
   );
 
   const [colorsError, colorsLoading, colorsData] = useCollection(
-    firestore.collection(COLLECTIONS.COLORS),
+    firestore.collection(COLLECTIONS.COLORS).limit(40),
   );
 
   useEffect(() => {
