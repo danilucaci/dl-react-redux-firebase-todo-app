@@ -40,31 +40,26 @@ function withAuth(Component) {
           /* on sign out @returns: `null` */
 
           if (user) {
-            const [userRef, userRefError] = await createUserProfileDocument(
-              user,
-            );
-
-            // Only subscribe if we have a userRef.
-            if (userRef) {
-              unsubscribeFromUserDoc.current = userRef.onSnapshot(
-                function handleUserSnapshot(snapshot) {
-                  // If the user is deleted from firestore clear the local storage
-                  if (snapshot.exists) {
-                    setCurrentUser(getGoogleAuthCurrentUserObject(snapshot));
-                  } else logOut();
-                },
-                function handleUserSnapshotError(error) {
-                  setAppDataErrors(`handleUserSnapshotError: ${error.message}`);
-                },
-              );
-            } else {
-              // If there is no userRef
-              logOutUser();
-            }
-
-            if (typeof userRefError == "string") {
-              setAppDataErrors(userRefError);
-            }
+            await createUserProfileDocument(user)
+              .then((userRef) => {
+                unsubscribeFromUserDoc.current = userRef.onSnapshot(
+                  function handleUserSnapshot(snapshot) {
+                    // If the user is deleted from firestore clear the local storage
+                    if (snapshot.exists) {
+                      setCurrentUser(getGoogleAuthCurrentUserObject(snapshot));
+                    } else logOut();
+                  },
+                  function handleUserSnapshotError(error) {
+                    setAppDataErrors(
+                      `handleUserSnapshotError: ${error.message}`,
+                    );
+                  },
+                );
+              })
+              .catch((error) => {
+                setAppDataErrors(`createUserProfileError: ${error}`);
+                logOutUser();
+              });
           } else {
             /* User signed out => `user = null` */
             logOutUser();

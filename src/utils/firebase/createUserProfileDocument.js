@@ -15,29 +15,26 @@ import { isEmptyObj } from "../helpers";
  * @returns `firebase documentRef`
  * @returns {?array} `Array` of errors caught.
  */
-export const createUserProfileDocument = async (
+export async function createUserProfileDocument(
   user = {},
   additionalData = {},
-) => {
+) {
   if (isEmptyObj(user) || !user.hasOwnProperty("email")) {
-    return [null, "Failed to get the user document. No user provided"];
+    return Promise.reject("Failed to get the user document. No user provided");
   }
 
   /**
    * 1. Get a reference to the place in the DB where a user profile might be.
    */
-  const userRef = getUserDocumentRef(user.uid);
-
-  // If it fails to get the document fail early.
-  if (typeof userRef === "string") {
-    return [null, userRef];
-  }
+  const userRef = await getUserDocumentRef(user.uid).catch((errorMessage) => {
+    return Promise.reject(errorMessage);
+  });
 
   /**
    * 2. Go and fetch the document from that location
    */
   const snapshot = await userRef.get().catch((error) => {
-    return [null, error.message];
+    return Promise.reject(error.message);
   });
 
   /**
@@ -45,12 +42,11 @@ export const createUserProfileDocument = async (
    */
   if (!snapshot.exists) {
     const createdAt = new Date();
-
-    // Empty values come in as `null` so you can’t set a default value for these
-    // because default values are set only if the existing `value === undefined`.
-    const { displayName, email, photoURL } = user;
-
     try {
+      // Empty values come in as `null` so you can’t set a default value for these
+      // because default values are set only if the existing `value === undefined`.
+      const { displayName, email, photoURL } = user;
+
       await userRef.set({
         displayName,
         email,
@@ -58,30 +54,22 @@ export const createUserProfileDocument = async (
         createdAt,
         ...additionalData,
       });
-    } catch (error) {
-      return [null, `Failed to create the user: ${error.message}`];
-    }
 
-    /**
-     * 4. Add an initial `Inbox` project document in the user’s `projects` sub-collection.
-     * `Inbox` is the default project each user has when they sign up.
-     */
-    const createDefaultUserProjectResult = createDefaultUserProject(user.uid);
-
-    if (!createDefaultUserProjectResult) {
-      return [null, "Could not create the default user project."];
-    }
-
-    if (typeof createDefaultUserProjectResult === "string") {
-      return [null, createDefaultUserProjectResult];
+      /**
+       * 4. Add an initial `Inbox` project document in the user’s `projects` sub-collection.
+       * `Inbox` is the default project each user has when they sign up.
+       */
+      await createDefaultUserProject(user.uid);
+    } catch (errorMessage) {
+      return Promise.reject(errorMessage);
     }
   }
 
   /**
    * 5. Return the new user’s `uid` and null for the errors.
    */
-  return [userRef, null];
-};
+  return userRef;
+}
 
 /**
  * Get the `userRef` of the provided `uid`
@@ -90,16 +78,12 @@ export const createUserProfileDocument = async (
  *
  * @returns Firestore `DocumentReference` of the user or the `errorMessage` that was caught.
  */
-export function getUserDocumentRef(uid = null) {
+export async function getUserDocumentRef(uid = null) {
   if (!uid) {
-    return "No user id provided in `getUserDocumentRef()`";
+    return Promise.reject("No user id provided in `getUserDocumentRef()`");
   }
 
-  try {
-    return firestore.collection(COLLECTIONS.USERS).doc(uid);
-  } catch (error) {
-    return error.message;
-  }
+  return firestore.collection(COLLECTIONS.USERS).doc(uid);
 }
 
 /**
@@ -110,7 +94,7 @@ export function getUserDocumentRef(uid = null) {
  */
 export async function createDefaultUserProject(userID = null) {
   if (!userID) {
-    return "No user id provided in `createDefaultUserProject()`";
+    return Promise.reject("No user id provided");
   }
 
   /**
@@ -138,15 +122,9 @@ export async function createDefaultUserProject(userID = null) {
    *   colorValue: "#hex-value",
    * }
    */
-  const inboxColorResult = await getInboxColor();
-
-  if (!inboxColorResult) {
-    return "Could not get the default project color data.";
-  }
-
-  if (typeof inboxColorResult === "string") {
-    return inboxColorResult;
-  }
+  const inboxColorResult = await getInboxColor().catch((errorMessage) => {
+    return Promise.reject(errorMessage);
+  });
 
   /**
    * 3. Add a new `project` document with the id from the previous generated `inboxProjectRef`.
@@ -162,15 +140,12 @@ export async function createDefaultUserProject(userID = null) {
     color: inboxColorResult,
   };
 
-  return await inboxProjectRef
+  await inboxProjectRef
     .set({
       ...newInboxProject,
     })
-    .then(() => {
-      return null;
-    })
     .catch((error) => {
-      return error.message;
+      return Promise.reject(error.message);
     });
 }
 
@@ -195,11 +170,15 @@ export async function getInboxColor() {
     const colorSnapshot = await firestore
       .collection(COLLECTIONS.COLORS)
       .where(COLLECTIONS.INBOX_COLOR_IDENTIFIER, "==", true)
-      .get();
+      .limit(40)
+      .get()
+      .catch((e) => {
+        return Promise.reject(e.message);
+      });
 
     // If it is not empty return the color data of the default project
     if (!colorSnapshot.empty) {
-      if (colorSnapshot.docs[0].exists) {
+      if (colorSnapshot.docs && colorSnapshot.docs[0].exists) {
         return {
           colorID: colorSnapshot.docs[0].id,
           colorName: colorSnapshot.docs[0].data().colorName,
@@ -207,12 +186,12 @@ export async function getInboxColor() {
         };
       }
 
-      return null;
+      return Promise.reject("Failed to get the default project color data.");
     }
 
     // If the snapshot was empty return null
-    return null;
+    return Promise.reject("Failed to get the default project color data.");
   } catch (e) {
-    return e.message;
+    return Promise.reject(e.message);
   }
 }
