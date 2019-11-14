@@ -14,18 +14,29 @@ service cloud.firestore {
       return request.auth.uid == userId;
     }
     
-    match /colors/{color=**} {
-      allow read: if isSignedIn();
+    function queryLimit(limit) {
+      return request.query.limit <= limit;
+    }
+    
+    match /colors/{colorId} {
+      allow read: if isSignedIn() && queryLimit(40);
     }
     
     match /users/{userId} {
-    allow create: if isSignedIn();
-    allow read, update, delete: if isOwner(userId);
-    
-     // Allow only authenticated content owners access
-     match /{documents=**} {
-    	allow read, write: if isOwner(userId);
-     }
+      allow get, create, update: if isOwner(userId);
+      
+      match /projects/{projectId} {
+        allow read: if queryLimit(20) && isOwner(userId);
+        allow write: if isOwner(userId);
+      }
+      match /labels/{labelId} {
+        allow read: if queryLimit(20) && isOwner(userId);
+        allow write: if isOwner(userId);
+      }
+      match /todos/{todoId} {
+        allow read: if queryLimit(40) && isOwner(userId);
+        allow write: if isOwner(userId);
+      }
     }
   }
 }
