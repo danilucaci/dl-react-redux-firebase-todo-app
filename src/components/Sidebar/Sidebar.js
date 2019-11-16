@@ -17,6 +17,9 @@ import { signOut } from "../../firebase/firebase";
 import { useDisableSidebarBackground, useAnimation } from "../../hooks";
 
 function Sidebar({
+  inboxTodosCount,
+  todayTodosCount,
+  nextDaysTodosCount,
   projects,
   labels,
   menu,
@@ -101,7 +104,9 @@ function Sidebar({
                   <use xlinkHref="#home" />
                 </svg>
                 Inbox
-                <span className="Sidebar__Section__Item__Count">15</span>
+                <span className="Sidebar__Section__Item__Count">
+                  {inboxTodosCount}
+                </span>
               </NavLink>
             </li>
             <li className="Sidebar__Section__Item">
@@ -119,7 +124,9 @@ function Sidebar({
                   </text>
                 </svg>
                 Today
-                <span className="Sidebar__Section__Item__Count">5</span>
+                <span className="Sidebar__Section__Item__Count">
+                  {todayTodosCount}
+                </span>
               </NavLink>
             </li>
             <li className="Sidebar__Section__Item">
@@ -132,7 +139,9 @@ function Sidebar({
                   <use xlinkHref="#calendar-base" />
                 </svg>
                 Next 7 days
-                <span className="Sidebar__Section__Item__Count">11</span>
+                <span className="Sidebar__Section__Item__Count">
+                  {nextDaysTodosCount}
+                </span>
               </NavLink>
             </li>
           </ul>

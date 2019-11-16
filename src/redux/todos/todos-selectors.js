@@ -4,6 +4,7 @@ import {
   isFutureDate,
   isTodayDate,
   getNthDate,
+  isBetweenNextDaysInverval,
 } from "../../utils/dates";
 
 import { INBOX_PROJECT_IDENTIFIER } from "../../constants/collections";
@@ -24,6 +25,11 @@ export const inboxTodosSelector = createSelector([selectTodos], (todos) =>
   ),
 );
 
+export const inboxTodosCountSelector = createSelector(
+  [inboxTodosSelector],
+  (todos) => todos.length,
+);
+
 export const notOverdueInboxTodosSelector = createSelector(
   [inboxTodosSelector],
   (todos) =>
@@ -42,6 +48,11 @@ export const todayTodosSelector = createSelector([selectTodos], (todos) =>
   todos.filter((todo) => isTodayDate(todo.dueDate)).map((todo) => todo.id),
 );
 
+export const todayTodosCountSelector = createSelector(
+  [todayTodosSelector],
+  (todos) => todos.length,
+);
+
 export const overdueTodosSelector = createSelector([selectTodos], (todos) =>
   todos.filter((todo) => isPastDate(todo.dueDate)).map((todo) => todo.id),
 );
@@ -52,6 +63,12 @@ export const notOverdueTodayTodosSelector = createSelector(
     todos
       .filter((todo) => isFutureDate(todo.dueDate) || todo.dueDate === null)
       .map((todo) => todo.id),
+);
+
+export const nextDaysTodosCountSelector = createSelector(
+  [selectTodos],
+  (todos) =>
+    todos.filter((todo) => isBetweenNextDaysInverval(todo.dueDate, 1)).length,
 );
 
 export const nextDaysPlus1TodosSelector = createSelector(

@@ -1,5 +1,10 @@
 import { connect } from "react-redux";
 
+import {
+  inboxTodosCountSelector,
+  todayTodosCountSelector,
+  nextDaysTodosCountSelector,
+} from "../../../redux/todos/todos-selectors";
 import { projectsSelector } from "../../../redux/projects/projects-selectors";
 import { labelsSelector } from "../../../redux/labels/labels-selectors";
 import { menuSelector } from "../../../redux/localState/localState-selectors";
@@ -13,6 +18,9 @@ import { appDataSelector } from "../../../redux/localState/localState-selectors"
 import Sidebar from "../../../components/Sidebar/Sidebar";
 
 export const mapStateToProps = (state) => ({
+  inboxTodosCount: inboxTodosCountSelector(state),
+  todayTodosCount: todayTodosCountSelector(state),
+  nextDaysTodosCount: nextDaysTodosCountSelector(state),
   projects: projectsSelector(state),
   labels: labelsSelector(state),
   menu: menuSelector(state),
@@ -25,7 +33,4 @@ export const mapDispatchToProps = (dispatch) => ({
   openAddLabelModal: () => dispatch(openAddLabelModal()),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Sidebar);
+export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);
