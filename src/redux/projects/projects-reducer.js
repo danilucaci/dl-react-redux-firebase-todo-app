@@ -9,13 +9,7 @@ const projectsReducer = (state = INITIAL_STATE, action) => {
     case ProjectsTypes.SET_PROJECTS: {
       return {
         ...state,
-        byID: { ...state.byID, ...action.payload },
-      };
-    }
-    case ProjectsTypes.UPDATE_PROJECTS: {
-      return {
-        ...state,
-        byID: { ...state.byID, ...action.payload },
+        byID: { ...action.payload },
       };
     }
     case ProjectsTypes.ADD_PROJECT: {
@@ -24,6 +18,25 @@ const projectsReducer = (state = INITIAL_STATE, action) => {
         byID: {
           ...state.byID,
           [action.payload.id]: action.payload,
+        },
+      };
+    }
+    case ProjectsTypes.UPDATE_PROJECT: {
+      return {
+        ...state,
+        byID: {
+          ...state.byID,
+          [action.payload.id]: action.payload,
+        },
+      };
+    }
+    case ProjectsTypes.REMOVE_PROJECT: {
+      const { [action.payload]: removedProject, ...otherProjects } = state.byID;
+
+      return {
+        ...state,
+        byID: {
+          ...otherProjects,
         },
       };
     }

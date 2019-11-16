@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { arrayOf, oneOf, shape, oneOfType, string } from "prop-types";
 import { useHistory, useLocation } from "react-router-dom";
+import { array, bool, shape, func } from "prop-types";
 import "./Signup.styles.scss";
 
 import * as ROUTES from "../../constants/routes";
@@ -12,15 +12,13 @@ import Input from "../../components/Input/Input";
 import OrDivider from "../../components/OrDivider/OrDivider";
 import ValidationErrorMessage from "../../components/ValidationErrorMessage/ValidationErrorMessage";
 
-import { auth } from "../../firebase/firebase";
-import { getUserDocumentRef } from "../../utils/firebase/createUserProfileDocument";
-
-function Signup({ currentUser = null }) {
+function Signup({
+  userState: { signupErrors, signupLoading, isAuthenticated } = {},
+  signUpWithEmailRequest,
+}) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [signUpError, setSignUpError] = useState("");
 
   let history = useHistory();
   let location = useLocation();
@@ -28,7 +26,12 @@ function Signup({ currentUser = null }) {
   let { from } = location.state || { from: { pathname: "/" } };
 
   useEffect(() => {
-    function redirect() {
+    /**
+     * Don’t redirect until the `currentUser` has been stored in state.
+     * The `currentUser` info is needed to fetch the data
+     * from the firestore collections based on the user’s `uid`
+     */
+    if (isAuthenticated) {
       /**
        * If the user clicks the `Back` button,
        * redirect to the url visited before logging in.
@@ -39,64 +42,13 @@ function Signup({ currentUser = null }) {
       history.replace(from);
       history.push(ROUTES.INBOX);
     }
-
-    /**
-     * Don’t redirect until the `currentUser` has been stored in state.
-     * The `currentUser` info is needed to fetch the data
-     * from the firestore collections based on the user’s `uid`
-     */
-    if (currentUser) {
-      /**
-       * Only when signing up with email and `name` is changed in the form
-       * and the `currentUser` created by withAuth doesn’t have a `displayName`.
-       * SignInWithGoogle will have a displayName from the google account.
-       */
-      if (name && !currentUser.displayName) {
-        setEmailSignUpDisplayName(currentUser.id);
-      }
-
-      redirect();
-    }
-
-    async function setEmailSignUpDisplayName(currentUserID) {
-      const userRef = await getUserDocumentRef(currentUserID);
-
-      if (typeof userRef === "string") {
-        setLoading(false);
-        setSignUpError(userRef);
-      } else {
-        await userRef
-          .update({
-            displayName: name,
-          })
-          .then(() => {
-            redirect();
-          })
-          .catch((error) => {
-            setLoading(false);
-            setSignUpError(error.message);
-          });
-      }
-    }
-  }, [currentUser, from, history, name]);
+  }, [isAuthenticated, from, history]);
 
   async function handleSignup(e) {
     e.preventDefault();
-    setLoading(true);
 
-    await auth
-      .createUserWithEmailAndPassword(email, password)
-      .catch(function handleEmailSignUpError(error) {
-        setLoading(false);
-        setSignUpError(error.message);
-      });
+    await signUpWithEmailRequest(email, password, name);
   }
-
-  useEffect(() => {
-    if (signUpError) {
-      console.log(signUpError);
-    }
-  }, [signUpError]);
 
   return (
     <section className="Signup">
@@ -104,7 +56,10 @@ function Signup({ currentUser = null }) {
         <h1 className="Signup__Title">Sign up</h1>
       </header>
       <section>
-        <SignInWithGoogle additionalClasses="Signup__GoogleBtn" />
+        <SignInWithGoogle
+          additionalClasses="Signup__GoogleBtn"
+          label="Sign up with Google"
+        />
         <OrDivider additionalClasses="Signup__OrDivider" />
         <form method="post" onSubmit={handleSignup}>
           <Input
@@ -142,15 +97,23 @@ function Signup({ currentUser = null }) {
           <PrimaryButton
             additionalClasses="Signup__SubmitBtn"
             type="submit"
-            disabled={loading}
+            disabled={signupLoading}
           >
             Sign up
           </PrimaryButton>
-          {signUpError && (
-            <ValidationErrorMessage additionalClasses="Signup__SignUpErrorMsg">
-              {signUpError}
-            </ValidationErrorMessage>
-          )}
+          {signupErrors && signupErrors.length ? (
+            <>
+              {signupErrors.map((error, index) => (
+                <ValidationErrorMessage
+                  key={index}
+                  additionalClasses="Signup__SignUpErrorMsg"
+                >
+                  {error}
+                </ValidationErrorMessage>
+              ))}
+              <hr className="Signup__Divider" />
+            </>
+          ) : null}
         </form>
       </section>
       <nav className="Signup__ButtonsNav">
@@ -172,20 +135,12 @@ function Signup({ currentUser = null }) {
 }
 
 Signup.propTypes = {
-  currentUser: oneOfType([
-    shape({
-      id: string,
-      displayName: string,
-      email: string,
-      avatar: string,
-      role: arrayOf(string),
-    }),
-    oneOf([null]),
-  ]),
-};
-
-Signup.defaultProps = {
-  currentUser: null,
+  userState: shape({
+    signupErrors: array.isRequired,
+    signupLoading: bool.isRequired,
+    isAuthenticated: bool.isRequired,
+  }).isRequired,
+  signUpWithEmailRequest: func.isRequired,
 };
 
 export default Signup;

@@ -1,6 +1,6 @@
 import { useRef, useEffect, useReducer } from "react";
 
-import getDocsObject from "../../utils/firebase/getDocsObject";
+import getObjectFromDocs from "../../utils/firebase/getObjectFromDocs";
 
 export const collectionState = {
   loading: true,
@@ -13,7 +13,7 @@ export const collectionReducer = (state, action) => {
     case "save": {
       return {
         ...state,
-        data: getDocsObject(action.payload),
+        data: getObjectFromDocs(action.payload),
         loading: false,
       };
     }

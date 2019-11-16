@@ -11,7 +11,7 @@
  * @param {array} docs - The `docs` array returned from `QuerySnapshot`.
  * @returns {Object|{}} Transformed object to store in redux.
  */
-function getDocsObject(docs = []) {
+function getObjectFromDocs(docs = []) {
   const obj = docs.reduce(function reduceDocs(docs, currDoc) {
     return {
       ...docs,
@@ -22,4 +22,4 @@ function getDocsObject(docs = []) {
   return obj;
 }
 
-export default getDocsObject;
+export default getObjectFromDocs;

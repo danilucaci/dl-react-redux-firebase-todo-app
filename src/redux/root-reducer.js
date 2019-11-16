@@ -6,15 +6,15 @@ import labelsReducer from "./labels/labels-reducer";
 import todosReducer from "./todos/todos-reducer";
 import localStateReducer from "./localState/localState-reducer";
 
-const LOG_OUT = "LOG_OUT";
+const RESET_STORE_AND_LOG_OUT = "RESET_STORE_AND_LOG_OUT";
 
 /**
  * Passes `undefined` to all reducers to set their state to the `INITIAL_VALUE`
  *
  * @see https://stackoverflow.com/questions/35622588/how-to-reset-the-state-of-a-redux-store
  */
-export const logOut = () => ({
-  type: LOG_OUT,
+export const resetStoreAndLogOut = () => ({
+  type: RESET_STORE_AND_LOG_OUT,
 });
 
 export const appReducer = combineReducers({
@@ -56,7 +56,7 @@ export const appReducer = combineReducers({
  */
 
 const rootReducer = (state, action) => {
-  if (action.type === LOG_OUT) {
+  if (action.type === RESET_STORE_AND_LOG_OUT) {
     state = undefined;
   }
 

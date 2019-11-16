@@ -15,10 +15,10 @@ import avatarPlaceholder from "../../assets/img/avatar-placeholder.png";
 import { getClassesFromProps } from "../../utils/helpers";
 import * as ROUTES from "../../constants/routes";
 import UserAvatarContainer from "../../redux/containers/components/UserAvatarContainer";
-import { signOut } from "../../firebase/firebase";
 
 function CurrentUserAvatar({
   currentUser: { avatar = "", displayName = "" } = {},
+  logoutUser,
   additionalClasses,
 }) {
   const addedClasses = getClassesFromProps(additionalClasses);
@@ -68,10 +68,7 @@ function CurrentUserAvatar({
           My account
         </MenuLink>
         <span className="CurrentUserAvatar__Divider" />
-        <MenuItem
-          className="CurrentUserAvatar__Item"
-          onSelect={() => signOut()}
-        >
+        <MenuItem className="CurrentUserAvatar__Item" onSelect={logoutUser}>
           <svg className="CurrentUserAvatar__Icon">
             <use xlinkHref="#sign-out" />
           </svg>

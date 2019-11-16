@@ -55,8 +55,6 @@ Label.propTypes = {
   labelTodos: array.isRequired,
   labelOverdueTodos: array.isRequired,
   label: shape({
-    id: string.isRequired,
-    uid: string.isRequired,
     name: string.isRequired,
     todosCount: number.isRequired,
     color: oneOfType([

@@ -1,3 +1,5 @@
+import { INBOX_PROJECT_IDENTIFIER } from "../../constants/collections";
+
 export const addTodoReducerState = {
   showProjects: false,
   initialSelectedProjectSet: false,
@@ -52,6 +54,9 @@ export const addTodoReducer = (state, { type, payload }) => {
             colorName: payload.color.colorName,
             colorValue: payload.color.colorValue,
             projectID: payload.id,
+            [INBOX_PROJECT_IDENTIFIER]: payload[INBOX_PROJECT_IDENTIFIER]
+              ? true
+              : false,
             name: payload.name,
           },
         },
@@ -68,6 +73,9 @@ export const addTodoReducer = (state, { type, payload }) => {
             colorValue: payload.color.colorValue,
             projectID: payload.id,
             name: payload.name,
+            [INBOX_PROJECT_IDENTIFIER]: payload[INBOX_PROJECT_IDENTIFIER]
+              ? true
+              : false,
           },
         },
       };

@@ -3,6 +3,10 @@ import LocalStateTypes from "./localState-types";
 const INITIAL_STATE = {
   appData: {
     initialDataLoaded: false,
+    initialTodosLoaded: false,
+    initialProjectsLoaded: false,
+    initialLabelsLoaded: false,
+    initialColorsLoaded: false,
     errors: [],
     skeletonTodos: 3,
     skeletonSidebarItems: 3,
@@ -28,13 +32,59 @@ const localStateReducer = (state = INITIAL_STATE, action) => {
         },
       };
     }
-    case LocalStateTypes.SET_APP_DATA_ERRORS: {
+    case LocalStateTypes.SET_INITIAL_TODOS_LOADED: {
       return {
         ...state,
         appData: {
           ...state.appData,
-          initialDataLoaded: true,
-          errors: [...state.appData.errors, action.payload],
+          initialTodosLoaded: true,
+        },
+      };
+    }
+    case LocalStateTypes.SET_INITIAL_PROJECTS_LOADED: {
+      return {
+        ...state,
+        appData: {
+          ...state.appData,
+          initialProjectsLoaded: true,
+        },
+      };
+    }
+    case LocalStateTypes.SET_INITIAL_LABELS_LOADED: {
+      return {
+        ...state,
+        appData: {
+          ...state.appData,
+          initialLabelsLoaded: true,
+        },
+      };
+    }
+    case LocalStateTypes.SET_INITIAL_COLORS_LOADED: {
+      return {
+        ...state,
+        appData: {
+          ...state.appData,
+          initialColorsLoaded: true,
+        },
+      };
+    }
+    case LocalStateTypes.SET_APP_DATA_ERRORS: {
+      let newErrors;
+
+      if (typeof action.payload === "string") {
+        newErrors = [action.payload];
+      }
+      if (Array.isArray(action.payload)) {
+        newErrors = [...action.payload];
+      } else {
+        newErrors = [];
+      }
+
+      return {
+        ...state,
+        appData: {
+          ...state.appData,
+          errors: [...state.appData.errors, ...newErrors],
         },
       };
     }

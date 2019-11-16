@@ -73,6 +73,10 @@
     border-radius: tokens.$border-radius-components-default;
     display: block;
 
+    @include tokens.media-min("xxs") {
+      min-width: tokens.$size-dropdown-current-user;
+    }
+
     padding: {
       bottom: tokens.$spacing-c-03 !important;
     }

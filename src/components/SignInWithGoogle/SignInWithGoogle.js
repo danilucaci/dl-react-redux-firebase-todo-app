@@ -7,18 +7,22 @@ import classNames from "classnames";
 import "./SignInWithGoogle.styles.scss";
 import { getClassesFromProps } from "../../utils/helpers";
 import OutlinedButton from "../OutlinedButton/OutlinedButton";
-import { signInWithGoogle } from "../../firebase/firebase";
 import { currentUserSelector } from "../../redux/user/user-selectors";
-import { setAppDataErrors } from "../../redux/localState/localState-actions";
+import { signUpWithGoogleRequest } from "../../redux/user/user-actions";
 
 export const mapStateToProps = (state) => ({
   currentUser: currentUserSelector(state),
 });
 
+export const mapDispatchToProps = (dispatch) => ({
+  signUpWithGoogleRequest: () => dispatch(signUpWithGoogleRequest()),
+});
+
 function SignInWithGoogle({
   additionalClasses,
   currentUser = null,
-  dispatch,
+  signUpWithGoogleRequest,
+  label = "Sign in with Google",
   ...props
 }) {
   const addedClasses = getClassesFromProps(additionalClasses);
@@ -31,9 +35,8 @@ function SignInWithGoogle({
 
   function handleSignInWithGoogle() {
     setLoading(true);
-    signInWithGoogle().catch((event) =>
-      dispatch(setAppDataErrors(event.message)),
-    );
+
+    signUpWithGoogleRequest();
   }
 
   return (
@@ -46,17 +49,19 @@ function SignInWithGoogle({
       <svg className="GoogleIcon">
         <use xlinkHref="#google" />
       </svg>
-      Sign in with Google
+      {label}
     </OutlinedButton>
   );
 }
 
 SignInWithGoogle.propTypes = {
   additionalClasses: string,
+  label: string,
 };
 
 SignInWithGoogle.defaultProps = {
   additionalClasses: null,
+  label: "Sign in with Google",
 };
 
-export default connect(mapStateToProps)(SignInWithGoogle);
+export default connect(mapStateToProps, mapDispatchToProps)(SignInWithGoogle);

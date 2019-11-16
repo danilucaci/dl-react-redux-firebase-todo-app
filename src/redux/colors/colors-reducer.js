@@ -9,13 +9,35 @@ const colorsReducer = (state = INITIAL_STATE, action) => {
     case ColorsTypes.SET_COLORS: {
       return {
         ...state,
-        byID: { ...state.byID, ...action.payload },
+        byID: { ...action.payload },
       };
     }
-    case ColorsTypes.UPDATE_COLORS: {
+    case ColorsTypes.ADD_COLOR: {
       return {
         ...state,
-        byID: { ...state.byID, ...action.payload },
+        byID: {
+          ...state.byID,
+          [action.payload.id]: action.payload,
+        },
+      };
+    }
+    case ColorsTypes.UPDATE_COLOR: {
+      return {
+        ...state,
+        byID: {
+          ...state.byID,
+          [action.payload.id]: action.payload,
+        },
+      };
+    }
+    case ColorsTypes.REMOVE_COLOR: {
+      const { [action.payload]: removedColor, ...otherColors } = state.byID;
+
+      return {
+        ...state,
+        byID: {
+          ...otherColors,
+        },
       };
     }
     default:

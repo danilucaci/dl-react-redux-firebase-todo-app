@@ -5,17 +5,13 @@ import {
   shape,
   oneOfType,
   string,
-  bool,
   number,
+  bool,
   func,
 } from "prop-types";
 import { Route } from "react-router-dom";
 
-import * as COLLECTIONS from "../../constants/collections";
 import * as ROUTES from "../../constants/routes";
-import { firestore } from "../../firebase/firebase";
-import useCollection from "../../hooks/firebase/useCollection";
-import { filterErrors, log } from "../../utils/helpers";
 import withProtectedRoute from "../../hoc/withProtectedRoute";
 import Profile from "../../pages/Profile/Profile";
 import InboxContainer from "../../redux/containers/pages/InboxContainer";
@@ -26,122 +22,7 @@ import ProjectsContainer from "../../redux/containers/pages/ProjectsContainer";
 import LabelContainer from "../../redux/containers/pages/LabelContainer";
 import LabelsContainer from "../../redux/containers/pages/LabelsContainer";
 
-export function Dashboard({
-  setColors,
-  setTodos,
-  setLabels,
-  setProjects,
-  setInitialDataLoaded,
-  setAppDataErrors,
-  appData: { initialDataLoaded = false } = {},
-  currentUser = null,
-  projects,
-  labels,
-  children,
-}) {
-  const [projectsError, projectsLoading, projectsData] = useCollection(
-    firestore
-      .collection(COLLECTIONS.USERS)
-      .doc(currentUser.id)
-      .collection(COLLECTIONS.PROJECTS)
-      .limit(20),
-  );
-
-  const [labelsError, labelsLoading, labelsData] = useCollection(
-    firestore
-      .collection(COLLECTIONS.USERS)
-      .doc(currentUser.id)
-      .collection(COLLECTIONS.LABELS)
-      .limit(20),
-  );
-
-  const [todosError, todosLoading, todosData] = useCollection(
-    firestore
-      .collection(COLLECTIONS.USERS)
-      .doc(currentUser.id)
-      .collection(COLLECTIONS.TODOS)
-      .limit(40),
-  );
-
-  const [colorsError, colorsLoading, colorsData] = useCollection(
-    firestore.collection(COLLECTIONS.COLORS).limit(40),
-  );
-
-  useEffect(() => {
-    if (projectsError || labelsError || todosError || colorsError) {
-      setAppDataErrors(
-        filterErrors(projectsError, labelsError, todosError, colorsError),
-      );
-    }
-  }, [colorsError, labelsError, projectsError, todosError, setAppDataErrors]);
-
-  useEffect(() => {
-    if (!projectsLoading && !projectsError) {
-      setProjects(projectsData);
-    }
-  }, [projectsData, projectsError, setProjects, projectsLoading]);
-
-  useEffect(() => {
-    if (!labelsLoading && !labelsError) {
-      setLabels(labelsData);
-    }
-  }, [labelsData, labelsError, setLabels, labelsLoading]);
-
-  useEffect(() => {
-    if (!todosLoading && !todosError) {
-      setTodos(todosData);
-    }
-  }, [todosData, todosError, setTodos, todosLoading]);
-
-  useEffect(() => {
-    if (!colorsLoading && !colorsError) {
-      setColors(colorsData);
-    }
-  }, [colorsData, colorsError, setColors, colorsLoading]);
-
-  useEffect(() => {
-    log("Fetched Colors");
-  }, [colorsData]);
-
-  useEffect(() => {
-    log("Fetched Todos");
-  }, [todosData]);
-
-  useEffect(() => {
-    log("Fetched Projects");
-  }, [projectsData]);
-
-  useEffect(() => {
-    log("Fetched Labels");
-  }, [labelsData]);
-
-  useEffect(() => {
-    if (
-      !initialDataLoaded &&
-      !projectsLoading &&
-      !labelsLoading &&
-      !todosLoading &&
-      !colorsLoading &&
-      !projectsError &&
-      !labelsError &&
-      !todosError &&
-      !colorsError
-    ) {
-      setInitialDataLoaded();
-    }
-  }, [
-    colorsError,
-    colorsLoading,
-    labelsError,
-    labelsLoading,
-    projectsError,
-    projectsLoading,
-    todosError,
-    todosLoading,
-    initialDataLoaded,
-    setInitialDataLoaded,
-  ]);
-
+export function DashboardRoutes({ projects, labels, children }) {
   return (
     <>
       {children}
@@ -179,38 +60,115 @@ export function Dashboard({
   );
 }
 
-function DashboardGateway({
+function Dashboard({
+  appData: {
+    initialDataLoaded = false,
+    initialTodosLoaded = false,
+    initialProjectsLoaded = false,
+    initialLabelsLoaded = false,
+    initialColorsLoaded = false,
+  } = {},
+  setInitialDataLoaded,
+  subscribeToColors,
+  subscribeToTodos,
+  subscribeToLabels,
+  subscribeToProjects,
   projects,
   labels,
-  setColors,
-  setTodos,
-  setLabels,
-  setProjects,
-  setInitialDataLoaded,
-  setAppDataErrors,
-  appData,
-  currentUser = null,
+  userState: { isAuthenticated } = {},
   children,
 }) {
-  return currentUser ? (
-    <Dashboard
-      projects={projects}
-      labels={labels}
-      setColors={setColors}
-      setTodos={setTodos}
-      setLabels={setLabels}
-      setProjects={setProjects}
-      setInitialDataLoaded={setInitialDataLoaded}
-      setAppDataErrors={setAppDataErrors}
-      appData={appData}
-      currentUser={currentUser}
-    >
+  useEffect(() => {
+    if (
+      !initialDataLoaded &&
+      initialTodosLoaded &&
+      initialProjectsLoaded &&
+      initialLabelsLoaded &&
+      initialColorsLoaded
+    ) {
+      setInitialDataLoaded();
+    }
+  }, [
+    initialDataLoaded,
+    initialTodosLoaded,
+    initialProjectsLoaded,
+    initialLabelsLoaded,
+    initialColorsLoaded,
+    setInitialDataLoaded,
+  ]);
+
+  useEffect(() => {
+    let unsuscribeFromProjects;
+
+    async function suscribeToProjects() {
+      unsuscribeFromProjects = await subscribeToProjects();
+    }
+
+    suscribeToProjects();
+
+    return () => {
+      if (unsuscribeFromProjects) {
+        unsuscribeFromProjects();
+      }
+    };
+  }, [subscribeToProjects]);
+
+  useEffect(() => {
+    let unsuscribeFromLabels;
+
+    async function suscribeToLabels() {
+      unsuscribeFromLabels = await subscribeToLabels();
+    }
+
+    suscribeToLabels();
+
+    return () => {
+      if (unsuscribeFromLabels) {
+        unsuscribeFromLabels();
+      }
+    };
+  }, [subscribeToLabels]);
+
+  useEffect(() => {
+    let unsuscribeFromColors;
+
+    async function suscribeToColors() {
+      unsuscribeFromColors = await subscribeToColors();
+    }
+
+    suscribeToColors();
+
+    return () => {
+      if (unsuscribeFromColors) {
+        unsuscribeFromColors();
+      }
+    };
+  }, [subscribeToColors]);
+
+  useEffect(() => {
+    let unsuscribeFromTodos;
+
+    async function suscribeToTodos() {
+      unsuscribeFromTodos = await subscribeToTodos();
+    }
+
+    suscribeToTodos();
+
+    return () => {
+      if (unsuscribeFromTodos) {
+        unsuscribeFromTodos();
+      }
+    };
+  }, [subscribeToTodos]);
+
+  return isAuthenticated ? (
+    <DashboardRoutes projects={projects} labels={labels}>
       {children}
-    </Dashboard>
+    </DashboardRoutes>
   ) : null;
 }
 
-DashboardGateway.propTypes = {
+Dashboard.propTypes = {
   projects: arrayOf(
     shape({
       id: string,
@@ -240,33 +198,18 @@ DashboardGateway.propTypes = {
     ),
     oneOf([null]),
   ]).isRequired,
-  setColors: func.isRequired,
-  setTodos: func.isRequired,
-  setLabels: func.isRequired,
-  setProjects: func.isRequired,
+  subscribeToColors: func.isRequired,
+  subscribeToTodos: func.isRequired,
+  subscribeToLabels: func.isRequired,
+  subscribeToProjects: func.isRequired,
   setInitialDataLoaded: func.isRequired,
-  setAppDataErrors: func.isRequired,
-  appData: shape({
-    initialDataLoaded: bool,
+  userState: shape({
+    isAuthenticated: bool.isRequired,
   }).isRequired,
-  currentUser: oneOfType([
-    shape({
-      id: string,
-      displayName: string,
-      email: string,
-      avatar: string,
-      role: arrayOf(string),
-    }),
-    oneOf([null]),
-  ]).isRequired,
 };
 
-DashboardGateway.defaultProps = {
+Dashboard.defaultProps = {
   labels: null,
-  appData: {
-    initialDataLoaded: false,
-  },
-  currentUser: null,
 };
 
-export default withProtectedRoute()(DashboardGateway);
+export default withProtectedRoute()(Dashboard);

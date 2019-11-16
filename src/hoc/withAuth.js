@@ -2,28 +2,38 @@ import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 
 import { auth } from "../firebase/firebase";
-import getGoogleAuthCurrentUserObject from "../utils/firebase/getGoogleAuthCurrentUserObject";
+import getCurrentUserDataFromSnapshot from "../utils/firebase/getCurrentUserDataFromSnapshot";
 import { createUserProfileDocument } from "../utils/firebase/createUserProfileDocument";
-import { setCurrentUser } from "../redux/user/user-actions";
+import { loginSuccess, logoutUser } from "../redux/user/user-actions";
+import { userStateSelector } from "../redux/user/user-selectors";
 import { getDisplayName } from "../utils/helpers";
-import { logOut } from "../redux/root-reducer";
 import { setAppDataErrors } from "../redux/localState/localState-actions";
 
+export const mapStateToProps = (state) => ({
+  userState: userStateSelector(state),
+});
+
 const mapDispatchToProps = (dispatch) => ({
-  setCurrentUser: (currentUser) => dispatch(setCurrentUser(currentUser)),
+  loginSuccess: (currentUser) => dispatch(loginSuccess(currentUser)),
   setAppDataErrors: (error) => dispatch(setAppDataErrors(error)),
-  logOut: () => dispatch(logOut()),
+  logoutUser: () => dispatch(logoutUser()),
 });
 
 function withAuth(Component) {
   Component.displayName = `WithAuth(${getDisplayName(Component)})`;
 
-  function WithAuth({ setCurrentUser, logOut, setAppDataErrors, ...props }) {
+  function WithAuth({
+    loginSuccess,
+    logoutUser,
+    userState: { isSigningUp, signupErrors, isLoggingOut } = {},
+    setAppDataErrors,
+    ...props
+  }) {
     const unsubscribeFromAuth = useRef(null);
     const unsubscribeFromUserDoc = useRef(null);
 
     useEffect(() => {
-      function logOutUser() {
+      function handleLogOut() {
         /**
          * First unsubscribe from the userDoc and then log out.
          * Otherwise the request on firebase will not have a `auth.uid` and throw an error.
@@ -31,7 +41,7 @@ function withAuth(Component) {
         if (unsubscribeFromUserDoc.current) {
           unsubscribeFromUserDoc.current();
         }
-        logOut();
+        logoutUser();
       }
 
       unsubscribeFromAuth.current = auth.onAuthStateChanged(
@@ -39,30 +49,39 @@ function withAuth(Component) {
           /* on sign in @returns: `user` */
           /* on sign out @returns: `null` */
 
-          if (user) {
-            await createUserProfileDocument(user)
-              .then((userRef) => {
-                unsubscribeFromUserDoc.current = userRef.onSnapshot(
-                  function handleUserSnapshot(snapshot) {
-                    // If the user is deleted from firestore clear the local storage
-                    if (snapshot.exists) {
-                      setCurrentUser(getGoogleAuthCurrentUserObject(snapshot));
-                    } else logOut();
-                  },
-                  function handleUserSnapshotError(error) {
-                    setAppDataErrors(
-                      `handleUserSnapshotError: ${error.message}`,
-                    );
-                  },
-                );
-              })
-              .catch((error) => {
-                setAppDataErrors(`createUserProfileError: ${error}`);
-                logOutUser();
-              });
-          } else {
-            /* User signed out => `user = null` */
-            logOutUser();
+          /**
+           * Wait to create the profile document when signing up with email
+           * to save the `displayName` first from the sign up form.
+           */
+          if (!isSigningUp && !signupErrors.lenght) {
+            if (user) {
+              await createUserProfileDocument(user)
+                .then((userRef) => {
+                  unsubscribeFromUserDoc.current = userRef.onSnapshot(
+                    function handleUserSnapshot(snapshot) {
+                      // If the user is deleted from firestore clear the local storage
+                      if (snapshot.exists) {
+                        loginSuccess(getCurrentUserDataFromSnapshot(snapshot));
+                      } else {
+                        logoutUser();
+                      }
+                    },
+                    function handleUserSnapshotError(error) {
+                      setAppDataErrors(
+                        `handleUserSnapshotError: ${error.message}`,
+                      );
+                    },
+                  );
+                })
+                .catch((error) => {
+                  setAppDataErrors(`createUserProfileError: ${error}`);
+                  handleLogOut();
+                });
+            } else {
+              console.log("No user");
+              /* User signed out => `user = null` */
+              handleLogOut();
+            }
           }
         },
         function handleAuthStateChangeError(error) {
@@ -71,15 +90,19 @@ function withAuth(Component) {
       );
 
       return () => {
-        unsubscribeFromAuth.current();
-        unsubscribeFromUserDoc.current();
+        if (unsubscribeFromAuth.current) {
+          unsubscribeFromAuth.current();
+        }
+        if (unsubscribeFromUserDoc.current) {
+          unsubscribeFromUserDoc.current();
+        }
       };
-    }, [logOut, setAppDataErrors, setCurrentUser]);
+    }, [isSigningUp, loginSuccess, logoutUser, setAppDataErrors, signupErrors]);
 
     return <Component {...props} />;
   }
 
-  return connect(null, mapDispatchToProps)(WithAuth);
+  return connect(mapStateToProps, mapDispatchToProps)(WithAuth);
 }
 
 export default withAuth;

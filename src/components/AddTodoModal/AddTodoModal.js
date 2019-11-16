@@ -1,6 +1,5 @@
 import React, { useEffect, useReducer } from "react";
 import { object, bool, func, shape } from "prop-types";
-import uuid from "uuid";
 import ReactModal from "react-modal";
 
 import "./AddTodoModal.styles.scss";
@@ -33,7 +32,7 @@ ReactModal.setAppElement("#root");
 function AddTodoModal({
   inboxProject,
   closeModal,
-  addTodo,
+  createTodo,
   modalsState: { addTodoModalActive = false } = {},
 }) {
   const inputRef = useFocusRef();
@@ -96,12 +95,10 @@ function AddTodoModal({
     e.preventDefault();
 
     const newTodo = {
-      id: uuid.v4(),
-      uid: uuid.v4(),
       ...state.todo,
     };
 
-    addTodo(newTodo);
+    createTodo(newTodo);
     closeModal();
   }
 
@@ -149,13 +146,11 @@ function AddTodoModal({
             />
           ) : null}
 
-          {todo.labels ? (
-            <TodoLabelTagContainer
-              labels={todo.labels}
-              toggleVisibility={toggleShowLabels}
-              onChangeHandler={setSelectedLabel}
-            />
-          ) : null}
+          <TodoLabelTagContainer
+            labels={todo.labels}
+            toggleVisibility={toggleShowLabels}
+            onChangeHandler={setSelectedLabel}
+          />
 
           <TodoDueDate
             dueDate={todo.dueDate}
@@ -190,7 +185,7 @@ function AddTodoModal({
 AddTodoModal.propTypes = {
   inboxProject: object.isRequired,
   closeModal: func.isRequired,
-  addTodo: func.isRequired,
+  createTodo: func.isRequired,
   modalsState: shape({
     addTodoModalActive: bool.isRequired,
   }).isRequired,

@@ -19,7 +19,4 @@ export const mapDispatchToProps = (dispatch) => ({
   openAddTodoModal: () => dispatch(openAddTodoModal()),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Project);
+export default connect(mapStateToProps, mapDispatchToProps)(Project);

@@ -1,10 +1,12 @@
+import { isAdmin } from "../helpers";
+
 /**
  * Create a user object to store in state from SignInWithGoogle.
  *
  * @param {Object} user - The `user` object from SignInWithGoogle.
  * @returns {Object} Transformed object with the `currentUser` to store in redux.
  */
-function getGoogleAuthCurrentUserObject(snapshot) {
+function getCurrentUserDataFromSnapshot(snapshot) {
   // If the user was deleted
   if (snapshot.exists) {
     const userObj = {
@@ -21,13 +23,4 @@ function getGoogleAuthCurrentUserObject(snapshot) {
   return null;
 }
 
-export default getGoogleAuthCurrentUserObject;
-
-/**
- * Check if the current email is me and set the permissions to `admin`
- * @param {string} email
- */
-export function isAdmin(email = "") {
-  if (typeof email !== "string") return false;
-  return email === process.env.REACT_APP_MY_EMAIL;
-}
+export default getCurrentUserDataFromSnapshot;

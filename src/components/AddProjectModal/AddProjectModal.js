@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { array, func, shape, bool } from "prop-types";
-import uuid from "uuid";
 import ReactModal from "react-modal";
 
 import "./AddProjectModal.styles.scss";
@@ -33,8 +32,6 @@ function AddProjectModal({
     e.preventDefault();
 
     const newProject = {
-      id: uuid.v4(),
-      uid: uuid.v4(),
       name: projectName,
       todosCount: 0,
       color: {

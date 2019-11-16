@@ -16,7 +16,7 @@ import TodoProjectTagContainer from "../../redux/containers/components/TodoProje
 import TodoLabelTagContainer from "../../redux/containers/components/TodoLabelTagContainer";
 import TodoDueDate from "../TodoDueDate/TodoDueDate";
 
-function TodoItem({ todo, isVisible, toggleVisibility, toggleTodoCompleted }) {
+function TodoItem({ todo, isVisible, toggleVisibility, setTodoCompleted }) {
   const { id, name, completed, labels, project, dueDate } = todo;
 
   const todoButtonClassnames = classnames({
@@ -32,7 +32,7 @@ function TodoItem({ todo, isVisible, toggleVisibility, toggleTodoCompleted }) {
     <li className={todoItemClassnames}>
       <button
         className={todoButtonClassnames}
-        onClick={() => toggleTodoCompleted(id)}
+        onClick={() => setTodoCompleted(id)}
       >
         <svg className="Todo__Button__Icon">
           <use xlinkHref="#check-20" />
@@ -106,7 +106,7 @@ TodoItem.propTypes = {
   }),
   isVisible: bool.isRequired,
   toggleVisibility: func.isRequired,
-  toggleTodoCompleted: func.isRequired,
+  setTodoCompleted: func.isRequired,
 };
 
 TodoItem.defaultProps = {

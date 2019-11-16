@@ -3,6 +3,7 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 
 import logger from "redux-logger";
+import thunkMiddleware from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import rootReducer from "./root-reducer";
 
@@ -13,7 +14,7 @@ import * as labelsSelectors from "./labels/labels-selectors";
 import * as todosSelectors from "./todos/todos-selectors";
 import * as localStateSelectors from "./localState/localState-selectors";
 
-const middlewares = [];
+const middlewares = [thunkMiddleware];
 
 if (process.env.NODE_ENV === "development") {
   middlewares.push(logger);

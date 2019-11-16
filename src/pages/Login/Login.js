@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import { arrayOf, oneOf, shape, oneOfType, string } from "prop-types";
+import { array, bool, shape, func } from "prop-types";
 import "./Login.styles.scss";
 
 import * as ROUTES from "../../constants/routes";
@@ -12,14 +12,14 @@ import Input from "../../components/Input/Input";
 import OrDivider from "../../components/OrDivider/OrDivider";
 import ValidationErrorMessage from "../../components/ValidationErrorMessage/ValidationErrorMessage";
 
-import { auth } from "../../firebase/firebase";
-import { log } from "../../utils/helpers";
-
-function Login({ currentUser = null }) {
+function Login({
+  userState: { loginErrors, isAuthenticated } = {},
+  setLoginErrors,
+  loginUser,
+}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [signUpError, setSignUpError] = useState("");
   let history = useHistory();
   let location = useLocation();
 
@@ -31,7 +31,7 @@ function Login({ currentUser = null }) {
      * The `currentUser` info is needed to fetch the data
      * from the firestore collections based on the user’s `uid`
      */
-    if (currentUser) {
+    if (isAuthenticated) {
       setLoading(false);
       /**
        * If the user clicks the `Back` button,
@@ -43,23 +43,21 @@ function Login({ currentUser = null }) {
       history.replace(from);
       history.push(ROUTES.INBOX);
     }
-  }, [currentUser, from, history]);
+  }, [isAuthenticated, from, history]);
 
   async function handleLogin(e) {
     e.preventDefault();
     setLoading(true);
 
-    await auth
-      .signInWithEmailAndPassword(email, password)
-      .catch(function handleEmailSignUpError(error) {
+    await loginUser(email, password)
+      .then(() => {
         setLoading(false);
-        setSignUpError(error.message);
+      })
+      .catch((error) => {
+        setLoading(false);
+        setLoginErrors(error.message);
       });
   }
-
-  useEffect(() => {
-    log(signUpError);
-  }, [signUpError]);
 
   return (
     <section className="Login">
@@ -98,14 +96,19 @@ function Login({ currentUser = null }) {
           >
             Log in
           </PrimaryButton>
-          {signUpError && (
+          {loginErrors && loginErrors.length ? (
             <>
-              <ValidationErrorMessage additionalClasses="Login__SignUpErrorMsg">
-                {signUpError}
-              </ValidationErrorMessage>
+              {loginErrors.map((error, index) => (
+                <ValidationErrorMessage
+                  key={index}
+                  additionalClasses="Login__SignUpErrorMsg"
+                >
+                  {error}
+                </ValidationErrorMessage>
+              ))}
               <hr className="Login__Divider" />
             </>
-          )}
+          ) : null}
         </form>
       </section>
       <nav className="Login__ButtonsNav">
@@ -135,20 +138,12 @@ function Login({ currentUser = null }) {
 }
 
 Login.propTypes = {
-  currentUser: oneOfType([
-    shape({
-      id: string,
-      displayName: string,
-      email: string,
-      avatar: string,
-      role: arrayOf(string),
-    }),
-    oneOf([null]),
-  ]),
-};
-
-Login.defaultProps = {
-  currentUser: null,
+  userState: shape({
+    loginErrors: array.isRequired,
+    isAuthenticated: bool.isRequired,
+  }).isRequired,
+  setLoginErrors: func.isRequired,
+  loginUser: func.isRequired,
 };
 
 export default Login;

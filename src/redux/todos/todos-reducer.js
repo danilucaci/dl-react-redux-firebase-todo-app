@@ -9,27 +9,7 @@ const todosReducer = (state = INITIAL_STATE, action) => {
     case TodosTypes.SET_TODOS: {
       return {
         ...state,
-        byID: { ...state.byID, ...action.payload },
-      };
-    }
-    case TodosTypes.UPDATE_TODOS: {
-      return {
-        ...state,
-        byID: { ...state.byID, ...action.payload },
-      };
-    }
-    case TodosTypes.TOGGLE_TODO_COMPLETED: {
-      const todo = state.byID[action.payload];
-
-      return {
-        ...state,
-        byID: {
-          ...state.byID,
-          [action.payload]: {
-            ...todo,
-            completed: !todo.completed,
-          },
-        },
+        byID: { ...action.payload },
       };
     }
     case TodosTypes.ADD_TODO: {
@@ -49,6 +29,16 @@ const todosReducer = (state = INITIAL_STATE, action) => {
           [action.payload.id]: {
             ...action.payload,
           },
+        },
+      };
+    }
+    case TodosTypes.REMOVE_TODO: {
+      const { [action.payload]: removedTodo, ...otherTodos } = state.byID;
+
+      return {
+        ...state,
+        byID: {
+          ...otherTodos,
         },
       };
     }

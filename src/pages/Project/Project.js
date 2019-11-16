@@ -60,8 +60,6 @@ Project.propTypes = {
   projectTodos: array.isRequired,
   projectOverdueTodos: array.isRequired,
   project: shape({
-    id: string.isRequired,
-    uid: string.isRequired,
     name: string.isRequired,
     todosCount: number.isRequired,
     color: oneOfType([

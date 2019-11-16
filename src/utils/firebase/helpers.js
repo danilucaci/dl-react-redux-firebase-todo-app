@@ -1,16 +1,16 @@
 import { firestore } from "../../firebase/firebase";
 import { isEmptyObj } from "../helpers";
 import * as COLLECTIONS from "../../constants/collections";
+import * as COLLECTION_LIMITS from "../../constants/collectionLimits";
 
-import getDocsObject from "./getDocsObject";
+import getObjectFromDocs from "./getObjectFromDocs";
 
 /**
  * Add a new project in the `users` collection
  *
  * @param {string} userID - The `id` of the users collection.
  * @param {Object} project - An object with the data of the new project to create.
- * @returns The document reference of the new project created.
- * @returns {?Error} An error returned from firestore if any.
+ * @returns A rejected Promise for any error caught.
  */
 export async function addUserProject(userID = null, project = null) {
   if (
@@ -19,29 +19,14 @@ export async function addUserProject(userID = null, project = null) {
     typeof userID !== "string" ||
     isEmptyObj(project)
   ) {
-    return;
+    return Promise.reject("Something went wrong while creating the project.");
   }
 
-  let projectRef;
-  let projectDoc;
-  let projectData;
-  let projectError;
-
-  try {
-    projectRef = await firestore
-      .collection("users")
-      .doc(userID)
-      .collection("projects")
-      .add(project);
-
-    projectDoc = await projectRef.get();
-    projectData = projectDoc.data();
-  } catch (e) {
-    projectError = e.message;
-    console.error(e.message);
-  }
-
-  return [projectData, projectError];
+  return firestore
+    .collection(COLLECTIONS.USERS)
+    .doc(userID)
+    .collection(COLLECTIONS.PROJECTS)
+    .add(project);
 }
 
 /**
@@ -49,34 +34,18 @@ export async function addUserProject(userID = null, project = null) {
  *
  * @param {string} userID - The `id` of the users collection.
  * @param {Object} label - An object with the data of the new label to create.
- * @returns The document reference of the new label created.
- * @returns {?Error} An error returned from firestore if any.
+ * @returns A rejected Promise for any error caught.
  */
 export async function addUserLabel(userID = null, label = null) {
   if (!userID || !label || typeof userID !== "string" || isEmptyObj(label)) {
-    return;
+    return Promise.reject("Something went wrong while creating the label.");
   }
 
-  let labelRef;
-  let labelDoc;
-  let labelData;
-  let labelError = null;
-
-  try {
-    labelRef = await firestore
-      .collection(COLLECTIONS.USERS)
-      .doc(userID)
-      .collection(COLLECTIONS.LABELS)
-      .add(label);
-
-    labelDoc = await labelRef.get();
-    labelData = labelDoc.data();
-  } catch (e) {
-    labelError = e.message;
-    console.error(e.message);
-  }
-
-  return [labelData, labelError];
+  return firestore
+    .collection(COLLECTIONS.USERS)
+    .doc(userID)
+    .collection(COLLECTIONS.LABELS)
+    .add(label);
 }
 
 /**
@@ -84,34 +53,72 @@ export async function addUserLabel(userID = null, label = null) {
  *
  * @param {string} userID - The `id` of the users collection.
  * @param {Object} todo - An object with the data of the new todo to create.
- * @returns The document reference of the new todo created.
- * @returns {?Error} An error returned from firestore if any.
+ * @returns A rejected Promise for any error caught.
  */
 export async function addUserTodo(userID = null, todo = null) {
   if (!userID || !todo || typeof userID !== "string" || isEmptyObj(todo)) {
-    return;
+    return Promise.reject("Something went wrong while creating the todo.");
   }
 
-  let todoRef;
-  let todoDoc;
-  let todoData;
-  let todoError;
+  return firestore
+    .collection(COLLECTIONS.USERS)
+    .doc(userID)
+    .collection(COLLECTIONS.TODOS)
+    .add(todo);
+}
 
-  try {
-    todoRef = await firestore
-      .collection(COLLECTIONS.USERS)
-      .doc(userID)
-      .collection(COLLECTIONS.TODOS)
-      .add(todo);
-
-    todoDoc = await todoRef.get();
-    todoData = todoDoc.data();
-  } catch (e) {
-    todoError = e.message;
-    console.error(e.message);
+/**
+ * Add a new todo in the `users` collection
+ *
+ * @param {string} userID - The `id` of the users collection.
+ * @param {Object} todoID - The id of the todo to set as completed.
+ * @returns A rejected Promise for any error caught.
+ */
+export async function setFirebaseTodoCompleted(userID = null, todoID = null) {
+  if (
+    !userID ||
+    !todoID ||
+    typeof userID !== "string" ||
+    typeof todoID !== "string"
+  ) {
+    return Promise.reject("Something went wrong while updating the todo.");
   }
 
-  return [todoData, todoError];
+  return firestore
+    .collection(COLLECTIONS.USERS)
+    .doc(userID)
+    .collection(COLLECTIONS.TODOS)
+    .doc(todoID)
+    .update({
+      completed: true,
+    });
+}
+
+/**
+ * Add a new todo in the `users` collection
+ *
+ * @param {string} userID - The `id` of the users collection.
+ * @param {Object} todoID - The todo todo update in firebase.
+ * @returns A rejected Promise for any error caught.
+ */
+export async function updateFirebaseTodo(userID = null, todoData = null) {
+  if (
+    !userID ||
+    !todoData ||
+    typeof userID !== "string" ||
+    isEmptyObj(todoData)
+  ) {
+    return Promise.reject("Something went wrong while updating the todo.");
+  }
+
+  const { id, ...updates } = todoData;
+
+  return firestore
+    .collection(COLLECTIONS.USERS)
+    .doc(userID)
+    .collection(COLLECTIONS.TODOS)
+    .doc(id)
+    .update(updates);
 }
 
 /**
@@ -119,31 +126,29 @@ export async function addUserTodo(userID = null, todo = null) {
  *
  * @param {string} userID - The `id` of the users collection.
  * @returns List of the user’s projects.
- * @returns {?Error} An error returned from firestore if any.
+ * @returns A rejected Promise for any error caught.
  */
 export async function getUserProjects(userID = null) {
   if (!userID || typeof userID !== "string") {
-    return;
+    return Promise.reject("Failed to get the projects. No user provided.");
   }
 
-  let projectsData;
-  let projectsError;
-  let projectsSnapshot;
-
   try {
-    projectsSnapshot = await firestore
+    const projectsSnapshot = await firestore
       .collection(COLLECTIONS.USERS)
       .doc(userID)
       .collection(COLLECTIONS.PROJECTS)
+      .limit(COLLECTION_LIMITS.PROJECTS)
       .get();
 
-    projectsData = getDocsObject(projectsSnapshot.docs);
-  } catch (e) {
-    projectsError = e.message;
-    console.error(e.message);
-  }
+    if (projectsSnapshot.docs.empty) {
+      return null;
+    }
 
-  return [projectsData, projectsError];
+    return getObjectFromDocs(projectsSnapshot.docs);
+  } catch (e) {
+    return Promise.reject(e.message);
+  }
 }
 
 /**
@@ -151,31 +156,25 @@ export async function getUserProjects(userID = null) {
  *
  * @param {string} userID - The `id` of the users collection.
  * @returns List of the user’s labels.
- * @returns {?Error} An error returned from firestore if any.
+ * @returns A rejected Promise for any error caught.
  */
 export async function getUserLabels(userID = null) {
   if (!userID || typeof userID !== "string") {
-    return;
+    return Promise.reject("Failed to get the labels. No user provided.");
   }
 
-  let labelsData;
-  let labelsError;
-  let labelsSnapshot;
-
   try {
-    labelsSnapshot = await firestore
+    const labelsSnapshot = await firestore
       .collection(COLLECTIONS.USERS)
       .doc(userID)
       .collection(COLLECTIONS.LABELS)
+      .limit(COLLECTION_LIMITS.LABELS)
       .get();
 
-    labelsData = getDocsObject(labelsSnapshot.docs);
+    return getObjectFromDocs(labelsSnapshot.docs);
   } catch (e) {
-    labelsError = e.message;
-    console.error(e.message);
+    return Promise.reject(e.message);
   }
-
-  return [labelsData, labelsError];
 }
 
 /**
@@ -183,55 +182,43 @@ export async function getUserLabels(userID = null) {
  *
  * @param {string} userID - The `id` of the users collection.
  * @returns List of the user’s todos.
- * @returns {?Error} An error returned from firestore if any.
+ * @returns A rejected Promise for any error caught.
  */
 export async function getUserTodos(userID = null) {
   if (!userID || typeof userID !== "string") {
-    return;
+    return Promise.reject("Failed to get the labels. No user provided.");
   }
 
-  let todosData;
-  let todosError;
-  let todosSnapshot;
-
   try {
-    todosSnapshot = await firestore
+    const todosSnapshot = await firestore
       .collection(COLLECTIONS.USERS)
       .doc(userID)
       .collection(COLLECTIONS.TODOS)
+      .limit(COLLECTION_LIMITS.TODOS)
+      .where("completed", "==", false)
       .get();
 
-    todosData = getDocsObject(todosSnapshot.docs);
+    return getObjectFromDocs(todosSnapshot.docs);
   } catch (e) {
-    todosError = e.message;
-    console.error(e.message);
+    return Promise.reject(e.message);
   }
-
-  return [todosData, todosError];
 }
 
 /**
  * Get all the global colors of the app
  *
  * @returns List of all the global colors of the app.
- * @returns {?Error} An error returned from firestore if any.
+ * @returns A rejected Promise for any error caught.
  */
 export async function getGlobalColors() {
-  let colorsData;
-  let colorsError;
-  let colorsSnapshot;
-
   try {
-    colorsSnapshot = await firestore
+    const todosSnapshot = await firestore
       .collection(COLLECTIONS.COLORS)
-      .limit(2)
+      .limit(COLLECTION_LIMITS.COLORS)
       .get();
 
-    colorsData = getDocsObject(colorsSnapshot.docs);
+    return getObjectFromDocs(todosSnapshot.docs);
   } catch (e) {
-    colorsError = e.message;
-    console.error(e.message);
+    return Promise.reject(e.message);
   }
-
-  return [colorsData, colorsError];
 }

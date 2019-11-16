@@ -1,34 +1,29 @@
-import { connect, batch } from "react-redux";
+import { connect } from "react-redux";
 
-import { appDataSelector } from "../../../redux/localState/localState-selectors";
-import {
-  setInitialDataLoaded,
-  setAppDataErrors,
-} from "../../../redux/localState/localState-actions";
-import { setColors } from "../../../redux/colors/colors-actions";
-import { setTodos } from "../../../redux/todos/todos-actions";
-import { setLabels } from "../../../redux/labels/labels-actions";
-import { setProjects } from "../../../redux/projects/projects-actions";
-import { currentUserSelector } from "../../user/user-selectors";
+import { setInitialDataLoaded } from "../../../redux/localState/localState-actions";
+import { subscribeToColors } from "../../../redux/colors/colors-actions";
+import { subscribeToTodos } from "../../../redux/todos/todos-actions";
+import { subscribeToLabels } from "../../../redux/labels/labels-actions";
+import { subscribeToProjects } from "../../../redux/projects/projects-actions";
 import Dashboard from "../../../components/Dashboard/Dashboard";
 import { projectsSelector } from "../../../redux/projects/projects-selectors";
 import { labelsSelector } from "../../../redux/labels/labels-selectors";
+import { userStateSelector } from "../../user/user-selectors";
+import { appDataSelector } from "../../../redux/localState/localState-selectors";
 
 export const mapStateToProps = (state) => ({
   appData: appDataSelector(state),
-  currentUser: currentUserSelector(state),
+  userState: userStateSelector(state),
   projects: projectsSelector(state),
   labels: labelsSelector(state),
 });
 
 export const mapDispatchToProps = (dispatch) => ({
-  setColors: (colors) => dispatch(setColors(colors)),
-  setTodos: (todos) => dispatch(setTodos(todos)),
-  setLabels: (labels) => dispatch(setLabels(labels)),
-  setProjects: (projects) => dispatch(setProjects(projects)),
-  batch: batch,
   setInitialDataLoaded: () => dispatch(setInitialDataLoaded()),
-  setAppDataErrors: (errors) => dispatch(setAppDataErrors(errors)),
+  subscribeToColors: () => dispatch(subscribeToColors()),
+  subscribeToTodos: () => dispatch(subscribeToTodos()),
+  subscribeToLabels: () => dispatch(subscribeToLabels()),
+  subscribeToProjects: () => dispatch(subscribeToProjects()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

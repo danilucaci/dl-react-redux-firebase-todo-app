@@ -4,6 +4,7 @@ import "./NotFound.styles.scss";
 import AppMain from "../../components/AppMain/AppMain";
 
 function NotFound() {
+  console.log("Not found");
   return (
     <AppMain>
       <section className="Section">

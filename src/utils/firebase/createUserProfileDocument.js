@@ -7,13 +7,12 @@ import { isEmptyObj } from "../helpers";
  *
  * 1. Checks if the user already exists.
  * 2. If it doesn’t, it creates a new user with a default project.
- * 3. If it already exists, return the userRef from firestore and any errors that were caught.
+ * 3. If it already exists, return the userRef from firestore.
  *
  * @param {Object} user The current signed in user.
  * @param {Object} additionalData Other props to store on the user document.
  *
  * @returns `firebase documentRef`
- * @returns {?array} `Array` of errors caught.
  */
 export async function createUserProfileDocument(
   user = {},
@@ -76,7 +75,7 @@ export async function createUserProfileDocument(
  *
  * @param {string} uid The user uid from firestore.
  *
- * @returns Firestore `DocumentReference` of the user or the `errorMessage` that was caught.
+ * @returns Firestore `DocumentReference` of the user.
  */
 export async function getUserDocumentRef(uid = null) {
   if (!uid) {
@@ -90,7 +89,6 @@ export async function getUserDocumentRef(uid = null) {
  * Create the default project for each user when they sign up.
  *
  * @param {Object} userID The current signed in user.
- * @returns {null} `null` If the project was set correctly or an error message.
  */
 export async function createDefaultUserProject(userID = null) {
   if (!userID) {
@@ -154,8 +152,6 @@ export async function createDefaultUserProject(userID = null) {
  * When a new user signs up we need to create a default project.
  *
  * @returns {Object} `colorData` Object with the color data of the default project.
- * @returns {string} `error` String with the error caught from firestore.
- * @returns {null} `null` If no data was found.
  * @example
  *
  * Object with the color info from firebase

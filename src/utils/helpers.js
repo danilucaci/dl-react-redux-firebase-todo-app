@@ -90,3 +90,12 @@ export function log(message = "") {
     console.log(`%c ${message}`, "color: #07E33A; font-weight: 700");
   }
 }
+
+/**
+ * Check if the current email is me and set the permissions to `admin`
+ * @param {string} email
+ */
+export function isAdmin(email = "") {
+  if (typeof email !== "string") return false;
+  return email === process.env.REACT_APP_MY_EMAIL;
+}
