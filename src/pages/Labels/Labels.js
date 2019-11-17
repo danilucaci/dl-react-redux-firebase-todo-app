@@ -7,7 +7,7 @@ import AddNew from "../../components/AddNew/AddNew";
 import LabelsCardContainer from "../../redux/containers/components/LabelsCardContainer";
 import withProtectedRoute from "../../hoc/withProtectedRoute";
 
-function Labels({ labels, openAddLabelModal }) {
+function Labels({ labelIds, openAddLabelModal }) {
   return (
     <DashboardMainContainer>
       <section className="Section">
@@ -15,10 +15,10 @@ function Labels({ labels, openAddLabelModal }) {
           <h1 className="Section__Title">Labels</h1>
           <AddNew onClick={() => openAddLabelModal()}>Add label</AddNew>
         </header>
-        {labels && labels.length ? (
+        {labelIds && labelIds.length ? (
           <div className="row-nested">
-            {labels.map((label) => (
-              <LabelsCardContainer key={label.id} labelID={label.id} />
+            {labelIds.map((labelId) => (
+              <LabelsCardContainer key={labelId} labelID={labelId} />
             ))}
           </div>
         ) : (
@@ -30,7 +30,7 @@ function Labels({ labels, openAddLabelModal }) {
 }
 
 Labels.propTypes = {
-  labels: array.isRequired,
+  labelIds: array.isRequired,
   openAddLabelModal: func.isRequired,
 };
 

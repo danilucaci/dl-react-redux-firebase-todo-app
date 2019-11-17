@@ -1,5 +1,5 @@
 import React from "react";
-import { func, array } from "prop-types";
+import { func, arrayOf, string } from "prop-types";
 
 import "./Projects.styles.scss";
 import DashboardMainContainer from "../../redux/containers/components/DashboardMainContainer";
@@ -7,7 +7,7 @@ import AddNew from "../../components/AddNew/AddNew";
 import ProjectsCardContainer from "../../redux/containers/components/ProjectsCardContainer";
 import withProtectedRoute from "../../hoc/withProtectedRoute";
 
-function Projects({ projects = null, openAddProjectModal }) {
+function Projects({ projectIds = null, openAddProjectModal }) {
   return (
     <DashboardMainContainer>
       <section className="Section">
@@ -15,10 +15,10 @@ function Projects({ projects = null, openAddProjectModal }) {
           <h1 className="Section__Title">Projects</h1>
           <AddNew onClick={() => openAddProjectModal()}>Add project</AddNew>
         </header>
-        {projects && projects.length ? (
+        {projectIds && projectIds.length ? (
           <div className="row-nested">
-            {projects.map((project) => (
-              <ProjectsCardContainer key={project.id} projectID={project.id} />
+            {projectIds.map((projectId) => (
+              <ProjectsCardContainer key={projectId} projectID={projectId} />
             ))}
           </div>
         ) : (
@@ -30,7 +30,7 @@ function Projects({ projects = null, openAddProjectModal }) {
 }
 
 Projects.propTypes = {
-  projects: array.isRequired,
+  projectIds: arrayOf(string).isRequired,
   openAddProjectModal: func.isRequired,
 };
 

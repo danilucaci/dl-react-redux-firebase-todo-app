@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { string, bool, number, arrayOf, func, shape } from "prop-types";
 import { NavLink } from "react-router-dom";
 import classnames from "classnames";
 
@@ -19,17 +20,15 @@ function Sidebar({
   inboxTodosCount,
   todayTodosCount,
   nextDaysTodosCount,
-  projects,
-  labels,
-  menu,
+  projectIds,
+  labelIds,
+  menu: { menuOpen = false } = {},
   closeMenu,
   logoutUser,
   openAddProjectModal,
   openAddLabelModal,
   appData: { initialDataLoaded = false } = {},
 }) {
-  const { menuOpen } = menu;
-
   const sidebarRef = useRef(null);
 
   useDisableSidebarBackground(sidebarRef, menuOpen);
@@ -160,11 +159,11 @@ function Sidebar({
                 See all
               </NavLink>
             </li>
-            {projects &&
-              projects.map((project) => (
+            {projectIds &&
+              projectIds.map((projectId) => (
                 <ProjectSidebarItemContainer
-                  key={project.id}
-                  projectID={project.id}
+                  key={projectId}
+                  projectID={projectId}
                 />
               ))}
             <li className="Sidebar__AddNew__Button">
@@ -186,9 +185,9 @@ function Sidebar({
                 See all
               </NavLink>
             </li>
-            {labels &&
-              labels.map((label) => (
-                <LabelSidebarItemContainer key={label.id} labelID={label.id} />
+            {labelIds &&
+              labelIds.map((labelId) => (
+                <LabelSidebarItemContainer key={labelId} labelID={labelId} />
               ))}
             <li className="Sidebar__AddNew__Button">
               <AddNew onClick={() => openAddLabelModal()}>Add label</AddNew>
@@ -204,5 +203,21 @@ function Sidebar({
     </aside>
   );
 }
+
+Sidebar.propTypes = {
+  inboxTodosCount: number.isRequired,
+  todayTodosCount: number.isRequired,
+  nextDaysTodosCount: number.isRequired,
+  projectIds: arrayOf(string),
+  labelIds: arrayOf(string),
+  menu: shape({
+    menuOpen: bool.isRequired,
+  }),
+  closeMenu: func.isRequired,
+  logoutUser: func.isRequired,
+  openAddProjectModal: func.isRequired,
+  openAddLabelModal: func.isRequired,
+  appData: shape({ initialDataLoaded: bool }),
+};
 
 export default Sidebar;

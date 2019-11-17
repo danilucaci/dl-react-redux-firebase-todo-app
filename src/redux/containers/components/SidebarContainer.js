@@ -5,8 +5,8 @@ import {
   todayTodosCountSelector,
   nextDaysTodosCountSelector,
 } from "../../../redux/todos/todos-selectors";
-import { projectsSelector } from "../../../redux/projects/projects-selectors";
-import { labelsSelector } from "../../../redux/labels/labels-selectors";
+import { notInboxProjectIdsSelector } from "../../../redux/projects/projects-selectors";
+import { labelIdsSelector } from "../../../redux/labels/labels-selectors";
 import { menuSelector } from "../../../redux/localState/localState-selectors";
 import { closeMenu } from "../../../redux/localState/localState-actions";
 import {
@@ -22,8 +22,8 @@ export const mapStateToProps = (state) => ({
   inboxTodosCount: inboxTodosCountSelector(state),
   todayTodosCount: todayTodosCountSelector(state),
   nextDaysTodosCount: nextDaysTodosCountSelector(state),
-  projects: projectsSelector(state),
-  labels: labelsSelector(state),
+  projectIds: notInboxProjectIdsSelector(state),
+  labelIds: labelIdsSelector(state),
   menu: menuSelector(state),
   appData: appDataSelector(state),
 });

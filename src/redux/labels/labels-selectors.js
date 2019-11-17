@@ -26,10 +26,11 @@ export const labelsSelector = createSelector(
   (labels) => labels,
 );
 
-export const labelSelector = createSelector(
-  [selectLabel],
-  (label) => label,
+export const labelIdsSelector = createSelector([selectLabels], (labels) =>
+  labels.map((label) => label.id),
 );
+
+export const labelSelector = createSelector([selectLabel], (label) => label);
 
 export const labelOverdueTodosSelector = createSelector(
   [selectLabelTodos],
