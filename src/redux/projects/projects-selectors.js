@@ -9,10 +9,21 @@ export const selectProject = (state, projectID) =>
 
 export const selectAllProjects = (state) => Object.values(state.projects.byID);
 
-export const selectProjects = (state) =>
+export const selectNotInboxProjects = (state) =>
   Object.values(state.projects.byID).filter(
-    (project) => !project.hasOwnProperty(INBOX_PROJECT_IDENTIFIER),
+    (project) =>
+      project.hasOwnProperty(INBOX_PROJECT_IDENTIFIER) &&
+      !project[INBOX_PROJECT_IDENTIFIER],
   );
+
+export const selectNotInboxProjectIds = (state) =>
+  Object.values(state.projects.byID)
+    .filter(
+      (project) =>
+        project.hasOwnProperty(INBOX_PROJECT_IDENTIFIER) &&
+        !project[INBOX_PROJECT_IDENTIFIER],
+    )
+    .map((project) => project.id);
 
 export const selectProjectTodos = (state, projectID) => {
   return Object.values(state.todos.byID).filter(
@@ -40,8 +51,13 @@ export const allProjectsSelector = createSelector(
   (projects) => projects,
 );
 
-export const projectsSelector = createSelector(
-  [selectProjects],
+export const notInboxProjectsSelector = createSelector(
+  [selectNotInboxProjects],
+  (projects) => projects,
+);
+
+export const notInboxProjectIdsSelector = createSelector(
+  [selectNotInboxProjectIds],
   (projects) => projects,
 );
 
