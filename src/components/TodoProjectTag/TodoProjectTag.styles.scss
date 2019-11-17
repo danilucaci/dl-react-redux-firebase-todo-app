@@ -13,17 +13,12 @@
     border-radius: tokens.$border-radius-components-default;
     display: block;
     width: tokens.$size-dropdown-projects;
-    padding: tokens.$spacing-c-02 0;
+    padding: tokens.$spacing-c-02 0 !important;
 
     z-index: tokens.$z-index-modal-popup;
 
     max-height: 40vh;
     overflow-x: auto;
-
-    ul {
-      margin-left: 0;
-      list-style-type: none;
-    }
   }
 
   &__Item {
