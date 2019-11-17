@@ -14,6 +14,7 @@ import {
   openAddProjectModal,
 } from "../../../redux/localState/localState-actions";
 import { appDataSelector } from "../../../redux/localState/localState-selectors";
+import { logoutUser } from "../../user/user-actions";
 
 import Sidebar from "../../../components/Sidebar/Sidebar";
 
@@ -29,6 +30,7 @@ export const mapStateToProps = (state) => ({
 
 export const mapDispatchToProps = (dispatch) => ({
   closeMenu: () => dispatch(closeMenu()),
+  logoutUser: () => dispatch(logoutUser()),
   openAddProjectModal: () => dispatch(openAddProjectModal()),
   openAddLabelModal: () => dispatch(openAddLabelModal()),
 });

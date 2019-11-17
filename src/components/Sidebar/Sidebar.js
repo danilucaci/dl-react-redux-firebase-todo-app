@@ -12,7 +12,6 @@ import SidebarSkeletonContainer from "../../redux/containers/components/SidebarS
 import UserAvatarContainer from "../../redux/containers/components/UserAvatarContainer";
 import AddNew from "../AddNew/AddNew";
 import SidebarSignoutButton from "../SidebarSignoutButton/SidebarSignoutButton";
-import { signOut } from "../../firebase/firebase";
 
 import { useDisableSidebarBackground, useAnimation } from "../../hooks";
 
@@ -24,6 +23,7 @@ function Sidebar({
   labels,
   menu,
   closeMenu,
+  logoutUser,
   openAddProjectModal,
   openAddLabelModal,
   appData: { initialDataLoaded = false } = {},
@@ -194,7 +194,7 @@ function Sidebar({
               <AddNew onClick={() => openAddLabelModal()}>Add label</AddNew>
             </li>
             <li className="Sidebar__Signout__Button">
-              <SidebarSignoutButton onClick={() => signOut()} />
+              <SidebarSignoutButton onClick={() => logoutUser()} />
             </li>
           </ul>
         </nav>
