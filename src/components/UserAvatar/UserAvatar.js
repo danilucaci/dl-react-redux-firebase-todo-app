@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { string, shape } from "prop-types";
 
 import "./UserAvatar.styles.scss";
 import avatarPlaceholder from "../../assets/img/avatar-placeholder.png";
@@ -30,5 +31,20 @@ function UserAvatar({
     </div>
   );
 }
+
+UserAvatar.propTypes = {
+  currentUser: shape({
+    avatar: string,
+    displayName: string,
+    email: string.isRequired,
+  }).isRequired,
+};
+
+UserAvatar.defaultProps = {
+  currentUser: shape({
+    avatar: "",
+    displayName: "",
+  }),
+};
 
 export default UserAvatar;
