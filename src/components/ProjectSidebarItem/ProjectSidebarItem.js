@@ -1,16 +1,13 @@
 import React from "react";
 import classnames from "classnames";
 import { NavLink } from "react-router-dom";
-// import { string, number } from "prop-types";
+import { string, number, shape } from "prop-types";
 
 import * as ROUTES from "../../constants/routes";
 
 function ProjectSidebarItem({
-  project: {
-    name = "Label",
-    todosCount = 0,
-    color: { colorValue = "" } = {},
-  } = {},
+  projectTodosCount = 0,
+  project: { name = "Project", color: { colorValue = "#2a2f36" } = {} } = {},
 }) {
   const sidebarItemClasses = classnames({
     Sidebar__Section__Item: true,
@@ -31,13 +28,21 @@ function ProjectSidebarItem({
             <use xlinkHref="#color" />
           </svg>
           {name}
-          <span className="Sidebar__Section__Item__Count">{todosCount}</span>
+          <span className="Sidebar__Section__Item__Count">
+            {projectTodosCount}
+          </span>
         </NavLink>
       </li>
     </>
   );
 }
 
-ProjectSidebarItem.propTypes = {};
+ProjectSidebarItem.propTypes = {
+  projectTodosCount: number.isRequired,
+  project: shape({
+    name: string.isRequired,
+    color: shape({ colorValue: string.isRequired }).isRequired,
+  }).isRequired,
+};
 
 export default ProjectSidebarItem;

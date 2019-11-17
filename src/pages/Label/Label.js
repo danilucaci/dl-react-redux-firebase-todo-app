@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  func,
-  array,
-  string,
-  number,
-  oneOfType,
-  shape,
-  oneOf,
-} from "prop-types";
+import { func, array, string, oneOfType, shape, oneOf } from "prop-types";
 
 import DashboardMainContainer from "../../redux/containers/components/DashboardMainContainer";
 import Todo from "../../components/Todo/Todo";
@@ -56,7 +48,6 @@ Label.propTypes = {
   labelOverdueTodos: array.isRequired,
   label: shape({
     name: string.isRequired,
-    todosCount: number.isRequired,
     color: oneOfType([
       shape({
         colorID: string,

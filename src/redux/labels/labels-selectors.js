@@ -44,3 +44,8 @@ export const labelNotOverdueTodosSelector = createSelector(
       .filter((todo) => isFutureDate(todo.dueDate) || todo.dueDate === null)
       .map((todo) => todo.id),
 );
+
+export const labelTodosCountSelector = createSelector(
+  [selectLabelTodos],
+  (todos) => todos.length,
+);

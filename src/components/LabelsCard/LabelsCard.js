@@ -1,16 +1,13 @@
 import React from "react";
+import { string, number, shape } from "prop-types";
 import { Link } from "react-router-dom";
 import "./LabelsCard.styles.scss";
 
 import * as ROUTES from "../../constants/routes";
 
 function LabelsCard({
-  label: {
-    id,
-    name = "Label",
-    color: { colorValue = "" } = {},
-    todosCount = 0,
-  } = {},
+  labelTodosCount = 0,
+  label: { name = "Label", color: { colorValue = "" } = {} } = {},
 }) {
   return (
     <>
@@ -24,10 +21,18 @@ function LabelsCard({
             <use xlinkHref="#color" />
           </svg>
         </div>
-        <p className="Label__Card__Count">{todosCount} todos</p>
+        <p className="Label__Card__Count">{labelTodosCount} todos</p>
       </Link>
     </>
   );
 }
+
+LabelsCard.propTypes = {
+  labelTodosCount: number.isRequired,
+  label: shape({
+    name: string.isRequired,
+    color: shape({ colorValue: string.isRequired }).isRequired,
+  }).isRequired,
+};
 
 export default LabelsCard;

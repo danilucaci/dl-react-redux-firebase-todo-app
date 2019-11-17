@@ -23,6 +23,11 @@ export const selectProjectTodos = (state, projectID) => {
   );
 };
 
+export const projectTodosCountSelector = createSelector(
+  [selectProjectTodos],
+  (todos) => todos.length,
+);
+
 export const selectInboxProject = (state) =>
   Object.values(state.projects.byID).filter(
     (project) =>

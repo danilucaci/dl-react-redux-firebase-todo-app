@@ -72,9 +72,6 @@ const TodoProjectTag = ({
                   <use xlinkHref="#color" />
                 </svg>
                 {project.name}
-                <span className="Todo__Project__Tag__Item__Count">
-                  {project.todosCount}
-                </span>
               </MenuItem>
             ))}
         </MenuList>
