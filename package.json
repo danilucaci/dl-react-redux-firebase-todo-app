@@ -40,7 +40,8 @@
     "eject": "react-scripts eject",
     "deploy": "npm run build && firebase deploy",
     "fdo": "firebase deploy --only",
-    "fso": "firebase serve --only"
+    "fso": "firebase serve --only",
+    "fesf": "firebase emulators:start --only functions,firestore"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -56,5 +57,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@firebase/testing": "^0.15.1"
   }
 }
