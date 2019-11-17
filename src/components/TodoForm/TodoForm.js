@@ -20,6 +20,7 @@ import { useKeyUpPress, useOnClickOutside, useFocusRef } from "../../hooks";
 import TodoDueDate from "../TodoDueDate/TodoDueDate";
 
 import { parseDate } from "../../utils/dates";
+import { INBOX_PROJECT_IDENTIFIER } from "../../constants/collections";
 
 function TodoForm({ todo, toggleVisibility, updateTodo }) {
   const { labels, project, dueDate, name } = todo;
@@ -38,9 +39,14 @@ function TodoForm({ todo, toggleVisibility, updateTodo }) {
   const todoWrapperRef = useRef();
 
   function handleProjectChange(project) {
+    const isInboxProject =
+      project.hasOwnProperty(INBOX_PROJECT_IDENTIFIER) &&
+      project[INBOX_PROJECT_IDENTIFIER];
+
     setSelectedProject({
       projectID: project.id,
       name: project.name,
+      [INBOX_PROJECT_IDENTIFIER]: isInboxProject,
       colorName: project.color.colorName,
       colorValue: project.color.colorValue,
     });

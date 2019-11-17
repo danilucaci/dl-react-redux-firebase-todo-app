@@ -11,6 +11,7 @@ import TextButton from "../TextButton/TextButton";
 import { useDisableBodyBackground, useFocusRef } from "../../hooks";
 
 import Input from "../Input/Input";
+import { INBOX_PROJECT_IDENTIFIER } from "../../constants/collections";
 
 ReactModal.setAppElement("#root");
 
@@ -33,7 +34,7 @@ function AddProjectModal({
 
     const newProject = {
       name: projectName,
-      todosCount: 0,
+      [INBOX_PROJECT_IDENTIFIER]: false,
       color: {
         colorID: selectedColor.id,
         colorName: selectedColor.colorName,
