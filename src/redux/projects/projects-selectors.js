@@ -34,10 +34,8 @@ export const selectProjectTodos = (state, projectID) => {
   );
 };
 
-export const projectTodosCountSelector = createSelector(
-  [selectProjectTodos],
-  (todos) => todos.length,
-);
+export const makeProjectTodosCountSelector = () =>
+  createSelector([selectProjectTodos], (todos) => todos.length);
 
 export const selectInboxProject = (state) =>
   Object.values(state.projects.byID).filter(
@@ -61,26 +59,22 @@ export const notInboxProjectIdsSelector = createSelector(
   (projects) => projects,
 );
 
-export const projectSelector = createSelector(
-  [selectProject],
-  (project) => project,
-);
+export const makeProjectSelector = () =>
+  createSelector([selectProject], (project) => project);
 
 export const inboxProjectSelector = createSelector(
   [selectInboxProject],
   (project) => project[0],
 );
 
-export const projectOverdueTodosSelector = createSelector(
-  [selectProjectTodos],
-  (todos) =>
+export const makeProjectOverdueTodosSelector = () =>
+  createSelector([selectProjectTodos], (todos) =>
     todos.filter((todo) => isPastDate(todo.dueDate)).map((todo) => todo.id),
-);
+  );
 
-export const projectNotOverdueTodosSelector = createSelector(
-  [selectProjectTodos],
-  (todos) =>
+export const makeProjectNotOverdueTodosSelector = () =>
+  createSelector([selectProjectTodos], (todos) =>
     todos
       .filter((todo) => isFutureDate(todo.dueDate) || todo.dueDate === null)
       .map((todo) => todo.id),
-);
+  );

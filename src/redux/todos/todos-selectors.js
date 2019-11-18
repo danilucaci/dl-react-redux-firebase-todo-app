@@ -12,9 +12,16 @@ import { INBOX_PROJECT_IDENTIFIER } from "../../constants/collections";
 export const selectTodos = (state) =>
   Object.values(state.todos.byID).map((todo) => todo);
 
-export const selectTodo = (state, todoID) => state.todos.byID[todoID];
+export const selectTodo = (state, todoID) => {
+  const todo = state.todos.byID[todoID];
 
-export const todoSelector = createSelector([selectTodo], (todo) => todo);
+  // console.log(`Select todo: ${todo.name}`);
+
+  return todo;
+};
+
+export const makeTodoSelector = () =>
+  createSelector([selectTodo], (todo) => todo);
 
 export const inboxTodosSelector = createSelector([selectTodos], (todos) =>
   todos.filter(

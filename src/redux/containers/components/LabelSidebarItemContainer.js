@@ -1,14 +1,19 @@
 import { connect } from "react-redux";
 
 import {
-  selectLabel,
-  labelTodosCountSelector,
+  makeLabelSelector,
+  makeLabelTodosCountSelector,
 } from "../../labels/labels-selectors";
 import LabelSidebarItem from "../../../components/LabelSidebarItem/LabelSidebarItem";
 
-export const mapStateToProps = (state, ownProps) => ({
-  label: selectLabel(state, ownProps.labelID),
-  labelTodosCount: labelTodosCountSelector(state, ownProps.labelID),
-});
+export const makeMapStateToProps = () => {
+  const labelSelector = makeLabelSelector();
+  const labelTodosCountSelector = makeLabelTodosCountSelector();
 
-export default connect(mapStateToProps)(LabelSidebarItem);
+  return (state, ownProps) => ({
+    label: labelSelector(state, ownProps.labelID),
+    labelTodosCount: labelTodosCountSelector(state, ownProps.labelID),
+  });
+};
+
+export default connect(makeMapStateToProps)(LabelSidebarItem);

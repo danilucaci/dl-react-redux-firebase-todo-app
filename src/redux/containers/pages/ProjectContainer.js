@@ -1,22 +1,28 @@
 import { connect } from "react-redux";
 
 import {
-  projectOverdueTodosSelector,
-  projectNotOverdueTodosSelector,
-  projectSelector,
+  makeProjectOverdueTodosSelector,
+  makeProjectNotOverdueTodosSelector,
+  makeProjectSelector,
 } from "../../../redux/projects/projects-selectors";
 import { openAddTodoModal } from "../../../redux/localState/localState-actions";
 
 import Project from "../../../pages/Project/Project";
 
-const mapStateToProps = (state, ownProps) => ({
-  projectOverdueTodos: projectOverdueTodosSelector(state, ownProps.projectID),
-  projectTodos: projectNotOverdueTodosSelector(state, ownProps.projectID),
-  project: projectSelector(state, ownProps.projectID),
-});
+const makeMapStateToProps = () => {
+  const projectOverdueTodosSelector = makeProjectOverdueTodosSelector();
+  const projectNotOverdueTodosSelector = makeProjectNotOverdueTodosSelector();
+  const projectSelector = makeProjectSelector();
+
+  return (state, ownProps) => ({
+    projectOverdueTodos: projectOverdueTodosSelector(state, ownProps.projectID),
+    projectTodos: projectNotOverdueTodosSelector(state, ownProps.projectID),
+    project: projectSelector(state, ownProps.projectID),
+  });
+};
 
 export const mapDispatchToProps = (dispatch) => ({
   openAddTodoModal: () => dispatch(openAddTodoModal()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Project);
+export default connect(makeMapStateToProps, mapDispatchToProps)(Project);

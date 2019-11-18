@@ -30,23 +30,20 @@ export const labelIdsSelector = createSelector([selectLabels], (labels) =>
   labels.map((label) => label.id),
 );
 
-export const labelSelector = createSelector([selectLabel], (label) => label);
+export const makeLabelSelector = () =>
+  createSelector([selectLabel], (label) => label);
 
-export const labelOverdueTodosSelector = createSelector(
-  [selectLabelTodos],
-  (todos) =>
+export const makeLabelOverdueTodosSelector = () =>
+  createSelector([selectLabelTodos], (todos) =>
     todos.filter((todo) => isPastDate(todo.dueDate)).map((todo) => todo.id),
-);
+  );
 
-export const labelNotOverdueTodosSelector = createSelector(
-  [selectLabelTodos],
-  (todos) =>
+export const makeLabelNotOverdueTodosSelector = () =>
+  createSelector([selectLabelTodos], (todos) =>
     todos
       .filter((todo) => isFutureDate(todo.dueDate) || todo.dueDate === null)
       .map((todo) => todo.id),
-);
+  );
 
-export const labelTodosCountSelector = createSelector(
-  [selectLabelTodos],
-  (todos) => todos.length,
-);
+export const makeLabelTodosCountSelector = () =>
+  createSelector([selectLabelTodos], (todos) => todos.length);
