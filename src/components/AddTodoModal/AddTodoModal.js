@@ -163,7 +163,8 @@ function AddTodoModal({
         </div>
         <div className="AddTodoModal__CTARow">
           <TextButton
-            additionalClasses="TextButton--Medium AddTodoModal__CancelBtn"
+            additionalClasses="AddTodoModal__CancelBtn"
+            size="m"
             type="button"
             onClick={closeModal}
           >

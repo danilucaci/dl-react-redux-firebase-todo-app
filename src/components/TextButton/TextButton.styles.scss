@@ -33,40 +33,6 @@
       tokens.$spacing-button-default-horizontal-s;
   }
 
-  &--WithIcon {
-    padding: tokens.$spacing-button-with-icon-vertical-l
-      tokens.$spacing-button-with-icon-right-l
-      tokens.$spacing-button-with-icon-vertical-l
-      tokens.$spacing-button-with-icon-left-l;
-
-    &--Medium {
-      height: tokens.$size-button-m;
-      padding: tokens.$spacing-button-with-icon-vertical-m
-        tokens.$spacing-button-with-icon-right-m
-        tokens.$spacing-button-with-icon-vertical-m
-        tokens.$spacing-button-with-icon-left-m;
-    }
-
-    &--Small {
-      height: tokens.$size-button-s;
-      padding: tokens.$spacing-button-with-icon-vertical-s
-        tokens.$spacing-button-with-icon-right-s
-        tokens.$spacing-button-with-icon-vertical-s
-        tokens.$spacing-button-with-icon-left-s;
-    }
-  }
-
-  &__Icon {
-    width: tokens.$size-icon-m;
-    height: tokens.$size-icon-m;
-    fill: currentColor;
-
-    position: static;
-    display: inline-block;
-    vertical-align: bottom;
-    margin-right: tokens.rem(4);
-  }
-
   &:hover {
     background-color: tokens.$color-background-text-button-hover;
     border-color: tokens.$color-border-text-button-hover;

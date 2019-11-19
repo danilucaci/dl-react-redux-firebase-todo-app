@@ -99,7 +99,8 @@ function AddLabelModal({
         </div>
         <div className="LabelModal__CTARow">
           <TextButton
-            additionalClasses="TextButton--Medium LabelModal__CancelBtn"
+            additionalClasses="LabelModal__CancelBtn"
+            size="m"
             type="button"
             onClick={closeModal}
           >

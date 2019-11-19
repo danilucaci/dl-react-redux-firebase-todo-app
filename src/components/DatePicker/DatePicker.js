@@ -83,11 +83,7 @@ const DatePicker = ({
       />
       {message && <div className="DatePicker__ErrorMessage">{message}</div>}
       <div className="DatePicker__ButtonsRow">
-        <TextButton
-          additionalClasses="TextButton--Small"
-          onClick={toggleVisibility}
-          type="button"
-        >
+        <TextButton size="s" onClick={toggleVisibility} type="button">
           Close
         </TextButton>
       </div>

@@ -1,43 +1,45 @@
 import React from "react";
-import { string, node } from "prop-types";
+import { string, node, oneOf } from "prop-types";
 import classNames from "classnames";
 
 import "./TextButton.styles.scss";
 import { getClassesFromProps } from "../../utils/helpers";
+import AriaText from "../AriaText/AriaText";
 
-function TextButton({ icon, additionalClasses, children, ...props }) {
+function TextButton({
+  additionalClasses,
+  size = "xl",
+  ariaText,
+  children,
+  ...props
+}) {
   const addedClasses = getClassesFromProps(additionalClasses);
 
   const buttonClassNames = classNames({
     TextButton: true,
-    TextButton__WithIcon: Boolean(icon),
+    [`TextButton--Medium`]: size === "m",
+    [`TextButton--Small`]: size === "s",
     ...addedClasses,
-  });
-
-  const svgClassNames = classNames({
-    TextButton__Icon: true,
   });
 
   return (
     <button className={buttonClassNames} {...props}>
-      {icon && (
-        <svg className={svgClassNames}>
-          <use xlinkHref={`#${icon}`} aria-hidden="true" />
-        </svg>
-      )}
+      {ariaText && <AriaText>{ariaText}</AriaText>}
       {children}
     </button>
   );
 }
 
 TextButton.propTypes = {
-  icon: string,
+  size: oneOf(["xl", "m", "s"]),
   additionalClasses: string,
+  ariaText: string,
   children: node.isRequired,
 };
 
 TextButton.defaultProps = {
-  icon: null,
+  size: "xl",
+  ariaText: null,
   additionalClasses: null,
 };
 

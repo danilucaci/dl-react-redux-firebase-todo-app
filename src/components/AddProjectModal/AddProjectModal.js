@@ -100,7 +100,8 @@ function AddProjectModal({
         </div>
         <div className="ProjectModal__CTARow">
           <TextButton
-            additionalClasses="TextButton--Medium ProjectModal__CancelBtn"
+            additionalClasses="ProjectModal__CancelBtn"
+            size="m"
             type="button"
             onClick={closeModal}
           >

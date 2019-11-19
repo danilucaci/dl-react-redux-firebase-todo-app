@@ -186,11 +186,7 @@ function TodoForm({ todo, toggleVisibility, updateTodo }) {
           </div>
 
           <div className="Todo__Form__ButtonsRow">
-            <TextButton
-              additionalClasses="TextButton--Medium"
-              onClick={handleCancelEdit}
-              type="button"
-            >
+            <TextButton size="m" onClick={handleCancelEdit} type="button">
               Cancel
             </TextButton>
             <PrimaryButton
