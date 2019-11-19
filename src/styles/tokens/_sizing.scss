@@ -23,10 +23,6 @@ $size-button-m: functions.rem(40);
 $size-button-s: functions.rem(32);
 $size-button-todo: functions.rem(24);
 
-// Icons
-$size-avatar-m: functions.rem(40);
-$size-avatar-s: functions.rem(24);
-
 // Dividers
 $size-divider-m: functions.rem(2);
 $size-divider-s: functions.rem(1);
@@ -61,6 +57,10 @@ $border-radius-input-default: 3px;
 
 // Avatars
 $border-avatar-default: functions.rem(2);
+$size-avatar-m: functions.rem(40);
+$size-avatar-s: functions.rem(24);
+$size-profile-page-avatar-xl: functions.rem(80);
+$size-profile-page-avatar-m: functions.rem(64);
 
 // Todo Button Icon
 $border-todo-checkbox: functions.rem(1);

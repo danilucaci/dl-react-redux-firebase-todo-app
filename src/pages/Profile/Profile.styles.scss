@@ -1,1 +1,169 @@
 @use "../../styles/tokens";
+@use "../../styles/base/placeholders";
+
+.Profile__Page {
+  &__Header {
+    margin-bottom: tokens.$spacing-c-05;
+    font-size: tokens.$font-size-mobile-display-xs;
+    line-height: tokens.$font-line-height-mobile-display-xs;
+    font-weight: 700;
+
+    @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+      margin-bottom: tokens.$spacing-c-06;
+      font-size: tokens.$font-size-desktop-display-xs;
+      line-height: tokens.$font-line-height-desktop-display-xs;
+    }
+  }
+
+  &__ImageContainer {
+    display: flex;
+    align-items: center;
+    margin-bottom: tokens.$spacing-c-05;
+  }
+
+  &__Image {
+    width: tokens.$size-profile-page-avatar-xl;
+    height: tokens.$size-profile-page-avatar-xl;
+    border: tokens.$border-avatar-default tokens.$color-border-avatar-on-white
+      solid;
+    background-color: tokens.$color-background-avatar-on-white;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+
+    margin-right: tokens.$spacing-c-05;
+
+    @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+      width: tokens.$size-profile-page-avatar-xl;
+      height: tokens.$size-profile-page-avatar-xl;
+      margin-right: tokens.$spacing-c-07;
+    }
+
+    &--Loaded {
+      animation: fadeAvatar tokens.$timing-avatar-fadein ease forwards;
+    }
+
+    @keyframes fadeAvatar {
+      from,
+      0% {
+        opacity: 0;
+      }
+      to,
+      100% {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__DisplayName {
+    font-size: tokens.$font-size-mobile-display-xs;
+    line-height: tokens.$font-line-height-mobile-display-xs;
+    font-weight: 700;
+
+    @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+      font-size: tokens.$font-size-desktop-display-s;
+      line-height: tokens.$font-line-height-desktop-display-s;
+    }
+  }
+
+  &__Email {
+    color: tokens.$color-text-body-subdued;
+  }
+
+  &__Buttons {
+    margin-bottom: tokens.$spacing-c-07;
+    padding-bottom: tokens.$spacing-c-07;
+
+    @extend %bottom-divider--on-white;
+  }
+
+  &__Buttons__Row {
+    margin-bottom: tokens.$spacing-c-03;
+  }
+
+  &__FileNameSelected {
+    font-size: tokens.$font-size-body-s;
+    line-height: tokens.$font-line-height-body-s;
+    color: tokens.$color-text-body-subdued;
+  }
+
+  &__FileInput {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+
+    & + label {
+      background-color: tokens.$color-background-outlined-enabled;
+      border-radius: tokens.$border-radius-button-default;
+      border: tokens.$size-border-button-default
+        tokens.$color-border-outlined-enabled solid;
+      color: tokens.$color-text-button-outlined-enabled;
+
+      margin-right: tokens.$spacing-c-07;
+
+      font: {
+        size: tokens.$font-size-button-m;
+        family: tokens.$font-family-button;
+        weight: tokens.$font-weight-button;
+      }
+
+      line-height: tokens.$font-line-height-button-m;
+
+      white-space: nowrap;
+      height: tokens.$size-button-s;
+
+      padding: tokens.$spacing-button-default-vertical-s
+        tokens.$spacing-button-default-horizontal-s;
+    }
+
+    &:focus + label,
+    & + label:hover {
+      background-color: tokens.$color-background-outlined-hover;
+      border-color: tokens.$color-border-outlined-hover;
+      box-shadow: none;
+      cursor: pointer;
+      outline: none;
+    }
+
+    &:active + label,
+    & + label:active {
+      background-color: tokens.$color-background-outlined-active;
+      border-color: tokens.$color-border-outlined-active;
+      box-shadow: none;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .js-focus-visible &:active + label,
+    .js-focus-visible & + label:active {
+      background-color: tokens.$color-background-outlined-focus-polyfill;
+      border-color: tokens.$color-border-outlined-focus-polyfill;
+      box-shadow: none;
+      cursor: pointer;
+    }
+
+    &:disabled + label,
+    & + label:disabled {
+      background-color: tokens.$color-background-outlined-disabled;
+      border-color: tokens.$color-border-outlined-disabled;
+      box-shadow: none;
+      outline: none;
+      cursor: not-allowed;
+      color: tokens.$color-text-button-outlined-disabled;
+
+      &:hover,
+      &:focus {
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  &__Input {
+    display: block;
+    margin-bottom: tokens.$spacing-c-05;
+    max-width: tokens.rem(400);
+  }
+}
