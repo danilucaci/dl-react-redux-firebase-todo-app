@@ -169,11 +169,7 @@ function AddTodoModal({
           >
             Cancel
           </TextButton>
-          <PrimaryButton
-            additionalClasses="PrimaryButton--Medium"
-            type="submit"
-            disabled={!todo.name.length}
-          >
+          <PrimaryButton size="m" type="submit" disabled={!todo.name.length}>
             Add todo
           </PrimaryButton>
         </div>

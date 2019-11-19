@@ -17,6 +17,7 @@
 
   white-space: nowrap;
   height: tokens.$size-button-l;
+
   padding: tokens.$spacing-button-default-vertical-l
     tokens.$spacing-button-default-horizontal-l;
 
@@ -55,6 +56,51 @@
     }
   }
 
+  &--IconOnly {
+    border-color: tokens.$color-border-icon-button-enabled;
+    color: tokens.$color-icon-button-primary-enabled;
+
+    padding: tokens.$spacing-button-icon-vertical-l
+      tokens.$spacing-button-icon-horizontal-l;
+
+    &--Medium {
+      height: tokens.$size-button-m;
+      padding: tokens.$spacing-button-icon-vertical-m
+        tokens.$spacing-button-icon-horizontal-m;
+    }
+
+    &--Small {
+      height: tokens.$size-button-s;
+      padding: tokens.$spacing-button-icon-vertical-s
+        tokens.$spacing-button-icon-horizontal-s;
+    }
+
+    &:hover {
+      border-color: tokens.$color-border-icon-button-hover;
+      color: tokens.$color-icon-button-primary-hover;
+    }
+
+    &:focus {
+      border-color: tokens.$color-border-icon-button-focus;
+      color: tokens.$color-icon-button-primary-focus;
+    }
+
+    .js-focus-visible &:focus:not([data-focus-visible-added]) {
+      border-color: tokens.$color-border-icon-button-focus-polyfill;
+      color: tokens.$color-icon-button-primary-focus;
+    }
+
+    &:active {
+      border-color: tokens.$color-border-icon-button-active;
+      color: tokens.$color-icon-button-primary-active;
+    }
+
+    &:disabled {
+      border-color: tokens.$color-border-icon-button-disabled;
+      color: tokens.$color-icon-button-primary-disabled;
+    }
+  }
+
   &__Icon {
     width: tokens.$size-icon-m;
     height: tokens.$size-icon-m;
@@ -63,7 +109,10 @@
     position: static;
     display: inline-block;
     vertical-align: bottom;
-    margin-right: tokens.rem(4);
+
+    &--Spaced {
+      margin-right: tokens.rem(4);
+    }
   }
 
   &:hover {

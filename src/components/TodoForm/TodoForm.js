@@ -195,7 +195,8 @@ function TodoForm({ todo, toggleVisibility, updateTodo }) {
             </TextButton>
             <PrimaryButton
               type="submit"
-              additionalClasses="Todo__Form__SubmitButton PrimaryButton--Medium"
+              size="m"
+              additionalClasses="Todo__Form__SubmitButton"
             >
               Save
             </PrimaryButton>

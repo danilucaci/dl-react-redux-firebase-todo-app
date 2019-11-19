@@ -105,11 +105,7 @@ function AddLabelModal({
           >
             Cancel
           </TextButton>
-          <PrimaryButton
-            additionalClasses="PrimaryButton--Medium"
-            type="submit"
-            disabled={!labelName.length}
-          >
+          <PrimaryButton size="m" type="submit" disabled={!labelName.length}>
             Add label
           </PrimaryButton>
         </div>

@@ -106,11 +106,7 @@ function AddProjectModal({
           >
             Cancel
           </TextButton>
-          <PrimaryButton
-            additionalClasses="PrimaryButton--Medium"
-            type="submit"
-            disabled={!projectName.length}
-          >
+          <PrimaryButton size="m" type="submit" disabled={!projectName.length}>
             Add project
           </PrimaryButton>
         </div>
