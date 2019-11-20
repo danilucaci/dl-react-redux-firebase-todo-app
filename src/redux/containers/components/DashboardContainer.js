@@ -7,7 +7,7 @@ import { subscribeToLabels } from "../../../redux/labels/labels-actions";
 import { subscribeToProjects } from "../../../redux/projects/projects-actions";
 import Dashboard from "../../../components/Dashboard/Dashboard";
 import { notInboxProjectsSelector } from "../../../redux/projects/projects-selectors";
-import { labelsSelector } from "../../../redux/labels/labels-selectors";
+import { allLabelsSelector } from "../../../redux/labels/labels-selectors";
 import { userStateSelector } from "../../user/user-selectors";
 import { appDataSelector } from "../../../redux/localState/localState-selectors";
 
@@ -15,7 +15,7 @@ export const mapStateToProps = (state) => ({
   appData: appDataSelector(state),
   userState: userStateSelector(state),
   projects: notInboxProjectsSelector(state),
-  labels: labelsSelector(state),
+  labels: allLabelsSelector(state),
 });
 
 export const mapDispatchToProps = (dispatch) => ({

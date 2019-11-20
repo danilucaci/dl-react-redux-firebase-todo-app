@@ -3,78 +3,94 @@ import { createSelector } from "reselect";
 import { INBOX_PROJECT_IDENTIFIER } from "../../constants/collections";
 
 import { isPastDate, isFutureDate } from "../../utils/dates";
+import { allTodosSelector } from "../todos/todos-selectors";
 
 export const selectProject = (state, projectID) =>
   state.projects.byID[projectID];
 
-export const selectAllProjects = (state) => Object.values(state.projects.byID);
-
-export const selectNotInboxProjects = (state) =>
-  Object.values(state.projects.byID).filter(
-    (project) =>
-      project.hasOwnProperty(INBOX_PROJECT_IDENTIFIER) &&
-      !project[INBOX_PROJECT_IDENTIFIER],
-  );
-
-export const selectNotInboxProjectIds = (state) =>
-  Object.values(state.projects.byID)
-    .filter(
-      (project) =>
-        project.hasOwnProperty(INBOX_PROJECT_IDENTIFIER) &&
-        !project[INBOX_PROJECT_IDENTIFIER],
-    )
-    .map((project) => project.id);
-
-export const selectProjectTodos = (state, projectID) => {
-  return Object.values(state.todos.byID).filter(
-    (todo) =>
-      todo.hasOwnProperty("project") &&
-      todo.project.hasOwnProperty("projectID") &&
-      todo.project.projectID === projectID,
-  );
-};
-
-export const makeProjectTodosCountSelector = () =>
-  createSelector([selectProjectTodos], (todos) => todos.length);
-
-export const selectInboxProject = (state) =>
-  Object.values(state.projects.byID).filter(
-    (project) =>
-      project.hasOwnProperty(INBOX_PROJECT_IDENTIFIER) &&
-      project[INBOX_PROJECT_IDENTIFIER],
-  );
-
-export const allProjectsSelector = createSelector(
-  [selectAllProjects],
-  (projects) => projects,
-);
-
-export const notInboxProjectsSelector = createSelector(
-  [selectNotInboxProjects],
-  (projects) => projects,
-);
-
-export const notInboxProjectIdsSelector = createSelector(
-  [selectNotInboxProjectIds],
-  (projects) => projects,
-);
-
 export const makeProjectSelector = () =>
   createSelector([selectProject], (project) => project);
 
-export const inboxProjectSelector = createSelector(
-  [selectInboxProject],
-  (project) => project[0],
+export const selectAllProjectsObject = (state) => state.projects.byID;
+
+export const allProjectsSelector = createSelector(
+  [selectAllProjectsObject],
+  (projects) => Object.values(projects),
 );
 
+export const notInboxProjectsSelector = createSelector(
+  [allProjectsSelector],
+  (projects) =>
+    projects.filter(
+      (project) =>
+        project.hasOwnProperty(INBOX_PROJECT_IDENTIFIER) &&
+        !project[INBOX_PROJECT_IDENTIFIER],
+    ),
+);
+
+export const notInboxProjectIdsSelector = createSelector(
+  [allProjectsSelector],
+  (projects) =>
+    projects
+      .filter(
+        (project) =>
+          project.hasOwnProperty(INBOX_PROJECT_IDENTIFIER) &&
+          !project[INBOX_PROJECT_IDENTIFIER],
+      )
+      .map((project) => project.id),
+);
+
+export const inboxProjectSelector = createSelector(
+  [allProjectsSelector],
+  (projects) => {
+    const array = projects.filter(
+      (project) =>
+        project.hasOwnProperty(INBOX_PROJECT_IDENTIFIER) &&
+        project[INBOX_PROJECT_IDENTIFIER],
+    );
+
+    return array[0];
+  },
+);
+
+export const makeProjectTodosCountSelector = () =>
+  createSelector([allTodosSelector, selectProject], (todos, project) => {
+    const filteredTodos = todos.filter(
+      (todo) =>
+        todo.hasOwnProperty("project") &&
+        todo.project.hasOwnProperty("projectID") &&
+        todo.project.projectID === project.id,
+    );
+
+    return filteredTodos.length;
+  });
+
 export const makeProjectOverdueTodosSelector = () =>
-  createSelector([selectProjectTodos], (todos) =>
-    todos.filter((todo) => isPastDate(todo.dueDate)).map((todo) => todo.id),
-  );
+  createSelector([allTodosSelector, selectProject], (todos, project) => {
+    const filteredTodos = todos
+      .filter(
+        (todo) =>
+          todo.hasOwnProperty("project") &&
+          todo.project.hasOwnProperty("projectID") &&
+          todo.project.projectID === project.id,
+      )
+      .filter((todo) => isPastDate(todo.dueDate))
+      .map((todo) => todo.id);
+
+    return filteredTodos;
+  });
 
 export const makeProjectNotOverdueTodosSelector = () =>
-  createSelector([selectProjectTodos], (todos) =>
-    todos
+  createSelector([allTodosSelector, selectProject], (todos, project) => {
+    const filteredTodos = todos
+      .filter(
+        (todo) =>
+          todo.hasOwnProperty("project") &&
+          todo.project.hasOwnProperty("projectID") &&
+          todo.project.projectID === project.id,
+      )
       .filter((todo) => isFutureDate(todo.dueDate) || todo.dueDate === null)
-      .map((todo) => todo.id),
-  );
+      .map((todo) => todo.id);
+
+    return filteredTodos;
+  });
