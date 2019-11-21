@@ -68,6 +68,14 @@ $spacing-input-horizontal-m: functions.rem(12) -
   sizing.$size-border-input-default;
 $spacing-input-vertical-m: functions.rem(12) - sizing.$size-border-input-default;
 
+// Date Picker
+$spacing-datepicker-weekday-horizontal-m: functions.rem(8);
+$spacing-datepicker-weekday-vertical-m: functions.rem(8);
+$spacing-datepicker-day-horizontal-m: functions.rem(8) -
+  sizing.$size-border-datepicker-day;
+$spacing-datepicker-day-vertical-m: functions.rem(8) -
+  sizing.$size-border-datepicker-day;
+
 $spacing-input-horizontal-s: functions.rem(12) -
   sizing.$size-border-input-default;
 $spacing-input-vertical-s: functions.rem(8) - sizing.$size-border-input-default;

@@ -53,16 +53,24 @@ $color-background-outlined-focus-polyfill: colors.$grey100;
 $color-background-outlined-disabled: transparent;
 
 // Date picker
-$color-background-date-enabled: colors.$grey00;
-$color-background-date-selected: colors.$primary600;
-$color-background-date-hover: colors.$grey100;
-$color-background-date-today: colors.$grey100;
-$color-background-date-disabled: colors.$grey00;
-$color-text-date-enabled: colors.$grey900;
-$color-text-date-selected: colors.$grey00;
-$color-text-date-hover: colors.$grey900;
-$color-text-date-today: colors.$grey900;
-$color-text-date-disabled: colors.$grey500;
+$color-background-datepicker-enabled: colors.$grey00;
+$color-background-datepicker-selected: colors.$primary600;
+$color-background-datepicker-hover: colors.$grey100;
+$color-background-datepicker-today: colors.$grey100;
+$color-background-datepicker-disabled: colors.$grey00;
+$color-background-datepicker-navbutton: colors.$grey600;
+$color-text-datepicker-enabled: colors.$grey900;
+$color-text-datepicker-selected: colors.$grey00;
+$color-text-datepicker-hover: colors.$grey900;
+$color-text-datepicker-today: colors.$grey900;
+$color-text-datepicker-disabled: colors.$grey500;
+$color-text-datepicker-weekday: colors.$grey600;
+$color-text-datepicker-monthname: colors.$grey900;
+$color-border-datepicker-enabled: colors.$grey300;
+$color-border-datepicker-selected: colors.$primary600;
+$color-border-datepicker-hover: colors.$grey300;
+$color-border-datepicker-today: colors.$grey300;
+$color-border-datepicker-disabled: colors.$grey300;
 
 $color-background-text-button-enabled: transparent;
 $color-background-text-button-hover: colors.$grey50;

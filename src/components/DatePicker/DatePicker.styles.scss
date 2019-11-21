@@ -63,7 +63,7 @@
   &-NavButton {
     right: auto;
     left: auto;
-    color: #8b9898;
+    color: tokens.$color-background-datepicker-navbutton;
     padding: 0.25rem;
   }
 
@@ -78,36 +78,39 @@
   }
 
   &-Caption {
-    margin-bottom: 1rem;
+    margin-bottom: tokens.$spacing-c-03;
     padding: 0 2rem;
     margin-top: 0;
   }
 
+  &-Weekdays {
+    display: table-caption;
+    margin-top: 0;
+    margin-bottom: tokens.$spacing-c-03;
+  }
+
   &-Caption > div {
+    color: tokens.$color-text-datepicker-monthname;
+    font-size: tokens.$font-size-datepicker-month;
+    line-height: tokens.$font-line-height-datepicker-month;
     font-weight: 500;
-    font-size: 1.15em;
     text-align: center;
   }
 
   &-Weekday {
+    color: tokens.$color-text-datepicker-weekday;
+    font-size: tokens.$font-size-datepicker-weekday;
+    line-height: tokens.$font-line-height-datepicker-weekday;
+    padding: tokens.$spacing-datepicker-weekday-vertical-m
+      tokens.$spacing-datepicker-weekday-horizontal-m;
     display: table-cell;
-    padding: 0.5em;
-    color: #8b9898;
     text-align: center;
-    font-size: 0.875em;
   }
 
   &-Day {
-    padding: 0.5em;
+    padding: tokens.$spacing-datepicker-day-vertical-m
+      tokens.$spacing-datepicker-day-horizontal-m;
     border-radius: 0 !important;
-  }
-
-  &-WeekNumber {
-    padding: 0.5em;
-    min-width: 1em;
-    border-right: 1px solid #eaecec;
-    color: #8b9898;
-    text-align: right;
   }
 
   &-Footer {
@@ -117,40 +120,41 @@
   /* Default modifiers */
 
   &-Day--outside {
-    color: #8b9898;
+    color: white;
     cursor: default;
   }
 
   &-Day--disabled {
-    background-color: tokens.$color-background-date-disabled !important;
-    color: tokens.$color-text-date-disabled !important;
+    background-color: tokens.$color-background-datepicker-disabled !important;
+    color: tokens.$color-text-datepicker-disabled !important;
     cursor: not-allowed;
   }
 
   &-Day--today {
-    background-color: tokens.$color-background-date-today !important;
-    color: tokens.$color-text-date-today !important;
+    background-color: tokens.$color-background-datepicker-today !important;
+    color: tokens.$color-text-datepicker-today !important;
   }
 
   &-Day:not(.DayPicker-Day--outside) {
-    border: 1px solid lightgrey;
+    border: tokens.$size-border-datepicker-day solid
+      tokens.$color-border-datepicker-enabled;
   }
 
   &-Day--start,
   &-Day--end {
-    background-color: tokens.$color-text-date-enabled !important;
-    color: tokens.$color-background-date-hover !important;
+    background-color: tokens.$color-text-datepicker-enabled !important;
+    color: tokens.$color-background-datepicker-hover !important;
   }
 
   /* On hover */
   .DayPicker-Day:hover:not(.DayPicker-Day--selected):not(.DayPicker-Day--disabled):not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
-    background-color: tokens.$color-background-date-hover !important;
-    color: tokens.$color-text-date-hover !important;
+    background-color: tokens.$color-background-datepicker-hover !important;
+    color: tokens.$color-text-datepicker-hover !important;
   }
 
   .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
-    background-color: tokens.$color-background-date-selected !important;
-    color: tokens.$color-text-date-selected !important;
+    background-color: tokens.$color-background-datepicker-selected !important;
+    color: tokens.$color-text-datepicker-selected !important;
     font-weight: bold;
   }
 }
