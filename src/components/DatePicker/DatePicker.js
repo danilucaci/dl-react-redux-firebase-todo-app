@@ -80,6 +80,7 @@ const DatePicker = ({
         onDayClick={handleDateChange}
         selectedDays={dueDate}
         disabledDays={{ before: new Date() }}
+        firstDayOfWeek={1}
       />
       {message && <div className="DatePicker__ErrorMessage">{message}</div>}
       <div className="DatePicker__ButtonsRow">
