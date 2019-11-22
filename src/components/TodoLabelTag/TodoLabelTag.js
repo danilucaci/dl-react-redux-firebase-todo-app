@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { string, array, func } from "prop-types";
 import classNames from "classnames";
 import { Menu, MenuList, MenuButton, MenuItem } from "@reach/menu-button";
@@ -59,7 +59,7 @@ function getNewlabels(prevLabels) {
   };
 }
 
-export const LabelTag = ({
+export const LabelTag = memo(function LabelTag({
   labelName,
   labelColorValue,
   additionalClasses,
@@ -69,7 +69,7 @@ export const LabelTag = ({
   appLabels,
   dispatch,
   ...props
-}) => {
+}) {
   const addedClasses = getClassesFromProps(additionalClasses);
 
   const buttonClassNames = classNames({
@@ -124,7 +124,7 @@ export const LabelTag = ({
       </MenuList>
     </Menu>
   );
-};
+});
 
 const TodoLabelTag = ({
   labels,
@@ -217,4 +217,4 @@ TodoLabelTag.defaultProps = {
   onChangeHandler: null,
 };
 
-export default TodoLabelTag;
+export default memo(TodoLabelTag);

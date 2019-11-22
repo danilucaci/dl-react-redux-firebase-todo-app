@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { string, instanceOf, oneOfType, bool, func } from "prop-types";
 import classNames from "classnames";
 
@@ -76,4 +76,4 @@ TodoDueDate.defaultProps = {
   onChangeHandler: null,
 };
 
-export default TodoDueDate;
+export default memo(TodoDueDate);

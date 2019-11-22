@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import {
   arrayOf,
   shape,
@@ -38,7 +38,7 @@ function TodoForm({ todo, toggleVisibility, updateTodo }) {
 
   const todoWrapperRef = useRef();
 
-  function handleProjectChange(project) {
+  const handleProjectChange = useCallback((project) => {
     const isInboxProject =
       project.hasOwnProperty(INBOX_PROJECT_IDENTIFIER) &&
       project[INBOX_PROJECT_IDENTIFIER];
@@ -52,35 +52,35 @@ function TodoForm({ todo, toggleVisibility, updateTodo }) {
     });
 
     setShowProjects(false);
-  }
+  }, []);
 
-  function handleLabelChange(labels) {
+  const handleLabelChange = useCallback((labels) => {
     setSelectedLabels(labels);
     setShowLabels(false);
-  }
+  }, []);
 
-  function handleDateChange(date) {
+  const handleDateChange = useCallback((date) => {
     setSelectedDate(date);
     setShowDate(false);
-  }
+  }, []);
 
-  function handleProjectsVisibility() {
+  const handleProjectsVisibility = useCallback(() => {
     setShowProjects(true);
     setShowLabels(false);
     setShowDate(false);
-  }
+  }, []);
 
-  function handleLabelsVisibility() {
+  const handleLabelsVisibility = useCallback(() => {
     setShowProjects(false);
     setShowLabels(true);
     setShowDate(false);
-  }
+  }, []);
 
-  function handleDatesVisibility() {
+  const handleDatesVisibility = useCallback(() => {
     setShowProjects(false);
     setShowLabels(false);
     setShowDate(!showDate);
-  }
+  }, [showDate]);
 
   function handleClickOutside() {
     if (showProjects) {
