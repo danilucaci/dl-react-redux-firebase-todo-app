@@ -6,6 +6,9 @@ import {
   isPast,
   isToday,
   startOfYesterday,
+  endOfTomorrow,
+  isYesterday,
+  isTomorrow,
   parseJSON,
   isWithinInterval,
   setHours,
@@ -178,7 +181,7 @@ export function isBetweenNextDaysInverval(date) {
  * @param {Date} date The date to be compare if it is within the range.
  * @returns {Boolean}
  */
-export function isPastDateUntilYesterday(date) {
+export function isPastDateFromYesterday(date) {
   return isWithinInterval(parseDate(date), {
     start: startOfYesterday(),
     end: new Date(),
@@ -203,7 +206,7 @@ export function formatRelativeDate(date) {
  * @example
  * Sat Nov 9 2019 10:05
  */
-export function formatDate(date) {
+export function formatDateWithTime(date) {
   const options = {
     hour12: false,
     weekday: "short",
@@ -212,6 +215,27 @@ export function formatDate(date) {
     day: "numeric",
     hour: "numeric",
     minute: "numeric",
+  };
+
+  return new Intl.DateTimeFormat("en-US", options)
+    .format(parseDate(date))
+    .split(",")
+    .join(" ");
+}
+
+/**
+ * @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat
+ * @param {Date} date
+ * @returns Formatted date
+ * @example
+ * Sat Nov 9 2019
+ */
+export function formatDateWithoutTime(date) {
+  const options = {
+    weekday: "short",
+    year: "numeric",
+    month: "short",
+    day: "numeric",
   };
 
   return new Intl.DateTimeFormat("en-US", options)
@@ -237,16 +261,82 @@ export function formatHour(date) {
 }
 
 /**
- * Formats the due dates of the `<Todo />` components.
+ * Checks if the provided `date` is between `startOfYesterday` and `endOfTomorrow`
+ * @param {Date} date
+ */
+export function isDateBetweenYesterdayOrTomorrow(date) {
+  return isWithinInterval(parseDate(date), {
+    start: startOfYesterday(),
+    end: endOfTomorrow(),
+  });
+}
+
+/**
+ * Formats the due date of the `<Todo />` components that don’t have a time set.
+ *
+ * @param {Date} date
+ * If the provided `date` is `yesterday` returns `Yesterday`.
+ *
+ * If the provided `date` is `tomorrow` returns `Tomorrow`.
+ *
+ * Otherwise returns the full `date` without a time value.
+ *
+ * @example
+ * Sat Nov 9 2019
+ */
+export function formatTodoDueDateWithoutTime(date) {
+  if (!isValid(date)) return null;
+
+  if (isToday(date)) {
+    return "Today";
+  }
+
+  if (isYesterday(date)) {
+    return "Yesterday";
+  }
+
+  if (isTomorrow(date)) {
+    return "Tomorrow";
+  }
+
+  return formatDateWithoutTime(date);
+}
+
+/**
+ * Formats the due dates of the `<Todo />` components that have a time set.
+ *
+ * @param {Date} date
+ * If the provided `date` is between the start of yesterday
+ * and the current time, it returns the relative formatted date.
+ *
+ * Otherwise it returns the full date with a time value
+ *
+ * @returns {Date} `formatRelativeDate(date)`
+ * @example
+ * 2 hours ago
+ *
+ * @example
+ * Sat Nov 9 2019 10:05
+ */
+export function formatTodoDueDateWithTime(date) {
+  if (isPastDateFromYesterday(date)) {
+    return formatRelativeDate(date);
+  }
+
+  return formatDateWithTime(date);
+}
+
+/**
+ * Formats the due date of the `<Todo />` components
+ * from the `next-days` page that have a time set.
  *
  * @param {Date} date
  * If the provided `date` is between the current date
  * and the max number of days in the next days section,
- * it returns the formatted time (hour).
+ * it returns the formatted time (hour and minutes).
  *
  * If the provided `date` is between the start of yesterday
  * and the current time, it returns the formatted date.
- *
  *
  * @returns {Date} `formatHour(date)`
  * @example
@@ -256,15 +346,26 @@ export function formatHour(date) {
  * @example
  * Sat Nov 9 2019 10:05
  */
-export function formatTodoDueDate(date) {
+export function formatNextDaysTodoDueDateWithTime(date) {
   if (isBetweenNextDaysInverval(date)) {
     return formatHour(date);
   }
-  if (isPastDateUntilYesterday(date)) {
+
+  if (isPastDateFromYesterday(date)) {
     return formatRelativeDate(date);
   }
 
-  return formatDate(date);
+  return formatDateWithTime(date);
+}
+
+/**
+ * Formats the due date of the `<Todo />` components
+ * from the `next-days` page that don’t have a time set.
+ *
+ * @param {Date} date Full date without a time value
+ */
+export function formatNextDaysTodoDueDateWithoutTime(date) {
+  return formatDateWithoutTime(date);
 }
 
 /**

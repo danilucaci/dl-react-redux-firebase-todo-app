@@ -188,6 +188,7 @@ function TodoForm({
               hadPreviousTime={withTime}
               hasNewTime={hasNewTime}
               setHasNewTime={setHasNewTime}
+              fullDateFormat={true}
               toggleVisibility={handleDatesVisibility}
               onChangeHandler={handleDateChange}
             />

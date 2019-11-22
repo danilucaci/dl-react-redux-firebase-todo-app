@@ -1,15 +1,61 @@
 import React, { memo } from "react";
 import { string, instanceOf, oneOfType, bool, func } from "prop-types";
 import classNames from "classnames";
+import { useLocation } from "react-router-dom";
 
 import "./TodoDueDate.styles.scss";
 
-import { formatTodoDueDate } from "../../utils/dates";
+import {
+  formatTodoDueDateWithTime,
+  formatTodoDueDateWithoutTime,
+  formatNextDaysTodoDueDateWithTime,
+  formatNextDaysTodoDueDateWithoutTime,
+} from "../../utils/dates";
 
 import { getClassesFromProps } from "../../utils/helpers";
 import { isPastDate } from "../../utils/dates";
 import DatePicker from "../DatePicker/DatePicker";
 import { useRectSize } from "../../hooks";
+
+export function FormattedTodoDueDate(dueDate, hasNewTime, fullDateFormat) {
+  const location = useLocation();
+
+  if (!dueDate) {
+    return "Schedule";
+  }
+
+  /**
+   * On the `/next-days` page render only the time of the date
+   * bellow each day instead of the full date.
+   *
+   * @example
+   * Friday 22-June
+   * Todo 100
+   * 15:00
+   *
+   * Saturday 23-June
+   * Todo 200
+   * 14:20
+   *
+   * ------------------------------------------------------------------
+   * `fullDateFormat` Render the full date format when editing the todo
+   * Even if it’s on the `/next-days` page
+   */
+
+  if (location.pathname.includes("next-days") && !fullDateFormat) {
+    if (hasNewTime) {
+      return formatNextDaysTodoDueDateWithTime(dueDate);
+    } else {
+      return formatNextDaysTodoDueDateWithoutTime(dueDate);
+    }
+  } else {
+    if (hasNewTime) {
+      return formatTodoDueDateWithTime(dueDate);
+    } else {
+      return formatTodoDueDateWithoutTime(dueDate);
+    }
+  }
+}
 
 function TodoDueDate({
   dueDate,
@@ -18,6 +64,7 @@ function TodoDueDate({
   hadPreviousTime,
   hasNewTime,
   setHasNewTime,
+  fullDateFormat,
   toggleVisibility,
   bottomFixed,
   onChangeHandler,
@@ -42,7 +89,7 @@ function TodoDueDate({
         onClick={toggleVisibility}
         {...props}
       >
-        {dueDate ? formatTodoDueDate(dueDate) : "Schedule"}
+        {FormattedTodoDueDate(dueDate, hasNewTime, fullDateFormat)}
       </button>
       {isVisible && (
         <DatePicker
@@ -74,6 +121,7 @@ TodoDueDate.propTypes = {
   hadPreviousTime: bool,
   hasNewTime: bool.isRequired,
   setHasNewTime: func,
+  fullDateFormat: bool,
   toggleVisibility: func.isRequired,
   onChangeHandler: func,
 };
@@ -83,6 +131,7 @@ TodoDueDate.defaultProps = {
   dueDate: null,
   hadPreviousTime: false,
   bottomFixed: false,
+  fullDateFormat: false,
   onChangeHandler: null,
   setHasNewTime: null,
 };
