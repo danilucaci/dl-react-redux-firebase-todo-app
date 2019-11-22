@@ -26,7 +26,14 @@
 
   &__ErrorMessage {
     display: block;
-    margin: tokens.$spacing-c-03;
+
+    margin: {
+      top: 0;
+      right: tokens.$spacing-c-05;
+      bottom: tokens.$spacing-c-03;
+      left: tokens.$spacing-c-05;
+    }
+
     padding-bottom: tokens.$spacing-c-03;
     font-size: tokens.$font-size-body-s;
     line-height: tokens.$font-line-height-body-s;
@@ -40,9 +47,38 @@
     @extend %top-divider--on-white;
 
     display: flex;
-    justify-content: center;
-    margin: tokens.$spacing-c-03;
-    padding-top: tokens.$spacing-c-03;
+    justify-content: space-between;
+
+    margin: {
+      right: tokens.$spacing-c-05;
+      bottom: tokens.$spacing-c-03;
+      left: tokens.$spacing-c-05;
+    }
+
+    padding: {
+      top: tokens.$spacing-c-03;
+    }
+  }
+
+  &__TimeInputRow {
+    @extend %top-divider--on-white;
+
+    margin: {
+      left: tokens.$spacing-c-05;
+      right: tokens.$spacing-c-05;
+    }
+
+    padding: {
+      top: tokens.$spacing-c-04;
+      bottom: tokens.$spacing-c-04;
+    }
+  }
+
+  &__TimeInput {
+    width: 100%;
+    max-width: tokens.rem(88);
+    margin-left: tokens.$spacing-c-03;
+    margin-right: tokens.$spacing-c-03;
   }
 }
 
@@ -111,6 +147,8 @@
     padding: tokens.$spacing-datepicker-day-vertical-m
       tokens.$spacing-datepicker-day-horizontal-m;
     border-radius: 0 !important;
+    font-size: tokens.$font-size-datepicker-day;
+    line-height: tokens.$font-line-height-datepicker-day;
   }
 
   &-Footer {

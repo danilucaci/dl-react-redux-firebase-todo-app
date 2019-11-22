@@ -22,15 +22,19 @@ import TodoDueDate from "../TodoDueDate/TodoDueDate";
 import { parseDate } from "../../utils/dates";
 import { INBOX_PROJECT_IDENTIFIER } from "../../constants/collections";
 
-function TodoForm({ todo, toggleVisibility, updateTodo }) {
-  const { labels, project, dueDate, name } = todo;
-
+function TodoForm({
+  todo: { labels, project, dueDate, name, withTime } = {},
+  todo = {},
+  toggleVisibility,
+  updateTodo,
+}) {
   const [newTodoName, setNewTodoName] = useState(name || "");
   const [showProjects, setShowProjects] = useState(false);
   const [selectedProject, setSelectedProject] = useState(project);
   const [showLabels, setShowLabels] = useState(false);
   const [selectedLabels, setSelectedLabels] = useState(labels);
   const [showDate, setShowDate] = useState(false);
+  const [hasNewTime, setHasNewTime] = useState(withTime);
 
   const [selectedDate, setSelectedDate] = useState(
     dueDate ? parseDate(dueDate) : null,
@@ -134,6 +138,7 @@ function TodoForm({ todo, toggleVisibility, updateTodo }) {
       dueDate: selectedDate,
       project: selectedProject,
       labels: newLabels,
+      withTime: hasNewTime,
     };
 
     updateTodo(todoData);
@@ -180,6 +185,9 @@ function TodoForm({ todo, toggleVisibility, updateTodo }) {
               dueDate={selectedDate}
               additionalClasses="Todo__Form__DueDate"
               isVisible={showDate}
+              hadPreviousTime={withTime}
+              hasNewTime={hasNewTime}
+              setHasNewTime={setHasNewTime}
               toggleVisibility={handleDatesVisibility}
               onChangeHandler={handleDateChange}
             />
@@ -221,6 +229,7 @@ TodoForm.propTypes = {
     }).isRequired,
     dueDate: oneOfType([instanceOf(Date), string]),
     completed: bool.isRequired,
+    withTime: bool.isRequired,
     name: string.isRequired,
     uid: string.isRequired,
     id: string.isRequired,

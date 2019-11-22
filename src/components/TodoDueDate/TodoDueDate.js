@@ -15,6 +15,9 @@ function TodoDueDate({
   dueDate,
   additionalClasses,
   isVisible,
+  hadPreviousTime,
+  hasNewTime,
+  setHasNewTime,
   toggleVisibility,
   bottomFixed,
   onChangeHandler,
@@ -45,6 +48,9 @@ function TodoDueDate({
         <DatePicker
           dueDate={dueDate}
           isVisible={isVisible}
+          hadPreviousTime={hadPreviousTime}
+          hasNewTime={hasNewTime}
+          setHasNewTime={setHasNewTime}
           toggleVisibility={toggleVisibility}
           onChangeHandler={onChangeHandler}
           bottomFixed={bottomFixed}
@@ -65,6 +71,9 @@ TodoDueDate.propTypes = {
   additionalClasses: string,
   bottomFixed: bool,
   isVisible: bool.isRequired,
+  hadPreviousTime: bool,
+  hasNewTime: bool.isRequired,
+  setHasNewTime: func,
   toggleVisibility: func.isRequired,
   onChangeHandler: func,
 };
@@ -72,8 +81,10 @@ TodoDueDate.propTypes = {
 TodoDueDate.defaultProps = {
   additionalClasses: null,
   dueDate: null,
+  hadPreviousTime: false,
   bottomFixed: false,
   onChangeHandler: null,
+  setHasNewTime: null,
 };
 
 export default memo(TodoDueDate);

@@ -1,0 +1,86 @@
+@use "../../styles/tokens";
+
+.TimeInput {
+  background-color: tokens.$color-background-input;
+  border-radius: tokens.$border-radius-input-default;
+  border: tokens.$size-border-input-default tokens.$color-border-input-enabled
+    solid;
+  color: tokens.$color-text-input-enabled;
+
+  font: {
+    size: tokens.$font-size-input-m;
+    family: tokens.$font-family-body;
+    weight: tokens.$font-weight-body;
+  }
+
+  line-height: tokens.$font-line-height-input-m;
+
+  padding: tokens.$spacing-time-input-vertical
+    tokens.$spacing-time-input-horizontal;
+
+  /* Change Autocomplete styles in Chrome*/
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus {
+    background-color: tokens.$color-background-input;
+    border: tokens.$size-border-input-default tokens.$color-border-input-enabled
+      solid;
+    border-radius: tokens.$border-radius-input-default;
+    box-shadow: 0 0 0px 1000px #fff inset;
+    -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: tokens.$color-text-input-enabled;
+  }
+
+  /* When input is... */
+  /*  1. NOT Empty */
+  /*  2. NOT In Focus */
+  &:not(:focus):not(:placeholder-shown) {
+    color: tokens.$color-text-input-enabled;
+  }
+
+  /*  When input is... */
+  /*  1. Default State */
+  /*  2. Required */
+  /*  2. Empty */
+  /* Remove the red box-shadow for firefox */
+  &:placeholder-shown:required {
+    box-shadow: none;
+  }
+
+  &:hover {
+    border-color: tokens.$color-border-input-hover;
+    box-shadow: none;
+    outline: none;
+  }
+
+  &:focus {
+    border-color: tokens.$color-border-input-focus;
+    box-shadow: tokens.$shadow-input-focus;
+    outline: none;
+  }
+
+  .js-focus-visible &:focus:not([data-focus-visible-added]) {
+    border-color: tokens.$color-border-input-focus-polyfill;
+    box-shadow: none;
+    outline: none;
+  }
+
+  &:active {
+    border-color: tokens.$color-border-input-active;
+    box-shadow: none;
+    outline: none;
+  }
+
+  &:disabled {
+    border-color: tokens.$color-border-input-disabled;
+    box-shadow: none;
+    outline: none;
+    cursor: not-allowed;
+
+    &:hover,
+    &:focus {
+      cursor: not-allowed;
+    }
+  }
+}

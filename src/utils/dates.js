@@ -8,6 +8,11 @@ import {
   startOfYesterday,
   parseJSON,
   isWithinInterval,
+  setHours,
+  setMinutes,
+  isValid,
+  getHours,
+  getMinutes,
 } from "date-fns";
 
 import TimeAgo from "javascript-time-ago";
@@ -28,6 +33,110 @@ const timeAgo = new TimeAgo("en-US");
  */
 export function parseDate(date) {
   return parseJSON(date);
+}
+
+/**
+ * Get the time string for the TimeInput field mask
+ * @param {Date} date
+ * @returns Formatted time
+ * @example
+ * 15:00
+ */
+export function getTimeStringFromDate(date) {
+  if (!isValid(date)) return "";
+
+  return formatHour(date);
+}
+
+/**
+ * Restores the time of the previous date and adds it to the new date.
+ * @param {Date} prevDate The previous date with a time added.
+ * @param {Date} newDate The new date with the time values changed by the date picker.
+ * @returns The new date with the hours and minutes restored.
+ */
+export function restoreDateTime(prevDate, newDate) {
+  if (!isValid(prevDate) || !isValid(newDate)) return null;
+
+  const prevHours = getHours(prevDate);
+  const prevMinutes = getMinutes(prevDate);
+
+  let dateWithTime = setHours(new Date(newDate), prevHours);
+  dateWithTime = setMinutes(dateWithTime, prevMinutes);
+
+  return dateWithTime;
+}
+
+/**
+ * Get the hours from the `TimeInput` mask
+ * @param {string} time
+ * @returns hours The hours extracted from the `time`
+ */
+export function getHoursFromTime(time = "") {
+  if (typeof time !== "string") return null;
+
+  // Expects hh:mm => hh
+  const hours = Number(time.split(":")[0]);
+
+  if (!Number.isNaN(hours) && typeof hours === "number") {
+    return hours;
+  }
+
+  return null;
+}
+
+/**
+ * Get the minutes from the `TimeInput` mask
+ * @param {string} time
+ * @returns hours The minutes extracted from the `time`
+ */
+export function getMinutesFromTime(time = "") {
+  if (typeof time !== "string") return null;
+
+  // Expects hh:mm => mm
+  const minutes = Number(time.split(":")[1]);
+
+  if (!Number.isNaN(minutes) && typeof minutes === "number") {
+    return minutes;
+  }
+
+  return null;
+}
+
+/**
+ * Adds hours and minutes to a date.
+ * @param {Date} date The date to add the hours and minutes to
+ * @param {string} time The `time` from the input mask
+ * @returns Date
+ */
+export function addTimeToDate(date, time) {
+  if (typeof time !== "string") return null;
+
+  // If the date is null, set the time to `Date.now()` plus 1 day (tomorrow)
+  if (!date) {
+    const parsedDate = addDays(new Date(), 1);
+    const hours = getHoursFromTime(time);
+    const minutes = getMinutesFromTime(time);
+
+    if (hours !== null && minutes !== null) {
+      let newDate = setHours(parsedDate, hours);
+      newDate = setMinutes(newDate, minutes);
+
+      return newDate;
+    }
+  } else {
+    const parsedDate = parseDate(date);
+    const hours = getHoursFromTime(time);
+    const minutes = getMinutesFromTime(time);
+
+    if (hours !== null && minutes !== null) {
+      let newDate = setHours(parsedDate, hours);
+      newDate = setMinutes(newDate, minutes);
+
+      return newDate;
+    }
+  }
+
+  return null;
 }
 
 /**
@@ -151,7 +260,7 @@ export function formatTodoDueDate(date) {
   if (isBetweenNextDaysInverval(date)) {
     return formatHour(date);
   }
-  if (isPastDateUntilYesterday(parseDate(date))) {
+  if (isPastDateUntilYesterday(date)) {
     return formatRelativeDate(date);
   }
 

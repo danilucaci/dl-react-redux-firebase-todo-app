@@ -16,9 +16,13 @@ import TodoProjectTagContainer from "../../redux/containers/components/TodoProje
 import TodoLabelTagContainer from "../../redux/containers/components/TodoLabelTagContainer";
 import TodoDueDate from "../TodoDueDate/TodoDueDate";
 
-function TodoItem({ todo, isVisible, toggleVisibility, setTodoCompleted }) {
-  const { id, name, completed, labels, project, dueDate } = todo;
-
+function TodoItem({
+  todo: { id, name, completed, labels, project, dueDate, withTime } = {},
+  todo = {},
+  isVisible,
+  toggleVisibility,
+  setTodoCompleted,
+}) {
   const todoButtonClassnames = classnames({
     Todo__Button: true,
     [`Todo__Button--Completed`]: completed ? true : false,
@@ -71,6 +75,7 @@ function TodoItem({ todo, isVisible, toggleVisibility, setTodoCompleted }) {
                 <TodoDueDate
                   dueDate={dueDate}
                   isVisible={isVisible}
+                  hasNewTime={withTime}
                   toggleVisibility={toggleVisibility}
                 />
               )}
@@ -100,6 +105,7 @@ TodoItem.propTypes = {
     }).isRequired,
     dueDate: oneOfType([instanceOf(Date), string]),
     completed: bool.isRequired,
+    withTime: bool.isRequired,
     name: string.isRequired,
     uid: string.isRequired,
     id: string.isRequired,
