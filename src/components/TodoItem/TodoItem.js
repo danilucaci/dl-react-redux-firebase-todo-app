@@ -62,26 +62,21 @@ function TodoItem({
             />
           )}
         </div>
-        {(labels || dueDate) && (
-          <>
-            <div className="Todo__Status__Row">
-              {labels && (
-                <TodoLabelTagContainer
-                  labels={labels}
-                  toggleVisibility={toggleVisibility}
-                />
-              )}
-              {dueDate && (
-                <TodoDueDate
-                  dueDate={dueDate}
-                  isVisible={isVisible}
-                  hasNewTime={withTime}
-                  toggleVisibility={toggleVisibility}
-                />
-              )}
-            </div>
-          </>
-        )}
+        <div className="Todo__Status__Row">
+          {labels && (
+            <TodoLabelTagContainer
+              labels={labels}
+              toggleVisibility={toggleVisibility}
+            />
+          )}
+
+          <TodoDueDate
+            dueDate={dueDate}
+            isVisible={isVisible}
+            hasNewTime={withTime}
+            toggleVisibility={toggleVisibility}
+          />
+        </div>
       </div>
     </li>
   );
