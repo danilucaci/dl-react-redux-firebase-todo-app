@@ -25,6 +25,7 @@ import {
   setSelectedLabelAction,
   toggleShowDateAction,
   setSelectedDateAction,
+  setHasNewTimeAction,
 } from "./AddTodoLocalReducer";
 
 ReactModal.setAppElement("#root");
@@ -44,15 +45,8 @@ function AddTodoModal({
     showDate = false,
     showLabels,
     showProjects,
-    todo = {
-      todo: {
-        name: "",
-        dueDate: null,
-        completed: false,
-        project: null,
-        labels: null,
-      },
-    },
+    todo: { hasNewTime = false } = {},
+    todo,
   } = state;
 
   const setTodoName = (todoName) => dispatch(setTodoNameAction(todoName));
@@ -65,6 +59,7 @@ function AddTodoModal({
 
   const toggleShowDate = () => dispatch(toggleShowDateAction());
   const setSelectedDate = (date) => dispatch(setSelectedDateAction(date));
+  const setHasNewTime = (hasTime) => dispatch(setHasNewTimeAction(hasTime));
 
   const modalRef = useDisableBodyBackground();
 
@@ -94,11 +89,9 @@ function AddTodoModal({
   function handleFormSubmit(e) {
     e.preventDefault();
 
-    const newTodo = {
-      ...state.todo,
-    };
+    const { hasNewTime, ...todoData } = todo || {};
 
-    createTodo(newTodo);
+    createTodo(todoData);
     closeModal();
   }
 
@@ -157,6 +150,10 @@ function AddTodoModal({
             additionalClasses="AddTodoModal__DueDate"
             isVisible={showDate}
             toggleVisibility={toggleShowDate}
+            hadPreviousTime={false}
+            hasNewTime={hasNewTime}
+            setHasNewTime={setHasNewTime}
+            fullDateFormat={true}
             bottomFixed={true}
             onChangeHandler={setSelectedDate}
           />

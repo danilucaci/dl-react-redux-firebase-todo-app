@@ -11,6 +11,8 @@ export const addTodoReducerState = {
     completed: false,
     project: null,
     labels: null,
+    hasNewTime: false,
+    withTime: false,
   },
 };
 
@@ -23,6 +25,7 @@ export const AddTodoTypes = {
   TOGGLE_SHOW_DATE: "TOGGLE_SHOW_DATE",
   SET_SELECTED_DATE: "SET_SELECTED_DATE",
   SET_TODO_NAME: "SET_TODO_NAME",
+  SET_HAS_NEW_TIME: "SET_HAS_NEW_TIME",
 };
 
 export const addTodoReducer = (state, { type, payload }) => {
@@ -33,6 +36,16 @@ export const addTodoReducer = (state, { type, payload }) => {
         todo: {
           ...state.todo,
           name: payload,
+        },
+      };
+    }
+    case AddTodoTypes.SET_HAS_NEW_TIME: {
+      return {
+        ...state,
+        todo: {
+          ...state.todo,
+          hasNewTime: payload,
+          withTime: payload,
         },
       };
     }
@@ -156,4 +169,9 @@ export const toggleShowDateAction = () => ({
 export const setSelectedDateAction = (date) => ({
   type: AddTodoTypes.SET_SELECTED_DATE,
   payload: date,
+});
+
+export const setHasNewTimeAction = (hasTime) => ({
+  type: AddTodoTypes.SET_HAS_NEW_TIME,
+  payload: hasTime,
 });
