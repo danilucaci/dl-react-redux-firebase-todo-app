@@ -4,6 +4,16 @@ import "focus-visible";
 import React, { useEffect, useRef } from "react";
 import classnames from "classnames";
 import { Switch, Route, useLocation } from "react-router-dom";
+import {
+  arrayOf,
+  oneOf,
+  shape,
+  oneOfType,
+  string,
+  number,
+  bool,
+  func,
+} from "prop-types";
 
 import * as ROUTES from "./constants/routes";
 
@@ -13,25 +23,47 @@ import Footer from "./components/Footer/Footer";
 import PasswordReset from "./pages/PasswordReset/PasswordReset";
 import Home from "./pages/Home/Home";
 import NotFound from "./pages/NotFound/NotFound";
+import Profile from "./pages/Profile/Profile";
 
 import AddTodoModalContainer from "./redux/containers/components/AddTodoModalContainer";
 import AddProjectModalContainer from "./redux/containers/components/AddProjectModalContainer";
 import AddLabelModalContainer from "./redux/containers/components/AddLabelModalContainer";
-import DashboardContainer from "./redux/containers/components/DashboardContainer";
 import LoginContainer from "./redux/containers/pages/LoginContainer";
 import SignupContainer from "./redux/containers/pages/SignupContainer";
+import InboxContainer from "./redux/containers/pages/InboxContainer";
+import TodayContainer from "./redux/containers/pages/TodayContainer";
+import NextDaysContainer from "./redux/containers/pages/NextDaysContainer";
+import ProjectContainer from "./redux/containers/pages/ProjectContainer";
+import ProjectsContainer from "./redux/containers/pages/ProjectsContainer";
+import LabelContainer from "./redux/containers/pages/LabelContainer";
+import LabelsContainer from "./redux/containers/pages/LabelsContainer";
 
 import withAuth from "./hoc/withAuth";
 
-function App({ modalsState, menu, closeMenu }) {
-  const { menuOpen = false } = menu;
-
-  const {
+function App({
+  modalsState: {
     addTodoModalActive = false,
     addProjectModalActive = false,
     addLabelModalActive = false,
-  } = modalsState;
-
+  } = {},
+  menu: { menuOpen = false } = {},
+  appData: {
+    initialDataLoaded = false,
+    initialTodosLoaded = false,
+    initialProjectsLoaded = false,
+    initialLabelsLoaded = false,
+    initialColorsLoaded = false,
+  } = {},
+  user: { isAuthenticated = false } = {},
+  closeMenu,
+  setInitialDataLoaded,
+  subscribeToColors,
+  subscribeToTodos,
+  subscribeToLabels,
+  subscribeToProjects,
+  projects,
+  labels,
+}) {
   const appClasses = classnames({
     App: true,
   });
@@ -53,25 +85,147 @@ function App({ modalsState, menu, closeMenu }) {
     };
   }, [location, menuOpen, closeMenu]);
 
+  useEffect(() => {
+    if (
+      isAuthenticated &&
+      !initialDataLoaded &&
+      initialTodosLoaded &&
+      initialProjectsLoaded &&
+      initialLabelsLoaded &&
+      initialColorsLoaded
+    ) {
+      setInitialDataLoaded();
+    }
+  }, [
+    isAuthenticated,
+    initialDataLoaded,
+    initialTodosLoaded,
+    initialProjectsLoaded,
+    initialLabelsLoaded,
+    initialColorsLoaded,
+    setInitialDataLoaded,
+  ]);
+
+  useEffect(() => {
+    let unsuscribeFromProjects;
+
+    async function suscribeToProjects() {
+      unsuscribeFromProjects = await subscribeToProjects();
+    }
+
+    if (isAuthenticated) {
+      suscribeToProjects();
+    }
+
+    return () => {
+      if (unsuscribeFromProjects) {
+        unsuscribeFromProjects();
+      }
+    };
+  }, [subscribeToProjects, isAuthenticated]);
+
+  useEffect(() => {
+    let unsuscribeFromLabels;
+
+    async function suscribeToLabels() {
+      unsuscribeFromLabels = await subscribeToLabels();
+    }
+
+    if (isAuthenticated) {
+      suscribeToLabels();
+    }
+
+    return () => {
+      if (unsuscribeFromLabels) {
+        unsuscribeFromLabels();
+      }
+    };
+  }, [isAuthenticated, subscribeToLabels]);
+
+  useEffect(() => {
+    let unsuscribeFromColors;
+
+    async function suscribeToColors() {
+      unsuscribeFromColors = await subscribeToColors();
+    }
+
+    if (isAuthenticated) {
+      suscribeToColors();
+    }
+
+    return () => {
+      if (unsuscribeFromColors) {
+        unsuscribeFromColors();
+      }
+    };
+  }, [isAuthenticated, subscribeToColors]);
+
+  useEffect(() => {
+    let unsuscribeFromTodos;
+
+    async function suscribeToTodos() {
+      unsuscribeFromTodos = await subscribeToTodos();
+    }
+
+    if (isAuthenticated) {
+      suscribeToTodos();
+    }
+
+    return () => {
+      if (unsuscribeFromTodos) {
+        unsuscribeFromTodos();
+      }
+    };
+  }, [isAuthenticated, subscribeToTodos]);
+
   return (
     <div className={appClasses}>
       <SVGSprite />
       <HeaderContainer />
       <Switch>
-        <Route path={ROUTES.LOGIN} exact>
-          <LoginContainer />
-        </Route>
-        <Route path={ROUTES.SIGN_UP} exact>
-          <SignupContainer />
-        </Route>
-        <Route path={ROUTES.PASSWORD_RESET} exact>
-          <PasswordReset />
-        </Route>
         <Route path={ROUTES.LANDING} exact>
           <Home />
         </Route>
-        <DashboardContainer />
-        <Route path={ROUTES.NOT_FOUND} exact>
+        <Route path={ROUTES.LOGIN}>
+          <LoginContainer />
+        </Route>
+        <Route path={ROUTES.SIGN_UP}>
+          <SignupContainer />
+        </Route>
+        <Route path={ROUTES.PASSWORD_RESET}>
+          <PasswordReset />
+        </Route>
+        <Route path={ROUTES.INBOX}>
+          <InboxContainer />
+        </Route>
+        <Route path={ROUTES.TODAY}>
+          <TodayContainer />
+        </Route>
+        <Route path={ROUTES.NEXT_DAYS}>
+          <NextDaysContainer />
+        </Route>
+        <Route path={ROUTES.PROJECTS}>
+          <ProjectsContainer />
+        </Route>
+        {projects &&
+          projects.map((project) => (
+            <Route key={project.id} path={`${ROUTES.PROJECT}${project.name}`}>
+              <ProjectContainer projectID={project.id} />
+            </Route>
+          ))}
+        <Route path={ROUTES.LABELS}>
+          <LabelsContainer />
+        </Route>
+        {labels &&
+          labels.map((label) => (
+            <Route key={label.id} path={`${ROUTES.LABEL}${label.name}`}>
+              <LabelContainer labelID={label.id} />
+            </Route>
+          ))}
+        <Route path={ROUTES.PROFILE}>
+          <Profile />
+        </Route>
+        <Route path={ROUTES.NOT_FOUND}>
           <NotFound />
         </Route>
       </Switch>
@@ -82,5 +236,54 @@ function App({ modalsState, menu, closeMenu }) {
     </div>
   );
 }
+
+App.propTypes = {
+  modalsState: shape({
+    addTodoModalActive: bool.isRequired,
+    addProjectModalActive: bool.isRequired,
+    addLabelModalActive: bool.isRequired,
+  }).isRequired,
+  menu: shape({
+    menuOpen: bool.isRequired,
+  }).isRequired,
+  user: shape({
+    isAuthenticated: bool.isRequired,
+  }).isRequired,
+  closeMenu: func.isRequired,
+  subscribeToColors: func.isRequired,
+  subscribeToTodos: func.isRequired,
+  subscribeToLabels: func.isRequired,
+  subscribeToProjects: func.isRequired,
+  setInitialDataLoaded: func.isRequired,
+  projects: arrayOf(
+    shape({
+      id: string,
+      uid: string,
+      name: string,
+      todosCount: number,
+      color: shape({
+        colorID: string,
+        colorName: string,
+        colorValue: string,
+      }),
+    }),
+  ).isRequired,
+  labels: oneOfType([
+    arrayOf(
+      shape({
+        id: string,
+        uid: string,
+        name: string,
+        todosCount: number,
+        color: shape({
+          colorID: string,
+          colorName: string,
+          colorValue: string,
+        }),
+      }),
+    ),
+    oneOf([null]),
+  ]).isRequired,
+};
 
 export default withAuth(App);

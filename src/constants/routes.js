@@ -11,4 +11,3 @@ export const PROJECTS = "/app/projects";
 export const PROJECT = "/app/project/";
 export const LABELS = "/app/labels";
 export const LABEL = "/app/label/";
-export const DASHBOARD = "/app";
