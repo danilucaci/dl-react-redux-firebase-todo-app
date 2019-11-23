@@ -16,6 +16,8 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
+
+    @extend %animate-modal-overlay;
   }
 
   &__Inner {
@@ -34,6 +36,8 @@
       bottom: tokens.$spacing-c-05;
       left: tokens.$spacing-c-05;
     }
+
+    @extend %animate-modal-contents;
 
     @include tokens.media-min(s) {
       margin-top: tokens.$spacing-modal-top-m;

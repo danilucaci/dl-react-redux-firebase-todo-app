@@ -114,6 +114,37 @@
   }
 }
 
+%animate-modal-overlay {
+  transition: opacity;
+  animation: animate-modal-overlay tokens.$timing-modal-fadein ease-out;
+
+  @keyframes animate-modal-overlay {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+%animate-modal-contents {
+  will-change: transform;
+  transition: transform, opacity;
+  animation: animate-modal-contents tokens.$timing-modal-fadein ease-out;
+
+  @keyframes animate-modal-contents {
+    from {
+      opacity: 0;
+      transform: translateY(1rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0rem);
+    }
+  }
+}
+
 %bottom-divider--on-white {
   border-bottom: tokens.$size-divider-s solid tokens.$color-divider-on-white;
 }
