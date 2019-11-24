@@ -1,4 +1,5 @@
 import LocalStateTypes from "./localState-types";
+import uuid from "uuid";
 
 export const toggleMenu = () => ({
   type: LocalStateTypes.TOGGLE_MENU,
@@ -36,11 +37,6 @@ export const setInitialDataLoaded = () => ({
   type: LocalStateTypes.SET_INITIAL_DATA_LOADED,
 });
 
-export const setAppDataErrors = (errors) => ({
-  type: LocalStateTypes.SET_APP_DATA_ERRORS,
-  payload: errors,
-});
-
 export const setInitialTodosLoaded = () => ({
   type: LocalStateTypes.SET_INITIAL_TODOS_LOADED,
 });
@@ -55,4 +51,51 @@ export const setInitialLabelsLoaded = () => ({
 
 export const setInitialColorsLoaded = () => ({
   type: LocalStateTypes.SET_INITIAL_COLORS_LOADED,
+});
+
+export const enqueueSnackbar = (notification) => ({
+  type: LocalStateTypes.ENQUEUE_SNACKBAR,
+  payload: {
+    key: uuid.v4(),
+    notification,
+  },
+});
+
+export const enqueueSuccessSnackbar = (message) => ({
+  type: LocalStateTypes.ENQUEUE_SNACKBAR,
+  payload: {
+    key: uuid.v4(),
+    notification: {
+      message,
+      options: {
+        variant: "success",
+      },
+    },
+  },
+});
+
+export const enqueueErrorSnackbar = (message) => ({
+  type: LocalStateTypes.ENQUEUE_SNACKBAR,
+  payload: {
+    key: uuid.v4(),
+    notification: {
+      message,
+      options: {
+        variant: "error",
+      },
+    },
+  },
+});
+
+export const closeSnackbar = (key) => ({
+  type: LocalStateTypes.CLOSE_SNACKBAR,
+  payload: {
+    key,
+    dismissAll: !key, // dismiss all if no key has been defined
+  },
+});
+
+export const removeSnackbar = (key) => ({
+  type: LocalStateTypes.REMOVE_SNACKBAR,
+  payload: key,
 });

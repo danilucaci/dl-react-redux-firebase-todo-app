@@ -6,7 +6,7 @@ import * as COLLECTIONS from "../../constants/collections";
 import * as COLLECTION_LIMITS from "../../constants/collectionLimits";
 import getObjectFromDocs from "../../utils/firebase/getObjectFromDocs";
 import {
-  setAppDataErrors,
+  enqueueErrorSnackbar,
   setInitialColorsLoaded,
 } from "../localState/localState-actions";
 import getObjectFromSingleDoc from "../../utils/firebase/getObjectFromSingleDoc";
@@ -79,7 +79,7 @@ export function subscribeToColors() {
               mounted = true;
             },
             function handleColorsError(error) {
-              dispatch(setAppDataErrors(error.message));
+              dispatch(enqueueErrorSnackbar(error.message));
             },
           );
 
@@ -90,7 +90,7 @@ export function subscribeToColors() {
         return unsuscribeCallback;
       }
     } catch (error) {
-      dispatch(setAppDataErrors(error.message));
+      dispatch(enqueueErrorSnackbar(error.message));
     }
 
     return null;

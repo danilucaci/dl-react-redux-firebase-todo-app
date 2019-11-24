@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.7.0",
     "@reach/menu-button": "^0.5.4",
     "body-scroll-lock": "^2.6.4",
     "classnames": "^2.2.6",
@@ -16,6 +17,7 @@
     "javascript-time-ago": "^2.0.4",
     "logger": "0.0.1",
     "node-sass": "npm:sass@^1.23.0",
+    "notistack": "^0.9.6",
     "prop-types": "^15.7.2",
     "react": "^16.11.0",
     "react-day-picker": "^7.4.0",

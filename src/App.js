@@ -25,6 +25,7 @@ import Home from "./pages/Home/Home";
 import NotFound from "./pages/NotFound/NotFound";
 import Profile from "./pages/Profile/Profile";
 
+import ToastsNotifierContainer from "./redux/containers/components/ToastsNotifierContainer";
 import AddTodoModalContainer from "./redux/containers/components/AddTodoModalContainer";
 import AddProjectModalContainer from "./redux/containers/components/AddProjectModalContainer";
 import AddLabelModalContainer from "./redux/containers/components/AddLabelModalContainer";
@@ -182,6 +183,7 @@ function App({
     <div className={appClasses}>
       <SVGSprite />
       <HeaderContainer />
+      <ToastsNotifierContainer />
       <Switch>
         <Route path={ROUTES.LANDING} exact>
           <Home />

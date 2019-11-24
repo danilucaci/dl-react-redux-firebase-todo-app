@@ -16,3 +16,8 @@ export const appDataSelector = createSelector(
   [selectLocalState],
   (localState) => localState.appData,
 );
+
+export const appNotificationsSelector = createSelector(
+  [selectLocalState],
+  (localState) => localState.appData.notifications,
+);

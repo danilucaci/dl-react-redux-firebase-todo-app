@@ -7,7 +7,7 @@ const INITIAL_STATE = {
     initialProjectsLoaded: false,
     initialLabelsLoaded: false,
     initialColorsLoaded: false,
-    errors: [],
+    notifications: [],
     skeletonTodos: 3,
     skeletonSidebarItems: 3,
   },
@@ -68,26 +68,42 @@ const localStateReducer = (state = INITIAL_STATE, action) => {
         },
       };
     }
-    case LocalStateTypes.SET_APP_DATA_ERRORS: {
-      let newErrors;
-
-      if (typeof action.payload === "string") {
-        newErrors = [action.payload];
-      }
-      if (Array.isArray(action.payload)) {
-        newErrors = [...action.payload];
-      } else {
-        newErrors = [];
-      }
-
+    case LocalStateTypes.ENQUEUE_SNACKBAR:
       return {
         ...state,
         appData: {
           ...state.appData,
-          errors: [...state.appData.errors, ...newErrors],
+          notifications: [
+            ...state.appData.notifications,
+            {
+              key: action.payload.key,
+              ...action.payload.notification,
+            },
+          ],
         },
       };
-    }
+    case LocalStateTypes.CLOSE_SNACKBAR:
+      return {
+        ...state,
+        appData: {
+          ...state.appData,
+          notifications: state.appData.notifications.map((notification) =>
+            action.payload.dismissAll || notification.key === action.payload.key
+              ? { ...notification, dismissed: true }
+              : { ...notification },
+          ),
+        },
+      };
+    case LocalStateTypes.REMOVE_SNACKBAR:
+      return {
+        ...state,
+        appData: {
+          ...state.appData,
+          notifications: state.appData.notifications.filter(
+            (notification) => notification.key !== action.payload,
+          ),
+        },
+      };
     case LocalStateTypes.TOGGLE_MENU: {
       return {
         ...state,

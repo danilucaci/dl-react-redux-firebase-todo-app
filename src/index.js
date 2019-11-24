@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
+import { SnackbarProvider } from "notistack";
 
 import "./index.scss";
 
@@ -13,7 +14,15 @@ ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
-        <AppContainer />
+        <SnackbarProvider
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          maxSnack={5}
+        >
+          <AppContainer />
+        </SnackbarProvider>
       </BrowserRouter>
     </PersistGate>
   </Provider>,

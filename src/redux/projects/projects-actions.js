@@ -7,7 +7,7 @@ import * as COLLECTION_LIMITS from "../../constants/collectionLimits";
 import getObjectFromDocs from "../../utils/firebase/getObjectFromDocs";
 import getObjectFromSingleDoc from "../../utils/firebase/getObjectFromSingleDoc";
 import {
-  setAppDataErrors,
+  enqueueErrorSnackbar,
   setInitialProjectsLoaded,
 } from "../localState/localState-actions";
 import { addUserProject } from "../../utils/firebase/helpers";
@@ -43,11 +43,12 @@ export const addProject = (project) => {
       };
 
       await addUserProject(currentUser.id, newProject).catch((error) => {
-        dispatch(setAppDataErrors(error.message));
+        dispatch(enqueueErrorSnackbar(error.message));
       });
     } else {
-      dispatch();
-      setAppDataErrors("Couldn’t create the project. No user was found");
+      dispatch(
+        enqueueErrorSnackbar("Couldn’t create the project. No user was found"),
+      );
     }
   };
 };
@@ -102,7 +103,7 @@ export function subscribeToProjects() {
               mounted = true;
             },
             function handleProjectsError(error) {
-              dispatch(setAppDataErrors(error.message));
+              dispatch(enqueueErrorSnackbar(error.message));
             },
           );
 
@@ -114,7 +115,7 @@ export function subscribeToProjects() {
         return unsuscribeCallback;
       }
     } catch (error) {
-      dispatch(setAppDataErrors(error.message));
+      dispatch(enqueueErrorSnackbar(error.message));
     }
 
     return null;

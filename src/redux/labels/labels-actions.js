@@ -6,7 +6,7 @@ import * as COLLECTIONS from "../../constants/collections";
 import * as COLLECTION_LIMITS from "../../constants/collectionLimits";
 import getObjectFromDocs from "../../utils/firebase/getObjectFromDocs";
 import {
-  setAppDataErrors,
+  enqueueErrorSnackbar,
   setInitialLabelsLoaded,
 } from "../localState/localState-actions";
 import { addUserLabel } from "../../utils/firebase/helpers";
@@ -43,11 +43,12 @@ export const addLabel = (label) => {
       };
 
       await addUserLabel(currentUser.id, newLabel).catch((error) => {
-        dispatch(setAppDataErrors(error.message));
+        dispatch(enqueueErrorSnackbar(error.message));
       });
     } else {
-      dispatch();
-      setAppDataErrors("Couldn’t create the label. No user was found");
+      dispatch(
+        enqueueErrorSnackbar("Couldn’t create the label. No user was found"),
+      );
     }
   };
 };
@@ -102,7 +103,7 @@ export function subscribeToLabels() {
               mounted = true;
             },
             function handleLabelsError(error) {
-              dispatch(setAppDataErrors(error.message));
+              dispatch(enqueueErrorSnackbar(error.message));
             },
           );
 
@@ -113,7 +114,7 @@ export function subscribeToLabels() {
         return unsuscribeCallback;
       }
     } catch (error) {
-      dispatch(setAppDataErrors(error.message));
+      dispatch(enqueueErrorSnackbar(error.message));
     }
 
     return null;

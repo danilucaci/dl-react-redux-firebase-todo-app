@@ -4,7 +4,7 @@ import * as COLLECTIONS from "../../constants/collections";
 import * as COLLECTION_LIMITS from "../../constants/collectionLimits";
 import getTodosObjectFromDocs from "../../utils/firebase/getTodosObjectFromDocs";
 import {
-  setAppDataErrors,
+  enqueueErrorSnackbar,
   setInitialTodosLoaded,
 } from "../localState/localState-actions";
 import { firestore } from "../../firebase/firebase";
@@ -20,26 +20,20 @@ export const setLocalTodos = (todos) => ({
   payload: todos,
 });
 
-export const removeLocalTodo = (todoID) => {
-  return {
-    type: TodosTypes.REMOVE_TODO,
-    payload: todoID,
-  };
-};
+export const removeLocalTodo = (todoID) => ({
+  type: TodosTypes.REMOVE_TODO,
+  payload: todoID,
+});
 
-export const addLocalTodo = (todo) => {
-  return {
-    type: TodosTypes.ADD_TODO,
-    payload: todo,
-  };
-};
+export const addLocalTodo = (todo) => ({
+  type: TodosTypes.ADD_TODO,
+  payload: todo,
+});
 
-export const updateLocalTodo = (todo) => {
-  return {
-    type: TodosTypes.UPDATE_TODO,
-    payload: todo,
-  };
-};
+export const updateLocalTodo = (todo) => ({
+  type: TodosTypes.UPDATE_TODO,
+  payload: todo,
+});
 
 export const createTodo = (todo) => {
   return async (dispatch, getState) => {
@@ -52,11 +46,12 @@ export const createTodo = (todo) => {
       };
 
       await addUserTodo(currentUser.id, newTodo).catch((error) => {
-        dispatch(setAppDataErrors(error.message));
+        dispatch(enqueueErrorSnackbar(error.message));
       });
     } else {
-      dispatch();
-      setAppDataErrors("Couldn’t create the todo. No user was found");
+      dispatch(
+        enqueueErrorSnackbar("Couldn’t create the todo. No user was found"),
+      );
     }
   };
 };
@@ -67,11 +62,12 @@ export const updateTodo = (todoData) => {
 
     if (currentUser && currentUser.id) {
       await updateFirebaseTodo(currentUser.id, todoData).catch((error) => {
-        dispatch(setAppDataErrors(error.message));
+        dispatch(enqueueErrorSnackbar(error.message));
       });
     } else {
-      dispatch();
-      setAppDataErrors("Couldn’t update the todo. No user was found");
+      dispatch(
+        enqueueErrorSnackbar("Couldn’t update the todo. No user was found"),
+      );
     }
   };
 };
@@ -82,11 +78,12 @@ export const setTodoCompleted = (todoID) => {
 
     if (currentUser && currentUser.id) {
       await setFirebaseTodoCompleted(currentUser.id, todoID).catch((error) => {
-        dispatch(setAppDataErrors(error.message));
+        dispatch(enqueueErrorSnackbar(error.message));
       });
     } else {
-      dispatch();
-      setAppDataErrors("Couldn’t update the todo. No user was found");
+      dispatch(
+        enqueueErrorSnackbar("Couldn’t update the todo. No user was found"),
+      );
     }
   };
 };
@@ -142,7 +139,7 @@ export function subscribeToTodos() {
               mounted = true;
             },
             function handleTodosError(error) {
-              dispatch(setAppDataErrors(error.message));
+              dispatch(enqueueErrorSnackbar(error.message));
             },
           );
 
@@ -153,7 +150,7 @@ export function subscribeToTodos() {
         return unsuscribeCallback;
       }
     } catch (error) {
-      dispatch(setAppDataErrors(error.message));
+      dispatch(enqueueErrorSnackbar(error.message));
     }
 
     return null;

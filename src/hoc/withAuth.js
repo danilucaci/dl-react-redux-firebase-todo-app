@@ -7,7 +7,7 @@ import { createUserProfileDocument } from "../utils/firebase/createUserProfileDo
 import { loginSuccess, logoutUser } from "../redux/user/user-actions";
 import { userStateSelector } from "../redux/user/user-selectors";
 import { getDisplayName } from "../utils/helpers";
-import { setAppDataErrors } from "../redux/localState/localState-actions";
+import { enqueueErrorSnackbar } from "../redux/localState/localState-actions";
 
 export const mapStateToProps = (state) => ({
   userState: userStateSelector(state),
@@ -15,7 +15,7 @@ export const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   loginSuccess: (currentUser) => dispatch(loginSuccess(currentUser)),
-  setAppDataErrors: (error) => dispatch(setAppDataErrors(error)),
+  enqueueErrorSnackbar: (error) => dispatch(enqueueErrorSnackbar(error)),
   logoutUser: () => dispatch(logoutUser()),
 });
 
@@ -25,8 +25,8 @@ function withAuth(Component) {
   function WithAuth({
     loginSuccess,
     logoutUser,
-    userState: { isSigningUp, signupErrors, isLoggingOut } = {},
-    setAppDataErrors,
+    userState: { isSigningUp, signupErrors } = {},
+    enqueueErrorSnackbar,
     ...props
   }) {
     const unsubscribeFromAuth = useRef(null);
@@ -67,25 +67,24 @@ function withAuth(Component) {
                       }
                     },
                     function handleUserSnapshotError(error) {
-                      setAppDataErrors(
+                      enqueueErrorSnackbar(
                         `handleUserSnapshotError: ${error.message}`,
                       );
                     },
                   );
                 })
                 .catch((error) => {
-                  setAppDataErrors(`createUserProfileError: ${error}`);
+                  enqueueErrorSnackbar(`createUserProfileError: ${error}`);
                   handleLogOut();
                 });
             } else {
-              console.log("No user");
               /* User signed out => `user = null` */
               handleLogOut();
             }
           }
         },
         function handleAuthStateChangeError(error) {
-          setAppDataErrors(`handleAuthStateChangeError: ${error.message}`);
+          enqueueErrorSnackbar(`handleAuthStateChangeError: ${error.message}`);
         },
       );
 
@@ -97,7 +96,13 @@ function withAuth(Component) {
           unsubscribeFromUserDoc.current();
         }
       };
-    }, [isSigningUp, loginSuccess, logoutUser, setAppDataErrors, signupErrors]);
+    }, [
+      isSigningUp,
+      loginSuccess,
+      logoutUser,
+      enqueueErrorSnackbar,
+      signupErrors,
+    ]);
 
     return <Component {...props} />;
   }
