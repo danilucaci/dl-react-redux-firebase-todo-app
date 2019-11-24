@@ -7,7 +7,12 @@ import "@reach/menu-button/styles.css";
 import "./TodoProjectTag.styles.scss";
 import { getClassesFromProps } from "../../utils/helpers";
 
+function areEqual(a, b) {
+  return a === b;
+}
+
 const TodoProjectTag = ({
+  projectID,
   projectName,
   projectColorValue,
   iconSide,
@@ -71,7 +76,14 @@ const TodoProjectTag = ({
                 >
                   <use xlinkHref="#color" />
                 </svg>
-                {project.name}
+                <span className="Todo__Project__Tag__Item__Name">
+                  {project.name}
+                </span>
+                {areEqual(projectID, project.id) && (
+                  <svg className="Todo__Project__Tag__Item__Check">
+                    <use xlinkHref="#check-24" />
+                  </svg>
+                )}
               </MenuItem>
             ))}
         </MenuList>
@@ -89,6 +101,7 @@ TodoProjectTag.propTypes = {
   toggleVisibility: func,
   onChangeHandler: func,
   projects: array,
+  projectID: string,
 };
 
 TodoProjectTag.defaultProps = {
@@ -99,6 +112,7 @@ TodoProjectTag.defaultProps = {
   toggleVisibility: null,
   onChangeHandler: null,
   projects: null,
+  projectID: "",
 };
 
 export default TodoProjectTag;

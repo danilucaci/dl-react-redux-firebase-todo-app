@@ -59,6 +59,22 @@
       height: tokens.$size-icon-m;
       margin-right: tokens.$spacing-c-04;
     }
+
+    &--Selected {
+      background-color: tokens.$color-background-dropdown-item-selected;
+    }
+
+    &__Check {
+      width: tokens.$size-icon-m;
+      height: tokens.$size-icon-m;
+      margin-left: tokens.$spacing-c-04;
+      fill: tokens.$color-icon-default-active;
+    }
+
+    &__Name {
+      margin-right: auto;
+      text-align: left;
+    }
   }
 }
 

@@ -167,6 +167,7 @@ function TodoForm({
             {project && (
               <TodoProjectTagContainer
                 buttonAdditionalClasses="Todo__Form__Project"
+                projectID={selectedProject.projectID}
                 projectName={selectedProject.name}
                 projectColorValue={selectedProject.colorValue}
                 iconSide="left"

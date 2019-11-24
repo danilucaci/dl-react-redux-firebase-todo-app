@@ -131,6 +131,7 @@ function AddTodoModal({
           {todo.project ? (
             <TodoProjectTagContainer
               buttonAdditionalClasses="AddTodoModal__Project"
+              projectID={todo.project.projectID}
               projectName={todo.project.name}
               projectColorValue={todo.project.colorValue}
               iconSide="left"
