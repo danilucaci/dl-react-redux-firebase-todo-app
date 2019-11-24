@@ -9,21 +9,24 @@ import "./index.scss";
 
 import store, { persistor } from "./redux/store";
 import AppContainer from "./redux/containers/pages/AppContainer";
+import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <BrowserRouter>
-        <SnackbarProvider
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-          maxSnack={5}
-        >
-          <AppContainer />
-        </SnackbarProvider>
-      </BrowserRouter>
+      <ErrorBoundary>
+        <BrowserRouter>
+          <SnackbarProvider
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            maxSnack={5}
+          >
+            <AppContainer />
+          </SnackbarProvider>
+        </BrowserRouter>
+      </ErrorBoundary>
     </PersistGate>
   </Provider>,
 
