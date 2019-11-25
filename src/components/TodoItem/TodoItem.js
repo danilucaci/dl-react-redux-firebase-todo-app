@@ -14,7 +14,7 @@ import "./TodoItem.styles.scss";
 
 import TodoProjectTagContainer from "../../redux/containers/components/TodoProjectTagContainer";
 import TodoLabelTagContainer from "../../redux/containers/components/TodoLabelTagContainer";
-import TodoDueDate from "../TodoDueDate/TodoDueDate";
+import TodoItemDueDate from "../TodoItemDueDate/TodoItemDueDate";
 
 function TodoItem({
   todo: { id, name, completed, labels, project, dueDate, withTime } = {},
@@ -70,9 +70,8 @@ function TodoItem({
             />
           )}
 
-          <TodoDueDate
+          <TodoItemDueDate
             dueDate={dueDate}
-            isVisible={isVisible}
             hasNewTime={withTime}
             toggleVisibility={toggleVisibility}
           />

@@ -1,0 +1,35 @@
+@use "../../styles/tokens";
+@use "../../styles/base/placeholders";
+
+.TodoItem__DueDate {
+  display: flex;
+  align-items: center;
+  position: relative;
+  font-size: tokens.$font-size-body-s;
+  line-height: tokens.$font-line-height-body-s;
+  text-transform: capitalize;
+  white-space: nowrap;
+  padding-left: tokens.$spacing-c-02;
+  padding-right: tokens.$spacing-c-02;
+
+  @extend %Todo__Form__Meta;
+
+  margin-top: tokens.$spacing-c-02;
+  margin-bottom: tokens.$spacing-c-02;
+
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: calc(100% - #{tokens.$spacing-c-03});
+    height: 1px;
+    bottom: 1px;
+    border-bottom: 1px solid tokens.$color-text-body-default;
+  }
+
+  &--Overdue {
+    &:after {
+      border-color: tokens.$color-text-body-error;
+    }
+  }
+}
