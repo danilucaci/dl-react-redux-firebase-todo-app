@@ -26,6 +26,7 @@ import NotFound from "./pages/NotFound/NotFound";
 import Profile from "./pages/Profile/Profile";
 
 import ToastsNotifierContainer from "./redux/containers/components/ToastsNotifierContainer";
+import SearchModalContainer from "./redux/containers/components/SearchModalContainer";
 import AddTodoModalContainer from "./redux/containers/components/AddTodoModalContainer";
 import AddProjectModalContainer from "./redux/containers/components/AddProjectModalContainer";
 import AddLabelModalContainer from "./redux/containers/components/AddLabelModalContainer";
@@ -46,6 +47,7 @@ function App({
     addTodoModalActive = false,
     addProjectModalActive = false,
     addLabelModalActive = false,
+    searchModalActive = false,
   } = {},
   menu: { menuOpen = false } = {},
   appData: {
@@ -234,6 +236,7 @@ function App({
       {addTodoModalActive && <AddTodoModalContainer />}
       {addProjectModalActive && <AddProjectModalContainer />}
       {addLabelModalActive && <AddLabelModalContainer />}
+      {searchModalActive && <SearchModalContainer />}
       <Footer />
     </div>
   );
@@ -244,6 +247,7 @@ App.propTypes = {
     addTodoModalActive: bool.isRequired,
     addProjectModalActive: bool.isRequired,
     addLabelModalActive: bool.isRequired,
+    searchModalActive: bool.isRequired,
   }).isRequired,
   menu: shape({
     menuOpen: bool.isRequired,

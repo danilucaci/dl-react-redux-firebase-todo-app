@@ -1,6 +1,9 @@
 import { connect } from "react-redux";
 
-import { setTodoCompleted } from "../../../redux/todos/todos-actions";
+import {
+  setTodoCompleted,
+  toggleTodoHighlight,
+} from "../../../redux/todos/todos-actions";
 import { makeTodoSelector } from "../../../redux/todos/todos-selectors";
 
 import TodoItem from "../../../components/TodoItem/TodoItem";
@@ -15,6 +18,7 @@ export const makeMapStateToProps = () => {
 
 export const mapDispatchToProps = (dispatch) => ({
   setTodoCompleted: (id) => dispatch(setTodoCompleted(id)),
+  toggleTodoHighlight: (todoID) => dispatch(toggleTodoHighlight(todoID)),
 });
 
 export default connect(makeMapStateToProps, mapDispatchToProps)(TodoItem);

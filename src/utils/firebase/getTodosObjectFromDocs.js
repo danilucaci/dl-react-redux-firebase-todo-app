@@ -23,7 +23,12 @@ function getTodosObjectFromDocs(docs = []) {
 
     return {
       ...docs,
-      [currDoc.id]: { id: currDoc.id, ...data, dueDate },
+      [currDoc.id]: {
+        id: currDoc.id,
+        ...data,
+        dueDate,
+        isHighlighted: false,
+      },
     };
   }, {});
 }

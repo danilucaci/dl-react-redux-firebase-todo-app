@@ -25,6 +25,11 @@ export const removeLocalTodo = (todoID) => ({
   payload: todoID,
 });
 
+export const toggleTodoHighlight = (todo) => ({
+  type: TodosTypes.TOGGLE_TODO_HIGHLIGHT,
+  payload: todo,
+});
+
 export const addLocalTodo = (todo) => ({
   type: TodosTypes.ADD_TODO,
   payload: todo,

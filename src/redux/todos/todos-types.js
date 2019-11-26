@@ -3,6 +3,7 @@ const TodosTypes = {
   ADD_TODO: "ADD_TODO",
   UPDATE_TODO: "UPDATE_TODO",
   REMOVE_TODO: "REMOVE_TODO",
+  TOGGLE_TODO_HIGHLIGHT: "TOGGLE_TODO_HIGHLIGHT",
 };
 
 export default TodosTypes;

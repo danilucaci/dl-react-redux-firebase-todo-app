@@ -1,51 +1,22 @@
 @use "../../styles/tokens";
+@use "../../styles/base/placeholders";
 
-.SearchBar {
-  display: flex;
-  align-items: center;
+.MobileSearchBar {
+  background-color: tokens.$color-background-search-bar-mobile;
+  display: block;
 
-  background-color: tokens.$color-background-search-bar-enabled;
-  border-radius: tokens.$border-radius-input-default;
-  border: tokens.$size-border-input-default tokens.$color-border-input-enabled
-    solid;
-  color: tokens.$color-text-input-enabled;
-  font: {
-    size: tokens.$font-size-input-m;
-    family: tokens.$font-family-body;
-    weight: tokens.$font-weight-body;
-  }
+  width: 100%;
+  height: 100%;
 
-  line-height: tokens.$font-line-height-input-m;
-
-  flex: 1 1 auto;
-
-  white-space: nowrap;
-  height: tokens.$size-input-m;
-
-  position: relative;
-
-  padding: {
-    top: 0;
-    left: tokens.$spacing-search-bar-horizontal;
-    right: 0;
-    bottom: 0;
-  }
-
-  &__SectionTitle {
-    color: tokens.$color-text-subhead-default;
-
-    font-size: tokens.$font-size-subhead;
-    line-height: tokens.$font-line-height-subhead;
-    font-family: tokens.$font-family-display;
-    font-weight: 600;
-    font-style: normal;
-    text-transform: uppercase;
-    letter-spacing: tokens.$font-letter-spacing-subhead;
+  &__LabelWrapper {
+    background-color: tokens.$color-background-mobile-search-bar-background;
+    @extend %bottom-divider--on-white;
 
     padding: {
-      left: tokens.$spacing-c-05;
-      right: tokens.$spacing-c-05;
+      top: tokens.$spacing-c-03;
+      right: 0;
       bottom: tokens.$spacing-c-03;
+      left: 0;
     }
   }
 
@@ -54,18 +25,45 @@
     align-items: center;
     margin: 0;
     padding: 0;
-    flex: 1 1 auto;
     margin-right: tokens.$spacing-search-bar-horizontal;
+
+    background-color: tokens.$color-background-search-bar-mobile;
+    border-radius: tokens.$border-radius-input-default;
+    border: tokens.$size-border-input-default tokens.$color-border-input-enabled
+      solid;
+
+    font: {
+      size: tokens.$font-size-input-m;
+      family: tokens.$font-family-body;
+      weight: tokens.$font-weight-body;
+    }
+
+    line-height: tokens.$font-line-height-input-m;
+
+    white-space: nowrap;
+    height: tokens.$size-input-m;
+
+    margin: {
+      left: tokens.$spacing-c-04;
+      right: tokens.$spacing-c-04;
+    }
+
+    padding: {
+      top: 0;
+      left: tokens.$spacing-search-bar-horizontal;
+      right: 0;
+      bottom: 0;
+    }
   }
 
   &__Input {
     background-color: transparent;
     border: none;
+    color: tokens.$color-text-input-enabled;
     margin: 0;
     height: 100%;
     width: 100%;
     flex: 1 1 auto;
-    color: tokens.$color-text-input-enabled;
 
     font: {
       size: tokens.$font-size-input-m;
@@ -96,26 +94,37 @@
     display: block;
   }
 
+  &__SectionTitle {
+    color: tokens.$color-text-subhead-default;
+
+    font-size: tokens.$font-size-subhead;
+    line-height: tokens.$font-line-height-subhead;
+    font-family: tokens.$font-family-display;
+    font-weight: 600;
+    font-style: normal;
+    text-transform: uppercase;
+    letter-spacing: tokens.$font-letter-spacing-subhead;
+
+    padding: {
+      left: tokens.$spacing-c-05;
+      right: tokens.$spacing-c-05;
+      bottom: tokens.$spacing-c-03;
+    }
+  }
+
   &__Hits {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: tokens.$spacing-c-09;
+    display: block;
+    margin-left: 0;
 
-    background-color: tokens.$color-background-dropdown-inner;
-    box-shadow: tokens.$shadow-dropdown;
-    border-radius: tokens.$border-radius-components-default;
-    display: flex;
-    flex-direction: column;
-
-    padding-top: tokens.$spacing-c-05;
-
-    z-index: tokens.$z-index-modal-popup;
-
-    width: 100%;
     overflow-x: auto;
 
-    margin-left: 0;
+    padding: {
+      top: tokens.$spacing-c-05;
+      bottom: tokens.$spacing-mobile-search-bar-list;
+    }
+
+    width: 100%;
+    height: 100%;
 
     &__Item {
       background-color: tokens.$color-background-dropdown-item-enabled;
@@ -129,9 +138,9 @@
       flex: 1 1 auto;
 
       padding: {
-        top: tokens.$spacing-c-03;
+        top: tokens.$spacing-c-04;
         right: tokens.$spacing-c-05;
-        bottom: tokens.$spacing-c-03;
+        bottom: tokens.$spacing-c-04;
         left: tokens.$spacing-c-05;
       }
 

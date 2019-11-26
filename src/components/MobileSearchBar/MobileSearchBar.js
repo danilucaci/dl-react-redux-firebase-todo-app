@@ -3,7 +3,7 @@ import { shape, bool, func } from "prop-types";
 import classNames from "classnames";
 import { useHistory } from "react-router-dom";
 import Autocomplete from "downshift";
-import "./SearchBar.styles.scss";
+import "./MobileSearchBar.styles.scss";
 
 import { ReactComponent as AlgoliaLogo } from "../../assets/search-by-algolia-light-background.svg";
 import * as ROUTES from "../../constants/routes";
@@ -28,8 +28,12 @@ export const ConnectedPoweredByLink = connectPoweredBy(PoweredByLink);
 
 export function PoweredByLink({ url }) {
   return (
-    <li className="SearchBar__AlgoliaWrapper">
-      <a href={url} aria-label="Algolia" className="SearchBar__AlgoliaLink">
+    <li className="MobileSearchBar__AlgoliaWrapper">
+      <a
+        href={url}
+        aria-label="Algolia"
+        className="MobileSearchBar__AlgoliaLink"
+      >
         <AlgoliaLogo />
       </a>
     </li>
@@ -47,7 +51,7 @@ export function NameHighlight({ highlight, attribute, hit }) {
 
   return (
     <>
-      <span className="SearchBar__Hits__Item__Checkbox" />
+      <span className="MobileSearchBar__Hits__Item__Checkbox" />
       {parsedHit.map((part, index) =>
         part.isHighlighted ? (
           <mark key={index}>{part.value}</mark>
@@ -68,7 +72,7 @@ export function ProjectHighlight({ highlight, attribute, hit }) {
   });
 
   return (
-    <span className="SearchBar__Hits__Item__Project">
+    <span className="MobileSearchBar__Hits__Item__Project">
       {parsedHit.map((part, index) =>
         part.isHighlighted ? (
           <mark key={index}>{part.value}</mark>
@@ -76,9 +80,8 @@ export function ProjectHighlight({ highlight, attribute, hit }) {
           <span key={index}>{part.value}</span>
         ),
       )}
-
       <svg
-        className="SearchBar__Hits__Item__Project__Color"
+        className="MobileSearchBar__Hits__Item__Project__Color"
         fill={hit.project.colorValue}
       >
         <use xlinkHref="#color" />
@@ -89,24 +92,29 @@ export function ProjectHighlight({ highlight, attribute, hit }) {
 
 export const ConnectedAutoComplete = connectAutoComplete(AutoComplete);
 
-export function AutoComplete({ hits, refine, toggleTodoHighlight }) {
+export function AutoComplete({
+  hits,
+  refine,
+  toggleTodoHighlight,
+  closeSearchModal,
+}) {
   const history = useHistory();
   const [inputValue, setInputValue] = useState("");
 
   const searchBarClasses = classNames({
-    SearchBar: true,
+    MobileSearchBar: true,
   });
 
   const inputClasses = classNames({
-    SearchBar__Input: true,
+    MobileSearchBar__Input: true,
   });
 
   const labelClasses = classNames({
-    SearchBar__Label: true,
+    MobileSearchBar__Label: true,
   });
 
   const svgClassNames = classNames({
-    SearchBar__Icon: true,
+    MobileSearchBar__Icon: true,
   });
 
   function handleChange(item) {
@@ -123,9 +131,11 @@ export function AutoComplete({ hits, refine, toggleTodoHighlight }) {
       item.project[INBOX_PROJECT_IDENTIFIER]
     ) {
       setInputValue("");
+      closeSearchModal();
       history.push(ROUTES.INBOX);
     } else {
       setInputValue("");
+      closeSearchModal();
       history.push(`${ROUTES.PROJECT}${item.project.name.toLowerCase()}`);
     }
   }
@@ -153,24 +163,26 @@ export function AutoComplete({ hits, refine, toggleTodoHighlight }) {
         isOpen,
       }) => (
         <div className={searchBarClasses}>
-          <label {...getLabelProps()} className={labelClasses}>
-            <svg className={svgClassNames}>
-              <use xlinkHref={`#search-20`} />
-            </svg>
-            <input
-              {...getInputProps({
-                onChange(e) {
-                  refine(e.target.value);
-                },
-              })}
-              type="text"
-              className={inputClasses}
-              placeholder="Search"
-            />
-          </label>
+          <div className="MobileSearchBar__LabelWrapper">
+            <label {...getLabelProps()} className={labelClasses}>
+              <svg className={svgClassNames}>
+                <use xlinkHref={`#search-20`} />
+              </svg>
+              <input
+                {...getInputProps({
+                  onChange(e) {
+                    refine(e.target.value);
+                  },
+                })}
+                type="text"
+                className={inputClasses}
+                placeholder="Search"
+              />
+            </label>
+          </div>
           {isOpen && (
-            <ul {...getMenuProps()} className="SearchBar__Hits">
-              <li className="SearchBar__SectionTitle">Todos</li>
+            <ul {...getMenuProps()} className="MobileSearchBar__Hits">
+              <li className="MobileSearchBar__SectionTitle">Todos</li>
               {hits.map((item, index) => (
                 <li
                   {...getItemProps({
@@ -178,13 +190,13 @@ export function AutoComplete({ hits, refine, toggleTodoHighlight }) {
                     index,
                   })}
                   key={item.objectID}
-                  className={`SearchBar__Hits__Item ${
+                  className={`MobileSearchBar__Hits__Item ${
                     highlightedIndex === index
-                      ? ` SearchBar__Hits__Item--Highlighted`
+                      ? ` MobileSearchBar__Hits__Item--Highlighted`
                       : ``
                   }${
                     selectedItem === item
-                      ? `SearchBar__Hits__Item--Selected`
+                      ? `MobileSearchBar__Hits__Item--Selected`
                       : ``
                   }`}
                 >
@@ -206,40 +218,43 @@ export function AutoComplete({ hits, refine, toggleTodoHighlight }) {
 
 export function PlaceholderAutoComplete() {
   const searchBarClasses = classNames({
-    SearchBar: true,
+    MobileSearchBar: true,
   });
 
   const inputClasses = classNames({
-    SearchBar__Input: true,
+    MobileSearchBar__Input: true,
   });
 
   const labelClasses = classNames({
-    SearchBar__Label: true,
+    MobileSearchBar__Label: true,
   });
 
   const svgClassNames = classNames({
-    SearchBar__Icon: true,
+    MobileSearchBar__Icon: true,
   });
 
   return (
     <div className={searchBarClasses}>
-      <label className={labelClasses}>
-        <svg className={svgClassNames}>
-          <use xlinkHref={`#search-20`} />
-        </svg>
-        <input
-          type="text"
-          className={inputClasses}
-          placeholder="Loading..."
-          disabled
-        />
-      </label>
+      <div className="MobileSearchBar__LabelWrapper">
+        <label className={labelClasses}>
+          <svg className={svgClassNames}>
+            <use xlinkHref={`#search-20`} />
+          </svg>
+          <input
+            type="text"
+            className={inputClasses}
+            placeholder="Loading..."
+            disabled
+          />
+        </label>
+      </div>
     </div>
   );
 }
 
-function SearchBar({
+function MobileSearchBar({
   toggleTodoHighlight,
+  closeSearchModal,
   appData: { initialDataLoaded = false } = {},
 }) {
   return (
@@ -249,7 +264,10 @@ function SearchBar({
     >
       <Configure hitsPerPage={12} />
       {initialDataLoaded ? (
-        <ConnectedAutoComplete toggleTodoHighlight={toggleTodoHighlight} />
+        <ConnectedAutoComplete
+          toggleTodoHighlight={toggleTodoHighlight}
+          closeSearchModal={closeSearchModal}
+        />
       ) : (
         <PlaceholderAutoComplete />
       )}
@@ -257,11 +275,12 @@ function SearchBar({
   );
 }
 
-SearchBar.propTypes = {
+MobileSearchBar.propTypes = {
   toggleTodoHighlight: func.isRequired,
+  closeSearchModal: func.isRequired,
   appData: shape({
     initialDataLoaded: bool.isRequired,
   }).isRequired,
 };
 
-export default SearchBar;
+export default MobileSearchBar;

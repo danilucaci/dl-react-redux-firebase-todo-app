@@ -1,0 +1,58 @@
+@use "../../styles/tokens";
+@use "../../styles/base/placeholders";
+
+.SearchModal {
+  &__Overlay {
+    background-color: tokens.$color-background-modal-overlay;
+    position: fixed;
+    margin: auto;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    @extend %animate-modal-overlay;
+  }
+
+  &__Inner {
+    background-color: tokens.$color-background-modal-inner;
+    border-radius: tokens.$border-radius-components-default;
+    flex-grow: 1;
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    @extend %animate-modal-contents;
+  }
+
+  &__TitleRow {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @extend %bottom-divider--on-white;
+
+    padding: {
+      top: tokens.$spacing-c-03;
+      right: tokens.$spacing-c-03;
+      bottom: tokens.$spacing-c-03;
+      left: tokens.$spacing-c-05;
+    }
+  }
+
+  &__Title {
+    color: tokens.$color-text-display-default;
+    font-size: tokens.$font-size-mobile-display-s;
+    line-height: tokens.$font-line-height-mobile-display-s;
+    font-family: tokens.$font-family-display;
+    font-weight: 700;
+    font-style: normal;
+    text-align: center;
+  }
+
+  &__CloseButton {
+    margin-left: auto;
+  }
+}

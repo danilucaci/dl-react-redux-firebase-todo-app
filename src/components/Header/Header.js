@@ -7,9 +7,13 @@ import OutlinedButton from "../OutlinedButton/OutlinedButton";
 import LinkButton from "../LinkButton/LinkButton";
 import MenuButtonContainer from "../../redux/containers/components/MenuButtonContainer";
 import CurrentUserAvatarContainer from "../../redux/containers/components/CurrentUserAvatarContainer";
-import SearchBar from "../SearchBar/SearchBar";
+import SearchBarContainer from "../../redux/containers/components/SearchBarContainer";
 
-function Header({ openAddTodoModal, userState: { isAuthenticated } = {} }) {
+function Header({
+  openAddTodoModal,
+  openSearchModal,
+  userState: { isAuthenticated } = {},
+}) {
   return (
     <header className="Site__Header" role="banner">
       <nav
@@ -20,7 +24,10 @@ function Header({ openAddTodoModal, userState: { isAuthenticated } = {} }) {
         <Logo />
         {isAuthenticated ? (
           <div className="Site__Header__Search__Buttons col col-8 col-l-5 col-xl-8">
-            <SearchBar />
+            <div className="Site__Header__SearchBar__Wrapper">
+              <SearchBarContainer />
+            </div>
+
             <div className="Site__Header__Buttons__Wrapper">
               <OutlinedButton
                 iconOnly
@@ -36,7 +43,7 @@ function Header({ openAddTodoModal, userState: { isAuthenticated } = {} }) {
                 icon="search-24"
                 additionalClasses="SearchButton"
                 ariaText="Search todos"
-                onClick={() => console.log("Searching...")}
+                onClick={() => openSearchModal()}
               />
               <CurrentUserAvatarContainer additionalClasses="Site__Header__CurrentUserAvatar" />
               <MenuButtonContainer additionalClasses="Menu" />
@@ -67,6 +74,7 @@ function Header({ openAddTodoModal, userState: { isAuthenticated } = {} }) {
 
 Header.propTypes = {
   openAddTodoModal: func.isRequired,
+  openSearchModal: func.isRequired,
   userState: shape({
     isAuthenticated: bool.isRequired,
   }).isRequired,

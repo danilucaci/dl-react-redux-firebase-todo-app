@@ -87,10 +87,11 @@ $spacing-input-horizontal-s: functions.rem(12) -
 $spacing-input-vertical-s: functions.rem(8) - sizing.$size-border-input-default;
 
 // Search bar
-$spacing-search-bar-horizontal: functions.rem(12) -
+$spacing-search-bar-horizontal: functions.rem(8) -
   sizing.$size-border-input-default;
 $spacing-search-bar-vertical: functions.rem(8) -
   sizing.$size-border-input-default;
+$spacing-mobile-search-bar-list: functions.rem(112);
 
 // Component Spacing Tokens
 $spacing-c-01: functions.rem(2);

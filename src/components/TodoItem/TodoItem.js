@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   arrayOf,
   oneOfType,
@@ -17,12 +17,27 @@ import TodoLabelTagContainer from "../../redux/containers/components/TodoLabelTa
 import TodoItemDueDate from "../TodoItemDueDate/TodoItemDueDate";
 
 function TodoItem({
-  todo: { id, name, completed, labels, project, dueDate, withTime } = {},
+  todo: {
+    id,
+    name,
+    completed,
+    labels,
+    project,
+    dueDate,
+    withTime,
+    isHighlighted,
+  } = {},
   todo = {},
   isVisible,
   toggleVisibility,
   setTodoCompleted,
+  toggleTodoHighlight,
 }) {
+  const itemRef = useRef(null);
+  const addClassTimeoutRef = useRef(null);
+  const removeClassTimeoutRef = useRef(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
   const todoButtonClassnames = classnames({
     Todo__Button: true,
     [`Todo__Button--Completed`]: completed ? true : false,
@@ -30,10 +45,48 @@ function TodoItem({
 
   const todoItemClassnames = classnames({
     Todo__Item: true,
+    [`Todo__Item--Highlighted`]: isTransitioning,
   });
 
+  useEffect(() => {
+    if (isHighlighted && itemRef.current) {
+      window.scrollTo({
+        behavior: "smooth",
+        top: itemRef.current.offsetTop - 16,
+      });
+
+      addClassTimeoutRef.current = setTimeout(() => {
+        setIsTransitioning(true);
+        toggleTodoHighlight({
+          id: id,
+          isHighlighted: false,
+        });
+      }, 150);
+    }
+
+    return () => {
+      if (addClassTimeoutRef.current) {
+        clearTimeout(addClassTimeoutRef.current);
+      }
+    };
+  }, [isHighlighted, id, toggleTodoHighlight]);
+
+  useEffect(() => {
+    if (isTransitioning) {
+      removeClassTimeoutRef.current = setTimeout(() => {
+        setIsTransitioning(false);
+      }, 1800);
+    }
+
+    return () => {
+      if (removeClassTimeoutRef.current) {
+        clearTimeout(removeClassTimeoutRef.current);
+      }
+    };
+  }, [isTransitioning]);
+
   return (
-    <li className={todoItemClassnames}>
+    <li className={todoItemClassnames} ref={itemRef}>
       <button
         className={todoButtonClassnames}
         onClick={() => setTodoCompleted(id)}
@@ -103,10 +156,12 @@ TodoItem.propTypes = {
     name: string.isRequired,
     uid: string.isRequired,
     id: string.isRequired,
+    isHighlighted: bool.isRequired,
   }),
   isVisible: bool.isRequired,
   toggleVisibility: func.isRequired,
   setTodoCompleted: func.isRequired,
+  toggleTodoHighlight: func.isRequired,
 };
 
 TodoItem.defaultProps = {

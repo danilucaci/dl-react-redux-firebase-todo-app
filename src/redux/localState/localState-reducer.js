@@ -18,6 +18,7 @@ const INITIAL_STATE = {
     addTodoModalActive: false,
     addProjectModalActive: false,
     addLabelModalActive: false,
+    searchModalActive: false,
   },
 };
 
@@ -197,6 +198,31 @@ const localStateReducer = (state = INITIAL_STATE, action) => {
         modals: {
           ...state.modals,
           addLabelModalActive: false,
+        },
+      };
+    }
+    case LocalStateTypes.OPEN_SEARCH_MODAL: {
+      return {
+        ...state,
+        menu: {
+          ...state.menu,
+          menuOpen: false,
+        },
+        modals: {
+          ...state.modals,
+          addProjectModalActive: false,
+          addTodoModalActive: false,
+          addLabelModalActive: false,
+          searchModalActive: true,
+        },
+      };
+    }
+    case LocalStateTypes.CLOSE_SEARCH_MODAL: {
+      return {
+        ...state,
+        modals: {
+          ...state.modals,
+          searchModalActive: false,
         },
       };
     }

@@ -145,6 +145,21 @@
   }
 }
 
+%animate-todo-item-scroll-to {
+  animation: animate-todo-item-scroll-to tokens.$timing-todo-item-scroll-to
+    ease-in;
+
+  @keyframes animate-todo-item-scroll-to {
+    0%,
+    100% {
+      background: tokens.$color-background-todo-item-scroll-to-default;
+    }
+    50% {
+      background: tokens.$color-background-todo-item-scroll-to-highlight;
+    }
+  }
+}
+
 %bottom-divider--on-white {
   border-bottom: tokens.$size-divider-s solid tokens.$color-divider-on-white;
 }

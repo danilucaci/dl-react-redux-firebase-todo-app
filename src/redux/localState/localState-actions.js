@@ -33,6 +33,14 @@ export const closeAddLabelModal = () => ({
   type: LocalStateTypes.CLOSE_ADD_LABEL_MODAL,
 });
 
+export const openSearchModal = () => ({
+  type: LocalStateTypes.OPEN_SEARCH_MODAL,
+});
+
+export const closeSearchModal = () => ({
+  type: LocalStateTypes.CLOSE_SEARCH_MODAL,
+});
+
 export const setInitialDataLoaded = () => ({
   type: LocalStateTypes.SET_INITIAL_DATA_LOADED,
 });

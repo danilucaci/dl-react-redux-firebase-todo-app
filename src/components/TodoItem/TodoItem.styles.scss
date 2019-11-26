@@ -11,6 +11,10 @@
     top: tokens.$spacing-c-05;
     bottom: tokens.$spacing-c-05;
   }
+
+  &--Highlighted {
+    @extend %animate-todo-item-scroll-to;
+  }
 }
 
 .Todo__Item__Contents {

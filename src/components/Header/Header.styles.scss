@@ -25,13 +25,28 @@
     align-items: center;
   }
 
+  &__SearchBar__Wrapper {
+    display: none;
+
+    width: 100%;
+
+    @include tokens.media-min(l) {
+      display: block;
+    }
+  }
+
   &__Buttons__Wrapper {
     display: flex;
     margin-left: auto;
     margin-right: -#{tokens.$grid-spacing-s};
+    padding-left: tokens.$grid-gutter-s;
 
     @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
       margin-right: 0;
+    }
+
+    @include tokens.media-min(l) {
+      padding-left: tokens.$spacing-c-05;
     }
   }
 

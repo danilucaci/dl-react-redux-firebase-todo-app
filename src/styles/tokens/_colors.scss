@@ -17,6 +17,14 @@ $color-text-button-outlined-disabled: colors.$grey700;
 $color-text-button-text-enabled: colors.$grey900;
 $color-text-button-text-disabled: colors.$grey700;
 
+// Autocomplete mark background
+$color-background-autocomplete-selection: colors.$grey200;
+$color-background-mobile-search-bar-background: colors.$grey50;
+
+// Todo Item Scroll Highlight
+$color-background-todo-item-scroll-to-default: colors.$grey00;
+$color-background-todo-item-scroll-to-highlight: colors.$grey200;
+
 // Links
 $color-text-link-default: colors.$primary600;
 $color-text-link-hover: colors.$primary500;
@@ -108,6 +116,7 @@ $color-background-todo-checkbox-completed-hover: colors.$primary500;
 $color-background-todo-checkbox-completed-disabled: colors.$grey500;
 
 $color-background-input-enabled: colors.$grey00;
+$color-background-search-bar-mobile: colors.$grey00;
 $color-background-search-bar-enabled: colors.$grey50;
 $color-background-search-bar-active: colors.$grey00;
 
@@ -123,6 +132,9 @@ $color-background-dropdown-inner: colors.$grey00;
 $color-background-dropdown-item-enabled: colors.$grey00;
 $color-background-dropdown-item-selected: colors.$grey50;
 $color-background-dropdown-item-hover: colors.$grey100;
+
+// Page Backgrounds
+$color-background-algolia-link: colors.$grey50;
 
 // Page Backgrounds
 $color-background-page-lightest: colors.$grey00;

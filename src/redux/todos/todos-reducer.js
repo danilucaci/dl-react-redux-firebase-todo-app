@@ -21,6 +21,18 @@ const todosReducer = (state = INITIAL_STATE, action) => {
         },
       };
     }
+    case TodosTypes.TOGGLE_TODO_HIGHLIGHT: {
+      return {
+        ...state,
+        byID: {
+          ...state.byID,
+          [action.payload.id]: {
+            ...state.byID[action.payload.id],
+            isHighlighted: action.payload.isHighlighted,
+          },
+        },
+      };
+    }
     case TodosTypes.UPDATE_TODO: {
       return {
         ...state,
