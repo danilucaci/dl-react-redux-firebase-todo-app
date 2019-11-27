@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { shape, bool, func } from "prop-types";
 import classNames from "classnames";
 import { useHistory } from "react-router-dom";
@@ -92,6 +92,7 @@ export const ConnectedAutoComplete = connectAutoComplete(AutoComplete);
 export function AutoComplete({ hits, refine, toggleTodoHighlight }) {
   const history = useHistory();
   const [inputValue, setInputValue] = useState("");
+  const inputRef = useRef(null);
 
   const searchBarClasses = classNames({
     SearchBar: true,
@@ -136,12 +137,19 @@ export function AutoComplete({ hits, refine, toggleTodoHighlight }) {
     }
   }
 
+  function handleItemSelect() {
+    if (inputRef.current) {
+      inputRef.current.blur();
+    }
+  }
+
   return (
     <Autocomplete
       itemToString={(item) => (item ? item.name : "")}
       onChange={handleChange}
       inputValue={inputValue}
       onStateChange={onStateChange}
+      onSelect={handleItemSelect}
     >
       {({
         getMenuProps,
@@ -163,6 +171,7 @@ export function AutoComplete({ hits, refine, toggleTodoHighlight }) {
                   refine(e.target.value);
                 },
               })}
+              ref={inputRef}
               type="text"
               className={inputClasses}
               placeholder="Search"
