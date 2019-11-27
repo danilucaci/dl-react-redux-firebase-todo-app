@@ -55,6 +55,8 @@ function TodoItem({
         top: itemRef.current.offsetTop - 16,
       });
 
+      itemRef.current.focus();
+
       addClassTimeoutRef.current = setTimeout(() => {
         setIsTransitioning(true);
         toggleTodoHighlight({
@@ -86,7 +88,7 @@ function TodoItem({
   }, [isTransitioning]);
 
   return (
-    <li className={todoItemClassnames} ref={itemRef}>
+    <li className={todoItemClassnames}>
       <button
         className={todoButtonClassnames}
         onClick={() => setTodoCompleted(id)}
@@ -101,6 +103,7 @@ function TodoItem({
             className="Todo__Name"
             aria-label={`Edit todo ${name}`}
             onClick={() => toggleVisibility(!isVisible)}
+            ref={itemRef}
           >
             {name}
           </button>
