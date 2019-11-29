@@ -18,6 +18,7 @@ import {
 } from "react-instantsearch-dom";
 
 import algoliasearch from "algoliasearch/lite";
+import useKeyUpPress from "../../hooks/useKeyUpPress";
 
 const algoliaClient = algoliasearch(
   process.env.REACT_APP_ALGOLIA_APP_ID,
@@ -93,6 +94,14 @@ export function AutoComplete({ hits, refine, toggleTodoHighlight }) {
   const history = useHistory();
   const [inputValue, setInputValue] = useState("");
   const inputRef = useRef(null);
+
+  useKeyUpPress("/", handleKeyboardSearch);
+
+  function handleKeyboardSearch() {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }
 
   const searchBarClasses = classNames({
     SearchBar: true,
