@@ -5,6 +5,8 @@ import DashboardMainContainer from "../../redux/containers/components/DashboardM
 import Todo from "../../components/Todo/Todo";
 import AddNew from "../../components/AddNew/AddNew";
 import withProtectedRoute from "../../hoc/withProtectedRoute";
+import AriaText from "../../components/AriaText/AriaText";
+import { FALLBACK_FOCUS_BUTTON } from "../../constants/ui";
 
 function Project({
   projectTodos,
@@ -22,8 +24,13 @@ function Project({
           </header>
           <ul className="Section__Todos__List">
             {projectOverdueTodos &&
-              projectOverdueTodos.map((todoID) => (
-                <Todo key={todoID} todoID={todoID} />
+              projectOverdueTodos.map((todoID, index) => (
+                <Todo
+                  key={todoID}
+                  todoID={todoID}
+                  prev={projectOverdueTodos[index - 1]}
+                  next={projectOverdueTodos[index + 1]}
+                />
               ))}
           </ul>
         </section>
@@ -35,11 +42,19 @@ function Project({
         </header>
         <ul className="Section__Todos__List">
           {projectTodos &&
-            projectTodos.map((todoID) => <Todo key={todoID} todoID={todoID} />)}
+            projectTodos.map((todoID, index) => (
+              <Todo
+                key={todoID}
+                todoID={todoID}
+                prev={projectTodos[index - 1]}
+                next={projectTodos[index + 1]}
+              />
+            ))}
         </ul>
         <AddNew
           additionalClasses="Section__AddNew"
           onClick={() => openAddTodoModal()}
+          id={`#${FALLBACK_FOCUS_BUTTON}`}
         >
           Add todo
         </AddNew>

@@ -8,6 +8,8 @@ import AddNew from "../../components/AddNew/AddNew";
 
 import { formatTodaySectionDate } from "../../utils/dates";
 import withProtectedRoute from "../../hoc/withProtectedRoute";
+import AriaText from "../../components/AriaText/AriaText";
+import { FALLBACK_FOCUS_BUTTON } from "../../constants/ui";
 
 export function RenderTodayDateTime() {
   const { todayDate, todayFormattedDate } = formatTodaySectionDate();
@@ -34,8 +36,13 @@ function Today({
           </header>
           <ul className="Section__Todos__List">
             {overdueTodos &&
-              overdueTodos.map((todoID) => (
-                <Todo key={todoID} todoID={todoID} />
+              overdueTodos.map((todoID, index) => (
+                <Todo
+                  key={todoID}
+                  todoID={todoID}
+                  prev={overdueTodos[index - 1]}
+                  next={overdueTodos[index + 1]}
+                />
               ))}
           </ul>
         </section>
@@ -48,11 +55,19 @@ function Today({
         </header>
         <ul className="Section__Todos__List">
           {todayTodos &&
-            todayTodos.map((todoID) => <Todo key={todoID} todoID={todoID} />)}
+            todayTodos.map((todoID, index) => (
+              <Todo
+                key={todoID}
+                todoID={todoID}
+                prev={todayTodos[index - 1]}
+                next={todayTodos[index + 1]}
+              />
+            ))}
         </ul>
         <AddNew
           additionalClasses="Section__AddNew"
           onClick={() => openAddTodoModal()}
+          id={`#${FALLBACK_FOCUS_BUTTON}`}
         >
           Add todo
         </AddNew>

@@ -30,6 +30,11 @@ export const toggleTodoHighlight = (todo) => ({
   payload: todo,
 });
 
+export const toggleTodoFocus = (todo) => ({
+  type: TodosTypes.TOGGLE_TODO_FOCUS,
+  payload: todo,
+});
+
 export const addLocalTodo = (todo) => ({
   type: TodosTypes.ADD_TODO,
   payload: todo,

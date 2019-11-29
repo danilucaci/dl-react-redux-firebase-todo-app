@@ -6,6 +6,8 @@ import Todo from "../../components/Todo/Todo";
 import AddNew from "../../components/AddNew/AddNew";
 
 import withProtectedRoute from "../../hoc/withProtectedRoute";
+import AriaText from "../../components/AriaText/AriaText";
+import { FALLBACK_FOCUS_BUTTON } from "../../constants/ui";
 
 function Inbox({ inboxTodos, overdueInboxTodos, openAddTodoModal }) {
   return (
@@ -17,8 +19,13 @@ function Inbox({ inboxTodos, overdueInboxTodos, openAddTodoModal }) {
             <h2 className="Section__Title">Overdue</h2>
           </header>
           <ul className="Section__Todos__List">
-            {overdueInboxTodos.map((todoID) => (
-              <Todo key={todoID} todoID={todoID} />
+            {overdueInboxTodos.map((todoID, index) => (
+              <Todo
+                key={todoID}
+                todoID={todoID}
+                prev={overdueInboxTodos[index - 1]}
+                next={overdueInboxTodos[index + 1]}
+              />
             ))}
           </ul>
         </section>
@@ -29,14 +36,20 @@ function Inbox({ inboxTodos, overdueInboxTodos, openAddTodoModal }) {
         </header>
         {inboxTodos.length ? (
           <ul className="Section__Todos__List">
-            {inboxTodos.map((todoID) => (
-              <Todo key={todoID} todoID={todoID} />
+            {inboxTodos.map((todoID, index) => (
+              <Todo
+                key={todoID}
+                todoID={todoID}
+                prev={inboxTodos[index - 1]}
+                next={inboxTodos[index + 1]}
+              />
             ))}
           </ul>
         ) : null}
         <AddNew
           additionalClasses="Section__AddNew"
           onClick={() => openAddTodoModal()}
+          id={`#${FALLBACK_FOCUS_BUTTON}`}
         >
           Add todo
         </AddNew>

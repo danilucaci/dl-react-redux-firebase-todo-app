@@ -5,6 +5,8 @@ import "./NextDays.styles.scss";
 import DashboardMainContainer from "../../redux/containers/components/DashboardMainContainer";
 import Todo from "../../components/Todo/Todo";
 import AddNew from "../../components/AddNew/AddNew";
+import AriaText from "../../components/AriaText/AriaText";
+import { FALLBACK_FOCUS_BUTTON } from "../../constants/ui";
 
 import {
   formatTodaySectionDate,
@@ -53,8 +55,13 @@ function NextDays({
           </header>
           <ul className="Section__Todos__List">
             {overdueTodos &&
-              overdueTodos.map((todoID) => (
-                <Todo key={todoID} todoID={todoID} />
+              overdueTodos.map((todoID, index) => (
+                <Todo
+                  key={todoID}
+                  todoID={todoID}
+                  prev={overdueTodos[index - 1]}
+                  next={overdueTodos[index + 1]}
+                />
               ))}
           </ul>
         </section>
@@ -66,11 +73,19 @@ function NextDays({
         </header>
         <ul className="Section__Todos__List">
           {todayTodos &&
-            todayTodos.map((todoID) => <Todo key={todoID} todoID={todoID} />)}
+            todayTodos.map((todoID, index) => (
+              <Todo
+                key={todoID}
+                todoID={todoID}
+                prev={todayTodos[index - 1]}
+                next={todayTodos[index + 1]}
+              />
+            ))}
         </ul>
         <AddNew
           additionalClasses="Section__AddNew"
           onClick={() => openAddTodoModal()}
+          id={`#${FALLBACK_FOCUS_BUTTON}`}
         >
           Add todo
         </AddNew>
@@ -82,8 +97,13 @@ function NextDays({
         </header>
         <ul className="Section__Todos__List">
           {nextDaysPlus1Todos &&
-            nextDaysPlus1Todos.map((todoID) => (
-              <Todo key={todoID} todoID={todoID} />
+            nextDaysPlus1Todos.map((todoID, index) => (
+              <Todo
+                key={todoID}
+                todoID={todoID}
+                prev={nextDaysPlus1Todos[index - 1]}
+                next={nextDaysPlus1Todos[index + 1]}
+              />
             ))}
         </ul>
         <AddNew
@@ -100,8 +120,13 @@ function NextDays({
         </header>
         <ul className="Section__Todos__List">
           {nextDaysPlus2Todos &&
-            nextDaysPlus2Todos.map((todoID) => (
-              <Todo key={todoID} todoID={todoID} />
+            nextDaysPlus2Todos.map((todoID, index) => (
+              <Todo
+                key={todoID}
+                todoID={todoID}
+                prev={nextDaysPlus2Todos[index - 1]}
+                next={nextDaysPlus2Todos[index + 1]}
+              />
             ))}
         </ul>
         <AddNew
@@ -118,8 +143,13 @@ function NextDays({
         </header>
         <ul className="Section__Todos__List">
           {nextDaysPlus3Todos &&
-            nextDaysPlus3Todos.map((todoID) => (
-              <Todo key={todoID} todoID={todoID} />
+            nextDaysPlus3Todos.map((todoID, index) => (
+              <Todo
+                key={todoID}
+                todoID={todoID}
+                prev={nextDaysPlus3Todos[index - 1]}
+                next={nextDaysPlus3Todos[index + 1]}
+              />
             ))}
         </ul>
         <AddNew
@@ -136,8 +166,13 @@ function NextDays({
         </header>
         <ul className="Section__Todos__List">
           {nextDaysPlus4Todos &&
-            nextDaysPlus4Todos.map((todoID) => (
-              <Todo key={todoID} todoID={todoID} />
+            nextDaysPlus4Todos.map((todoID, index) => (
+              <Todo
+                key={todoID}
+                todoID={todoID}
+                prev={nextDaysPlus4Todos[index - 1]}
+                next={nextDaysPlus4Todos[index + 1]}
+              />
             ))}
         </ul>
         <AddNew
@@ -154,8 +189,13 @@ function NextDays({
         </header>
         <ul className="Section__Todos__List">
           {nextDaysPlus5Todos &&
-            nextDaysPlus5Todos.map((todoID) => (
-              <Todo key={todoID} todoID={todoID} />
+            nextDaysPlus5Todos.map((todoID, index) => (
+              <Todo
+                key={todoID}
+                todoID={todoID}
+                prev={nextDaysPlus5Todos[index - 1]}
+                next={nextDaysPlus5Todos[index + 1]}
+              />
             ))}
         </ul>
         <AddNew
@@ -172,8 +212,13 @@ function NextDays({
         </header>
         <ul className="Section__Todos__List">
           {nextDaysPlus6Todos &&
-            nextDaysPlus6Todos.map((todoID) => (
-              <Todo key={todoID} todoID={todoID} />
+            nextDaysPlus6Todos.map((todoID, index) => (
+              <Todo
+                key={todoID}
+                todoID={todoID}
+                prev={nextDaysPlus6Todos[index - 1]}
+                next={nextDaysPlus6Todos[index + 1]}
+              />
             ))}
         </ul>
         <AddNew

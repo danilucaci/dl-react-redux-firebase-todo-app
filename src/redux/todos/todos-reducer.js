@@ -17,7 +17,10 @@ const todosReducer = (state = INITIAL_STATE, action) => {
         ...state,
         byID: {
           ...state.byID,
-          [action.payload.id]: action.payload,
+          [action.payload.id]: {
+            ...action.payload,
+            isFocused: true,
+          },
         },
       };
     }
@@ -33,6 +36,18 @@ const todosReducer = (state = INITIAL_STATE, action) => {
         },
       };
     }
+    case TodosTypes.TOGGLE_TODO_FOCUS: {
+      return {
+        ...state,
+        byID: {
+          ...state.byID,
+          [action.payload.id]: {
+            ...state.byID[action.payload.id],
+            isFocused: action.payload.isFocused,
+          },
+        },
+      };
+    }
     case TodosTypes.UPDATE_TODO: {
       return {
         ...state,
@@ -40,6 +55,7 @@ const todosReducer = (state = INITIAL_STATE, action) => {
           ...state.byID,
           [action.payload.id]: {
             ...action.payload,
+            isFocused: true,
           },
         },
       };

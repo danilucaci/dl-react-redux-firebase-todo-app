@@ -28,6 +28,7 @@ function getTodosObjectFromDocs(docs = []) {
         ...data,
         dueDate,
         isHighlighted: false,
+        isFocused: false,
       },
     };
   }, {});
