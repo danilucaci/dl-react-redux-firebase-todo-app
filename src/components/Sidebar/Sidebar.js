@@ -15,6 +15,7 @@ import AddNew from "../AddNew/AddNew";
 import SidebarSignoutButton from "../SidebarSignoutButton/SidebarSignoutButton";
 
 import { useDisableSidebarBackground, useAnimation } from "../../hooks";
+import AriaText from "../AriaText/AriaText";
 
 function Sidebar({
   inboxTodosCount,
@@ -77,7 +78,7 @@ function Sidebar({
     >
       {initialDataLoaded ? (
         <nav>
-          <ul className="Sidebar__Section">
+          <ul className="Sidebar__Section" aria-label="main pages">
             <li className="Sidebar__CurrentUser_Wrapper">
               <UserAvatarContainer />
             </li>
@@ -104,7 +105,9 @@ function Sidebar({
                 </svg>
                 Inbox
                 <span className="Sidebar__Section__Item__Count">
+                  <AriaText>with </AriaText>
                   {inboxTodosCount}
+                  <AriaText> todos</AriaText>
                 </span>
               </NavLink>
             </li>
@@ -116,7 +119,7 @@ function Sidebar({
               >
                 <svg className="Sidebar__Section__Item__Icon Sidebar__Section__Item__Icon__Day">
                   <use xlinkHref="#calendar-day" />
-                  <text transform="translate(4 2)">
+                  <text transform="translate(4 2)" aria-hidden="true">
                     <tspan x="7.7" y="14.5" textAnchor="middle">
                       {new Date().getDate()}
                     </tspan>
@@ -124,7 +127,9 @@ function Sidebar({
                 </svg>
                 Today
                 <span className="Sidebar__Section__Item__Count">
+                  <AriaText>with </AriaText>
                   {todayTodosCount}
+                  <AriaText>todos</AriaText>
                 </span>
               </NavLink>
             </li>
@@ -139,24 +144,29 @@ function Sidebar({
                 </svg>
                 Next 7 days
                 <span className="Sidebar__Section__Item__Count">
+                  <AriaText>with </AriaText>
                   {nextDaysTodosCount}
+                  <AriaText>todos</AriaText>
                 </span>
               </NavLink>
             </li>
           </ul>
-          <ul className="Sidebar__Section">
+          <ul className="Sidebar__Section" aria-label="projects">
             <li className="Sidebar__Section__Title">
               <button className="Sidebar__Section__Title__Button">
                 <svg className="Sidebar__Section__Title__Icon">
                   <use xlinkHref="#chevron-down" />
                 </svg>
+                <AriaText>Collapse </AriaText>
                 Projects
+                <AriaText> list</AriaText>
               </button>
               <NavLink
                 className="Sidebar__Section__Title__SeeAll"
                 to={ROUTES.PROJECTS}
               >
                 See all
+                <AriaText> projects</AriaText>
               </NavLink>
             </li>
             {projectIds &&
@@ -170,19 +180,22 @@ function Sidebar({
               <AddNew onClick={() => openAddProjectModal()}>Add project</AddNew>
             </li>
           </ul>
-          <ul className="Sidebar__Section">
+          <ul className="Sidebar__Section" aria-label="labels">
             <li className="Sidebar__Section__Title">
               <button className="Sidebar__Section__Title__Button">
                 <svg className="Sidebar__Section__Title__Icon">
                   <use xlinkHref="#chevron-down" />
                 </svg>
+                <AriaText>Collapse </AriaText>
                 Labels
+                <AriaText> list</AriaText>
               </button>
               <NavLink
                 className="Sidebar__Section__Title__SeeAll"
                 to={ROUTES.LABELS}
               >
                 See all
+                <AriaText> labels</AriaText>
               </NavLink>
             </li>
             {labelIds &&

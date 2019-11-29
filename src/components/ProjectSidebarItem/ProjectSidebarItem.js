@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { string, number, shape } from "prop-types";
 
 import * as ROUTES from "../../constants/routes";
+import AriaText from "../AriaText/AriaText";
 
 function ProjectSidebarItem({
   projectTodosCount = 0,
@@ -27,10 +28,13 @@ function ProjectSidebarItem({
           >
             <use xlinkHref="#color" />
           </svg>
+          <AriaText>project </AriaText>
           {name}
+          <AriaText>with </AriaText>
           <span className="Sidebar__Section__Item__Count">
             {projectTodosCount}
           </span>
+          <AriaText> todos.</AriaText>
         </NavLink>
       </li>
     </>
