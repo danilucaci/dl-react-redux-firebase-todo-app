@@ -156,6 +156,7 @@ const DatePicker = ({
               setTime={handleTimeChange}
               additionalClasses="DatePicker__TimeInput"
               name="time-input"
+              aria-label="Edit the todo’s time due date."
             />
             <OutlinedButton
               size="s"
@@ -163,6 +164,7 @@ const DatePicker = ({
               iconOnly
               onClick={clearTime}
               type="button"
+              ariaText="Remove time"
             />
           </>
         ) : (
