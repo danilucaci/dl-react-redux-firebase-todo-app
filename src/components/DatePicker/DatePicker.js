@@ -114,6 +114,7 @@ const DatePicker = ({
 
     // Set the `withTime` prop of the todo to false,
     // to indicate that it doesn’t have a time value
+    setShowTimeInput(false);
     setHasNewTime(false);
   }
 
