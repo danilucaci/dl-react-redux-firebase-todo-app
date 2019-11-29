@@ -12,6 +12,7 @@ import { useDisableBodyBackground, useFocusRef } from "../../hooks";
 
 import Input from "../Input/Input";
 import { INBOX_PROJECT_IDENTIFIER } from "../../constants/collections";
+import AriaText from "../AriaText/AriaText";
 
 ReactModal.setAppElement("#root");
 
@@ -75,7 +76,7 @@ function AddProjectModal({
           iconOnly
           size="m"
           additionalClasses="ProjectModal__CloseButton"
-          ariaText="Close modal"
+          ariaText="Close modal dialog"
           type="button"
           onClick={closeModal}
         />
@@ -85,11 +86,16 @@ function AddProjectModal({
         className="ProjectModal__Todo"
         onSubmit={handleFormSubmit}
       >
+        <label htmlFor="label-name">
+          <AriaText>New project name</AriaText>
+        </label>
         <Input
           onChange={(e) => setProjectName(e.target.value)}
           value={projectName}
           placeholder="Project name"
           ref={inputRef}
+          id="project-name"
+          autoComplete="off"
         />
         <div className="ProjectModal__MetaRow">
           <ColorsSelectContainer

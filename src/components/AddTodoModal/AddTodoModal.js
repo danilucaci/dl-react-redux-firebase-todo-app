@@ -27,6 +27,7 @@ import {
   setSelectedDateAction,
   setHasNewTimeAction,
 } from "./AddTodoLocalReducer";
+import AriaText from "../AriaText/AriaText";
 
 ReactModal.setAppElement("#root");
 
@@ -111,7 +112,7 @@ function AddTodoModal({
           iconOnly
           size="m"
           additionalClasses="AddTodoModal__CloseButton"
-          ariaText="Close modal"
+          ariaText="Close modal dialog"
           type="button"
           onClick={closeModal}
         />
@@ -121,11 +122,16 @@ function AddTodoModal({
         className="AddTodoModal__Todo"
         onSubmit={handleFormSubmit}
       >
+        <label htmlFor={`todo-${todo.name}`}>
+          <AriaText>Edit todo {todo.name}</AriaText>
+        </label>
         <Input
           onChange={(e) => setTodoName(e.target.value)}
           value={todo.name}
           placeholder="Todo name"
           ref={inputRef}
+          id={`todo-${todo.name}`}
+          autoComplete="off"
         />
         <div className="AddTodoModal__MetaRow">
           {todo.project ? (

@@ -11,6 +11,7 @@ import TextButton from "../TextButton/TextButton";
 import { useDisableBodyBackground, useFocusRef } from "../../hooks";
 
 import Input from "../Input/Input";
+import AriaText from "../AriaText/AriaText";
 
 ReactModal.setAppElement("#root");
 
@@ -74,7 +75,7 @@ function AddLabelModal({
           additionalClasses="LabelModal__CloseButton"
           iconOnly
           size="m"
-          ariaText="Close modal"
+          ariaText="Close modal dialog"
           type="button"
           onClick={closeModal}
         />
@@ -84,11 +85,16 @@ function AddLabelModal({
         className="LabelModal__Todo"
         onSubmit={handleFormSubmit}
       >
+        <label htmlFor="label-name">
+          <AriaText>New label name</AriaText>
+        </label>
         <Input
           onChange={(e) => setLabelName(e.target.value)}
           value={labelName}
           placeholder="Label name"
           ref={inputRef}
+          id="label-name"
+          autoComplete="off"
         />
         <div className="LabelModal__MetaRow">
           <ColorsSelectContainer
