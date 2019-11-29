@@ -170,22 +170,24 @@ export function AutoComplete({ hits, refine, toggleTodoHighlight }) {
         isOpen,
       }) => (
         <div className={searchBarClasses}>
-          <label {...getLabelProps()} className={labelClasses}>
-            <svg className={svgClassNames}>
-              <use xlinkHref={`#search-20`} />
-            </svg>
-            <input
-              {...getInputProps({
-                onChange(e) {
-                  refine(e.target.value);
-                },
-              })}
-              ref={inputRef}
-              type="text"
-              className={inputClasses}
-              placeholder="Search"
-            />
-          </label>
+          <form id="site-search" role="search" aria-label="Search todos">
+            <label {...getLabelProps()} className={labelClasses}>
+              <svg className={svgClassNames}>
+                <use xlinkHref={`#search-20`} />
+              </svg>
+              <input
+                {...getInputProps({
+                  onChange(e) {
+                    refine(e.target.value);
+                  },
+                })}
+                ref={inputRef}
+                type="text"
+                className={inputClasses}
+                placeholder="Search"
+              />
+            </label>
+          </form>
           {isOpen && (
             <ul {...getMenuProps()} className="SearchBar__Hits">
               <li className="SearchBar__SectionTitle">Todos</li>

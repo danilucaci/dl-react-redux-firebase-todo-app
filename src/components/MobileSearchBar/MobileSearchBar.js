@@ -236,17 +236,19 @@ export function PlaceholderAutoComplete() {
   return (
     <div className={searchBarClasses}>
       <div className="MobileSearchBar__LabelWrapper">
-        <label className={labelClasses}>
-          <svg className={svgClassNames}>
-            <use xlinkHref={`#search-20`} />
-          </svg>
-          <input
-            type="text"
-            className={inputClasses}
-            placeholder="Loading..."
-            disabled
-          />
-        </label>
+        <form id="site-search" role="search" aria-label="Search todos">
+          <label className={labelClasses}>
+            <svg className={svgClassNames}>
+              <use xlinkHref={`#search-20`} />
+            </svg>
+            <input
+              type="text"
+              className={inputClasses}
+              placeholder="Loading..."
+              disabled
+            />
+          </label>
+        </form>
       </div>
     </div>
   );
