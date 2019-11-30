@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { object, oneOfType, instanceOf, bool, string, func } from "prop-types";
 import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
@@ -34,6 +34,19 @@ const DatePicker = ({
 }) => {
   const [datePickerRef, datePickerSize] = useRectSize();
   const [message, setMessage] = useState(null);
+  const [shouldFocusTimeInput, setShouldFocusTimeInput] = useState(false);
+  const [shouldFocusAddTimeButton, setShouldFocusAddTimeButton] = useState(
+    false,
+  );
+
+  // https://reactjs.org/docs/hooks-faq.html#how-can-i-measure-a-dom-node
+  // Set the ref with a callback when the component is mounted
+  const [addTimeButtonRef, setAddTimeButtonRef] = useState(null);
+  const addTimeButtonRefCb = useCallback((refMounted) => {
+    if (refMounted) {
+      setAddTimeButtonRef(refMounted);
+    }
+  }, []);
 
   // If the todo had a `withTime` prop,
   // render the TimeInput with the time from the previous `dueDate`
@@ -109,6 +122,11 @@ const DatePicker = ({
     }
   }
 
+  function handleOpenTimeInput() {
+    setShowTimeInput(true);
+    setShouldFocusTimeInput(true);
+  }
+
   function clearTime() {
     setSelectedTime("");
 
@@ -116,7 +134,18 @@ const DatePicker = ({
     // to indicate that it doesn’t have a time value
     setShowTimeInput(false);
     setHasNewTime(false);
+
+    // Don’t focus on initial render, only when the time was cleared
+    setShouldFocusAddTimeButton(true);
   }
+
+  // Focus the AddTime button after clearing the time
+  // So that the focus isn’t lost
+  useEffect(() => {
+    if (addTimeButtonRef && shouldFocusAddTimeButton) {
+      addTimeButtonRef.focus();
+    }
+  }, [addTimeButtonRef, shouldFocusAddTimeButton]);
 
   return (
     <ReactModal
@@ -150,13 +179,12 @@ const DatePicker = ({
       <div className="DatePicker__TimeInputRow">
         {showTimeInput ? (
           <>
-            Time:
             <TimeInput
               initialValue={selectedTime}
               setTime={handleTimeChange}
+              isVisible={shouldFocusTimeInput}
               additionalClasses="DatePicker__TimeInput"
               name="time-input"
-              aria-label="Edit the todo’s time due date."
             />
             <OutlinedButton
               size="s"
@@ -168,7 +196,7 @@ const DatePicker = ({
             />
           </>
         ) : (
-          <AddTime onClick={() => setShowTimeInput(!showTimeInput)}>
+          <AddTime onClick={handleOpenTimeInput} ref={addTimeButtonRefCb}>
             Add time
           </AddTime>
         )}
