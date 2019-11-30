@@ -41,6 +41,7 @@ function TodoDueDate({
         type="button"
         ref={dateButtonRef}
         onClick={toggleVisibility}
+        aria-label="change the todo due date"
         {...props}
       >
         {FormattedTodoDueDate(dueDate, hasNewTime, fullDateFormat)}
