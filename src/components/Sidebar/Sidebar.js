@@ -70,14 +70,14 @@ function Sidebar({
   });
 
   return (
-    <aside
+    <nav
       className={sidebarClasses}
       ref={sidebarRef}
       aria-expanded={menuOpen ? true : false}
-      aria-label="Navigation sidebar"
+      aria-label="primary"
     >
       {initialDataLoaded ? (
-        <nav>
+        <>
           <ul className="Sidebar__Section" aria-label="main pages">
             <li className="Sidebar__CurrentUser_Wrapper">
               <UserAvatarContainer />
@@ -209,11 +209,11 @@ function Sidebar({
               <SidebarSignoutButton onClick={() => logoutUser()} />
             </li>
           </ul>
-        </nav>
+        </>
       ) : (
         <SidebarSkeletonContainer />
       )}
-    </aside>
+    </nav>
   );
 }
 
