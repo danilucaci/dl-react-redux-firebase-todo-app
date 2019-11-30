@@ -87,6 +87,7 @@ export const LabelTag = memo(function LabelTag({
         className={buttonClassNames}
         type="button"
         onClick={toggleVisibility}
+        aria-label="Change the labels of the todo"
         {...props}
       >
         <svg className="Todo__Label__Tag__Icon" fill={labelColorValue}>

@@ -45,6 +45,7 @@ const TodoProjectTag = ({
         className={buttonClassNames}
         type="button"
         onClick={toggleVisibility}
+        aria-label="Change the project of the todo"
         {...props}
       >
         {iconSide === "left" ? (
