@@ -163,23 +163,25 @@ export function AutoComplete({
         isOpen,
       }) => (
         <div className={searchBarClasses}>
-          <div className="MobileSearchBar__LabelWrapper">
-            <label {...getLabelProps()} className={labelClasses}>
-              <svg className={svgClassNames}>
-                <use xlinkHref={`#search-20`} />
-              </svg>
-              <input
-                {...getInputProps({
-                  onChange(e) {
-                    refine(e.target.value);
-                  },
-                })}
-                type="text"
-                className={inputClasses}
-                placeholder="Search"
-              />
-            </label>
-          </div>
+          <form id="site-search" role="search" aria-label="Search">
+            <div className="MobileSearchBar__LabelWrapper">
+              <label {...getLabelProps()} className={labelClasses}>
+                <svg className={svgClassNames}>
+                  <use xlinkHref={`#search-20`} />
+                </svg>
+                <input
+                  {...getInputProps({
+                    onChange(e) {
+                      refine(e.target.value);
+                    },
+                  })}
+                  type="search"
+                  className={inputClasses}
+                  placeholder="Search"
+                />
+              </label>
+            </div>
+          </form>
           {isOpen && (
             <ul {...getMenuProps()} className="MobileSearchBar__Hits">
               <li className="MobileSearchBar__SectionTitle">Todos</li>
