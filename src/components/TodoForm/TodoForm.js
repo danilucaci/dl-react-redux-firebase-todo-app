@@ -21,6 +21,7 @@ import TodoDueDate from "../TodoDueDate/TodoDueDate";
 
 import { parseDate } from "../../utils/dates";
 import { INBOX_PROJECT_IDENTIFIER } from "../../constants/collections";
+import AriaText from "../AriaText/AriaText";
 
 function TodoForm({
   todo: { labels, project, dueDate, name, withTime } = {},
@@ -157,10 +158,14 @@ function TodoForm({
         className="Todo__Form__FormWrapper"
         onSubmit={handleFormSubmit}
       >
+        <label htmlFor={`todo-${name}`}>
+          <AriaText>Edit todo {name}</AriaText>
+        </label>
         <Input
           value={newTodoName}
           onChange={(e) => setNewTodoName(e.target.value)}
           ref={inputRef}
+          id={`todo-${name}`}
         />
         <div className="Todo__Form__ButtonsContainer">
           <div className="Todo__Form__MetaRow">
@@ -196,13 +201,19 @@ function TodoForm({
           </div>
 
           <div className="Todo__Form__ButtonsRow">
-            <TextButton size="m" onClick={handleCancelEdit} type="button">
+            <TextButton
+              size="m"
+              onClick={handleCancelEdit}
+              type="button"
+              aria-label="cancel editing todo"
+            >
               Cancel
             </TextButton>
             <PrimaryButton
               type="submit"
               size="m"
               additionalClasses="Todo__Form__SubmitButton"
+              aria-label="save changes"
             >
               Save
             </PrimaryButton>
