@@ -30,11 +30,17 @@ function Today({
     <DashboardMainContainer>
       <h1 className="Page__Title">Today</h1>
       {overdueTodos && overdueTodos.length ? (
-        <section className="Section">
+        <section
+          className="Section"
+          aria-labelledby={`today-overdue-todos-label`}
+        >
           <header className="Section__Header">
-            <h2 className="Section__Title">Overdue</h2>
+            <h2 className="Section__Title" id={`today-overdue-todos-label`}>
+              Overdue
+              <AriaText> todos</AriaText>
+            </h2>
           </header>
-          <ul className="Section__Todos__List">
+          <ul className="Section__Todos__List" aria-label="today overdue todos">
             {overdueTodos &&
               overdueTodos.map((todoID, index) => (
                 <Todo
@@ -48,12 +54,17 @@ function Today({
         </section>
       ) : null}
 
-      <section className="Section">
+      <section
+        className="Section"
+        aria-labelledby={`today-not-overdue-todos-label`}
+      >
         <header className="Section__Header">
-          <h2 className="Section__Title">Today</h2>
+          <h2 className="Section__Title" id={`today-not-overdue-todos-label`}>
+            Today
+          </h2>
           {RenderTodayDateTime()}
         </header>
-        <ul className="Section__Todos__List">
+        <ul className="Section__Todos__List" aria-label="today todos">
           {todayTodos &&
             todayTodos.map((todoID, index) => (
               <Todo

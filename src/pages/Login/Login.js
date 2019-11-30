@@ -60,9 +60,11 @@ function Login({
   }
 
   return (
-    <section className="Login">
+    <section className="Login" aria-labelledby="login">
       <header className="">
-        <h1 className="Login__Title">Log in</h1>
+        <h1 className="Login__Title" id="login">
+          Log in
+        </h1>
       </header>
       <section>
         <SignInWithGoogle additionalClasses="Login__GoogleBtn" />

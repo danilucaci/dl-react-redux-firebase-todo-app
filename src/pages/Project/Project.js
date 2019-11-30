@@ -14,15 +14,29 @@ function Project({
   project,
   openAddTodoModal,
 }) {
+  const projectName = project && project.name ? project.name : "Project";
+
   return (
     <DashboardMainContainer>
-      {project && <h1 className="Page__Title">{project.name}</h1>}
+      <h1 className="Page__Title">{projectName}</h1>
       {projectOverdueTodos && projectOverdueTodos.length ? (
-        <section className="Section">
+        <section
+          className="Section"
+          aria-labelledby={`${projectName.toLowerCase()}-overdue-todos-label`}
+        >
           <header className="Section__Header">
-            <h2 className="Section__Title">Overdue</h2>
+            <h2
+              className="Section__Title"
+              id={`${projectName.toLowerCase()}-overdue-todos-label`}
+            >
+              Overdue
+              <AriaText> todos</AriaText>
+            </h2>
           </header>
-          <ul className="Section__Todos__List">
+          <ul
+            className="Section__Todos__List"
+            aria-label={`${projectName} overdue todos`}
+          >
             {projectOverdueTodos &&
               projectOverdueTodos.map((todoID, index) => (
                 <Todo
@@ -36,11 +50,16 @@ function Project({
         </section>
       ) : null}
 
-      <section className="Section">
+      <section className="Section" aria-labelledby="not-overdue-todos-label">
         <header className="Section__Header">
-          <h2 className="Section__Title">Todos</h2>
+          <h2 className="Section__Title" id="not-overdue-todos-label">
+            Todos
+          </h2>
         </header>
-        <ul className="Section__Todos__List">
+        <ul
+          className="Section__Todos__List"
+          aria-label={`${projectName} todos`}
+        >
           {projectTodos &&
             projectTodos.map((todoID, index) => (
               <Todo

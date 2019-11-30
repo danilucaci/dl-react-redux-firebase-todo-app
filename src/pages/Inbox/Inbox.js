@@ -14,11 +14,14 @@ function Inbox({ inboxTodos, overdueInboxTodos, openAddTodoModal }) {
     <DashboardMainContainer>
       <h1 className="Page__Title">Inbox</h1>
       {overdueInboxTodos.length ? (
-        <section className="Section">
+        <section className="Section" aria-labelledby="overdue-todos-label">
           <header className="Section__Header">
-            <h2 className="Section__Title">Overdue</h2>
+            <h2 className="Section__Title" id="overdue-todos-label">
+              Overdue
+              <AriaText> todos</AriaText>
+            </h2>
           </header>
-          <ul className="Section__Todos__List">
+          <ul className="Section__Todos__List" aria-label="Inbox overdue todos">
             {overdueInboxTodos.map((todoID, index) => (
               <Todo
                 key={todoID}
@@ -30,12 +33,15 @@ function Inbox({ inboxTodos, overdueInboxTodos, openAddTodoModal }) {
           </ul>
         </section>
       ) : null}
-      <section className="Section">
+
+      <section className="Section" aria-labelledby="not-overdue-todos-label">
         <header className="Section__Header">
-          <h2 className="Section__Title">Todos</h2>
+          <h2 className="Section__Title" id="not-overdue-todos-label">
+            Todos
+          </h2>
         </header>
         {inboxTodos.length ? (
-          <ul className="Section__Todos__List">
+          <ul className="Section__Todos__List" aria-label={`inbox todos`}>
             {inboxTodos.map((todoID, index) => (
               <Todo
                 key={todoID}

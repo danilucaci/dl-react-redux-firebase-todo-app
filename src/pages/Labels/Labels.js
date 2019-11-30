@@ -10,9 +10,11 @@ import withProtectedRoute from "../../hoc/withProtectedRoute";
 function Labels({ labelIds, openAddLabelModal }) {
   return (
     <DashboardMainContainer>
-      <section className="Section">
+      <section className="Section" aria-labelledby="labels">
         <header className="Labels__Section__Header">
-          <h1 className="Section__Title">Labels</h1>
+          <h1 className="Section__Title" id="labels">
+            Labels
+          </h1>
           <AddNew onClick={() => openAddLabelModal()}>Add label</AddNew>
         </header>
         {labelIds && labelIds.length ? (

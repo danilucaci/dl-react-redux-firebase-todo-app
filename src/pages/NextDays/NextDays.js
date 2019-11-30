@@ -49,11 +49,23 @@ function NextDays({
     <DashboardMainContainer>
       <h1 className="Page__Title">Next 7 days</h1>
       {overdueTodos && overdueTodos.length ? (
-        <section className="Section">
+        <section
+          className="Section"
+          aria-labelledby={`next-7-days-overdue-todos-label`}
+        >
           <header className="Section__Header">
-            <h2 className="Section__Title">Overdue</h2>
+            <h2
+              className="Section__Title"
+              id={`next-7-days-overdue-todos-label`}
+            >
+              Overdue
+              <AriaText> todos</AriaText>
+            </h2>
           </header>
-          <ul className="Section__Todos__List">
+          <ul
+            className="Section__Todos__List"
+            aria-label="next 7 days overdue todos"
+          >
             {overdueTodos &&
               overdueTodos.map((todoID, index) => (
                 <Todo
@@ -66,12 +78,15 @@ function NextDays({
           </ul>
         </section>
       ) : null}
-      <section className="Section">
+      <section className="Section" aria-labelledby={`today-todos-label`}>
         <header className="Section__Header">
-          <h2 className="Section__Title">Today</h2>
+          <h2 className="Section__Title" id={`today-todos-label`}>
+            Today
+            <AriaText> todos</AriaText>
+          </h2>
           {RenderTodayDateTime()}
         </header>
-        <ul className="Section__Todos__List">
+        <ul className="Section__Todos__List" aria-label="today todos">
           {todayTodos &&
             todayTodos.map((todoID, index) => (
               <Todo
@@ -90,12 +105,15 @@ function NextDays({
           Add todo
         </AddNew>
       </section>
-      <section className="Section">
+      <section className="Section" aria-labelledby={`tomorrow-todos-label`}>
         <header className="Section__Header">
-          <h2 className="Section__Title">Tomorrow</h2>
+          <h2 className="Section__Title" id={`tomorrow-todos-label`}>
+            Tomorrow
+            <AriaText> todos</AriaText>
+          </h2>
           {RenderNextDaysDateTime(1)}
         </header>
-        <ul className="Section__Todos__List">
+        <ul className="Section__Todos__List" aria-label="tomorrow todos">
           {nextDaysPlus1Todos &&
             nextDaysPlus1Todos.map((todoID, index) => (
               <Todo
@@ -113,12 +131,23 @@ function NextDays({
           Add todo
         </AddNew>
       </section>
-      <section className="Section">
+      <section
+        className="Section"
+        aria-labelledby={`${formatAndAddDay(2)}-todos-label`}
+      >
         <header className="Section__Header">
-          <h2 className="Section__Title">{formatAndAddDay(2)}</h2>
+          <h2
+            className="Section__Title"
+            id={`${formatAndAddDay(2)}-todos-label`}
+          >
+            {formatAndAddDay(2)} <AriaText> todos</AriaText>
+          </h2>
           {RenderNextDaysDateTime(2)}
         </header>
-        <ul className="Section__Todos__List">
+        <ul
+          className="Section__Todos__List"
+          aria-label={`${formatAndAddDay(2)} todos`}
+        >
           {nextDaysPlus2Todos &&
             nextDaysPlus2Todos.map((todoID, index) => (
               <Todo
@@ -136,12 +165,23 @@ function NextDays({
           Add todo
         </AddNew>
       </section>
-      <section className="Section">
+      <section
+        className="Section"
+        aria-labelledby={`${formatAndAddDay(3)}-todos-label`}
+      >
         <header className="Section__Header">
-          <h2 className="Section__Title">{formatAndAddDay(3)}</h2>
+          <h2
+            className="Section__Title"
+            id={`${formatAndAddDay(3)}-todos-label`}
+          >
+            {formatAndAddDay(3)} <AriaText> todos</AriaText>
+          </h2>
           {RenderNextDaysDateTime(3)}
         </header>
-        <ul className="Section__Todos__List">
+        <ul
+          className="Section__Todos__List"
+          aria-label={`${formatAndAddDay(3)} todos`}
+        >
           {nextDaysPlus3Todos &&
             nextDaysPlus3Todos.map((todoID, index) => (
               <Todo
@@ -159,12 +199,23 @@ function NextDays({
           Add todo
         </AddNew>
       </section>
-      <section className="Section">
+      <section
+        className="Section"
+        aria-labelledby={`${formatAndAddDay(4)}-todos-label`}
+      >
         <header className="Section__Header">
-          <h2 className="Section__Title">{formatAndAddDay(4)}</h2>
+          <h2
+            className="Section__Title"
+            id={`${formatAndAddDay(4)}-todos-label`}
+          >
+            {formatAndAddDay(4)} <AriaText> todos</AriaText>
+          </h2>
           {RenderNextDaysDateTime(4)}
         </header>
-        <ul className="Section__Todos__List">
+        <ul
+          className="Section__Todos__List"
+          aria-label={`${formatAndAddDay(4)} todos`}
+        >
           {nextDaysPlus4Todos &&
             nextDaysPlus4Todos.map((todoID, index) => (
               <Todo
@@ -182,12 +233,23 @@ function NextDays({
           Add todo
         </AddNew>
       </section>
-      <section className="Section">
+      <section
+        className="Section"
+        aria-labelledby={`${formatAndAddDay(5)}-todos-label`}
+      >
         <header className="Section__Header">
-          <h2 className="Section__Title">{formatAndAddDay(5)}</h2>
+          <h2
+            className="Section__Title"
+            id={`${formatAndAddDay(5)}-todos-label`}
+          >
+            {formatAndAddDay(5)} <AriaText> todos</AriaText>
+          </h2>
           {RenderNextDaysDateTime(5)}
         </header>
-        <ul className="Section__Todos__List">
+        <ul
+          className="Section__Todos__List"
+          aria-label={`${formatAndAddDay(5)} todos`}
+        >
           {nextDaysPlus5Todos &&
             nextDaysPlus5Todos.map((todoID, index) => (
               <Todo
@@ -205,12 +267,23 @@ function NextDays({
           Add todo
         </AddNew>
       </section>
-      <section className="Section">
+      <section
+        className="Section"
+        aria-labelledby={`${formatAndAddDay(6)}-todos-label`}
+      >
         <header className="Section__Header">
-          <h2 className="Section__Title">{formatAndAddDay(6)}</h2>
+          <h2
+            className="Section__Title"
+            id={`${formatAndAddDay(6)}-todos-label`}
+          >
+            {formatAndAddDay(6)} <AriaText> todos</AriaText>
+          </h2>
           {RenderNextDaysDateTime(6)}
         </header>
-        <ul className="Section__Todos__List">
+        <ul
+          className="Section__Todos__List"
+          aria-label={`${formatAndAddDay(6)} todos`}
+        >
           {nextDaysPlus6Todos &&
             nextDaysPlus6Todos.map((todoID, index) => (
               <Todo

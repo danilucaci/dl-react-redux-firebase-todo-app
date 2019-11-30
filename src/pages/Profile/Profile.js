@@ -11,6 +11,7 @@ import ValidationErrorMessage from "../../components/ValidationErrorMessage/Vali
 import { storage } from "../../firebase/firebase";
 import { getUserDocumentRef } from "../../utils/firebase/createUserProfileDocument";
 import avatarPlaceholder from "../../assets/img/avatar-placeholder.png";
+import AriaText from "../../components/AriaText/AriaText";
 
 async function getUserRef(userId) {
   return getUserDocumentRef(userId);
@@ -166,8 +167,10 @@ function Profile({ currentUser: { id, displayName, email, avatar } = {} }) {
 
   return (
     <DashboardMainContainer>
-      <section className="Section">
-        <h1 className="Profile__Page__Header">Account settings</h1>
+      <section className="Section" aria-labelledby="profile">
+        <h1 className="Profile__Page__Header" id="profile">
+          Account settings
+        </h1>
         <header className="Profile__Page__ImageContainer">
           <img
             className={imageClassNames}

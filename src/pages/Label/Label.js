@@ -9,15 +9,29 @@ import AriaText from "../../components/AriaText/AriaText";
 import { FALLBACK_FOCUS_BUTTON } from "../../constants/ui";
 
 function Label({ labelTodos, labelOverdueTodos, label, openAddTodoModal }) {
+  const labelName = label && label.name ? label.name : "Label";
+
   return (
     <DashboardMainContainer>
-      <h1 className="Page__Title Page__Title--Label">{label.name}</h1>
+      <h1 className="Page__Title Page__Title--Label">{labelName}</h1>
       {labelOverdueTodos.length ? (
-        <section className="Section">
+        <section
+          className="Section"
+          aria-labelledby={`${labelName.toLowerCase()}-overdue-todos-label`}
+        >
           <header className="Section__Header">
-            <h2 className="Section__Title">Overdue</h2>
+            <h2
+              className="Section__Title"
+              id={`${labelName.toLowerCase()}-overdue-todos-label`}
+            >
+              Overdue
+              <AriaText> todos</AriaText>
+            </h2>
           </header>
-          <ul className="Section__Todos__List">
+          <ul
+            className="Section__Todos__List"
+            aria-label={`${labelName} overdue todos`}
+          >
             {labelOverdueTodos &&
               labelOverdueTodos.map((todoID, index) => (
                 <Todo
@@ -31,11 +45,13 @@ function Label({ labelTodos, labelOverdueTodos, label, openAddTodoModal }) {
         </section>
       ) : null}
 
-      <section className="Section">
+      <section className="Section" aria-labelledby="not-overdue-todos-label">
         <header className="Section__Header">
-          <h2 className="Section__Title">Todos</h2>
+          <h2 className="Section__Title" id="not-overdue-todos-label">
+            Todos
+          </h2>
         </header>
-        <ul className="Section__Todos__List">
+        <ul className="Section__Todos__List" aria-label={`${labelName} todos`}>
           {labelTodos &&
             labelTodos.map((todoID, index) => (
               <Todo

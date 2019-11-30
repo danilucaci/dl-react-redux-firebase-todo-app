@@ -10,9 +10,11 @@ import withProtectedRoute from "../../hoc/withProtectedRoute";
 function Projects({ projectIds = null, openAddProjectModal }) {
   return (
     <DashboardMainContainer>
-      <section className="Section">
+      <section className="Section" aria-labelledby="projects-labels">
         <header className="Projects__Section__Header">
-          <h1 className="Section__Title">Projects</h1>
+          <h1 className="Section__Title" id="projects-labels">
+            Projects
+          </h1>
           <AddNew onClick={() => openAddProjectModal()}>Add project</AddNew>
         </header>
         {projectIds && projectIds.length ? (
