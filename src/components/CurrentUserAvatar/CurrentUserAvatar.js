@@ -48,7 +48,7 @@ function CurrentUserAvatar({
           <img
             className={imageClassNames}
             src={avatar ? avatar : avatarPlaceholder}
-            alt={`Open ${displayName}’s profile`}
+            alt={`Open account page`}
             ref={imageRef}
             onError={handleImageError}
           />
