@@ -170,7 +170,7 @@ export function AutoComplete({ hits, refine, toggleTodoHighlight }) {
         isOpen,
       }) => (
         <div className={searchBarClasses}>
-          <form id="site-search" role="search" aria-label="Search todos">
+          <form id="site-search" role="search" aria-label="Search">
             <label {...getLabelProps()} className={labelClasses}>
               <svg className={svgClassNames}>
                 <use xlinkHref={`#search-20`} />
