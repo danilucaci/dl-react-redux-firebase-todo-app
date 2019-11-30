@@ -182,7 +182,7 @@ export function AutoComplete({ hits, refine, toggleTodoHighlight }) {
                   },
                 })}
                 ref={inputRef}
-                type="text"
+                type="search"
                 className={inputClasses}
                 placeholder="Search"
               />
