@@ -9,6 +9,7 @@ import getObjectFromSingleDoc from "../../utils/firebase/getObjectFromSingleDoc"
 import {
   enqueueErrorSnackbar,
   setInitialProjectsLoaded,
+  setLiveRegionMessage,
 } from "../localState/localState-actions";
 import { addUserProject } from "../../utils/firebase/helpers";
 
@@ -71,13 +72,19 @@ export function subscribeToProjects() {
      */
     function handleDocChanges(change) {
       if (change.type === "added") {
-        dispatch(addLocalProject(getObjectFromSingleDoc(change.doc)));
+        const projectData = getObjectFromSingleDoc(change.doc);
+        dispatch(addLocalProject(projectData));
+        dispatch(setLiveRegionMessage(`Added project ${projectData.name}`));
       }
       if (change.type === "modified") {
-        dispatch(updateLocalProject(getObjectFromSingleDoc(change.doc)));
+        const projectData = getObjectFromSingleDoc(change.doc);
+        dispatch(updateLocalProject(projectData));
+        dispatch(setLiveRegionMessage(`Updated project ${projectData.name}`));
       }
       if (change.type === "removed") {
-        dispatch(removeLocalProject(change.doc.id));
+        const projectData = getObjectFromSingleDoc(change.doc);
+        dispatch(removeLocalProject(projectData.id));
+        dispatch(setLiveRegionMessage(`Removed project ${projectData.name}`));
       }
     }
 

@@ -4,6 +4,7 @@ import {
   modalsSelector,
   menuSelector,
   appDataSelector,
+  liveRegionSelector,
 } from "../../../redux/localState/localState-selectors";
 import {
   setInitialDataLoaded,
@@ -26,6 +27,7 @@ export const mapStateToProps = (state) => ({
   user: userStateSelector(state),
   projects: notInboxProjectsSelector(state),
   labels: allLabelsSelector(state),
+  liveRegion: liveRegionSelector(state),
 });
 
 export const mapDispatchToProps = (dispatch) => ({

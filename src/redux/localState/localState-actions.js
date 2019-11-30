@@ -107,3 +107,12 @@ export const removeSnackbar = (key) => ({
   type: LocalStateTypes.REMOVE_SNACKBAR,
   payload: key,
 });
+
+export const setLiveRegionMessage = (message) => ({
+  type: LocalStateTypes.SET_LIVE_REGION_MESSAGE,
+  payload: message,
+});
+
+export const clearLiveRegionMessage = () => ({
+  type: LocalStateTypes.CLEAR_LIVE_REGION_MESSAGE,
+});

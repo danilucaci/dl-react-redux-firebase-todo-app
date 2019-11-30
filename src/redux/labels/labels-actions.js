@@ -8,6 +8,7 @@ import getObjectFromDocs from "../../utils/firebase/getObjectFromDocs";
 import {
   enqueueErrorSnackbar,
   setInitialLabelsLoaded,
+  setLiveRegionMessage,
 } from "../localState/localState-actions";
 import { addUserLabel } from "../../utils/firebase/helpers";
 import getObjectFromSingleDoc from "../../utils/firebase/getObjectFromSingleDoc";
@@ -71,13 +72,19 @@ export function subscribeToLabels() {
      */
     function handleDocChanges(change) {
       if (change.type === "added") {
-        dispatch(addLocalLabel(getObjectFromSingleDoc(change.doc)));
+        const labelData = getObjectFromSingleDoc(change.doc);
+        dispatch(addLocalLabel(labelData));
+        dispatch(setLiveRegionMessage(`Added label ${labelData.name}`));
       }
       if (change.type === "modified") {
-        dispatch(updateLocalLabel(getObjectFromSingleDoc(change.doc)));
+        const labelData = getObjectFromSingleDoc(change.doc);
+        dispatch(updateLocalLabel(labelData));
+        dispatch(setLiveRegionMessage(`Updated label ${labelData.name}`));
       }
       if (change.type === "removed") {
-        dispatch(removeLocalLabel(change.doc.id));
+        const labelData = getObjectFromSingleDoc(change.doc);
+        dispatch(removeLocalLabel(labelData.id));
+        dispatch(setLiveRegionMessage(`Removed label ${labelData.name}`));
       }
     }
 

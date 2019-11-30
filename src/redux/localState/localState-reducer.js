@@ -20,6 +20,9 @@ const INITIAL_STATE = {
     addLabelModalActive: false,
     searchModalActive: false,
   },
+  liveRegion: {
+    message: "",
+  },
 };
 
 const localStateReducer = (state = INITIAL_STATE, action) => {
@@ -223,6 +226,24 @@ const localStateReducer = (state = INITIAL_STATE, action) => {
         modals: {
           ...state.modals,
           searchModalActive: false,
+        },
+      };
+    }
+    case LocalStateTypes.SET_LIVE_REGION_MESSAGE: {
+      return {
+        ...state,
+        liveRegion: {
+          ...state.liveRegion,
+          message: action.payload,
+        },
+      };
+    }
+    case LocalStateTypes.CLEAR_LIVE_REGION_MESSAGE: {
+      return {
+        ...state,
+        liveRegion: {
+          ...state.liveRegion,
+          message: "",
         },
       };
     }

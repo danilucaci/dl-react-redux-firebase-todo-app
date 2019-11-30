@@ -21,3 +21,8 @@ export const appNotificationsSelector = createSelector(
   [selectLocalState],
   (localState) => localState.appData.notifications,
 );
+
+export const liveRegionSelector = createSelector(
+  [selectLocalState],
+  (localState) => localState.liveRegion,
+);

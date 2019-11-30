@@ -6,6 +6,7 @@ import getTodosObjectFromDocs from "../../utils/firebase/getTodosObjectFromDocs"
 import {
   enqueueErrorSnackbar,
   setInitialTodosLoaded,
+  setLiveRegionMessage,
 } from "../localState/localState-actions";
 import { firestore } from "../../firebase/firebase";
 import {
@@ -116,13 +117,19 @@ export function subscribeToTodos() {
      */
     function handleTodoDocChanges(change) {
       if (change.type === "added") {
-        dispatch(addLocalTodo(getTodoObjectFromSingleDoc(change.doc)));
+        const todoData = getTodoObjectFromSingleDoc(change.doc);
+        dispatch(addLocalTodo(todoData));
+        dispatch(setLiveRegionMessage(`Added todo ${todoData.name}`));
       }
       if (change.type === "modified") {
-        dispatch(updateLocalTodo(getTodoObjectFromSingleDoc(change.doc)));
+        const todoData = getTodoObjectFromSingleDoc(change.doc);
+        dispatch(updateLocalTodo(todoData));
+        dispatch(setLiveRegionMessage(`Updated todo ${todoData.name}`));
       }
       if (change.type === "removed") {
-        dispatch(removeLocalTodo(change.doc.id));
+        const todoData = getTodoObjectFromSingleDoc(change.doc);
+        dispatch(removeLocalTodo(todoData.id));
+        dispatch(setLiveRegionMessage(`Removed todo ${todoData.name}`));
       }
     }
 
