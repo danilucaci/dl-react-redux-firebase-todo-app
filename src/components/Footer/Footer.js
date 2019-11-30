@@ -4,7 +4,11 @@ import "./Footer.styles.scss";
 
 function Footer() {
   return (
-    <footer className="Site__Footer">
+    <footer
+      className="Site__Footer"
+      aria-label="About the author of the website"
+      role="contentinfo"
+    >
       <div className="row row--contain-8">
         <div className="col Site__Footer__Header">
           <h2 className="Subhead">Made by Dani Lucaci</h2>
