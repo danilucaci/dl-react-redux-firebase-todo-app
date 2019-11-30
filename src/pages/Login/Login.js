@@ -61,59 +61,61 @@ function Login({
 
   return (
     <section className="Login" aria-labelledby="login">
-      <header className="">
-        <h1 className="Login__Title" id="login">
+      <h1 className="Login__Title" id="login">
+        Log in
+      </h1>
+
+      <SignInWithGoogle additionalClasses="Login__GoogleBtn" />
+      <OrDivider additionalClasses="Login__OrDivider" />
+      <form
+        method="post"
+        onSubmit={handleLogin}
+        aria-label="login with email and password"
+      >
+        <Input
+          name="email"
+          label="Email address*"
+          placeholder="Email address"
+          additionalClasses="Login__Input"
+          autoComplete="email"
+          autoCorrect="off"
+          autoCapitalize="off"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <Input
+          type="password"
+          name="password"
+          label="Password*"
+          placeholder="Password"
+          additionalClasses="Login__Input"
+          autoComplete="current-password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <PrimaryButton
+          additionalClasses="Login__SubmitBtn"
+          type="submit"
+          disabled={loading}
+        >
           Log in
-        </h1>
-      </header>
-      <section>
-        <SignInWithGoogle additionalClasses="Login__GoogleBtn" />
-        <OrDivider additionalClasses="Login__OrDivider" />
-        <form method="post" onSubmit={handleLogin}>
-          <Input
-            name="email"
-            label="Email address*"
-            placeholder="Email address"
-            additionalClasses="Login__Input"
-            autoComplete="email"
-            autoCorrect="off"
-            autoCapitalize="off"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <Input
-            type="password"
-            name="password"
-            label="Password*"
-            placeholder="Password"
-            additionalClasses="Login__Input"
-            autoComplete="current-password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <PrimaryButton
-            additionalClasses="Login__SubmitBtn"
-            type="submit"
-            disabled={loading}
-          >
-            Log in
-          </PrimaryButton>
-          {loginErrors && loginErrors.length ? (
-            <>
-              {loginErrors.map((error, index) => (
-                <ValidationErrorMessage
-                  key={index}
-                  additionalClasses="Login__SignUpErrorMsg"
-                >
-                  {error}
-                </ValidationErrorMessage>
-              ))}
-              <hr className="Login__Divider" />
-            </>
-          ) : null}
-        </form>
-      </section>
-      <nav className="Login__ButtonsNav">
+        </PrimaryButton>
+        {loginErrors && loginErrors.length ? (
+          <>
+            {loginErrors.map((error, index) => (
+              <ValidationErrorMessage
+                key={index}
+                additionalClasses="Login__SignUpErrorMsg"
+              >
+                {error}
+              </ValidationErrorMessage>
+            ))}
+            <hr className="Login__Divider" />
+          </>
+        ) : null}
+      </form>
+
+      <nav className="Login__ButtonsNav" aria-label="reset password or sign up">
         <LinkButton
           additionalClasses="Login__PasswordReset"
           size="s"
