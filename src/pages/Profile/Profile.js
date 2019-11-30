@@ -11,7 +11,6 @@ import ValidationErrorMessage from "../../components/ValidationErrorMessage/Vali
 import { storage } from "../../firebase/firebase";
 import { getUserDocumentRef } from "../../utils/firebase/createUserProfileDocument";
 import avatarPlaceholder from "../../assets/img/avatar-placeholder.png";
-import AriaText from "../../components/AriaText/AriaText";
 
 async function getUserRef(userId) {
   return getUserDocumentRef(userId);
@@ -175,7 +174,7 @@ function Profile({ currentUser: { id, displayName, email, avatar } = {} }) {
           <img
             className={imageClassNames}
             src={avatar ? avatar : avatarPlaceholder}
-            alt={`Open ${displayName}’s profile`}
+            alt={`User avatar`}
             ref={imageRef}
             onError={handleImageError}
           />
@@ -217,7 +216,11 @@ function Profile({ currentUser: { id, displayName, email, avatar } = {} }) {
             </p>
           )}
         </div>
-        <form method="post" onSubmit={handleSubmit}>
+        <form
+          method="post"
+          onSubmit={handleSubmit}
+          aria-label="Change account name"
+        >
           <Input
             name="name"
             label="Full name*"
