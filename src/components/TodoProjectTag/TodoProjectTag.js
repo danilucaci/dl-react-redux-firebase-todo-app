@@ -6,6 +6,7 @@ import "@reach/menu-button/styles.css";
 
 import "./TodoProjectTag.styles.scss";
 import { getClassesFromProps } from "../../utils/helpers";
+import AriaText from "../AriaText/AriaText";
 
 function areEqual(a, b) {
   return a === b;
@@ -45,7 +46,6 @@ const TodoProjectTag = ({
         className={buttonClassNames}
         type="button"
         onClick={toggleVisibility}
-        aria-label="Change the project of the todo"
         {...props}
       >
         {iconSide === "left" ? (
@@ -53,10 +53,12 @@ const TodoProjectTag = ({
             <svg className={iconClassNames} fill={projectColorValue}>
               <use xlinkHref="#color" />
             </svg>
+            <AriaText>todo project: </AriaText>
             {projectName}
           </>
         ) : (
           <>
+            <AriaText>todo project: </AriaText>
             {projectName}
             <svg className={iconClassNames} fill={projectColorValue}>
               <use xlinkHref="#color" />

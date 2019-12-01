@@ -8,6 +8,7 @@ import FormattedTodoDueDate from "../FormattedTodoDueDate/FormattedTodoDueDate";
 
 import { getClassesFromProps } from "../../utils/helpers";
 import { isPastDate } from "../../utils/dates";
+import AriaText from "../AriaText/AriaText";
 
 function TodoItemDueDate({
   additionalClasses,
@@ -33,6 +34,7 @@ function TodoItemDueDate({
         onClick={toggleVisibility}
         {...props}
       >
+        <AriaText>todo due date: </AriaText>
         {FormattedTodoDueDate(dueDate, hasNewTime, fullDateFormat)}
       </button>
     </>

@@ -10,6 +10,7 @@ import DatePicker from "../DatePicker/DatePicker";
 import { useRectSize } from "../../hooks";
 
 import FormattedTodoDueDate from "../FormattedTodoDueDate/FormattedTodoDueDate";
+import AriaText from "../AriaText/AriaText";
 
 function TodoDueDate({
   dueDate,
@@ -41,9 +42,9 @@ function TodoDueDate({
         type="button"
         ref={dateButtonRef}
         onClick={toggleVisibility}
-        aria-label="change the todo due date"
         {...props}
       >
+        <AriaText>todo due date: </AriaText>
         {FormattedTodoDueDate(dueDate, hasNewTime, fullDateFormat)}
       </button>
       {isVisible && (

@@ -6,6 +6,7 @@ import "@reach/menu-button/styles.css";
 
 import "./TodoLabelTag.styles.scss";
 import { getClassesFromProps } from "../../utils/helpers";
+import AriaText from "../AriaText/AriaText";
 
 function areEqual(a, b) {
   return a === b;
@@ -87,12 +88,12 @@ export const LabelTag = memo(function LabelTag({
         className={buttonClassNames}
         type="button"
         onClick={toggleVisibility}
-        aria-label="Change the labels of the todo"
         {...props}
       >
         <svg className="Todo__Label__Tag__Icon" fill={labelColorValue}>
           <use xlinkHref="#tag" />
         </svg>
+        <AriaText>todo labels: </AriaText>
         {labelName}
       </MenuButton>
       <MenuList className="Todo__Label__Tag__List">
