@@ -24,10 +24,11 @@ import { INBOX_PROJECT_IDENTIFIER } from "../../constants/collections";
 import AriaText from "../AriaText/AriaText";
 
 function TodoForm({
-  todo: { labels, project, dueDate, name, withTime } = {},
+  todo: { id, labels, project, dueDate, name, withTime } = {},
   todo = {},
   toggleVisibility,
   updateTodo,
+  toggleTodoFocus,
 }) {
   const [newTodoName, setNewTodoName] = useState(name || "");
   const [showProjects, setShowProjects] = useState(false);
@@ -103,6 +104,12 @@ function TodoForm({
       return;
     }
     toggleVisibility();
+
+    // Move focus back to the todo item
+    toggleTodoFocus({
+      id: id,
+      isFocused: true,
+    });
   }
 
   function escapeKeyHandler() {
@@ -116,6 +123,12 @@ function TodoForm({
       return setShowDate(false);
     }
     toggleVisibility();
+
+    // Move focus back to the todo item
+    toggleTodoFocus({
+      id: id,
+      isFocused: true,
+    });
   }
 
   useOnClickOutside(todoWrapperRef, handleClickOutside);
@@ -149,6 +162,12 @@ function TodoForm({
   function handleCancelEdit(e) {
     e.preventDefault();
     toggleVisibility();
+
+    // Move focus back to the todo item
+    toggleTodoFocus({
+      id: id,
+      isFocused: true,
+    });
   }
 
   return (
@@ -249,6 +268,7 @@ TodoForm.propTypes = {
   }),
   isVisible: bool.isRequired,
   toggleVisibility: func.isRequired,
+  toggleTodoFocus: func.isRequired,
 };
 
 TodoForm.defaultProps = {

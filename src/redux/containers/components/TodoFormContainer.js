@@ -1,6 +1,9 @@
 import { connect } from "react-redux";
 
-import { updateTodo } from "../../../redux/todos/todos-actions";
+import {
+  updateTodo,
+  toggleTodoFocus,
+} from "../../../redux/todos/todos-actions";
 import { makeTodoSelector } from "../../../redux/todos/todos-selectors";
 
 import TodoForm from "../../../components/TodoForm/TodoForm";
@@ -15,6 +18,7 @@ export const makeMapStateToProps = () => {
 
 export const mapDispatchToProps = (dispatch) => ({
   updateTodo: (todo) => dispatch(updateTodo(todo)),
+  toggleTodoFocus: (todoID) => dispatch(toggleTodoFocus(todoID)),
 });
 
 export default connect(makeMapStateToProps, mapDispatchToProps)(TodoForm);
