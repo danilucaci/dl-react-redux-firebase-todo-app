@@ -73,13 +73,6 @@
       bottom: tokens.$spacing-c-04;
     }
   }
-
-  &__TimeInput {
-    width: 100%;
-    max-width: tokens.rem(88);
-    margin-left: tokens.$spacing-c-03;
-    margin-right: tokens.$spacing-c-03;
-  }
 }
 
 // react-day-picker overides

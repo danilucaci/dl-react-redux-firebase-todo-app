@@ -18,6 +18,38 @@
   padding: tokens.$spacing-time-input-vertical
     tokens.$spacing-time-input-horizontal;
 
+  width: 100%;
+  max-width: tokens.rem(88);
+  margin-left: tokens.$spacing-c-03;
+  margin-right: tokens.$spacing-c-03;
+
+  &__Form {
+    display: block;
+
+    &__Contents {
+      display: flex;
+      align-items: center;
+    }
+
+    &__Message {
+      font: {
+        size: tokens.$font-size-input-s;
+        family: tokens.$font-family-body;
+      }
+
+      line-height: tokens.$font-line-height-input-s;
+      margin-top: tokens.$spacing-c-03;
+    }
+  }
+
+  &__SaveTime {
+    margin-right: tokens.$spacing-c-03;
+  }
+
+  &__ClearTime {
+    margin-left: tokens.$spacing-c-03;
+  }
+
   /* Change Autocomplete styles in Chrome*/
   &:-webkit-autofill,
   &:-webkit-autofill:hover,

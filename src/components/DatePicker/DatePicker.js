@@ -15,9 +15,8 @@ import {
   getTimeStringFromDate,
 } from "../../utils/dates";
 import { isToday } from "date-fns";
-import TimeInput from "../TimeInput/TimeInput";
-import OutlinedButton from "../OutlinedButton/OutlinedButton";
 import AddTime from "../AddTime/AddTime";
+import TimeInput from "../TimeInput/TimeInput";
 
 ReactModal.setAppElement("#root");
 
@@ -100,10 +99,6 @@ const DatePicker = ({
     }
   }
 
-  function handleTimeChange(event) {
-    setSelectedTime(event.target.value);
-  }
-
   function handleSave() {
     // If the time input has a value which is not the default `""`
     if (selectedTime) {
@@ -136,6 +131,7 @@ const DatePicker = ({
     setHasNewTime(false);
 
     // Don’t focus on initial render, only when the time was cleared
+    setShouldFocusTimeInput(false);
     setShouldFocusAddTimeButton(true);
   }
 
@@ -178,23 +174,13 @@ const DatePicker = ({
       {message && <div className="DatePicker__ErrorMessage">{message}</div>}
       <div className="DatePicker__TimeInputRow">
         {showTimeInput ? (
-          <>
-            <TimeInput
-              initialValue={selectedTime}
-              setTime={handleTimeChange}
-              isVisible={shouldFocusTimeInput}
-              additionalClasses="DatePicker__TimeInput"
-              name="time-input"
-            />
-            <OutlinedButton
-              size="s"
-              icon="close"
-              iconOnly
-              onClick={clearTime}
-              type="button"
-              ariaText="Remove time"
-            />
-          </>
+          <TimeInput
+            showTimeInput={showTimeInput}
+            selectedTime={selectedTime}
+            setSelectedTime={setSelectedTime}
+            shouldFocusTimeInput={shouldFocusTimeInput}
+            clearTime={clearTime}
+          />
         ) : (
           <AddTime onClick={handleOpenTimeInput} ref={addTimeButtonRefCb}>
             Add time
@@ -202,10 +188,20 @@ const DatePicker = ({
         )}
       </div>
       <div className="DatePicker__ButtonsRow">
-        <TextButton size="s" onClick={handleSave} type="button">
+        <TextButton
+          size="s"
+          aria-label="save due date"
+          onClick={handleSave}
+          type="button"
+        >
           Save
         </TextButton>
-        <TextButton size="s" onClick={toggleVisibility} type="button">
+        <TextButton
+          size="s"
+          aria-label="close due date dialog"
+          onClick={toggleVisibility}
+          type="button"
+        >
           Close
         </TextButton>
       </div>
