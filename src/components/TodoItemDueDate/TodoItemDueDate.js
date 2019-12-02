@@ -31,6 +31,7 @@ function TodoItemDueDate({
       <button
         className={dueDateClassNames}
         type="button"
+        data-testid="todo-item-due-date-button"
         onClick={toggleVisibility}
         {...props}
       >

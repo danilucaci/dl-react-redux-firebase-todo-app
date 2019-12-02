@@ -42,6 +42,7 @@ function TodoDueDate({
         type="button"
         ref={dateButtonRef}
         onClick={toggleVisibility}
+        data-testid="todo-due-date-button"
         {...props}
       >
         <AriaText>todo due date: </AriaText>

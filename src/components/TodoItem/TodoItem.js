@@ -145,6 +145,7 @@ function TodoItem({
       <button
         className={todoButtonClassnames}
         onClick={handleTodoCompleted}
+        data-testid="todo-check-button"
         aria-label={`finish todo: ${name}`}
       >
         <svg className="Todo__Button__Icon">
