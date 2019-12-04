@@ -146,8 +146,20 @@ function TodoForm({
       newLabels = null;
     }
 
+    // Only allow these props to be synced to firebase
+    const sanitizedLocalTodo = {
+      id: todo.id,
+      uid: todo.uid,
+      completed: todo.completed,
+      name: todo.name,
+      dueDate: todo.dueDate,
+      project: todo.project,
+      labels: todo.labels,
+      withTime: todo.withTime,
+    };
+
     const todoData = {
-      ...todo,
+      ...sanitizedLocalTodo,
       name: newTodoName,
       dueDate: selectedDate,
       project: selectedProject,
