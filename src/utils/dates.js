@@ -178,8 +178,7 @@ export function isBetweenNextDaysInverval(date) {
 }
 
 /**
- * Check if the provided date is between `new Date()`
- * and the max amount of days from the next days section.
+ * Check if the provided date is between yesterday and the current date.
  * @param {Date} date The date to be compare if it is within the range.
  * @returns {Boolean}
  */
