@@ -205,7 +205,7 @@ export function isDateBetweenYesterdayOrTomorrow(date) {
  * @param {Date} date
  * @returns Relative formatted date
  * @example
- *
+ * 2 hours ago
  */
 export function formatRelativeDate(date) {
   return timeAgo.format(parseDate(date));
