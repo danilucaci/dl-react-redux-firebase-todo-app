@@ -370,19 +370,35 @@ export function formatNextDaysTodoDueDateWithoutTime(date) {
 }
 
 /**
+ * Formats a date with a short date format
+ * @param {Date} date The date to format
+ * @returns {Date} The formatted date
+ * @example
+ * Wed 06 Nov
+ */
+export function formatShortDate(date) {
+  if (!isValid(date)) {
+    return null;
+  }
+
+  return format(date, "EEE dd MMM", {
+    weekStartsOn: 1,
+  });
+}
+
+/**
  * Formats the date for the `Today` section and page
  * @returns {Date} The current date
  * @returns {string} The current date formatted
  * @example
  * Wed 06 Nov
  */
-export function formatTodaySectionDate() {
-  const todayDate = new Date();
-  const todayFormattedDate = format(todayDate, "EEE dd MMM", {
-    weekStartsOn: 1,
-  });
+export function formatTodaySectionDate(date) {
+  const baseDate = date || new Date();
 
-  return { todayDate, todayFormattedDate };
+  const todayFormattedDate = formatShortDate(baseDate);
+
+  return { baseDate, todayFormattedDate };
 }
 
 /**
@@ -393,12 +409,10 @@ export function formatTodaySectionDate() {
  * @example
  * Tue 15 Oct
  */
-export function formatAndAddDate(dateCount = 0) {
-  const dateAdded = addDays(new Date(), dateCount);
-
-  const formattedDate = format(dateAdded, "EEE dd MMM", {
-    weekStartsOn: 1,
-  });
+export function formatAndAddDate(dateCount = 0, date) {
+  const baseDate = date || new Date();
+  const dateAdded = addDays(baseDate, dateCount);
+  const formattedDate = formatShortDate(dateAdded);
 
   return { dateAdded, formattedDate };
 }
@@ -410,8 +424,9 @@ export function formatAndAddDate(dateCount = 0) {
  * @example
  * Monday | Tuesday | Wednesday | ...
  */
-export function formatAndAddDay(dateCount = 0) {
-  const dateAdded = addDays(new Date(), dateCount);
+export function formatAndAddDay(dateCount = 0, date) {
+  const baseDate = date || new Date();
+  const dateAdded = addDays(baseDate, dateCount);
 
   const formattedDate = format(dateAdded, "cccc", {
     weekStartsOn: 1,
