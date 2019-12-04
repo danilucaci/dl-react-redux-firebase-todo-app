@@ -232,7 +232,7 @@ export function formatDateWithTime(date) {
   return new Intl.DateTimeFormat("en-US", options)
     .format(parseDate(date))
     .split(",")
-    .join(" ");
+    .join("");
 }
 
 /**
@@ -253,7 +253,7 @@ export function formatDateWithoutTime(date) {
   return new Intl.DateTimeFormat("en-US", options)
     .format(parseDate(date))
     .split(",")
-    .join(" ");
+    .join("");
 }
 
 /**
