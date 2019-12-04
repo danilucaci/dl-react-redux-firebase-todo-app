@@ -127,3 +127,53 @@ export function getTestTodoWithTime() {
     withTime: true,
   };
 }
+
+export function getTestDatePlusNDays(daysCount = 1) {
+  const today = new Date().getUTCDate();
+  const daysAdded = today + daysCount;
+  const updatedDate = new Date();
+  updatedDate.setDate(daysAdded);
+
+  return updatedDate;
+}
+
+export function getTestDateMinusNDays(daysCount = 1) {
+  const today = new Date().getUTCDate();
+  const daysAdded = today - daysCount;
+  const updatedDate = new Date();
+  updatedDate.setDate(daysAdded);
+
+  return updatedDate;
+}
+
+export function getTestDatePlusNHours(hours = 1) {
+  const testHours = new Date().getUTCHours();
+  const nowPlusHours = new Date();
+  nowPlusHours.setUTCHours(testHours + hours);
+
+  return nowPlusHours;
+}
+
+export function getTestDateMinusNHours(hours = 1) {
+  const testHours = new Date().getUTCHours();
+  const nowMinusHours = new Date();
+  nowMinusHours.setUTCHours(testHours - hours);
+
+  return nowMinusHours;
+}
+
+export function getTestDatePlusNMinutes(minutes = 1) {
+  const testMinutes = new Date().getUTCMinutes();
+  const nowPlusMinutes = new Date();
+  nowPlusMinutes.setUTCMinutes(testMinutes + minutes);
+
+  return nowPlusMinutes;
+}
+
+export function getTestDateMinusNMinutes(minutes = 1) {
+  const testMinutes = new Date().getUTCMinutes();
+  const nowMinusMinutes = new Date();
+  nowMinusMinutes.setUTCMinutes(testMinutes - minutes);
+
+  return nowMinusMinutes;
+}
