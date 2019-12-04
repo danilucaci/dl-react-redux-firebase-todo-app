@@ -45,6 +45,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:cov": "react-scripts test --coverage",
     "eject": "react-scripts eject",
     "deploy": "npm run build && firebase deploy",
     "fdo": "firebase deploy --only",
