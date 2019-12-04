@@ -23,6 +23,8 @@ import TimeAgo from "javascript-time-ago";
 // Load locale-specific relative date/time formatting rules.
 import en from "javascript-time-ago/locale/en";
 
+import { MAX_NEXT_DAYS_COUNT } from "../constants/ui";
+
 // Add locale-specific relative date/time formatting rules.
 TimeAgo.addLocale(en);
 
@@ -159,7 +161,7 @@ export function getNthDate(date, dateCount = 0) {
  * @returns {Date} Max number of days from `new Date()`
  */
 export function getMaxNextDays() {
-  return addDays(new Date(), 7);
+  return addDays(new Date(), MAX_NEXT_DAYS_COUNT);
 }
 
 /**
