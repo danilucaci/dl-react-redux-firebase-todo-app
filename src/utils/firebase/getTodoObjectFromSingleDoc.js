@@ -29,6 +29,7 @@ function getTodoObjectFromSingleDoc(doc = {}) {
     ...data,
     dueDate,
     isHighlighted: false,
+    isFocused: false,
   };
 }
 
