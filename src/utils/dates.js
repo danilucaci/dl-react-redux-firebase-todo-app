@@ -190,6 +190,17 @@ export function isPastDateFromYesterday(date) {
 }
 
 /**
+ * Checks if the provided `date` is between `startOfYesterday` and `endOfTomorrow`
+ * @param {Date} date
+ */
+export function isDateBetweenYesterdayOrTomorrow(date) {
+  return isWithinInterval(parseDate(date), {
+    start: startOfYesterday(),
+    end: endOfTomorrow(),
+  });
+}
+
+/**
  * @link https://github.com/catamphetamine/javascript-time-ago/
  * @param {Date} date
  * @returns Relative formatted date
@@ -259,17 +270,6 @@ export function formatHour(date) {
   };
 
   return new Intl.DateTimeFormat("en-US", options).format(parseDate(date));
-}
-
-/**
- * Checks if the provided `date` is between `startOfYesterday` and `endOfTomorrow`
- * @param {Date} date
- */
-export function isDateBetweenYesterdayOrTomorrow(date) {
-  return isWithinInterval(parseDate(date), {
-    start: startOfYesterday(),
-    end: endOfTomorrow(),
-  });
 }
 
 /**
