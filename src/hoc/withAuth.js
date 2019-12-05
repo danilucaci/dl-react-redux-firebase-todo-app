@@ -25,7 +25,7 @@ function withAuth(Component) {
   function WithAuth({
     loginSuccess,
     logoutUser,
-    userState: { isSigningUp, signupErrors } = {},
+    userState: { isSigningUp, signupErrors, isAuthenticated } = {},
     enqueueErrorSnackbar,
     ...props
   }) {
@@ -78,8 +78,14 @@ function withAuth(Component) {
                   handleLogOut();
                 });
             } else {
-              /* User signed out => `user = null` */
-              handleLogOut();
+              /**
+               * User signed out => `user = null`
+               *
+               * `isAuthenticated`: Don’t log out if there was no previous user set
+               */
+              if (isAuthenticated) {
+                handleLogOut();
+              }
             }
           }
         },
@@ -102,6 +108,7 @@ function withAuth(Component) {
       logoutUser,
       enqueueErrorSnackbar,
       signupErrors,
+      isAuthenticated,
     ]);
 
     return <Component {...props} />;
