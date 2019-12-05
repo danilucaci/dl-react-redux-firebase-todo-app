@@ -7,10 +7,18 @@ import { getClassesFromProps } from "../../utils/helpers";
 
 const Input = forwardRef(
   (
-    { additionalClasses, label = "", type = "text", name = "input", ...props },
+    {
+      additionalClasses,
+      labelAdditionalClasses,
+      label = "",
+      type = "text",
+      name = "input",
+      ...props
+    },
     ref,
   ) => {
     const addedClasses = getClassesFromProps(additionalClasses);
+    const labelAddedClasses = getClassesFromProps(labelAdditionalClasses);
 
     const inputClasses = classNames({
       Input: true,
@@ -19,6 +27,7 @@ const Input = forwardRef(
 
     const labelClasses = classNames({
       Input__Label: true,
+      ...labelAddedClasses,
     });
 
     return (
@@ -42,6 +51,7 @@ const Input = forwardRef(
 
 Input.propTypes = {
   additionalClasses: string,
+  labelAdditionalClasses: string,
   label: string,
   type: string,
   name: string,
@@ -49,6 +59,7 @@ Input.propTypes = {
 
 Input.defaultProps = {
   additionalClasses: null,
+  labelAdditionalClasses: null,
   label: "",
   type: "text",
   name: "input",
