@@ -34,6 +34,10 @@ const localStateReducer = (state = INITIAL_STATE, action) => {
           ...state.appData,
           initialDataLoaded: true,
         },
+        liveRegion: {
+          ...state.liveRegion,
+          message: "App data loaded",
+        },
       };
     }
     case LocalStateTypes.SET_INITIAL_TODOS_LOADED: {

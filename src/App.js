@@ -58,7 +58,7 @@ function App({
     initialLabelsLoaded = false,
     initialColorsLoaded = false,
   } = {},
-  user: { isAuthenticated = false } = {},
+  user: { isAuthenticated = false, signupErrors, loginErrors } = {},
   closeMenu,
   setInitialDataLoaded,
   subscribeToColors,
@@ -67,6 +67,9 @@ function App({
   subscribeToProjects,
   projects,
   labels,
+  setLiveRegionMessage,
+  clearSignupError,
+  clearLoginError,
 }) {
   const appClasses = classnames({
     App: true,
@@ -84,10 +87,32 @@ function App({
       }
     }
 
+    if (signupErrors && signupErrors.length) {
+      if (prevLocation.current) {
+        if (prevLocation.current.pathname !== location.pathname) {
+          clearSignupError();
+        }
+      }
+    }
+
+    if (loginErrors && loginErrors.length) {
+      if (prevLocation.current) {
+        if (prevLocation.current.pathname !== location.pathname) {
+          clearLoginError();
+        }
+      }
+    }
+
     return () => {
       prevLocation.current = location;
     };
-  }, [location, menuOpen, closeMenu]);
+  }, [clearLoginError, clearSignupError, closeMenu, location, loginErrors, menuOpen, signupErrors]);
+
+  useEffect(() => {
+    if (isAuthenticated && !initialDataLoaded) {
+      setLiveRegionMessage("Loading app data");
+    }
+  }, [isAuthenticated, initialDataLoaded, setLiveRegionMessage]);
 
   useEffect(() => {
     if (
@@ -263,6 +288,8 @@ App.propTypes = {
   subscribeToLabels: func.isRequired,
   subscribeToProjects: func.isRequired,
   setInitialDataLoaded: func.isRequired,
+  setLiveRegionMessage: func.isRequired,
+  clearSignupError: func.isRequired,
   projects: arrayOf(
     shape({
       id: string,

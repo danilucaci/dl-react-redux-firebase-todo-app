@@ -7,7 +7,10 @@ import { createUserProfileDocument } from "../utils/firebase/createUserProfileDo
 import { loginSuccess, logoutUser } from "../redux/user/user-actions";
 import { userStateSelector } from "../redux/user/user-selectors";
 import { getDisplayName } from "../utils/helpers";
-import { enqueueErrorSnackbar } from "../redux/localState/localState-actions";
+import {
+  enqueueErrorSnackbar,
+  setLiveRegionMessage,
+} from "../redux/localState/localState-actions";
 
 export const mapStateToProps = (state) => ({
   userState: userStateSelector(state),
@@ -17,6 +20,8 @@ const mapDispatchToProps = (dispatch) => ({
   loginSuccess: (currentUser) => dispatch(loginSuccess(currentUser)),
   enqueueErrorSnackbar: (error) => dispatch(enqueueErrorSnackbar(error)),
   logoutUser: () => dispatch(logoutUser()),
+  setAuthLiveRegionMessage: (message) =>
+    dispatch(setLiveRegionMessage(message)),
 });
 
 function withAuth(Component) {
@@ -27,6 +32,7 @@ function withAuth(Component) {
     logoutUser,
     userState: { isSigningUp, signupErrors, isAuthenticated } = {},
     enqueueErrorSnackbar,
+    setAuthLiveRegionMessage,
     ...props
   }) {
     const unsubscribeFromAuth = useRef(null);
@@ -61,6 +67,9 @@ function withAuth(Component) {
                     function handleUserSnapshot(snapshot) {
                       // If the user is deleted from firestore clear the local storage
                       if (snapshot.exists) {
+                        setAuthLiveRegionMessage(
+                          "You have successfully logged in",
+                        );
                         loginSuccess(getCurrentUserDataFromSnapshot(snapshot));
                       } else {
                         logoutUser();
@@ -102,14 +111,7 @@ function withAuth(Component) {
           unsubscribeFromUserDoc.current();
         }
       };
-    }, [
-      isSigningUp,
-      loginSuccess,
-      logoutUser,
-      enqueueErrorSnackbar,
-      signupErrors,
-      isAuthenticated,
-    ]);
+    }, [enqueueErrorSnackbar, isAuthenticated, isSigningUp, loginSuccess, logoutUser, setAuthLiveRegionMessage, signupErrors.lenght]);
 
     return <Component {...props} />;
   }

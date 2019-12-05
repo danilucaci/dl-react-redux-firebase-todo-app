@@ -32,21 +32,17 @@
     }
   }
 
-  &__Input {
-    margin-bottom: tokens.$spacing-c-07;
+  &__Label {
+    margin-top: tokens.$spacing-c-07;
   }
 
-  &__OrDivider {
-    margin-bottom: tokens.$spacing-c-05;
-
-    @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
-      margin-bottom: tokens.$spacing-c-07;
-    }
+  &__InlineErrorMsg {
+    margin-top: tokens.$spacing-c-03;
   }
 
   &__SubmitBtn {
     width: 100%;
-    margin-top: tokens.$spacing-c-03;
+    margin-top: tokens.$spacing-c-07;
     margin-bottom: tokens.$spacing-c-05;
   }
 

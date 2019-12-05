@@ -39,6 +39,12 @@ const userReducer = (state = INITIAL_STATE, action) => {
         loginErrors: [...state.loginErrors, action.payload],
       };
     }
+    case UserTypes.CLEAR_LOGIN_ERROR: {
+      return {
+        ...state,
+        loginErrors: [],
+      };
+    }
     case UserTypes.SIGNUP_REQUEST: {
       return {
         ...state,
@@ -63,6 +69,13 @@ const userReducer = (state = INITIAL_STATE, action) => {
         isAuthenticated: false,
         signupLoading: false,
         signupErrors: [...state.signupErrors, action.payload],
+      };
+    }
+    case UserTypes.CLEAR_SIGNUP_ERROR: {
+      return {
+        ...state,
+        signupErrors: [],
+        isSigningUp: false,
       };
     }
     case UserTypes.LOGOUT_REQUEST: {

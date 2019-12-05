@@ -2,6 +2,7 @@ import UserTypes from "./user-types";
 import { auth, signInWithGoogle, signOut } from "../../firebase/firebase";
 import { createSignUpUserDocument } from "../../utils/firebase/createSignUpUserDocument";
 import { resetStoreAndLogOut } from "../root-reducer";
+import { setLiveRegionMessage } from "../localState/localState-actions";
 
 export const loginRequest = () => ({ type: UserTypes.LOGIN_REQUEST });
 
@@ -13,6 +14,10 @@ export const loginSuccess = (currentUser) => ({
 export const setLoginErrors = (errors) => ({
   type: UserTypes.LOGIN_ERRORS,
   payload: errors,
+});
+
+export const clearLoginError = () => ({
+  type: UserTypes.CLEAR_LOGIN_ERROR,
 });
 
 export const signupRequest = () => ({ type: UserTypes.SIGNUP_REQUEST });
@@ -27,6 +32,10 @@ export const setSignupErrors = (error) => ({
   payload: error,
 });
 
+export const clearSignupError = () => ({
+  type: UserTypes.CLEAR_SIGNUP_ERROR,
+});
+
 export const logoutRequest = () => ({ type: UserTypes.LOGOUT_REQUEST });
 
 export const logoutSuccess = () => ({ type: UserTypes.LOGOUT_SUCCESS });
@@ -39,6 +48,7 @@ export const setLogoutErrors = (error) => ({
 export function loginUser(email, password) {
   return (dispatch) => {
     dispatch(loginRequest());
+    dispatch(setLiveRegionMessage("Logging in"));
     return auth.signInWithEmailAndPassword(email, password);
   };
 }
@@ -46,11 +56,13 @@ export function loginUser(email, password) {
 export function logoutUser() {
   return async (dispatch) => {
     dispatch(logoutRequest());
+    dispatch(setLiveRegionMessage("Signing out"));
 
     signOut()
       .then(() => {
         dispatch(resetStoreAndLogOut());
         dispatch(logoutSuccess());
+        dispatch(setLiveRegionMessage("You have successfully signed out."));
       })
       .catch((error) => {
         dispatch(setLogoutErrors(error.message));
@@ -61,6 +73,7 @@ export function logoutUser() {
 export function signUpWithEmailRequest(email, password, displayName) {
   return async (dispatch) => {
     dispatch(signupRequest());
+    dispatch(setLiveRegionMessage("Signing in"));
 
     const { user } =
       (await auth
@@ -92,6 +105,7 @@ export function signUpWithEmailRequest(email, password, displayName) {
 export function signUpWithGoogleRequest() {
   return async (dispatch) => {
     dispatch(signupRequest());
+    dispatch(setLiveRegionMessage("Signing in with google"));
 
     const { user } =
       (await signInWithGoogle().catch((error) => {

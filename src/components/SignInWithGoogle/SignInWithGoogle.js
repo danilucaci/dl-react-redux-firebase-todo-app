@@ -9,6 +9,7 @@ import { getClassesFromProps } from "../../utils/helpers";
 import OutlinedButton from "../OutlinedButton/OutlinedButton";
 import { currentUserSelector } from "../../redux/user/user-selectors";
 import { signUpWithGoogleRequest } from "../../redux/user/user-actions";
+import { setLiveRegionMessage } from "../../redux/localState/localState-actions";
 
 export const mapStateToProps = (state) => ({
   currentUser: currentUserSelector(state),
@@ -16,12 +17,14 @@ export const mapStateToProps = (state) => ({
 
 export const mapDispatchToProps = (dispatch) => ({
   signUpWithGoogleRequest: () => dispatch(signUpWithGoogleRequest()),
+  setLiveRegionMessage: (message) => dispatch(setLiveRegionMessage(message)),
 });
 
 function SignInWithGoogle({
   additionalClasses,
   currentUser = null,
   signUpWithGoogleRequest,
+  setLiveRegionMessage,
   label = "Sign in with Google",
   ...props
 }) {
@@ -35,6 +38,7 @@ function SignInWithGoogle({
 
   function handleSignInWithGoogle() {
     setLoading(true);
+    setLiveRegionMessage("Signing in with google");
 
     signUpWithGoogleRequest();
   }

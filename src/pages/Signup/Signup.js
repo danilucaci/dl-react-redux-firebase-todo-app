@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { array, bool, shape, func } from "prop-types";
 import "./Signup.styles.scss";
+import * as Yup from "yup";
+import { Formik, Form, Field } from "formik";
 
 import * as ROUTES from "../../constants/routes";
 
@@ -12,18 +14,41 @@ import Input from "../../components/Input/Input";
 import OrDivider from "../../components/OrDivider/OrDivider";
 import ValidationErrorMessage from "../../components/ValidationErrorMessage/ValidationErrorMessage";
 
+const sigupSchema = Yup.object().shape({
+  fullname: Yup.string().required("Please enter your full name to sign up."),
+  email: Yup.string()
+    .email("Please enter a valid email to sign up.")
+    .required("Please enter a valid email to sign up."),
+  password: Yup.string()
+    .required("Please enter your password to sign up.")
+    .min(6, "The password needs to be 6 characters or longer."),
+});
+
 function Signup({
   userState: { signupErrors, signupLoading, isAuthenticated } = {},
   signUpWithEmailRequest,
+  clearSignupError,
 }) {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const clearErrorsTimeoutRef = useRef(null);
 
   let history = useHistory();
   let location = useLocation();
 
   let { from } = location.state || { from: { pathname: "/" } };
+
+  useEffect(() => {
+    if (signupErrors && signupErrors.length > 0) {
+      clearErrorsTimeoutRef.current = setTimeout(() => {
+        clearSignupError();
+      }, 5000);
+    }
+
+    return () => {
+      if (clearErrorsTimeoutRef.current) {
+        clearTimeout(clearErrorsTimeoutRef.current);
+      }
+    };
+  }, [clearSignupError, signupErrors]);
 
   useEffect(() => {
     /**
@@ -44,10 +69,12 @@ function Signup({
     }
   }, [isAuthenticated, from, history]);
 
-  async function handleSignup(e) {
-    e.preventDefault();
-
-    await signUpWithEmailRequest(email, password, name);
+  async function handleSignup(values) {
+    await signUpWithEmailRequest(
+      values.email,
+      values.password,
+      values.fullname,
+    );
   }
 
   return (
@@ -61,64 +88,118 @@ function Signup({
         label="Sign up with Google"
       />
       <OrDivider additionalClasses="Signup__OrDivider" />
-      <form
-        method="post"
-        onSubmit={handleSignup}
-        aria-label="sign up with email and password"
+      <Formik
+        initialValues={{
+          fullname: "",
+          email: "",
+          password: "",
+        }}
+        validationSchema={sigupSchema}
+        onSubmit={(values) => {
+          handleSignup(values);
+        }}
       >
-        <Input
-          name="name"
-          label="Full name*"
-          placeholder="Full name"
-          additionalClasses="Signup__Input"
-          autoComplete="name"
-          autoCorrect="off"
-          autoCapitalize="off"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <Input
-          name="email"
-          label="Email address*"
-          placeholder="Email address"
-          additionalClasses="Signup__Input"
-          autoComplete="email"
-          autoCorrect="off"
-          autoCapitalize="off"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <Input
-          type="password"
-          name="password"
-          label="Password*"
-          placeholder="Password"
-          additionalClasses="Signup__Input"
-          autoComplete="new-password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <PrimaryButton
-          additionalClasses="Signup__SubmitBtn"
-          type="submit"
-          disabled={signupLoading}
-        >
-          Sign up
-        </PrimaryButton>
-        {signupErrors && signupErrors.length ? (
-          <>
-            {signupErrors.map((error, index) => (
+        {({ handleSubmit, isValid, touched, errors }) => (
+          <Form
+            onSubmit={handleSubmit}
+            aria-label="sign up with email and password"
+          >
+            <Field
+              as={Input}
+              name="fullname"
+              label="Full name*"
+              placeholder="Full name"
+              aria-describedby="fullname-validation"
+              aria-required="true"
+              aria-invalid={
+                touched.fullname && errors.fullname ? `true` : `false`
+              }
+              labelAdditionalClasses="Signup__Label"
+              autoComplete="name"
+              autoCorrect="off"
+              autoCapitalize="off"
+            />
+            {touched.fullname && errors.fullname && (
               <ValidationErrorMessage
-                key={index}
-                additionalClasses="Signup__SignUpErrorMsg"
+                additionalClasses="Signup__InlineErrorMsg"
+                id="fullname-validation"
+                aria-hidden="true"
               >
-                {error}
+                {errors.fullname}
               </ValidationErrorMessage>
-            ))}
-            <hr className="Signup__Divider" />
-          </>
-        ) : null}
-      </form>
+            )}
+            <Field
+              as={Input}
+              name="email"
+              label="Email address*"
+              placeholder="Email address"
+              aria-describedby="email-validation"
+              aria-required="true"
+              aria-invalid={touched.email && errors.email ? `true` : `false`}
+              labelAdditionalClasses="Signup__Label"
+              autoComplete="email"
+              autoCorrect="off"
+              autoCapitalize="off"
+            />
+            {touched.email && errors.email && (
+              <ValidationErrorMessage
+                additionalClasses="Signup__InlineErrorMsg"
+                id="email-validation"
+                aria-hidden="true"
+              >
+                {errors.email}
+              </ValidationErrorMessage>
+            )}
+            <Field
+              as={Input}
+              type="password"
+              name="password"
+              label="Password*"
+              placeholder="Password"
+              aria-describedby="password-validation"
+              aria-required="true"
+              aria-invalid={
+                touched.password && errors.password ? `true` : `false`
+              }
+              labelAdditionalClasses="Signup__Label"
+              autoComplete="new-password"
+            />
+            {touched.password && errors.password && (
+              <ValidationErrorMessage
+                additionalClasses="Signup__InlineErrorMsg"
+                id="password-validation"
+                aria-hidden="true"
+              >
+                {errors.password}
+              </ValidationErrorMessage>
+            )}
+            <PrimaryButton
+              additionalClasses="Signup__SubmitBtn"
+              type="submit"
+              disabled={signupLoading || !isValid}
+              loading={signupLoading}
+              aria-label={`sign${signupLoading ? `ing` : ``} up`}
+            >
+              Sign up
+            </PrimaryButton>
+            {signupErrors && signupErrors.length ? (
+              <>
+                {signupErrors.map((error, index) => (
+                  <ValidationErrorMessage
+                    key={index}
+                    additionalClasses="Signup__SignUpErrorMsg"
+                    role="status"
+                    aria-live="polite"
+                  >
+                    {error}
+                  </ValidationErrorMessage>
+                ))}
+                <hr className="Signup__Divider" />
+              </>
+            ) : null}
+          </Form>
+        )}
+      </Formik>
 
       <nav className="Signup__ButtonsNav">
         <hr className="Signup__Divider" />
@@ -145,6 +226,7 @@ Signup.propTypes = {
     isAuthenticated: bool.isRequired,
   }).isRequired,
   signUpWithEmailRequest: func.isRequired,
+  clearSignupError: func.isRequired,
 };
 
 export default Signup;
