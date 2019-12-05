@@ -1,0 +1,14 @@
+@use "../../styles/tokens";
+@use "../../styles/base/placeholders";
+
+.Spinner {
+  @extend %animate-spinner;
+
+  width: tokens.$size-icon-m;
+  height: tokens.$size-icon-m;
+  fill: tokens.$color-icon-spinner-default;
+
+  position: static;
+  display: inline-block;
+  vertical-align: bottom;
+}

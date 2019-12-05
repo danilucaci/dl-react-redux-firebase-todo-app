@@ -5,6 +5,7 @@ import classNames from "classnames";
 import "./PrimaryButton.styles.scss";
 import { getClassesFromProps } from "../../utils/helpers";
 import AriaText from "../AriaText/AriaText";
+import Spinner from "../Spinner/Spinner";
 
 function PrimaryButton({
   icon,
@@ -13,6 +14,7 @@ function PrimaryButton({
   size = "xl",
   iconOnly = false,
   children,
+  loading = false,
   ...props
 }) {
   const addedClasses = getClassesFromProps(additionalClasses);
@@ -40,20 +42,23 @@ function PrimaryButton({
   return (
     <button className={buttonClassNames} {...props}>
       {ariaText && <AriaText>{ariaText}</AriaText>}
-      {iconOnly ? (
+      {iconOnly && !loading && (
         <svg className={svgClassNames}>
-          <use xlinkHref={`#${icon}`} aria-hidden="true" />
+          <use xlinkHref={`#${icon}`} />
         </svg>
-      ) : (
+      )}
+
+      {!iconOnly && !loading && (
         <>
           {icon && (
             <svg className={svgClassNames}>
-              <use xlinkHref={`#${icon}`} aria-hidden="true" />
+              <use xlinkHref={`#${icon}`} />
             </svg>
           )}
           {children}
         </>
       )}
+      {loading && <Spinner />}
     </button>
   );
 }
@@ -65,6 +70,7 @@ PrimaryButton.propTypes = {
   size: oneOf(["xl", "m", "s"]),
   additionalClasses: string,
   children: node,
+  loading: bool,
 };
 
 PrimaryButton.defaultProps = {
@@ -73,6 +79,7 @@ PrimaryButton.defaultProps = {
   iconOnly: false,
   additionalClasses: null,
   children: null,
+  loading: false,
 };
 
 export default PrimaryButton;

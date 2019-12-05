@@ -145,6 +145,20 @@
   }
 }
 
+%animate-spinner {
+  animation: animate-spinner tokens.$timing-spinner infinite linear;
+
+  @keyframes animate-spinner {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
+
 %animate-todo-item-scroll-to {
   animation: animate-todo-item-scroll-to tokens.$timing-todo-item-scroll-to
     ease-in;
