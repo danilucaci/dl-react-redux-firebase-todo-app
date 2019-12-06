@@ -7,7 +7,7 @@ service cloud.firestore {
      }
     
     function isSignedIn() {
-      return request.auth.uid != null;
+      return request.auth != null;
     }
     
     function isOwner(userId) {
@@ -17,13 +17,34 @@ service cloud.firestore {
     function queryLimit(limit) {
       return request.query.limit <= limit;
     }
+
+    function getAdmins() {
+      return get(/databases/$(database)/documents/admin/allowed-users).data.admins;
+    }
+
+    function isAdmin(email) {
+      return email in getAdmins();
+    }
+
+    function getAllowedToSignUpUsers() {
+      return get(/databases/$(database)/documents/admin/allowed-users).data.emails;
+    }
+
+    function isUserAllowedToSignUp(email) {
+      return email in getAllowedToSignUpUsers();
+    }
+
+    match /admin/allowed-users {
+      allow read, write: if isSignedIn() && isAdmin(request.auth.token.email);
+    }
     
     match /colors/{colorId} {
       allow read: if isSignedIn() && queryLimit(40);
     }
-    
+
     match /users/{userId} {
-      allow get, create, update: if isOwner(userId);
+      allow create: if isUserAllowedToSignUp(request.auth.token.email);
+      allow get, update: if isOwner(userId);
       
       match /projects/{projectId} {
         allow read: if queryLimit(20) && isOwner(userId);
