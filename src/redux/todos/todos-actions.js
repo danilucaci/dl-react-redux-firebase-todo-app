@@ -72,6 +72,13 @@ export const updateTodo = (todoData) => {
     const currentUser = currentUserSelector(getState());
 
     if (currentUser && currentUser.id) {
+      dispatch(
+        toggleTodoFocus({
+          id: todoData.id,
+          isFocused: true,
+        }),
+      );
+
       await updateFirebaseTodo(currentUser.id, todoData).catch((error) => {
         dispatch(enqueueErrorSnackbar(error.message));
       });

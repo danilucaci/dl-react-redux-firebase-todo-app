@@ -55,7 +55,6 @@ const todosReducer = (state = INITIAL_STATE, action) => {
           ...state.byID,
           [action.payload.id]: {
             ...action.payload,
-            isFocused: true,
           },
         },
       };
