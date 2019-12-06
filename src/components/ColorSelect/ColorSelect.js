@@ -17,7 +17,7 @@ const ColorSelect = ({
         className="ColorSelect__Button"
         type="button"
         onClick={toggleVisibility}
-        aria-label="Select a color"
+        aria-label={`Select label color. Current color ${selectedColor.colorName}`}
       >
         <svg
           className="ColorSelect__Color__Icon"
