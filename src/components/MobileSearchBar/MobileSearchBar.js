@@ -18,6 +18,7 @@ import {
 } from "react-instantsearch-dom";
 
 import algoliasearch from "algoliasearch/lite";
+import AriaText from "../AriaText/AriaText";
 
 const algoliaClient = algoliasearch(
   process.env.REACT_APP_ALGOLIA_APP_ID,
@@ -73,6 +74,7 @@ export function ProjectHighlight({ highlight, attribute, hit }) {
 
   return (
     <span className="MobileSearchBar__Hits__Item__Project">
+      <AriaText>in project</AriaText>
       {parsedHit.map((part, index) =>
         part.isHighlighted ? (
           <mark key={index}>{part.value}</mark>

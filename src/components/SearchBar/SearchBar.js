@@ -19,6 +19,7 @@ import {
 
 import algoliasearch from "algoliasearch/lite";
 import useKeyUpPress from "../../hooks/useKeyUpPress";
+import AriaText from "../AriaText/AriaText";
 
 const algoliaClient = algoliasearch(
   process.env.REACT_APP_ALGOLIA_APP_ID,
@@ -70,6 +71,7 @@ export function ProjectHighlight({ highlight, attribute, hit }) {
 
   return (
     <span className="SearchBar__Hits__Item__Project">
+      <AriaText>in project</AriaText>
       {parsedHit.map((part, index) =>
         part.isHighlighted ? (
           <mark key={index}>{part.value}</mark>
@@ -77,7 +79,6 @@ export function ProjectHighlight({ highlight, attribute, hit }) {
           <span key={index}>{part.value}</span>
         ),
       )}
-
       <svg
         className="SearchBar__Hits__Item__Project__Color"
         fill={hit.project.colorValue}
