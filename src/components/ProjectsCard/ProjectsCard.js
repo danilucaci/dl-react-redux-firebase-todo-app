@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import "./ProjectsCard.styles.scss";
 
 import * as ROUTES from "../../constants/routes";
+import AriaText from "../AriaText/AriaText";
 
 function ProjectsCard({
   projectTodosCount = 0,
@@ -15,12 +16,14 @@ function ProjectsCard({
       to={`${ROUTES.PROJECT}${name.toLowerCase()}`}
       className="col col-xl-6 Project__Card"
     >
+      <AriaText>project </AriaText>
       <div className="Project__Card__Header">
         <h2 className="Project__Card__Title">{name}</h2>
         <svg className="Project__Card__Icon" fill={colorValue}>
           <use xlinkHref="#color" />
         </svg>
       </div>
+      <AriaText> with </AriaText>
       <p className="Project__Card__Count">{projectTodosCount} todos</p>
     </Link>
   );

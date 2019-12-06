@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import "./LabelsCard.styles.scss";
 
 import * as ROUTES from "../../constants/routes";
+import AriaText from "../AriaText/AriaText";
 
 function LabelsCard({
   labelTodosCount = 0,
@@ -15,12 +16,14 @@ function LabelsCard({
         to={`${ROUTES.LABEL}${name.toLowerCase()}`}
         className="col col-xl-6 Label__Card"
       >
+        <AriaText>label </AriaText>
         <div className="Label__Card__Header">
           <h2 className="Label__Card__Title">{name}</h2>
           <svg className="Label__Card__Icon" fill={colorValue}>
             <use xlinkHref="#color" />
           </svg>
         </div>
+        <AriaText> with </AriaText>
         <p className="Label__Card__Count">{labelTodosCount} todos</p>
       </Link>
     </>
