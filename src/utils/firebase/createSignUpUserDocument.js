@@ -9,7 +9,10 @@ export async function createSignUpUserDocument(user = {}, additionalData = {}) {
 
   const userRef = await createUserProfileDocument(user, additionalData).catch(
     (error) => {
-      return Promise.reject(error);
+      if (typeof error === "string") {
+        return Promise.reject(error);
+      }
+      return Promise.reject(error.message);
     },
   );
 
