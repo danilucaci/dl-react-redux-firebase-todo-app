@@ -77,14 +77,21 @@ function withAuth(Component) {
                     },
                     function handleUserSnapshotError(error) {
                       enqueueErrorSnackbar(
-                        `handleUserSnapshotError: ${error.message}`,
+                        `Something went wrong: ${error.message}`,
                       );
                     },
                   );
                 })
                 .catch((error) => {
-                  enqueueErrorSnackbar(`createUserProfileError: ${error}`);
-                  handleLogOut();
+                  enqueueErrorSnackbar(
+                    `Something went wrong while creating your account: ${error.message}`,
+                  );
+                  /**
+                   * `isAuthenticated`: Don’t log out if there was no previous user set
+                   */
+                  if (isAuthenticated) {
+                    handleLogOut();
+                  }
                 });
             } else {
               /**
@@ -99,7 +106,7 @@ function withAuth(Component) {
           }
         },
         function handleAuthStateChangeError(error) {
-          enqueueErrorSnackbar(`handleAuthStateChangeError: ${error.message}`);
+          enqueueErrorSnackbar(`Something went wrong: ${error.message}`);
         },
       );
 
@@ -111,7 +118,15 @@ function withAuth(Component) {
           unsubscribeFromUserDoc.current();
         }
       };
-    }, [enqueueErrorSnackbar, isAuthenticated, isSigningUp, loginSuccess, logoutUser, setAuthLiveRegionMessage, signupErrors.lenght]);
+    }, [
+      enqueueErrorSnackbar,
+      isAuthenticated,
+      isSigningUp,
+      loginSuccess,
+      logoutUser,
+      setAuthLiveRegionMessage,
+      signupErrors.lenght,
+    ]);
 
     return <Component {...props} />;
   }
