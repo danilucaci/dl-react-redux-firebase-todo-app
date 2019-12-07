@@ -226,8 +226,22 @@ describe("formats todo date with time", () => {
 });
 
 describe("formats next days todo date with time", () => {
-  test("formats next days todo date in next days interval", () => {
+  test("formats next days todo date as 14:43 in next days interval", () => {
     const futureDate = getTestDatePlusNDays(2);
+    futureDate.setHours(14);
+    futureDate.setMinutes(43);
+
+    const hours = futureDate.getHours();
+    const minutes = futureDate.getMinutes();
+
+    expect(formatNextDaysTodoDueDateWithTime(futureDate)).toBe(
+      `${hours}:${minutes}`,
+    );
+  });
+  test("formats next days todo date as 18:21 in next days interval", () => {
+    const futureDate = getTestDatePlusNDays(4);
+    futureDate.setHours(18);
+    futureDate.setMinutes(21);
 
     const hours = futureDate.getHours();
     const minutes = futureDate.getMinutes();
