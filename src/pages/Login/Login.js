@@ -164,21 +164,21 @@ function Login({
             >
               Log in
             </PrimaryButton>
-            {loginErrors && loginErrors.length ? (
-              <>
-                {loginErrors.map((error, index) => (
-                  <ValidationErrorMessage
-                    key={index}
-                    additionalClasses="Login__SignUpErrorMsg"
-                    role="status"
-                    aria-live="polite"
-                  >
-                    {error}
-                  </ValidationErrorMessage>
-                ))}
-                <hr className="Login__Divider" />
-              </>
-            ) : null}
+            {loginErrors && loginErrors.length
+              ? loginErrors.map((error, index) => (
+                  <React.Fragment key={index}>
+                    <ValidationErrorMessage
+                      key={index}
+                      additionalClasses="Login__SignUpErrorMsg"
+                      role="status"
+                      aria-live="polite"
+                    >
+                      {error}
+                    </ValidationErrorMessage>
+                    <hr className="Login__ErrorsDivider" />
+                  </React.Fragment>
+                ))
+              : null}
           </Form>
         )}
       </Formik>

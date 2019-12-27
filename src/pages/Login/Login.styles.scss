@@ -74,6 +74,15 @@
     margin-bottom: tokens.$spacing-c-05;
   }
 
+  &__ErrorsDivider {
+    margin-top: tokens.$spacing-c-07;
+    margin-bottom: tokens.$spacing-c-05;
+
+    &:last-of-type {
+      display: none;
+    }
+  }
+
   &__Footer {
     display: flex;
     align-items: center;

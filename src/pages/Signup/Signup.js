@@ -183,21 +183,20 @@ function Signup({
             >
               Sign up
             </PrimaryButton>
-            {signupErrors && signupErrors.length ? (
-              <>
-                {signupErrors.map((error, index) => (
-                  <ValidationErrorMessage
-                    key={index}
-                    additionalClasses="Signup__SignUpErrorMsg"
-                    role="status"
-                    aria-live="polite"
-                  >
-                    {error}
-                  </ValidationErrorMessage>
-                ))}
-                <hr className="Signup__Divider" />
-              </>
-            ) : null}
+            {signupErrors && signupErrors.length
+              ? signupErrors.map((error, index) => (
+                  <React.Fragment key={index}>
+                    <ValidationErrorMessage
+                      additionalClasses="Signup__SignUpErrorMsg"
+                      role="status"
+                      aria-live="polite"
+                    >
+                      {error}
+                    </ValidationErrorMessage>
+                    <hr className="Signup__ErrorsDivider" />
+                  </React.Fragment>
+                ))
+              : null}
           </Form>
         )}
       </Formik>
