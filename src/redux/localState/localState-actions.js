@@ -116,3 +116,15 @@ export const setLiveRegionMessage = (message) => ({
 export const clearLiveRegionMessage = () => ({
   type: LocalStateTypes.CLEAR_LIVE_REGION_MESSAGE,
 });
+
+export const setCookieConsentAccepted = () => ({
+  type: LocalStateTypes.SET_COOKIE_CONSENT_ACCEPTED,
+});
+
+export const setCookieConsentDenied = () => ({
+  type: LocalStateTypes.SET_COOKIE_CONSENT_DENIED,
+});
+
+export const openCookieConsent = () => ({
+  type: LocalStateTypes.OPEN_COOKIE_CONSENT,
+});

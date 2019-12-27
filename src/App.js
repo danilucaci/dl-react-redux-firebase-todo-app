@@ -40,6 +40,7 @@ import ProjectContainer from "./redux/containers/pages/ProjectContainer";
 import ProjectsContainer from "./redux/containers/pages/ProjectsContainer";
 import LabelContainer from "./redux/containers/pages/LabelContainer";
 import LabelsContainer from "./redux/containers/pages/LabelsContainer";
+import CookieConsentContainer from "./redux/containers/components/CookieConsentContainer";
 
 import withAuth from "./hoc/withAuth";
 
@@ -212,6 +213,7 @@ function App({
       <SVGSprite />
       <HeaderContainer />
       <LiveRegionContainer />
+      <CookieConsentContainer />
       <ToastsNotifierContainer />
       <Switch>
         <Route path={ROUTES.LANDING} exact>

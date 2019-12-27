@@ -23,6 +23,13 @@ const INITIAL_STATE = {
   liveRegion: {
     message: "",
   },
+  cookieConsent: {
+    consentAccepted: false,
+    consentDenied: false,
+    consentDismissed: false,
+    consentOpen: false,
+    cookieName: "_dlCookieConsent",
+  },
 };
 
 const localStateReducer = (state = INITIAL_STATE, action) => {
@@ -248,6 +255,42 @@ const localStateReducer = (state = INITIAL_STATE, action) => {
         liveRegion: {
           ...state.liveRegion,
           message: "",
+        },
+      };
+    }
+    case LocalStateTypes.OPEN_COOKIE_CONSENT: {
+      return {
+        ...state,
+        cookieConsent: {
+          ...state.cookieConsent,
+          consentAccepted: false,
+          consentDenied: false,
+          consentDismissed: false,
+          consentOpen: true,
+        },
+      };
+    }
+    case LocalStateTypes.SET_COOKIE_CONSENT_ACCEPTED: {
+      return {
+        ...state,
+        cookieConsent: {
+          ...state.cookieConsent,
+          consentAccepted: true,
+          consentDenied: false,
+          consentDismissed: true,
+          consentOpen: false,
+        },
+      };
+    }
+    case LocalStateTypes.SET_COOKIE_CONSENT_DENIED: {
+      return {
+        ...state,
+        cookieConsent: {
+          ...state.cookieConsent,
+          consentAccepted: false,
+          consentDenied: true,
+          consentDismissed: true,
+          consentOpen: false,
         },
       };
     }

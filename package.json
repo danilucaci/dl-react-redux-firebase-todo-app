@@ -18,6 +18,7 @@
     "focus-visible": "^5.0.2",
     "formik": "^2.0.6",
     "javascript-time-ago": "^2.0.4",
+    "js-cookie": "^2.2.1",
     "logger": "0.0.1",
     "node-sass": "npm:sass@^1.23.0",
     "notistack": "^0.9.6",

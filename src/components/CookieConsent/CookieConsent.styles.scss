@@ -1,0 +1,67 @@
+@use "../../styles/tokens";
+@use "../../styles/base/placeholders";
+
+.CookieConsent {
+  &__Wrapper {
+    background-color: tokens.$color-background-cookie-consent;
+    box-shadow: tokens.$shadow-cookie-consent-mobile;
+    padding: tokens.$spacing-c-05;
+
+    // display: none;
+
+    position: fixed;
+    bottom: 0;
+    z-index: tokens.$z-index-modal;
+
+    will-change: transform;
+    transform: translateY(120%);
+    pointer-events: none;
+    transition: transform ease-out tokens.$timing-cookie-consent;
+
+    &--isVisible {
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    &--isTransitioning {
+      display: block !important;
+    }
+
+    @include tokens.media-min(xs) {
+      bottom: tokens.$spacing-c-05;
+      border-radius: tokens.$border-radius-components-default;
+      box-shadow: tokens.$shadow-cookie-consent-desktop;
+      padding: tokens.$spacing-c-07;
+      left: tokens.$spacing-c-05;
+      max-width: tokens.$size-cookie-consent-xl;
+    }
+  }
+
+  &__Buttons__Wrapper {
+    margin-top: tokens.$spacing-c-08;
+    width: 100%;
+  }
+
+  &__AcceptButton {
+    width: 100%;
+
+    margin-bottom: tokens.$spacing-c-04;
+
+    @include tokens.media-min(xs) {
+      width: calc(50% - #{tokens.$spacing-c-04});
+      float: right;
+      margin-left: #{tokens.$spacing-c-04};
+      margin-bottom: 0;
+    }
+  }
+
+  &__DenyButton {
+    width: 100%;
+
+    @include tokens.media-min(xs) {
+      width: calc(50% - #{tokens.$spacing-c-04});
+      margin-right: #{tokens.$spacing-c-04};
+      float: left;
+    }
+  }
+}

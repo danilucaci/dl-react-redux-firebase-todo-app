@@ -26,3 +26,8 @@ export const liveRegionSelector = createSelector(
   [selectLocalState],
   (localState) => localState.liveRegion,
 );
+
+export const cookieConsentSelector = createSelector(
+  [selectLocalState],
+  (localState) => localState.cookieConsent,
+);
