@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 
-import { auth } from "../firebase/firebase";
+import { auth, createGoogleProvider } from "../firebase/firebase";
 import getCurrentUserDataFromSnapshot from "../utils/firebase/getCurrentUserDataFromSnapshot";
 import { createUserProfileDocument } from "../utils/firebase/createUserProfileDocument";
 import { loginSuccess, logoutUser } from "../redux/user/user-actions";
@@ -72,7 +72,7 @@ function withAuth(Component) {
                         );
                         loginSuccess(getCurrentUserDataFromSnapshot(snapshot));
                       } else {
-                        logoutUser();
+                        handleLogOut();
                       }
                     },
                     function handleUserSnapshotError(error) {
@@ -82,10 +82,41 @@ function withAuth(Component) {
                     },
                   );
                 })
-                .catch((error) => {
+                .catch(async (error) => {
                   enqueueErrorSnackbar(
                     `Something went wrong while creating your account: ${error.message}`,
                   );
+
+                  if (user) {
+                    /**
+                     * If it fails to create the user doc in the firestore db,
+                     * rollback and delete the user. This will happen each time
+                     * a user that is not present in `allowed-users` is trying to signup.
+                     */
+                    await user.delete().catch(async (error) => {
+                      if (process.env.NODE_ENV === "development") {
+                        console.log(error);
+                      }
+                      /**
+                       * @see https://firebase.google.com/docs/auth/web/manage-users#re-authenticate_a_user
+                       */
+                      if (
+                        error.hasOwnProperty("code") &&
+                        error.code.includes("requires-recent-login")
+                      ) {
+                        await user
+                          .reauthenticateWithPopup(createGoogleProvider())
+                          .catch((error) => {
+                            if (process.env.NODE_ENV === "development") {
+                              console.log(error);
+                            }
+
+                            // Fallback
+                            handleLogOut();
+                          });
+                      }
+                    });
+                  }
                   /**
                    * `isAuthenticated`: Don’t log out if there was no previous user set
                    */
@@ -125,6 +156,7 @@ function withAuth(Component) {
       loginSuccess,
       logoutUser,
       setAuthLiveRegionMessage,
+      signupErrors,
       signupErrors.lenght,
     ]);
 

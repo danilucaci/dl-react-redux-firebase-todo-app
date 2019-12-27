@@ -26,4 +26,11 @@ export const provider = new firebase.auth.GoogleAuthProvider();
 export const signInWithGoogle = () => auth.signInWithPopup(provider);
 export const signOut = () => auth.signOut();
 
+export function createGoogleProvider() {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  provider.addScope("profile");
+  provider.addScope("email");
+  return provider;
+}
+
 export default firebase;
