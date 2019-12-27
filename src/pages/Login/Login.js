@@ -90,7 +90,10 @@ function Login({
         Log in
       </h1>
 
-      <SignInWithGoogle additionalClasses="Login__GoogleBtn" />
+      <SignInWithGoogle
+        additionalClasses="Login__GoogleBtn"
+        loading={signupLoading}
+      />
       <OrDivider />
       <Formik
         initialValues={{

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { string, shape, bool, func } from "prop-types";
 import classNames from "classnames";
@@ -34,10 +34,10 @@ function SignInWithGoogle({
   cookieConsent: { consentAccepted } = {},
   openCookieConsent,
   enqueueSnackbar,
+  loading,
   ...props
 }) {
   const addedClasses = getClassesFromProps(additionalClasses);
-  const [loading, setLoading] = useState(false);
 
   const buttonClassNames = classNames({
     SignInWithGoogle: true,
@@ -54,9 +54,7 @@ function SignInWithGoogle({
         },
       });
     } else {
-      setLoading(true);
       setLiveRegionMessage("Signing in with google");
-
       signUpWithGoogleRequest();
     }
   }
@@ -84,6 +82,7 @@ SignInWithGoogle.propTypes = {
   }).isRequired,
   openCookieConsent: func.isRequired,
   enqueueSnackbar: func.isRequired,
+  loading: bool.isRequired,
 };
 
 SignInWithGoogle.defaultProps = {

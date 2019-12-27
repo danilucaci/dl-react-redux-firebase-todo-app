@@ -86,6 +86,7 @@ function Signup({
       <SignInWithGoogle
         additionalClasses="Signup__GoogleBtn"
         label="Sign up with Google"
+        loading={signupLoading}
       />
       <OrDivider additionalClasses="Signup__OrDivider" />
       <Formik
