@@ -24,10 +24,11 @@ const loginSchema = Yup.object().shape({
 });
 
 function Login({
-  userState: { loginErrors, isAuthenticated } = {},
+  userState: { loginErrors, signupErrors, signupLoading, isAuthenticated } = {},
   setLoginErrors,
   loginUser,
   clearLoginError,
+  clearSignupError,
 }) {
   const [loading, setLoading] = useState(false);
   let history = useHistory();
@@ -50,6 +51,21 @@ function Login({
       }
     };
   }, [clearLoginError, loginErrors]);
+
+  // For GoogleSignIn
+  useEffect(() => {
+    if (signupErrors && signupErrors.length > 0) {
+      clearErrorsTimeoutRef.current = setTimeout(() => {
+        clearSignupError();
+      }, 5000);
+    }
+
+    return () => {
+      if (clearErrorsTimeoutRef.current) {
+        clearTimeout(clearErrorsTimeoutRef.current);
+      }
+    };
+  }, [clearSignupError, signupErrors]);
 
   useEffect(() => {
     /**
@@ -158,9 +174,9 @@ function Login({
             <PrimaryButton
               additionalClasses="Login__SubmitBtn"
               type="submit"
-              disabled={loading || !isValid}
+              disabled={loading || signupLoading || !isValid}
+              loading={loading || signupLoading}
               aria-label={`log${loading ? `ging` : ``} in`}
-              loading={loading}
             >
               Log in
             </PrimaryButton>
@@ -169,6 +185,22 @@ function Login({
                   <React.Fragment key={index}>
                     <ValidationErrorMessage
                       key={index}
+                      additionalClasses="Login__SignUpErrorMsg"
+                      role="status"
+                      aria-live="polite"
+                    >
+                      {error}
+                    </ValidationErrorMessage>
+                    <hr className="Login__ErrorsDivider" />
+                  </React.Fragment>
+                ))
+              : null}
+
+            {/* For GoogleSignIn */}
+            {signupErrors && signupErrors.length
+              ? signupErrors.map((error, index) => (
+                  <React.Fragment key={index}>
+                    <ValidationErrorMessage
                       additionalClasses="Login__SignUpErrorMsg"
                       role="status"
                       aria-live="polite"
@@ -212,6 +244,8 @@ function Login({
 Login.propTypes = {
   userState: shape({
     loginErrors: array.isRequired,
+    signupErrors: array.isRequired,
+    signupLoading: bool.isRequired,
     isAuthenticated: bool.isRequired,
   }).isRequired,
   setLoginErrors: func.isRequired,

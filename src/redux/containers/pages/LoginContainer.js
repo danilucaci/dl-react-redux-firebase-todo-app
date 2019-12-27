@@ -5,6 +5,7 @@ import {
   loginUser,
   setLoginErrors,
   clearLoginError,
+  clearSignupError,
 } from "../../../redux/user/user-actions";
 
 import Login from "../../../pages/Login/Login";
@@ -17,6 +18,7 @@ export const mapDispatchToProps = (dispatch) => ({
   loginUser: (email, password) => dispatch(loginUser(email, password)),
   setLoginErrors: (errors) => dispatch(setLoginErrors(errors)),
   clearLoginError: () => dispatch(clearLoginError()),
+  clearSignupError: () => dispatch(clearSignupError()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
