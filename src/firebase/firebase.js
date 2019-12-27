@@ -17,10 +17,6 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
 
-if (process.env.NODE_ENV === "development") {
-  window.firebase = firebase;
-}
-
 firebase.initializeApp(firebaseConfig);
 
 export const firestore = firebase.firestore();
