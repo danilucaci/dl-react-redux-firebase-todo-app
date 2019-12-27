@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { string } from "prop-types";
-
+import { string, shape, bool, func } from "prop-types";
 import classNames from "classnames";
 
 import "./SignInWithGoogle.styles.scss";
@@ -10,14 +9,20 @@ import OutlinedButton from "../OutlinedButton/OutlinedButton";
 import { currentUserSelector } from "../../redux/user/user-selectors";
 import { signUpWithGoogleRequest } from "../../redux/user/user-actions";
 import { setLiveRegionMessage } from "../../redux/localState/localState-actions";
+import { cookieConsentSelector } from "../../redux/localState/localState-selectors";
+import { openCookieConsent } from "../../redux/localState/localState-actions";
+import { enqueueSnackbar } from "../../redux/localState/localState-actions";
 
 export const mapStateToProps = (state) => ({
   currentUser: currentUserSelector(state),
+  cookieConsent: cookieConsentSelector(state),
 });
 
 export const mapDispatchToProps = (dispatch) => ({
   signUpWithGoogleRequest: () => dispatch(signUpWithGoogleRequest()),
   setLiveRegionMessage: (message) => dispatch(setLiveRegionMessage(message)),
+  openCookieConsent: () => dispatch(openCookieConsent()),
+  enqueueSnackbar: (message) => dispatch(enqueueSnackbar(message)),
 });
 
 function SignInWithGoogle({
@@ -26,6 +31,9 @@ function SignInWithGoogle({
   signUpWithGoogleRequest,
   setLiveRegionMessage,
   label = "Sign in with Google",
+  cookieConsent: { consentAccepted } = {},
+  openCookieConsent,
+  enqueueSnackbar,
   ...props
 }) {
   const addedClasses = getClassesFromProps(additionalClasses);
@@ -37,10 +45,20 @@ function SignInWithGoogle({
   });
 
   function handleSignInWithGoogle() {
-    setLoading(true);
-    setLiveRegionMessage("Signing in with google");
+    if (!consentAccepted) {
+      openCookieConsent();
+      enqueueSnackbar({
+        message: "Please accept the cookie policy before signing in",
+        options: {
+          variant: "info",
+        },
+      });
+    } else {
+      setLoading(true);
+      setLiveRegionMessage("Signing in with google");
 
-    signUpWithGoogleRequest();
+      signUpWithGoogleRequest();
+    }
   }
 
   return (
@@ -61,6 +79,11 @@ function SignInWithGoogle({
 SignInWithGoogle.propTypes = {
   additionalClasses: string,
   label: string,
+  cookieConsent: shape({
+    consentAccepted: bool.isRequired,
+  }).isRequired,
+  openCookieConsent: func.isRequired,
+  enqueueSnackbar: func.isRequired,
 };
 
 SignInWithGoogle.defaultProps = {
