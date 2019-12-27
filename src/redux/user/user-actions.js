@@ -91,12 +91,6 @@ export function signUpWithEmailRequest(email, password, displayName) {
 
       if (newUser) {
         dispatch(signupSuccess(newUser));
-      } else {
-        dispatch(
-          setSignupErrors(
-            "Something went wrong while creating your account. Please try again.",
-          ),
-        );
       }
     }
   };
@@ -121,12 +115,6 @@ export function signUpWithGoogleRequest() {
 
       if (newUser) {
         dispatch(signupSuccess(newUser));
-      } else {
-        dispatch(
-          setSignupErrors(
-            "Something went wrong while creating your account. Please try again.",
-          ),
-        );
       }
     }
   };
