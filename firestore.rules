@@ -34,6 +34,10 @@ service cloud.firestore {
       return email in getAllowedToSignUpUsers();
     }
 
+    function isConsentAccepted() {
+      return request.resource.data.consentAccepted == true;
+    }
+
     match /admin/allowed-users {
       allow read, write: if isSignedIn() && isAdmin(request.auth.token.email);
     }
@@ -43,7 +47,7 @@ service cloud.firestore {
     }
 
     match /users/{userId} {
-      allow create: if isUserAllowedToSignUp(request.auth.token.email);
+      allow create: if isUserAllowedToSignUp(request.auth.token.email) && isConsentAccepted();
       allow get, update: if isOwner(userId);
       
       match /projects/{projectId} {

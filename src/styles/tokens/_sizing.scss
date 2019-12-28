@@ -46,7 +46,7 @@ $size-modal-xl: functions.rem(520);
 $size-cookie-consent-xl: functions.rem(380);
 
 // Account pages
-$size-account-page-xl: functions.rem(552);
+$size-account-page-xl: functions.rem(600);
 
 // Dropdowns
 $size-dropdown-projects: functions.rem(240);
@@ -61,6 +61,7 @@ $border-radius-button-default: 3px;
 $border-radius-components-default: 3px;
 $border-radius-button-text: 1px;
 $border-radius-input-default: 3px;
+$border-radius-checkbox: 3px;
 
 // Avatars
 $border-avatar-default: functions.rem(2);
@@ -71,3 +72,6 @@ $size-profile-page-avatar-m: functions.rem(64);
 
 // Todo Button Icon
 $border-todo-checkbox: functions.rem(1);
+
+// Checkbox
+$border-checkbox: functions.rem(1);

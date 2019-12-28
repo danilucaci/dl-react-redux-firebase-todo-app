@@ -13,6 +13,7 @@ import SignInWithGoogle from "../../components/SignInWithGoogle/SignInWithGoogle
 import Input from "../../components/Input/Input";
 import OrDivider from "../../components/OrDivider/OrDivider";
 import ValidationErrorMessage from "../../components/ValidationErrorMessage/ValidationErrorMessage";
+import Checkbox, { CheckboxLabel } from "../../components/Checkbox/Checkbox";
 
 const sigupSchema = Yup.object().shape({
   fullname: Yup.string().required("Please enter your full name to sign up."),
@@ -22,6 +23,10 @@ const sigupSchema = Yup.object().shape({
   password: Yup.string()
     .required("Please enter your password to sign up.")
     .min(6, "The password needs to be 6 characters or longer."),
+  consentAccepted: Yup.boolean().oneOf(
+    [true],
+    "Please accept the legal notice and privacy policy before you can continue.",
+  ),
 });
 
 function Signup({
@@ -70,11 +75,16 @@ function Signup({
   }, [isAuthenticated, from, history]);
 
   async function handleSignup(values) {
-    await signUpWithEmailRequest(
-      values.email,
-      values.password,
-      values.fullname,
-    );
+    const { email, password, fullname, consentAccepted } = values;
+
+    await signUpWithEmailRequest({
+      email,
+      password,
+      displayName: fullname,
+      consentAccepted,
+      consentValue:
+        "I have read and accept the legal notice and the privacy policy",
+    });
   }
 
   return (
@@ -94,6 +104,7 @@ function Signup({
           fullname: "",
           email: "",
           password: "",
+          consentAccepted: false,
         }}
         validationSchema={sigupSchema}
         onSubmit={(values) => {
@@ -172,6 +183,44 @@ function Signup({
                 aria-hidden="true"
               >
                 {errors.password}
+              </ValidationErrorMessage>
+            )}
+            <Checkbox
+              name="consentAccepted"
+              idLabel="privacy-checkbox"
+              aria-describedby="checkbox-validation"
+              aria-required="true"
+              aria-label="I have read and accept the legal notice and the privacy policy"
+            />
+            <CheckboxLabel
+              idLabel="privacy-checkbox"
+              additionalClasses="Signup__CheckboxLabel"
+            >
+              I have read and accept the{" "}
+              <a
+                href="https://www.danilucaci.com/legal-notice"
+                target="_blank"
+                rel="nofollow noopener noreferrer"
+              >
+                legal notice
+              </a>{" "}
+              and the{" "}
+              <a
+                href="https://www.danilucaci.com/privacy-policy"
+                target="_blank"
+                rel="nofollow noopener noreferrer"
+              >
+                privacy policy
+              </a>
+              .
+            </CheckboxLabel>
+            {touched.consentAccepted && errors.consentAccepted && (
+              <ValidationErrorMessage
+                additionalClasses="Signup__InlineErrorMsg"
+                id="checkbox-validation"
+                aria-hidden="true"
+              >
+                {errors.consentAccepted}
               </ValidationErrorMessage>
             )}
             <PrimaryButton

@@ -72,6 +72,11 @@
     margin-bottom: tokens.$spacing-c-05;
   }
 
+  &__CheckboxLabel {
+    display: block;
+    margin-top: tokens.$spacing-c-04;
+  }
+
   &__ErrorsDivider {
     margin-top: tokens.$spacing-c-07;
     margin-bottom: tokens.$spacing-c-05;

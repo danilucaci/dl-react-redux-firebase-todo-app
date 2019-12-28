@@ -116,6 +116,33 @@ $color-background-todo-checkbox-completed-focus-polyfill: colors.$primary700;
 $color-background-todo-checkbox-completed-hover: colors.$primary500;
 $color-background-todo-checkbox-completed-disabled: colors.$grey500;
 
+// Checkbox
+$color-background-checkbox-enabled: colors.$grey00;
+$color-background-checkbox-focus: colors.$grey00;
+$color-background-checkbox-focus-polyfill: colors.$grey00;
+$color-background-checkbox-hover: colors.$primary50;
+$color-background-checkbox-disabled: colors.$grey00;
+$color-background-checkbox-checked-enabled: colors.$primary600;
+$color-background-checkbox-checked-focus: colors.$primary600;
+$color-background-checkbox-checked-focus-polyfill: colors.$primary600;
+$color-background-checkbox-checked-hover: colors.$primary500;
+$color-background-checkbox-checked-disabled: colors.$grey500;
+
+// Checkbox Borders
+$color-border-checkbox-enabled: colors.$grey600;
+$color-border-checkbox-focus: colors.$grey900;
+$color-border-checkbox-focus-polyfill: colors.$grey900;
+$color-border-checkbox-hover: colors.$grey900;
+$color-border-checkbox-disabled: colors.$grey500;
+$color-border-checkbox-checked-enabled: colors.$primary600;
+$color-border-checkbox-checked-hover: colors.$primary500;
+$color-border-checkbox-checked-focus: colors.$primary900;
+$color-border-checkbox-checked-focus-polyfill: colors.$primary600;
+$color-border-checkbox-checked-disabled: colors.$grey600;
+
+// Checkbox Icon
+$color-icon-checkbox: colors.$grey00;
+
 $color-background-input-enabled: colors.$grey00;
 $color-background-search-bar-mobile: colors.$grey00;
 $color-background-search-bar-enabled: colors.$grey50;

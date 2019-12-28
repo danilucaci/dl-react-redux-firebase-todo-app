@@ -1,0 +1,141 @@
+@use "../../styles/tokens";
+@use "../../styles/base/placeholders";
+
+.Checkbox {
+  display: block;
+  /* take it out of document flow */
+  position: absolute;
+
+  /* hide it */
+  opacity: 0;
+
+  & + label {
+    position: relative;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  /* Box */
+  & + label:before {
+    content: "";
+    margin-right: tokens.rem(8);
+
+    margin-bottom: tokens.rem(2);
+    display: inline-block;
+    vertical-align: middle;
+    width: tokens.rem(20);
+    height: tokens.rem(20);
+    background-color: tokens.$color-background-checkbox-enabled;
+    border: tokens.$color-border-checkbox-enabled tokens.$border-checkbox solid;
+    border-radius: tokens.$border-radius-checkbox;
+  }
+
+  /* Box hover */
+  &:hover + label:before {
+    border-color: tokens.$color-border-checkbox-hover;
+    transform: scale(1.1);
+  }
+
+  /* Disabled */
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &:disabled + label:before {
+    border: tokens.$color-border-checkbox-checked-disabled
+      tokens.$border-checkbox solid;
+    background-color: tokens.$color-background-checkbox-disabled;
+    transform: scale(1.1);
+    cursor: not-allowed;
+  }
+
+  &:checked:hover + label:before {
+    border-color: tokens.$color-border-checkbox-checked-hover;
+    background-color: tokens.$color-background-checkbox-checked-hover;
+    transform: scale(1.1);
+  }
+
+  /* Box focus */
+  &:focus + label:before {
+    border: tokens.$color-border-checkbox-checked-focus tokens.$border-checkbox
+      solid;
+    background-color: tokens.$color-background-checkbox-focus;
+    box-shadow: tokens.$shadow-button-outlined-focus;
+    transform: scale(1.1);
+  }
+
+  .js-focus-visible &:focus:not([data-focus-visible-added]) + label:before {
+    background-color: tokens.$color-background-checkbox-focus-polyfill;
+    border-color: tokens.$color-border-checkbox-focus-polyfill;
+    box-shadow: none;
+    cursor: pointer;
+    outline: none;
+  }
+
+  /* Box checked focus */
+  &:checked:focus + label:before {
+    background-color: tokens.$color-background-checkbox-checked-focus;
+    border: tokens.$color-border-checkbox-checked-focus tokens.$border-checkbox
+      solid;
+    box-shadow: tokens.$shadow-button-primary-focus;
+    transform: scale(1.1);
+  }
+
+  .js-focus-visible
+    &:checked:focus:not([data-focus-visible-added])
+    + label:before {
+    background-color: tokens.$color-background-checkbox-checked-focus-polyfill;
+    border: tokens.$color-border-checkbox-checked-focus-polyfill
+      tokens.$border-checkbox solid;
+    box-shadow: none;
+    cursor: pointer;
+    outline: none;
+  }
+
+  /* Remove border from :before when checked */
+  &:checked + label:before {
+    border: none;
+    background-color: tokens.$color-background-checkbox-checked-enabled;
+  }
+
+  /* Box checked */
+  &:checked:hover + label:after {
+    transform-origin: center center;
+    transform: scale(1.1) rotate(35deg);
+  }
+
+  /* Checked Disabled */
+  &:checked:disabled + label:before {
+    border: tokens.$color-border-checkbox-checked-disabled
+      tokens.$border-checkbox solid;
+    background-color: tokens.$color-background-checkbox-checked-disabled;
+    transform: scale(1.1);
+    cursor: not-allowed;
+  }
+
+  &:checked:disabled {
+    cursor: not-allowed;
+  }
+
+  /* Box checked */
+  &:checked:focus + label:after {
+    transform-origin: center center;
+    transform: scale(1.1) rotate(35deg);
+  }
+
+  /* Checkmark */
+  &:checked + label:after {
+    content: "";
+    position: absolute;
+    left: tokens.rem(6);
+    top: tokens.rem(4);
+    background: none;
+    width: tokens.rem(8);
+    height: tokens.rem(13);
+    border-top: none;
+    border-left: none;
+    border-bottom: 3px solid tokens.$color-icon-checkbox;
+    border-right: 3px solid tokens.$color-icon-checkbox;
+    transform: rotate(35deg);
+  }
+}

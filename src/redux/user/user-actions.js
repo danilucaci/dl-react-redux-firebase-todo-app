@@ -70,7 +70,13 @@ export function logoutUser() {
   };
 }
 
-export function signUpWithEmailRequest(email, password, displayName) {
+export function signUpWithEmailRequest({
+  email,
+  password,
+  displayName,
+  consentAccepted,
+  consentValue,
+}) {
   return async (dispatch) => {
     dispatch(signupRequest());
     dispatch(setLiveRegionMessage("Signing in"));
@@ -85,6 +91,8 @@ export function signUpWithEmailRequest(email, password, displayName) {
     if (user) {
       const newUser = await createSignUpUserDocument(user, {
         displayName,
+        consentAccepted,
+        consentValue,
       }).catch((errorMessage) => {
         dispatch(setSignupErrors(errorMessage));
       });
@@ -96,7 +104,7 @@ export function signUpWithEmailRequest(email, password, displayName) {
   };
 }
 
-export function signUpWithGoogleRequest() {
+export function signUpWithGoogleRequest({ consentAccepted, consentValue }) {
   return async (dispatch) => {
     dispatch(signupRequest());
     dispatch(setLiveRegionMessage("Signing in with google"));
@@ -107,11 +115,12 @@ export function signUpWithGoogleRequest() {
       })) || {};
 
     if (user) {
-      const newUser = await createSignUpUserDocument(user).catch(
-        (errorMessage) => {
-          dispatch(setSignupErrors(errorMessage));
-        },
-      );
+      const newUser = await createSignUpUserDocument(user, {
+        consentAccepted,
+        consentValue,
+      }).catch((errorMessage) => {
+        dispatch(setSignupErrors(errorMessage));
+      });
 
       if (newUser) {
         dispatch(signupSuccess(newUser));

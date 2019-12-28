@@ -19,7 +19,8 @@ export const mapStateToProps = (state) => ({
 });
 
 export const mapDispatchToProps = (dispatch) => ({
-  signUpWithGoogleRequest: () => dispatch(signUpWithGoogleRequest()),
+  signUpWithGoogleRequest: (consentData) =>
+    dispatch(signUpWithGoogleRequest(consentData)),
   setLiveRegionMessage: (message) => dispatch(setLiveRegionMessage(message)),
   openCookieConsent: () => dispatch(openCookieConsent()),
   enqueueSnackbar: (message) => dispatch(enqueueSnackbar(message)),
@@ -55,7 +56,11 @@ function SignInWithGoogle({
       });
     } else {
       setLiveRegionMessage("Signing in with google");
-      signUpWithGoogleRequest();
+      signUpWithGoogleRequest({
+        consentAccepted: consentAccepted,
+        consentValue:
+          "I have read and accept the legal notice and the privacy policy",
+      });
     }
   }
 
