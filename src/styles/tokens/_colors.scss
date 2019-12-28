@@ -4,19 +4,6 @@
 // Color Tokens
 // ******************************************
 
-$color-text-body-default: colors.$grey900;
-$color-text-body-subdued: colors.$grey700;
-$color-text-body-error: colors.$danger600;
-$color-text-display-default: colors.$grey900;
-$color-text-subhead-default: colors.$grey700;
-$color-text-subhead-dark: colors.$grey900;
-$color-text-button-primary-enabled: colors.$primary50;
-$color-text-button-primary-disabled: colors.$grey00;
-$color-text-button-outlined-enabled: colors.$grey900;
-$color-text-button-outlined-disabled: colors.$grey700;
-$color-text-button-text-enabled: colors.$grey900;
-$color-text-button-text-disabled: colors.$grey700;
-
 // Autocomplete mark background
 $color-background-autocomplete-selection: colors.$grey200;
 $color-background-mobile-search-bar-background: colors.$grey50;
@@ -27,39 +14,19 @@ $color-background-todo-item-scroll-to-default: colors.$grey00;
 $color-background-todo-item-scroll-to-highlight: colors.$grey200;
 
 // Links
-$color-text-link-default: colors.$primary600;
-$color-text-link-hover: colors.$primary500;
-$color-text-link-active: colors.$primary700;
 $color-background-link-default: colors.$grey00;
 $color-background-link-hover: colors.$primary50;
 $color-background-link-active: colors.$primary100;
 
+// Input fields
+$color-background-input: colors.$grey00;
+
 // Validation
 $color-background-validation-error: colors.$danger50;
 $color-background-validation-success: colors.$success50;
-$color-border-validation-error: colors.$danger700;
-$color-border-validation-success: colors.$success600;
-$color-text-validation-error: colors.$danger900;
-$color-text-validation-success: colors.$success900;
-
-// Input fields
-$color-text-input-enabled: colors.$grey700;
-$color-text-input-active: colors.$grey900;
-$color-text-input-disabled: colors.$grey500;
-$color-background-input: colors.$grey00;
 
 // Select
-$color-text-select-enabled: colors.$grey700;
-$color-text-select-active: colors.$grey900;
-$color-text-select-disabled: colors.$grey500;
 $color-background-select: colors.$grey00;
-
-$color-background-outlined-enabled: transparent;
-$color-background-outlined-hover: colors.$grey50;
-$color-background-outlined-active: colors.$grey100;
-$color-background-outlined-focus: colors.$grey50;
-$color-background-outlined-focus-polyfill: colors.$grey100;
-$color-background-outlined-disabled: transparent;
 
 // Date picker
 $color-background-datepicker-enabled: colors.$grey00;
@@ -68,18 +35,14 @@ $color-background-datepicker-hover: colors.$grey100;
 $color-background-datepicker-today: colors.$grey100;
 $color-background-datepicker-disabled: colors.$grey00;
 $color-background-datepicker-navbutton: colors.$grey600;
-$color-text-datepicker-enabled: colors.$grey900;
-$color-text-datepicker-selected: colors.$grey00;
-$color-text-datepicker-hover: colors.$grey900;
-$color-text-datepicker-today: colors.$grey900;
-$color-text-datepicker-disabled: colors.$grey500;
-$color-text-datepicker-weekday: colors.$grey600;
-$color-text-datepicker-monthname: colors.$grey900;
-$color-border-datepicker-enabled: colors.$grey300;
-$color-border-datepicker-selected: colors.$primary600;
-$color-border-datepicker-hover: colors.$grey300;
-$color-border-datepicker-today: colors.$grey300;
-$color-border-datepicker-disabled: colors.$grey300;
+
+// Buttons
+$color-background-outlined-enabled: transparent;
+$color-background-outlined-hover: colors.$grey50;
+$color-background-outlined-active: colors.$grey100;
+$color-background-outlined-focus: colors.$grey50;
+$color-background-outlined-focus-polyfill: colors.$grey100;
+$color-background-outlined-disabled: transparent;
 
 $color-background-text-button-enabled: transparent;
 $color-background-text-button-hover: colors.$grey50;
@@ -128,21 +91,7 @@ $color-background-checkbox-checked-focus-polyfill: colors.$primary600;
 $color-background-checkbox-checked-hover: colors.$primary500;
 $color-background-checkbox-checked-disabled: colors.$grey500;
 
-// Checkbox Borders
-$color-border-checkbox-enabled: colors.$grey600;
-$color-border-checkbox-focus: colors.$grey900;
-$color-border-checkbox-focus-polyfill: colors.$grey900;
-$color-border-checkbox-hover: colors.$grey900;
-$color-border-checkbox-disabled: colors.$grey500;
-$color-border-checkbox-checked-enabled: colors.$primary600;
-$color-border-checkbox-checked-hover: colors.$primary500;
-$color-border-checkbox-checked-focus: colors.$primary900;
-$color-border-checkbox-checked-focus-polyfill: colors.$primary600;
-$color-border-checkbox-checked-disabled: colors.$grey600;
-
-// Checkbox Icon
-$color-icon-checkbox: colors.$grey00;
-
+// Search bar
 $color-background-input-enabled: colors.$grey00;
 $color-background-search-bar-mobile: colors.$grey00;
 $color-background-search-bar-enabled: colors.$grey50;
@@ -169,6 +118,33 @@ $color-background-page-lightest: colors.$grey00;
 $color-background-page-lighter: colors.$grey50;
 $color-background-page-light: colors.$grey100;
 
+// Avatars
+$color-background-avatar-on-white: colors.$grey300;
+$color-background-avatar-on-grey: colors.$grey400;
+
+// Date picker
+$color-border-datepicker-enabled: colors.$grey300;
+$color-border-datepicker-selected: colors.$primary600;
+$color-border-datepicker-hover: colors.$grey300;
+$color-border-datepicker-today: colors.$grey300;
+$color-border-datepicker-disabled: colors.$grey300;
+
+// Checkbox Borders
+$color-border-checkbox-enabled: colors.$grey600;
+$color-border-checkbox-focus: colors.$grey900;
+$color-border-checkbox-focus-polyfill: colors.$grey900;
+$color-border-checkbox-hover: colors.$grey900;
+$color-border-checkbox-disabled: colors.$grey500;
+$color-border-checkbox-checked-enabled: colors.$primary600;
+$color-border-checkbox-checked-hover: colors.$primary500;
+$color-border-checkbox-checked-focus: colors.$primary900;
+$color-border-checkbox-checked-focus-polyfill: colors.$primary600;
+$color-border-checkbox-checked-disabled: colors.$grey600;
+
+// Validation
+$color-border-validation-error: colors.$danger700;
+$color-border-validation-success: colors.$success600;
+
 // Check Button Borders
 $color-border-todo-checkbox-enabled: colors.$grey600;
 $color-border-todo-checkbox-enabled-focus: colors.$grey900;
@@ -178,41 +154,6 @@ $color-border-todo-checkbox-completed: colors.$primary600;
 $color-border-todo-checkbox-completed-focus: colors.$primary900;
 $color-border-todo-checkbox-completed-hover: colors.$primary500;
 $color-border-todo-checkbox-completed-disabled: colors.$grey600;
-
-// Check Button Icon
-$color-icon-todo-checkbox-enabled: transparent;
-$color-icon-todo-checkbox-enabled-focus: colors.$grey900;
-$color-icon-todo-checkbox-enabled-hover: colors.$primary600;
-$color-icon-todo-checkbox-enabled-disabled: transparent;
-$color-icon-todo-checkbox-completed: colors.$grey00;
-$color-icon-todo-checkbox-completed-focus: colors.$grey00;
-$color-icon-todo-checkbox-completed-hover: colors.$grey00;
-$color-icon-todo-checkbox-completed-disabled: colors.$grey00;
-
-$color-icon-default: colors.$grey600;
-$color-icon-default-active: colors.$grey800;
-
-// Spinner
-$color-icon-spinner-default: colors.$grey00;
-$color-icon-spinner-dark: colors.$grey900;
-
-$color-icon-button-primary-enabled: colors.$grey00;
-$color-icon-button-primary-hover: colors.$grey00;
-$color-icon-button-primary-active: colors.$grey00;
-$color-icon-button-primary-focus: colors.$grey00;
-$color-icon-button-primary-disabled: colors.$grey00;
-
-$color-icon-button-outlined-enabled: colors.$grey900;
-$color-icon-button-outlined-hover: colors.$grey900;
-$color-icon-button-outlined-active: colors.$grey900;
-$color-icon-button-outlined-focus: colors.$grey900;
-$color-icon-button-outlined-disabled: colors.$grey500;
-
-$color-icon-button-text-enabled: colors.$grey900;
-$color-icon-button-text-hover: colors.$grey900;
-$color-icon-button-text-active: colors.$grey900;
-$color-icon-button-text-focus: colors.$grey900;
-$color-icon-button-text-disabled: colors.$grey500;
 
 $color-border-outlined-enabled: colors.$grey700;
 $color-border-outlined-hover: colors.$grey700;
@@ -260,12 +201,91 @@ $color-border-input-disabled: colors.$grey500;
 $color-border-header: colors.$grey300;
 $color-border-components-default: colors.$grey300;
 
+// Avatars
+$color-border-avatar-on-white: colors.$grey200;
+$color-border-avatar-on-grey: colors.$grey300;
+
 // Dividers
 $color-divider-on-white: colors.$grey200;
 $color-divider-on-grey: colors.$grey300;
 
-// Avatars
-$color-border-avatar-on-white: colors.$grey200;
-$color-border-avatar-on-grey: colors.$grey300;
-$color-background-avatar-on-white: colors.$grey300;
-$color-background-avatar-on-grey: colors.$grey400;
+// Default icon
+$color-icon-default: colors.$grey600;
+$color-icon-default-active: colors.$grey800;
+
+// Check Button Icon
+$color-icon-todo-checkbox-enabled: transparent;
+$color-icon-todo-checkbox-enabled-focus: colors.$grey900;
+$color-icon-todo-checkbox-enabled-hover: colors.$primary600;
+$color-icon-todo-checkbox-enabled-disabled: transparent;
+$color-icon-todo-checkbox-completed: colors.$grey00;
+$color-icon-todo-checkbox-completed-focus: colors.$grey00;
+$color-icon-todo-checkbox-completed-hover: colors.$grey00;
+$color-icon-todo-checkbox-completed-disabled: colors.$grey00;
+
+// Spinner
+$color-icon-spinner-default: colors.$grey00;
+$color-icon-spinner-dark: colors.$grey900;
+
+$color-icon-button-primary-enabled: colors.$grey00;
+$color-icon-button-primary-hover: colors.$grey00;
+$color-icon-button-primary-active: colors.$grey00;
+$color-icon-button-primary-focus: colors.$grey00;
+$color-icon-button-primary-disabled: colors.$grey00;
+
+$color-icon-button-outlined-enabled: colors.$grey900;
+$color-icon-button-outlined-hover: colors.$grey900;
+$color-icon-button-outlined-active: colors.$grey900;
+$color-icon-button-outlined-focus: colors.$grey900;
+$color-icon-button-outlined-disabled: colors.$grey500;
+
+$color-icon-button-text-enabled: colors.$grey900;
+$color-icon-button-text-hover: colors.$grey900;
+$color-icon-button-text-active: colors.$grey900;
+$color-icon-button-text-focus: colors.$grey900;
+$color-icon-button-text-disabled: colors.$grey500;
+
+// Checkbox Icon
+$color-icon-checkbox: colors.$grey00;
+
+// Text
+$color-text-body-default: colors.$grey900;
+$color-text-body-subdued: colors.$grey700;
+$color-text-body-error: colors.$danger600;
+$color-text-display-default: colors.$grey900;
+$color-text-subhead-default: colors.$grey700;
+$color-text-subhead-dark: colors.$grey900;
+$color-text-button-primary-enabled: colors.$primary50;
+$color-text-button-primary-disabled: colors.$grey00;
+$color-text-button-outlined-enabled: colors.$grey900;
+$color-text-button-outlined-disabled: colors.$grey700;
+$color-text-button-text-enabled: colors.$grey900;
+$color-text-button-text-disabled: colors.$grey700;
+
+// Links
+$color-text-link-default: colors.$primary600;
+$color-text-link-hover: colors.$primary500;
+$color-text-link-active: colors.$primary700;
+
+// Validation
+$color-text-validation-error: colors.$danger900;
+$color-text-validation-success: colors.$success900;
+
+// Input fields
+$color-text-input-enabled: colors.$grey700;
+$color-text-input-active: colors.$grey900;
+$color-text-input-disabled: colors.$grey500;
+
+// Select
+$color-text-select-enabled: colors.$grey700;
+$color-text-select-active: colors.$grey900;
+$color-text-select-disabled: colors.$grey500;
+
+// Date picker
+$color-text-datepicker-enabled: colors.$grey900;
+$color-text-datepicker-selected: colors.$grey00;
+$color-text-datepicker-hover: colors.$grey900;
+$color-text-datepicker-today: colors.$grey900;
+$color-text-datepicker-disabled: colors.$grey500;
+$color-text-datepicker-weekday: colors.$grey600;
+$color-text-datepicker-monthname: colors.$grey900;
