@@ -44,6 +44,7 @@ service cloud.firestore {
     
     match /colors/{colorId} {
       allow read: if isSignedIn() && queryLimit(40);
+      allow create: if isSignedIn() && isAdmin(request.auth.token.email);
     }
 
     match /users/{userId} {

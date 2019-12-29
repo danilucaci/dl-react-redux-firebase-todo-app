@@ -65,7 +65,7 @@ exports.onCreateUser = functions.firestore
     );
 
     const otherColors = colorsData.filter(
-      (color) => !color.hasOwnProperty([COLLECTIONS.inboxColorIdentifier]),
+      (color) => color[COLLECTIONS.inboxColorIdentifier] === false,
     );
 
     // Empty doc ref
