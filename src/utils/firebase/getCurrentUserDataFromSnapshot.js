@@ -15,6 +15,7 @@ function getCurrentUserDataFromSnapshot(snapshot) {
       email: snapshot.data().email,
       avatar: snapshot.data().photoURL || null,
       role: isAdmin(snapshot.data().email) ? ["admin"] : null,
+      userDataPopulated: snapshot.data().userDataPopulated,
     };
 
     return userObj;

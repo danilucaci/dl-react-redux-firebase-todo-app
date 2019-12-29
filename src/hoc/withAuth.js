@@ -67,10 +67,16 @@ function withAuth(Component) {
                     function handleUserSnapshot(snapshot) {
                       // If the user is deleted from firestore clear the local storage
                       if (snapshot.exists) {
-                        setAuthLiveRegionMessage(
-                          "You have successfully logged in",
+                        const userData = getCurrentUserDataFromSnapshot(
+                          snapshot,
                         );
-                        loginSuccess(getCurrentUserDataFromSnapshot(snapshot));
+
+                        if (userData.userDataPopulated) {
+                          setAuthLiveRegionMessage(
+                            "You have successfully logged in",
+                          );
+                          loginSuccess(userData);
+                        }
                       } else {
                         handleLogOut();
                       }

@@ -6,7 +6,7 @@ import { isEmptyObj } from "../helpers";
  * Creates a new user document in firestore when the user is logged in.
  *
  * 1. Checks if the user already exists.
- * 2. If it doesn’t, it creates a new user with a default project.
+ * 2. If it doesn’t, it creates a new user.
  * 3. If it already exists, return the userRef from firestore.
  *
  * @param {Object} user The current signed in user.
@@ -51,21 +51,16 @@ export async function createUserProfileDocument(
         email,
         photoURL,
         createdAt,
+        userDataPopulated: false,
         ...additionalData,
       });
-
-      /**
-       * 4. Add an initial `Inbox` project document in the user’s `projects` sub-collection.
-       * `Inbox` is the default project each user has when they sign up.
-       */
-      await createDefaultUserProject(user.uid);
     } catch (errorMessage) {
       return Promise.reject(errorMessage);
     }
   }
 
   /**
-   * 5. Return the new user’s `uid` and null for the errors.
+   * 4. Return the new user ref.
    */
   return userRef;
 }
@@ -83,111 +78,4 @@ export async function getUserDocumentRef(uid = null) {
   }
 
   return firestore.collection(COLLECTIONS.USERS).doc(uid);
-}
-
-/**
- * Create the default project for each user when they sign up.
- *
- * @param {Object} userID The current signed in user.
- */
-export async function createDefaultUserProject(userID = null) {
-  if (!userID) {
-    return Promise.reject("No user id provided");
-  }
-
-  /**
-   * https://firebase.google.com/docs/firestore/manage-data/add-data#add_a_document
-   *
-   * In some cases, it can be useful to create a document reference
-   * with an auto-generated ID, then use the reference later.
-   * For this use case, you can call `doc()`.
-   *
-   * 1. Get a ref to a new project document in the users’ `projects` sub-collection
-   * (projects are stored as sub-collections of each user: `user/project/project-name`)
-   */
-  const inboxProjectRef = firestore
-    .collection(COLLECTIONS.USERS)
-    .doc(userID)
-    .collection(COLLECTIONS.PROJECTS)
-    .doc();
-
-  /**
-   * 2. Get the color data for the `Inbox` project type from firebase
-   * @example
-   * colorData = {
-   *   colorID: "color-id",
-   *   colorName: "Inbox",
-   *   colorValue: "#hex-value",
-   * }
-   */
-  const inboxColorResult = await getInboxColor().catch((errorMessage) => {
-    return Promise.reject(errorMessage);
-  });
-
-  /**
-   * 3. Add a new `project` document with the id from the previous generated `inboxProjectRef`.
-   *
-   * Add an initial `Inbox` project document in the user’s `projects` sub-collection.
-   * `Inbox` is the default project each user has when they sign up.
-   */
-  const newInboxProject = {
-    uid: userID,
-    name: COLLECTIONS.DEFAULT_USER_PROJECT_NAME,
-    [COLLECTIONS.INBOX_PROJECT_IDENTIFIER]: true,
-    todosCount: 0,
-    color: inboxColorResult,
-  };
-
-  await inboxProjectRef
-    .set({
-      ...newInboxProject,
-    })
-    .catch((error) => {
-      return Promise.reject(error.message);
-    });
-}
-
-/**
- * Get the color info of the default user project.
- * When a new user signs up we need to create a default project.
- *
- * @returns {Object} `colorData` Object with the color data of the default project.
- * @example
- *
- * Object with the color info from firebase
- * colorData = {
- *   colorID: "color-id",
- *   colorName: "Inbox",
- *   colorValue: "#hex-value",
- * }
- */
-export async function getInboxColor() {
-  try {
-    const colorSnapshot = await firestore
-      .collection(COLLECTIONS.COLORS)
-      .where(COLLECTIONS.INBOX_COLOR_IDENTIFIER, "==", true)
-      .limit(40)
-      .get()
-      .catch((e) => {
-        return Promise.reject(e.message);
-      });
-
-    // If it is not empty return the color data of the default project
-    if (!colorSnapshot.empty) {
-      if (colorSnapshot.docs && colorSnapshot.docs[0].exists) {
-        return {
-          colorID: colorSnapshot.docs[0].id,
-          colorName: colorSnapshot.docs[0].data().colorName,
-          colorValue: colorSnapshot.docs[0].data().colorValue,
-        };
-      }
-
-      return Promise.reject("Failed to get the default project color data.");
-    }
-
-    // If the snapshot was empty return null
-    return Promise.reject("Failed to get the default project color data.");
-  } catch (e) {
-    return Promise.reject(e.message);
-  }
 }

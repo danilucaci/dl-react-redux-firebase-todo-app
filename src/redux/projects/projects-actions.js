@@ -74,17 +74,26 @@ export function subscribeToProjects() {
       if (change.type === "added") {
         const projectData = getObjectFromSingleDoc(change.doc);
         dispatch(addLocalProject(projectData));
-        dispatch(setLiveRegionMessage(`Added project ${projectData.name}`));
+
+        if (currentUser.userDataPopulated) {
+          dispatch(setLiveRegionMessage(`Added project ${projectData.name}`));
+        }
       }
       if (change.type === "modified") {
         const projectData = getObjectFromSingleDoc(change.doc);
         dispatch(updateLocalProject(projectData));
-        dispatch(setLiveRegionMessage(`Updated project ${projectData.name}`));
+
+        if (currentUser.userDataPopulated) {
+          dispatch(setLiveRegionMessage(`Updated project ${projectData.name}`));
+        }
       }
       if (change.type === "removed") {
         const projectData = getObjectFromSingleDoc(change.doc);
         dispatch(removeLocalProject(projectData.id));
-        dispatch(setLiveRegionMessage(`Removed project ${projectData.name}`));
+
+        if (currentUser.userDataPopulated) {
+          dispatch(setLiveRegionMessage(`Removed project ${projectData.name}`));
+        }
       }
     }
 

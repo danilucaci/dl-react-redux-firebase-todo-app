@@ -74,17 +74,26 @@ export function subscribeToLabels() {
       if (change.type === "added") {
         const labelData = getObjectFromSingleDoc(change.doc);
         dispatch(addLocalLabel(labelData));
-        dispatch(setLiveRegionMessage(`Added label ${labelData.name}`));
+
+        if (currentUser.userDataPopulated) {
+          dispatch(setLiveRegionMessage(`Added label ${labelData.name}`));
+        }
       }
       if (change.type === "modified") {
         const labelData = getObjectFromSingleDoc(change.doc);
         dispatch(updateLocalLabel(labelData));
-        dispatch(setLiveRegionMessage(`Updated label ${labelData.name}`));
+
+        if (currentUser.userDataPopulated) {
+          dispatch(setLiveRegionMessage(`Updated label ${labelData.name}`));
+        }
       }
       if (change.type === "removed") {
         const labelData = getObjectFromSingleDoc(change.doc);
         dispatch(removeLocalLabel(labelData.id));
-        dispatch(setLiveRegionMessage(`Removed label ${labelData.name}`));
+
+        if (currentUser.userDataPopulated) {
+          dispatch(setLiveRegionMessage(`Removed label ${labelData.name}`));
+        }
       }
     }
 

@@ -59,7 +59,12 @@ function App({
     initialLabelsLoaded = false,
     initialColorsLoaded = false,
   } = {},
-  user: { isAuthenticated = false, signupErrors, loginErrors } = {},
+  user: {
+    isAuthenticated = false,
+    currentUser,
+    signupErrors,
+    loginErrors,
+  } = {},
   closeMenu,
   setInitialDataLoaded,
   subscribeToColors,
@@ -107,7 +112,15 @@ function App({
     return () => {
       prevLocation.current = location;
     };
-  }, [clearLoginError, clearSignupError, closeMenu, location, loginErrors, menuOpen, signupErrors]);
+  }, [
+    clearLoginError,
+    clearSignupError,
+    closeMenu,
+    location,
+    loginErrors,
+    menuOpen,
+    signupErrors,
+  ]);
 
   useEffect(() => {
     if (isAuthenticated && !initialDataLoaded) {
@@ -116,8 +129,14 @@ function App({
   }, [isAuthenticated, initialDataLoaded, setLiveRegionMessage]);
 
   useEffect(() => {
+    /**
+     * @param currentUser.userDataPopulated
+     * Wait for the `onCreate` firestore trigger to update the user
+     * and create the demo inital projects, label, and todos.
+     */
     if (
       isAuthenticated &&
+      currentUser.userDataPopulated &&
       !initialDataLoaded &&
       initialTodosLoaded &&
       initialProjectsLoaded &&
@@ -128,6 +147,7 @@ function App({
     }
   }, [
     isAuthenticated,
+    currentUser,
     initialDataLoaded,
     initialTodosLoaded,
     initialProjectsLoaded,

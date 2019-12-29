@@ -17,9 +17,9 @@ const todosReducer = (state = INITIAL_STATE, action) => {
         ...state,
         byID: {
           ...state.byID,
-          [action.payload.id]: {
-            ...action.payload,
-            isFocused: true,
+          [action.payload.data.id]: {
+            ...action.payload.data,
+            isFocused: action.payload.shouldFocus,
           },
         },
       };

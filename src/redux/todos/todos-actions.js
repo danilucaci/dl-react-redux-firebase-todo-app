@@ -36,9 +36,9 @@ export const toggleTodoFocus = (todo) => ({
   payload: todo,
 });
 
-export const addLocalTodo = (todo) => ({
+export const addLocalTodo = ({ data, shouldFocus }) => ({
   type: TodosTypes.ADD_TODO,
-  payload: todo,
+  payload: { data, shouldFocus },
 });
 
 export const updateLocalTodo = (todo) => ({
@@ -125,18 +125,39 @@ export function subscribeToTodos() {
     function handleTodoDocChanges(change) {
       if (change.type === "added") {
         const todoData = getTodoObjectFromSingleDoc(change.doc);
-        dispatch(addLocalTodo(todoData));
-        dispatch(setLiveRegionMessage(`Added todo ${todoData.name}`));
+
+        const dispatchData = {
+          data: todoData,
+          shouldFocus: true,
+        };
+
+        // shouldFocus: Don’t set `isFocused` on the initial demo todos
+        // created by the firestore `users/{userId}` `onCreate` trigger.
+        if (!currentUser.userDataPopulated) {
+          dispatchData.shouldFocus = false;
+        }
+
+        dispatch(addLocalTodo(dispatchData));
+
+        if (currentUser.userDataPopulated) {
+          dispatch(setLiveRegionMessage(`Added todo ${todoData.name}`));
+        }
       }
       if (change.type === "modified") {
         const todoData = getTodoObjectFromSingleDoc(change.doc);
         dispatch(updateLocalTodo(todoData));
-        dispatch(setLiveRegionMessage(`Updated todo ${todoData.name}`));
+
+        if (currentUser.userDataPopulated) {
+          dispatch(setLiveRegionMessage(`Updated todo ${todoData.name}`));
+        }
       }
       if (change.type === "removed") {
         const todoData = getTodoObjectFromSingleDoc(change.doc);
         dispatch(removeLocalTodo(todoData.id));
-        dispatch(setLiveRegionMessage(`Removed todo ${todoData.name}`));
+
+        if (currentUser.userDataPopulated) {
+          dispatch(setLiveRegionMessage(`Removed todo ${todoData.name}`));
+        }
       }
     }
 

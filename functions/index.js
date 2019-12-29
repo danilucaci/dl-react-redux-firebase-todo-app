@@ -1,254 +1,235 @@
-// const functions = require("firebase-functions");
-// const admin = require("firebase-admin");
-// admin.initializeApp(functions.config().firebase);
+const functions = require("firebase-functions");
+const admin = require("firebase-admin");
+admin.initializeApp(functions.config().firebase);
 
-// const firestore = admin.firestore();
-// const FieldValue = admin.firestore.FieldValue;
+const firestore = admin.firestore();
 
-// exports.onCreateTodo = functions.firestore
-//   .document("users/{userId}/todos/{todoId}")
-//   .onCreate(async (change, context) => {
-//     const todoData = change.data();
-//     const { userId } = context.params;
-//     const todoProject = todoData.project;
+/**
+ * Steps
+ *
+ * 1. `batch.update()` the new user to have `userDataPopulated: true`
+ * 2. Get all the colors
+ * 3. Filter `inboxColor` from all the app colors
+ * 4. Filter `otherColors` from all the app colors
+ * 5. Get an empty `doc()` ref to the inbox project
+ * 6. Get an empty `doc()` ref to the demo project
+ * 7. Get an empty `doc()` ref to the demo label
+ * 8. `batch.set()` inbox project
+ * 9. `batch.set()` demo project
+ * 10. `batch.set()` demo label
+ * 11. `batch.set()` demo todos
+ * 12. batch.commit()
+ */
 
-//     console.log(todoData);
+const COLLECTIONS = {
+  users: "users",
+  projects: "projects",
+  labels: "labels",
+  todos: "todos",
+  colors: "colors",
+  inboxColorIdentifier: "isInboxColor",
+  inboxProjectIdentifier: "isInbox",
+  defaultUserProjectName: "Inbox",
+};
 
-//     if (Array.isArray(todoData.labels)) {
-//       const labels = [...todoData.labels];
+exports.onCreateUser = functions.firestore
+  .document(`${COLLECTIONS.users}/{userId}`)
+  .onCreate(async (snapshot, ctx) => {
+    const { userId } = ctx.params;
 
-//       // Promise.all gets the array of promises from labels.map().
-//       await Promise.all(
-//         labels.map(async (label) => {
-//           const labelRef = firestore.doc(
-//             `users/${userId}/labels/${label.labelID}`,
-//           );
+    // const userData = snapshot.data();
 
-//           const snapshot = await labelRef.get().catch(console.error);
+    let batch = firestore.batch();
 
-//           if (snapshot.exists) {
-//             const labelData = snapshot.data();
+    const userRef = firestore.collection(COLLECTIONS.users).doc(userId);
 
-//             console.log(labelData);
+    batch.update(userRef, { userDataPopulated: true });
 
-//             labelRef
-//               .update({
-//                 todosCount: FieldValue.increment(1),
-//               })
-//               .catch(console.error);
-//           }
-//         }),
-//       ).catch(console.error);
-//     }
+    // 1. Get all colors from firestore
+    const colorSnapshot = await firestore
+      .collection(COLLECTIONS.colors)
+      .limit(40)
+      .get();
 
-//     try {
-//       if (!todoData.project.isInbox) {
-//         if (todoProject) {
-//           const projectRef = firestore.doc(
-//             `users/${userId}/projects/${todoProject.projectID}`,
-//           );
-//           const snapshot = await projectRef.get().catch(console.error);
+    if (colorSnapshot.empty || colorSnapshot.size < 2) {
+      throw new Error("No colors were found");
+    }
 
-//           if (snapshot.exists) {
-//             const projectData = snapshot.data();
+    const colorsData = colorSnapshot.docs.reduce(
+      (docs, currDoc) => [...docs, { id: currDoc.id, ...currDoc.data() }],
+      [],
+    );
 
-//             console.log(projectData);
+    const inboxColor = colorsData.filter(
+      (color) => color[COLLECTIONS.inboxColorIdentifier] === true,
+    );
 
-//             return projectRef
-//               .update({
-//                 todosCount: FieldValue.increment(1),
-//               })
-//               .catch(console.error);
-//           }
-//         }
-//       }
-//     } catch (error) {
-//       console.error(error);
-//     }
+    const otherColors = colorsData.filter(
+      (color) => !color.hasOwnProperty([COLLECTIONS.inboxColorIdentifier]),
+    );
 
-//     return null;
-//   });
+    // Empty doc ref
+    const inboxProjectRef = firestore
+      .collection(COLLECTIONS.users)
+      .doc(userId)
+      .collection(COLLECTIONS.projects)
+      .doc();
 
-// exports.onUpdateTodo = functions.firestore
-//   .document("users/{userId}/todos/{todoId}")
-//   .onUpdate(async (change, context) => {
-//     const { userId } = context.params;
-//     const previousTodoData = change.before.data();
+    // Empty doc ref
+    const demoProjectRef = firestore
+      .collection(COLLECTIONS.users)
+      .doc(userId)
+      .collection(COLLECTIONS.projects)
+      .doc();
 
-//     // after is undefined if the doc doesn’t exist
-//     const afterTodoData = change.after.data();
-//     change.after.updateTime;
+    // Empty doc ref
+    const demoLabelRef = firestore
+      .collection(COLLECTIONS.users)
+      .doc(userId)
+      .collection(COLLECTIONS.labels)
+      .doc();
 
-//     console.log(change.before.exists);
-//     console.log(change.before.updateTime);
-//     console.log(change.after.exists);
-//     console.log(change.after.updateTime);
-//     console.log(previousTodoData);
-//     console.log(afterTodoData);
+    const newInboxProject = {
+      uid: userId,
+      name: COLLECTIONS.defaultUserProjectName,
+      [COLLECTIONS.inboxProjectIdentifier]: true,
+      color: {
+        colorID: inboxColor[0].id,
+        colorName: inboxColor[0].colorName,
+        colorValue: inboxColor[0].colorValue,
+      },
+    };
 
-//     /**
-//      * If the project from the previous state isn’t the same as the new one
-//      * It means the projects have changed and I need to:
-//      * - decrement the `todosCount` from the previous project, if it isn’t `Inbox`.
-//      * - incremente the `todosCount` for the new project, if it isn’t `Inbox`.
-//      */
-//     if (
-//       previousTodoData.project.projectID !== afterTodoData.project.projectID
-//     ) {
-//       // If the previous project wasn’t Inbox, decrement the `todosCount`.
-//       try {
-//         if (!previousTodoData.project.isInbox) {
-//           const previousProjectRef = firestore.doc(
-//             `users/${userId}/projects/${previousTodoData.project.projectID}`,
-//           );
+    console.log({ newInboxProject });
 
-//           const previousSnapshot = await previousProjectRef
-//             .get()
-//             .catch(console.error);
+    batch.set(inboxProjectRef, newInboxProject);
 
-//           // If the project exists
-//           if (previousSnapshot.exists) {
-//             const previousProjectData = previousSnapshot.data();
+    const newDemoProject = {
+      uid: userId,
+      name: "Welcome",
+      [COLLECTIONS.inboxProjectIdentifier]: false,
+      color: {
+        colorID: otherColors[0].id,
+        colorName: otherColors[0].colorName,
+        colorValue: otherColors[0].colorValue,
+      },
+    };
 
-//             console.log(previousProjectData);
+    console.log({ newDemoProject });
 
-//             // Decrement the todos count from the previous project
-//             if (previousProjectData.todosCount > 0) {
-//               previousProjectRef
-//                 .update({
-//                   todosCount: FieldValue.increment(-1),
-//                 })
-//                 .catch(console.error);
-//             }
-//           }
-//         }
-//       } catch (error) {
-//         console.error(error);
-//       }
+    batch.set(demoProjectRef, newDemoProject);
 
-//       // Increment the `todosCount` of the new project if it’s not `Inbox`.
-//       try {
-//         if (!afterTodoData.project.isInbox) {
-//           const afterProjectRef = firestore.doc(
-//             `users/${userId}/projects/${afterTodoData.project.projectID}`,
-//           );
+    const newDemoLabel = {
+      uid: userId,
+      name: "personal",
+      color: {
+        colorID: otherColors[1].id,
+        colorName: otherColors[1].colorName,
+        colorValue: otherColors[1].colorValue,
+      },
+    };
 
-//           const afterSnapshot = await afterProjectRef
-//             .get()
-//             .catch(console.error);
+    console.log({ newDemoLabel });
 
-//           // If the project exists
-//           if (afterSnapshot.exists) {
-//             const afterProjectData = afterSnapshot.data();
+    batch.set(demoLabelRef, newDemoLabel);
 
-//             console.log(afterProjectData);
+    const demoTodo1Ref = firestore
+      .collection(COLLECTIONS.users)
+      .doc(userId)
+      .collection(COLLECTIONS.todos)
+      .doc();
 
-//             // Increment the todos count of the new project
+    const demoTodo1 = {
+      uid: userId,
+      name: "Create your first todo",
+      completed: false,
+      dueDate: null,
+      withTime: false,
+      labels: null,
+      project: {
+        projectID: inboxProjectRef.id,
+        colorName: newInboxProject.color.colorName,
+        colorValue: newInboxProject.color.colorValue,
+        name: newInboxProject.name,
+        [COLLECTIONS.inboxProjectIdentifier]: true,
+      },
+    };
 
-//             afterProjectRef
-//               .update({
-//                 todosCount: FieldValue.increment(1),
-//               })
-//               .catch(console.error);
-//           }
-//         }
-//       } catch (error) {
-//         console.error(error);
-//       }
-//     }
+    console.log({ demoTodo1 });
 
-//     return null;
-//   });
+    batch.set(demoTodo1Ref, demoTodo1);
 
-// exports.onDeleteTodo = functions.firestore
-//   .document("users/{userId}/todos/{todoId}")
-//   .onDelete(async (change, context) => {
-//     const todoData = change.data();
-//     const { userId } = context.params;
-//     const todoProject = todoData.project;
+    const demoTodo2Ref = firestore
+      .collection(COLLECTIONS.users)
+      .doc(userId)
+      .collection(COLLECTIONS.todos)
+      .doc();
 
-//     console.log(todoData);
+    var todoDate = new Date();
 
-//     if (Array.isArray(todoData.labels)) {
-//       const labels = [...todoData.labels];
+    const demoTodo2 = {
+      uid: userId,
+      name: "Create a todo with a due date",
+      completed: false,
+      dueDate: new Date(todoDate.setHours(todoDate.getHours() + 6)),
+      withTime: true,
+      labels: null,
+      project: {
+        projectID: demoProjectRef.id,
+        colorName: newDemoProject.color.colorName,
+        colorValue: newDemoProject.color.colorValue,
+        name: newDemoProject.name,
+        [COLLECTIONS.inboxProjectIdentifier]: false,
+      },
+    };
 
-//       // Promise.all gets the array of promises from labels.map().
-//       await Promise.all(
-//         labels.map(async (label) => {
-//           const labelRef = firestore.doc(
-//             `users/${userId}/labels/${label.labelID}`,
-//           );
+    console.log({ demoTodo2 });
 
-//           const snapshot = await labelRef.get().catch(console.error);
+    batch.set(demoTodo2Ref, demoTodo2);
 
-//           if (snapshot.exists) {
-//             const labelData = snapshot.data();
+    const demoTodo3Ref = firestore
+      .collection(COLLECTIONS.users)
+      .doc(userId)
+      .collection(COLLECTIONS.todos)
+      .doc();
 
-//             console.log(labelData);
+    const demoTodo3 = {
+      uid: userId,
+      name: "Create your first project",
+      completed: false,
+      dueDate: new Date(todoDate.setDate(todoDate.getDate() + 1)),
+      withTime: false,
+      labels: [
+        {
+          labelID: demoLabelRef.id,
+          colorName: newDemoLabel.color.colorName,
+          colorValue: newDemoLabel.color.colorValue,
+          name: newDemoLabel.name,
+        },
+      ],
+      project: {
+        projectID: inboxProjectRef.id,
+        colorName: newInboxProject.color.colorName,
+        colorValue: newInboxProject.color.colorValue,
+        name: newInboxProject.name,
+        [COLLECTIONS.inboxProjectIdentifier]: true,
+      },
+    };
 
-//             if (labelData.todosCount > 0) {
-//               labelRef
-//                 .update({
-//                   todosCount: FieldValue.increment(-1),
-//                 })
-//                 .catch(console.error);
-//             }
-//           }
-//         }),
-//       ).catch(console.error);
-//     }
+    console.log({ demoTodo3 });
 
-//     try {
-//       if (!todoData.project.isInbox) {
-//         if (todoProject) {
-//           const projectRef = firestore.doc(
-//             `users/${userId}/projects/${todoProject.projectID}`,
-//           );
-//           const snapshot = await projectRef.get().catch(console.error);
+    batch.set(demoTodo3Ref, demoTodo3);
 
-//           if (snapshot.exists) {
-//             const projectData = snapshot.data();
-
-//             console.log(projectData);
-
-//             if (projectData.todosCount > 0) {
-//               return projectRef
-//                 .update({
-//                   todosCount: FieldValue.increment(-1),
-//                 })
-//                 .catch(console.error);
-//             }
-//           }
-//         }
-//       }
-//     } catch (error) {
-//       console.error(error);
-//     }
-
-//     return null;
-//   });
-
-// exports.testOnCreateDocument = functions.https.onRequest(async (req, res) => {
-//   const todo = {
-//     uid: "c6vwIOronNYs1DPrQ8WYTUGltP43",
-//     name: "daskasd",
-//     dueDate: null,
-//     completed: false,
-//     project: {
-//       colorName: "Lavender",
-//       colorValue: "#DF9BE6",
-//       projectID: "Nittx9PWXdQ8Oymsem4w",
-//       name: "Personal",
-//       isInbox: false,
-//     },
-//     labels: null,
-//   };
-
-//   const result = await firestore
-//     .collection("users")
-//     .doc("c6vwIOronNYs1DPrQ8WYTUGltP43")
-//     .collection("todos")
-//     .add(todo);
-
-//   res.json({ result });
-// });
+    return (
+      batch
+        .commit()
+        //eslint-disable-next-line
+        .then(() => {
+          console.log("Batch complete");
+        })
+        .catch((error) => {
+          console.log("Batch failed");
+          console.log(error);
+        })
+    );
+  });
