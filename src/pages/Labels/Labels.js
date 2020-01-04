@@ -7,10 +7,13 @@ import HeaderContainer from "../../redux/containers/components/HeaderContainer";
 import AddNew from "../../components/AddNew/AddNew";
 import LabelsCardContainer from "../../redux/containers/components/LabelsCardContainer";
 import withProtectedRoute from "../../hoc/withProtectedRoute";
+import SEO from "../../components/SEO/SEO";
+import seo from "../../utils/seo";
 
 function Labels({ labelIds, openAddLabelModal }) {
   return (
     <>
+      <SEO title={seo.pages.labels.title} />
       <HeaderContainer />
       <DashboardMainContainer>
         <section className="Section" aria-labelledby="labels">

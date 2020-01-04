@@ -9,10 +9,13 @@ import AddNew from "../../components/AddNew/AddNew";
 import withProtectedRoute from "../../hoc/withProtectedRoute";
 import AriaText from "../../components/AriaText/AriaText";
 import { FALLBACK_FOCUS_BUTTON } from "../../constants/ui";
+import SEO from "../../components/SEO/SEO";
+import seo from "../../utils/seo";
 
 function Inbox({ inboxTodos, overdueInboxTodos, openAddTodoModal }) {
   return (
     <>
+      <SEO title={seo.pages.inbox.title} />
       <HeaderContainer />
       <DashboardMainContainer>
         <h1 className="Page__Title">Inbox</h1>

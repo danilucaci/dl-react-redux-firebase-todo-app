@@ -14,6 +14,8 @@ import testimonialAvatar3 from "../../assets/img/testimonial-avatar-3.jpg";
 import AppMain from "../../components/AppMain/AppMain";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import HomePageHeaderContainer from "../../redux/containers/components/HomePageHeaderContainer";
+import SEO from "../../components/SEO/SEO";
+import seo from "../../utils/seo";
 
 function Home() {
   let history = useHistory();
@@ -24,6 +26,7 @@ function Home() {
 
   return (
     <>
+      <SEO title={seo.pages.home.title} />
       <HomePageHeaderContainer />
       <AppMain>
         <header className="Home__Header">

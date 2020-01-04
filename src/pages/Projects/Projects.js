@@ -7,10 +7,13 @@ import HeaderContainer from "../../redux/containers/components/HeaderContainer";
 import AddNew from "../../components/AddNew/AddNew";
 import ProjectsCardContainer from "../../redux/containers/components/ProjectsCardContainer";
 import withProtectedRoute from "../../hoc/withProtectedRoute";
+import SEO from "../../components/SEO/SEO";
+import seo from "../../utils/seo";
 
 function Projects({ projectIds = null, openAddProjectModal }) {
   return (
     <>
+      <SEO title={seo.pages.projects.title} />
       <HeaderContainer />
       <DashboardMainContainer>
         <section className="Section" aria-labelledby="projects-labels">

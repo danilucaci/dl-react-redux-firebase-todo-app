@@ -8,12 +8,15 @@ import AddNew from "../../components/AddNew/AddNew";
 import withProtectedRoute from "../../hoc/withProtectedRoute";
 import AriaText from "../../components/AriaText/AriaText";
 import { FALLBACK_FOCUS_BUTTON } from "../../constants/ui";
+import SEO from "../../components/SEO/SEO";
+import seo from "../../utils/seo";
 
 function Label({ labelTodos, labelOverdueTodos, label, openAddTodoModal }) {
   const labelName = label && label.name ? label.name : "Label";
 
   return (
     <>
+      <SEO title={labelName + seo.pages.label.title} />
       <HeaderContainer />
       <DashboardMainContainer>
         <h1 className="Page__Title Page__Title--Label">{labelName}</h1>

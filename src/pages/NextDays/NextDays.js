@@ -15,6 +15,8 @@ import {
   formatAndAddDay,
 } from "../../utils/dates";
 import withProtectedRoute from "../../hoc/withProtectedRoute";
+import SEO from "../../components/SEO/SEO";
+import seo from "../../utils/seo";
 
 export function RenderTodayDateTime() {
   const { todayDate, todayFormattedDate } = formatTodaySectionDate();
@@ -48,6 +50,7 @@ function NextDays({
 }) {
   return (
     <>
+      <SEO title={seo.pages.nextDays.title} />
       <HeaderContainer />
       <DashboardMainContainer>
         <h1 className="Page__Title">Next 7 days</h1>

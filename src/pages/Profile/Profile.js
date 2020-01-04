@@ -12,6 +12,8 @@ import ValidationErrorMessage from "../../components/ValidationErrorMessage/Vali
 import { storage } from "../../firebase/firebase";
 import { getUserDocumentRef } from "../../utils/firebase/createUserProfileDocument";
 import avatarPlaceholder from "../../assets/img/avatar-placeholder.png";
+import SEO from "../../components/SEO/SEO";
+import seo from "../../utils/seo";
 
 async function getUserRef(userId) {
   return getUserDocumentRef(userId);
@@ -167,6 +169,7 @@ function Profile({ currentUser: { id, displayName, email, avatar } = {} }) {
 
   return (
     <>
+      <SEO title={seo.pages.profile.title} />
       <HeaderContainer />
       <DashboardMainContainer>
         <section className="Section" aria-labelledby="profile">

@@ -13,6 +13,8 @@ import SignInWithGoogle from "../../components/SignInWithGoogle/SignInWithGoogle
 import Input from "../../components/Input/Input";
 import OrDivider from "../../components/OrDivider/OrDivider";
 import ValidationErrorMessage from "../../components/ValidationErrorMessage/ValidationErrorMessage";
+import SEO from "../../components/SEO/SEO";
+import seo from "../../utils/seo";
 
 const loginSchema = Yup.object().shape({
   email: Yup.string()
@@ -102,6 +104,7 @@ function Login({
 
   return (
     <>
+      <SEO title={seo.pages.login.title} />
       <HomePageHeaderContainer />
       <section className="Login" aria-labelledby="login">
         <h1 className="Login__Title" id="login">

@@ -14,6 +14,8 @@ import Input from "../../components/Input/Input";
 import OrDivider from "../../components/OrDivider/OrDivider";
 import ValidationErrorMessage from "../../components/ValidationErrorMessage/ValidationErrorMessage";
 import Checkbox, { CheckboxLabel } from "../../components/Checkbox/Checkbox";
+import SEO from "../../components/SEO/SEO";
+import seo from "../../utils/seo";
 
 const sigupSchema = Yup.object().shape({
   fullname: Yup.string().required("Please enter your full name to sign up."),
@@ -89,6 +91,7 @@ function Signup({
 
   return (
     <>
+      <SEO title={seo.pages.signup.title} />
       <HomePageHeaderContainer />
       <section className="Signup" aria-labelledby="sign-up">
         <h1 className="Signup__Title" id="sign-up">

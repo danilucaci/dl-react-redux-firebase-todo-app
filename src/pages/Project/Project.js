@@ -8,6 +8,8 @@ import AddNew from "../../components/AddNew/AddNew";
 import withProtectedRoute from "../../hoc/withProtectedRoute";
 import AriaText from "../../components/AriaText/AriaText";
 import { FALLBACK_FOCUS_BUTTON } from "../../constants/ui";
+import SEO from "../../components/SEO/SEO";
+import seo from "../../utils/seo";
 
 function Project({
   projectTodos,
@@ -19,6 +21,7 @@ function Project({
 
   return (
     <>
+      <SEO title={projectName + seo.pages.project.title} />
       <HeaderContainer />
       <DashboardMainContainer>
         <h1 className="Page__Title">{projectName}</h1>

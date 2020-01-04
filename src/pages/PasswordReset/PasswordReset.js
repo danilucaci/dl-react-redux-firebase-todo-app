@@ -4,6 +4,8 @@ import "./PasswordReset.styles.scss";
 import HomePageHeaderContainer from "../../redux/containers/components/HomePageHeaderContainer";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import Input from "../../components/Input/Input";
+import SEO from "../../components/SEO/SEO";
+import seo from "../../utils/seo";
 
 function PasswordReset() {
   const [email, setEmail] = useState("");
@@ -14,6 +16,7 @@ function PasswordReset() {
 
   return (
     <>
+      <SEO title={seo.pages.passwordReset.title} />
       <HomePageHeaderContainer />
       <section className="PasswordReset">
         <header className="">
