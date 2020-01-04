@@ -8,6 +8,7 @@ import {
   MenuLink,
 } from "@reach/menu-button";
 import "@reach/menu-button/styles.css";
+import { Link } from "react-router-dom";
 import classNames from "classnames";
 
 import "./HomePageCurrentUserAvatar.styles.scss";
@@ -62,8 +63,9 @@ function HomePageCurrentUserAvatar({
         <span className="HomePageCurrentUserAvatar__Divider" />
 
         <MenuLink
+          as={Link}
           className="HomePageCurrentUserAvatar__Item"
-          href={ROUTES.INBOX}
+          to={ROUTES.INBOX}
         >
           <svg className="HomePageCurrentUserAvatar__Icon">
             <use xlinkHref="#home" />
@@ -71,8 +73,9 @@ function HomePageCurrentUserAvatar({
           Inbox
         </MenuLink>
         <MenuLink
+          as={Link}
           className="HomePageCurrentUserAvatar__Item"
-          href={ROUTES.PROFILE}
+          to={ROUTES.PROFILE}
         >
           <svg className="HomePageCurrentUserAvatar__Icon">
             <use xlinkHref="#settings" />

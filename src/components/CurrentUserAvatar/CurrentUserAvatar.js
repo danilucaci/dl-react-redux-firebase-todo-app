@@ -8,6 +8,7 @@ import {
   MenuLink,
 } from "@reach/menu-button";
 import "@reach/menu-button/styles.css";
+import { Link } from "react-router-dom";
 import classNames from "classnames";
 
 import "./CurrentUserAvatar.styles.scss";
@@ -61,7 +62,11 @@ function CurrentUserAvatar({
 
         <span className="CurrentUserAvatar__Divider" />
 
-        <MenuLink className="CurrentUserAvatar__Item" href={ROUTES.PROFILE}>
+        <MenuLink
+          className="CurrentUserAvatar__Item"
+          as={Link}
+          to={ROUTES.PROFILE}
+        >
           <svg className="CurrentUserAvatar__Icon">
             <use xlinkHref="#settings" />
           </svg>
