@@ -38,6 +38,7 @@ $breakpoints: (
   "xl": functions.rem(800),
   "xxl": functions.rem(1024),
   "xxxl": functions.rem(1200),
+  "xxxxl": functions.rem(1320),
 );
 
 $breakpoint-keys: map.keys($breakpoints);

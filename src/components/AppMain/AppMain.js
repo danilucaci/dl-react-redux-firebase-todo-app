@@ -7,14 +7,9 @@ import "./AppMain.styles.scss";
 function AppMain({ children }) {
   const mainClasses = classnames({
     AppMain: true,
-    col: true,
   });
 
-  return (
-    <div className="row row--contain-10">
-      <main className={mainClasses}>{children}</main>
-    </div>
-  );
+  return <main className={mainClasses}>{children}</main>;
 }
 
 AppMain.propTypes = {

@@ -18,7 +18,6 @@ import {
 import * as ROUTES from "./constants/routes";
 
 import SVGSprite from "./components/SVGSprite/SVGSprite";
-import HeaderContainer from "./redux/containers/components/HeaderContainer";
 import Footer from "./components/Footer/Footer";
 import PasswordReset from "./pages/PasswordReset/PasswordReset";
 import Home from "./pages/Home/Home";
@@ -231,7 +230,6 @@ function App({
   return (
     <div className={appClasses}>
       <SVGSprite />
-      <HeaderContainer />
       <LiveRegionContainer />
       <CookieConsentContainer />
       <ToastsNotifierContainer />

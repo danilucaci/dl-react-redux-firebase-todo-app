@@ -2,15 +2,19 @@ import React from "react";
 
 import "./NotFound.styles.scss";
 import AppMain from "../../components/AppMain/AppMain";
+import HomePageHeaderContainer from "../../redux/containers/components/HomePageHeaderContainer";
 
 function NotFound() {
   console.log("Not found");
   return (
-    <AppMain>
-      <section className="Section">
-        <h1>NotFound page</h1>
-      </section>
-    </AppMain>
+    <>
+      <HomePageHeaderContainer />
+      <AppMain>
+        <section className="Section">
+          <h1>NotFound page</h1>
+        </section>
+      </AppMain>
+    </>
   );
 }
 

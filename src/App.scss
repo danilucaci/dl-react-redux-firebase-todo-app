@@ -20,6 +20,11 @@
   }
 }
 
+img {
+  width: 100%;
+  height: auto;
+}
+
 mark {
   background-color: tokens.$color-background-autocomplete-selection;
   font-weight: 700;

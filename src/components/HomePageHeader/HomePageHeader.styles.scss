@@ -1,0 +1,42 @@
+@use "../../styles/tokens";
+
+.HomePageHeader {
+  background-color: tokens.$color-background-page-lightest;
+  border-bottom: 1px solid tokens.$color-border-header;
+  height: tokens.$size-site-nav-s;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  padding-top: tokens.$spacing-site-nav-vertical-s;
+  padding-bottom: tokens.$spacing-site-nav-vertical-s;
+
+  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+    height: tokens.$size-site-nav-s;
+    padding-top: tokens.$spacing-site-nav-vertical-m;
+    padding-bottom: tokens.$spacing-site-nav-vertical-m;
+  }
+
+  &__Nav {
+    display: flex;
+    align-items: center;
+  }
+
+  &__Buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-left: auto;
+    margin-right: -#{tokens.$grid-spacing-s};
+    padding-left: tokens.$grid-gutter-s;
+
+    @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+      margin-right: 0;
+    }
+  }
+
+  &__SignupButton {
+    margin-left: tokens.$spacing-c-03;
+    display: inline-block;
+  }
+}

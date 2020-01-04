@@ -3,6 +3,7 @@ import classNames from "classnames";
 
 import "./Profile.styles.scss";
 import DashboardMainContainer from "../../redux/containers/components/DashboardMainContainer";
+import HeaderContainer from "../../redux/containers/components/HeaderContainer";
 import withProtectedRoute from "../../hoc/withProtectedRoute";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import TextButton from "../../components/TextButton/TextButton";
@@ -165,97 +166,100 @@ function Profile({ currentUser: { id, displayName, email, avatar } = {} }) {
   });
 
   return (
-    <DashboardMainContainer>
-      <section className="Section" aria-labelledby="profile">
-        <h1 className="Profile__Page__Header" id="profile">
-          Account settings
-        </h1>
-        <header className="Profile__Page__ImageContainer">
-          <img
-            className={imageClassNames}
-            src={avatar ? avatar : avatarPlaceholder}
-            alt={`User avatar`}
-            ref={imageRef}
-            onError={handleImageError}
-          />
-          <div className="Profile__Page__UserInfo">
-            {displayName && (
-              <h2 className="Profile__Page__DisplayName">{displayName}</h2>
-            )}
-            {email && <p className="Profile__Page__Email">{email}</p>}
-          </div>
-        </header>
-        <div className="Profile__Page__Buttons">
-          <div className="Profile__Page__Buttons__Row">
-            <input
-              type="file"
-              id="file-input"
-              accept="image/*"
-              onChange={handleFileInputChange}
-              onClick={(event) => {
-                event.target.value = null;
-              }}
-              ref={fileRef}
-              className="Profile__Page__FileInput"
+    <>
+      <HeaderContainer />
+      <DashboardMainContainer>
+        <section className="Section" aria-labelledby="profile">
+          <h1 className="Profile__Page__Header" id="profile">
+            Account settings
+          </h1>
+          <header className="Profile__Page__ImageContainer">
+            <img
+              className={imageClassNames}
+              src={avatar ? avatar : avatarPlaceholder}
+              alt={`User avatar`}
+              ref={imageRef}
+              onError={handleImageError}
             />
-            <label htmlFor="file-input">
-              {selectedFileName ? "Image selected" : "Upload new photo"}
-            </label>
-            <TextButton
-              type="submit"
-              size="s"
-              disabled={loading}
-              onClick={removeUserPhoto}
-            >
-              Remove photo
-            </TextButton>
+            <div className="Profile__Page__UserInfo">
+              {displayName && (
+                <h2 className="Profile__Page__DisplayName">{displayName}</h2>
+              )}
+              {email && <p className="Profile__Page__Email">{email}</p>}
+            </div>
+          </header>
+          <div className="Profile__Page__Buttons">
+            <div className="Profile__Page__Buttons__Row">
+              <input
+                type="file"
+                id="file-input"
+                accept="image/*"
+                onChange={handleFileInputChange}
+                onClick={(event) => {
+                  event.target.value = null;
+                }}
+                ref={fileRef}
+                className="Profile__Page__FileInput"
+              />
+              <label htmlFor="file-input">
+                {selectedFileName ? "Image selected" : "Upload new photo"}
+              </label>
+              <TextButton
+                type="submit"
+                size="s"
+                disabled={loading}
+                onClick={removeUserPhoto}
+              >
+                Remove photo
+              </TextButton>
+            </div>
+            {selectedFileName && (
+              <p className="Profile__Page__FileNameSelected">
+                {selectedFileName}
+              </p>
+            )}
           </div>
-          {selectedFileName && (
-            <p className="Profile__Page__FileNameSelected">
-              {selectedFileName}
-            </p>
-          )}
-        </div>
-        <form
-          method="post"
-          onSubmit={handleSubmit}
-          aria-label="Change account name"
-        >
-          <Input
-            name="name"
-            label="Full name*"
-            placeholder="Full name"
-            additionalClasses="Profile__Page__Input"
-            autoComplete="name"
-            autoCorrect="off"
-            autoCapitalize="off"
-            value={newDisplayName}
-            onChange={(e) => setNewDisplayName(e.target.value)}
-          />
-
-          <PrimaryButton
-            additionalClasses="Profile__Submit__PageBtn"
-            type="submit"
-            disabled={loading}
-            size="m"
+          <form
+            method="post"
+            onSubmit={handleSubmit}
+            aria-label="Change account name"
           >
-            Save changes
-          </PrimaryButton>
-          {errors && (
-            <>
-              {errors.map((error, index) => (
-                <ValidationErrorMessage
-                  key={index}
-                  additionalClasses="Profile_Page__SignUpErrorMsg"
-                >
-                  {error}
-                </ValidationErrorMessage>
-              ))}
-            </>
-          )}
-        </form>
-      </section>
-    </DashboardMainContainer>
+            <Input
+              name="name"
+              label="Full name*"
+              placeholder="Full name"
+              additionalClasses="Profile__Page__Input"
+              autoComplete="name"
+              autoCorrect="off"
+              autoCapitalize="off"
+              value={newDisplayName}
+              onChange={(e) => setNewDisplayName(e.target.value)}
+            />
+
+            <PrimaryButton
+              additionalClasses="Profile__Submit__PageBtn"
+              type="submit"
+              disabled={loading}
+              size="m"
+            >
+              Save changes
+            </PrimaryButton>
+            {errors && (
+              <>
+                {errors.map((error, index) => (
+                  <ValidationErrorMessage
+                    key={index}
+                    additionalClasses="Profile_Page__SignUpErrorMsg"
+                  >
+                    {error}
+                  </ValidationErrorMessage>
+                ))}
+              </>
+            )}
+          </form>
+        </section>
+      </DashboardMainContainer>
+    </>
   );
 }
 

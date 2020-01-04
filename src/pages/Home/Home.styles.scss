@@ -1,10 +1,389 @@
 @use "../../styles/tokens";
 
-.LandingPage {
-  padding: {
-    top: tokens.$spacing-l-06;
-    right: tokens.$spacing-l-05;
-    bottom: tokens.$spacing-l-10;
-    left: tokens.$spacing-l-05;
+.Home {
+  background-color: tokens.$color-background-page-lightest;
+
+  &__Header {
+    background-color: tokens.$color-background-page-lighter;
+
+    margin-bottom: tokens.$spacing-l-06;
+
+    padding: {
+      top: tokens.$spacing-c-09;
+      bottom: tokens.$spacing-c-09;
+    }
+
+    @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+      margin-bottom: tokens.$spacing-l-07;
+
+      padding: {
+        top: tokens.$spacing-c-12;
+        bottom: tokens.$spacing-c-12;
+      }
+    }
+
+    @include tokens.media-min(xl) {
+      background-color: transparent;
+      flex-direction: row;
+
+      position: relative;
+      margin-bottom: tokens.$spacing-l-09;
+
+      padding: {
+        top: tokens.$spacing-c-07;
+        bottom: tokens.$spacing-c-05;
+      }
+    }
+
+    &__Contents {
+      &__Row {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: tokens.$spacing-c-07;
+
+        @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+          margin-bottom: tokens.$spacing-c-09;
+        }
+
+        @include tokens.media-min(xl) {
+          margin-bottom: 0;
+          display: block;
+        }
+      }
+
+      @include tokens.media-min(xl) {
+        position: relative;
+        align-items: center;
+      }
+    }
+
+    &__Background {
+      &__Row {
+        display: none;
+
+        @include tokens.media-min(xl) {
+          display: flex;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      &__Col {
+        &--Dark {
+          background-color: tokens.$color-background-page-lighter;
+        }
+      }
+    }
+
+    &__Title {
+      text-align: center;
+
+      @include tokens.media-min(xl) {
+        text-align: left;
+      }
+    }
+
+    &__Copy {
+      text-align: center;
+      margin-top: tokens.$spacing-c-05;
+      margin-bottom: tokens.$spacing-c-07;
+
+      @include tokens.media-min(xxs) {
+        padding: {
+          left: tokens.$spacing-c-05;
+          right: tokens.$spacing-c-05;
+        }
+      }
+
+      @include tokens.media-min(xs) {
+        padding: {
+          left: tokens.$spacing-c-07;
+          right: tokens.$spacing-c-07;
+        }
+      }
+
+      @include tokens.media-min(xl) {
+        text-align: left;
+        padding: 0;
+      }
+    }
+
+    &__CTA {
+      min-width: tokens.rem(200);
+    }
+  }
+
+  &__Section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-bottom: tokens.$spacing-l-06;
+
+    @include tokens.media-min(xxs) {
+      padding: {
+        left: tokens.$spacing-c-05;
+        right: tokens.$spacing-c-05;
+      }
+    }
+
+    @include tokens.media-min(xs) {
+      padding: {
+        left: tokens.$spacing-c-07;
+        right: tokens.$spacing-c-07;
+      }
+    }
+
+    @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+      background-color: transparent;
+      flex-direction: row;
+
+      margin-bottom: tokens.$spacing-l-07;
+    }
+
+    @include tokens.media-min(xl) {
+      background-color: transparent;
+      flex-direction: row;
+      padding: 0;
+      margin-bottom: tokens.$spacing-l-09;
+    }
+
+    &__Reversed {
+      @include tokens.media-min(xl) {
+        flex-direction: row-reverse;
+
+        & > :first-child {
+          padding: {
+            left: tokens.$spacing-c-11;
+            right: tokens.$spacing-c-03;
+          }
+        }
+      }
+    }
+
+    &__Contents {
+      margin-bottom: tokens.$spacing-c-07;
+
+      @include tokens.media-min(xl) {
+        padding: {
+          right: tokens.$spacing-c-11;
+          left: tokens.$spacing-c-03;
+        }
+
+        margin-bottom: 0;
+      }
+    }
+
+    &__Title {
+      color: tokens.$color-text-display-default;
+
+      font-size: tokens.$font-size-mobile-display-l;
+      line-height: tokens.$font-line-height-mobile-display-l;
+      font-family: tokens.$font-family-display;
+      font-weight: 700;
+      font-style: normal;
+
+      margin: 0;
+
+      @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+        font-size: tokens.$font-size-desktop-display-l;
+        line-height: tokens.$font-line-height-desktop-display-l;
+      }
+
+      margin-bottom: tokens.$spacing-c-05;
+      text-align: center;
+
+      @include tokens.media-min(xl) {
+        text-align: left;
+      }
+    }
+
+    &__Copy {
+      text-align: center;
+
+      @include tokens.media-min(xl) {
+        text-align: left;
+      }
+    }
+
+    &__Subhead {
+      margin-bottom: tokens.$spacing-c-03;
+      text-align: center;
+
+      @include tokens.media-min(xl) {
+        text-align: left;
+      }
+    }
+  }
+
+  &__Testimonials {
+    background-color: tokens.$color-background-page-lighter;
+
+    padding: {
+      top: tokens.$spacing-l-06;
+      bottom: tokens.$spacing-l-06;
+    }
+
+    @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+      padding: {
+        top: tokens.$spacing-l-07;
+        bottom: tokens.$spacing-l-07;
+      }
+    }
+
+    @include tokens.media-min(xl) {
+      padding: {
+        top: tokens.$spacing-l-08;
+        bottom: tokens.$spacing-l-08;
+      }
+    }
+
+    &__Title {
+      margin-bottom: tokens.$spacing-c-07;
+
+      @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+        text-align: center;
+        margin-bottom: tokens.$spacing-c-09;
+      }
+
+      @include tokens.media-min(xl) {
+        margin-bottom: tokens.$spacing-l-06;
+      }
+    }
+
+    &__Cards {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+
+      @include tokens.media-max(xs) {
+        // Overflows without this
+        margin-right: 0;
+      }
+
+      @include tokens.media-min(xxxxl) {
+        overflow-x: unset;
+      }
+    }
+
+    &__Card {
+      flex: 0 0 auto;
+
+      max-width: tokens.rem(220);
+      margin-bottom: tokens.$spacing-c-05;
+
+      @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+        max-width: tokens.rem(280);
+      }
+
+      @include tokens.media-min(xxl) {
+        max-width: tokens.rem(320);
+      }
+
+      @include tokens.media-min(xxxxl) {
+        margin-bottom: 0;
+      }
+
+      &__Divider {
+        border-right: tokens.$size-divider-s solid tokens.$color-divider-on-grey;
+
+        margin-right: tokens.$spacing-c-05;
+        margin-left: tokens.$spacing-c-05;
+        margin-bottom: tokens.$spacing-c-05;
+
+        @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+          margin-right: tokens.$spacing-c-08;
+          margin-left: tokens.$spacing-c-08;
+        }
+
+        @include tokens.media-min(xxl) {
+          margin-right: tokens.$spacing-c-09;
+          margin-left: tokens.$spacing-c-09;
+        }
+
+        @include tokens.media-min(xxxxl) {
+          margin-bottom: 0;
+        }
+      }
+
+      &__Avatar {
+        display: flex;
+        margin-top: tokens.$spacing-c-07;
+      }
+
+      &__Copy {
+        margin-left: tokens.$spacing-c-03;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      &__Name {
+        color: tokens.$color-text-body-default;
+        font-size: tokens.$font-size-body-s;
+        line-height: tokens.$font-line-height-body-s;
+        font-family: tokens.$font-family-display;
+      }
+
+      &__Company {
+        color: tokens.$color-text-body-subdued;
+        font-size: tokens.$font-size-body-s;
+        line-height: tokens.$font-line-height-body-s;
+      }
+    }
+
+    &__Card__Image {
+      width: tokens.$size-avatar-m;
+      height: tokens.$size-avatar-m;
+      border: tokens.$border-avatar-default tokens.$color-border-avatar-on-white
+        solid;
+      background-color: tokens.$color-background-avatar-on-white;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+    }
+  }
+
+  &__CTA__Section {
+    background-color: tokens.$color-background-page-light;
+    text-align: center;
+
+    padding: {
+      top: tokens.$spacing-l-06;
+      bottom: tokens.$spacing-l-06;
+    }
+
+    @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+      padding: {
+        top: tokens.$spacing-l-07;
+        bottom: tokens.$spacing-l-07;
+      }
+    }
+
+    @include tokens.media-min(xl) {
+      padding: {
+        top: tokens.$spacing-l-08;
+        bottom: tokens.$spacing-l-08;
+      }
+    }
+
+    &__Title {
+      display: block;
+      width: 100%;
+      margin-bottom: tokens.$spacing-c-05;
+    }
+
+    &__Copy {
+      display: block;
+      width: 100%;
+    }
+
+    &__CTA {
+      min-width: tokens.rem(200);
+      margin-top: tokens.$spacing-c-07;
+    }
   }
 }

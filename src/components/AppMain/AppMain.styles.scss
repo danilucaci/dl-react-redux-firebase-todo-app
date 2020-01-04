@@ -1,17 +1,5 @@
 @use "../../styles/tokens";
 
 .AppMain {
-  margin-top: tokens.$spacing-main-top-s;
-  padding-bottom: tokens.$spacing-l-06;
-
-  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
-    background-color: tokens.$color-background-page-lightest;
-    margin-top: 0;
-    padding-bottom: tokens.$spacing-l-10;
-    padding-top: tokens.$spacing-main-top-s;
-  }
-
-  @include tokens.media-min(xl) {
-    padding-top: tokens.$spacing-main-top-m;
-  }
+  background-color: tokens.$color-background-page-lightest;
 }

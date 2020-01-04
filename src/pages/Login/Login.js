@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
 
 import * as ROUTES from "../../constants/routes";
-
+import HomePageHeaderContainer from "../../redux/containers/components/HomePageHeaderContainer";
 import LinkButton from "../../components/LinkButton/LinkButton";
 import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import SignInWithGoogle from "../../components/SignInWithGoogle/SignInWithGoogle";
@@ -101,143 +101,149 @@ function Login({
   }
 
   return (
-    <section className="Login" aria-labelledby="login">
-      <h1 className="Login__Title" id="login">
-        Log in
-      </h1>
+    <>
+      <HomePageHeaderContainer />
+      <section className="Login" aria-labelledby="login">
+        <h1 className="Login__Title" id="login">
+          Log in
+        </h1>
 
-      <SignInWithGoogle
-        additionalClasses="Login__GoogleBtn"
-        loading={signupLoading}
-      />
-      <OrDivider />
-      <Formik
-        initialValues={{
-          email: "",
-          password: "",
-        }}
-        validationSchema={loginSchema}
-        onSubmit={(values) => {
-          handleLogin(values);
-        }}
-      >
-        {({ handleSubmit, isValid, touched, errors }) => (
-          <Form
-            onSubmit={handleSubmit}
-            aria-label="login with email and password"
-          >
-            <Field
-              as={Input}
-              name="email"
-              label="Email address*"
-              placeholder="Email address"
-              aria-describedby="email-validation"
-              aria-required="true"
-              aria-invalid={touched.email && errors.email ? `true` : `false`}
-              labelAdditionalClasses="Login__Label"
-              autoComplete="email"
-              autoCorrect="off"
-              autoCapitalize="off"
-            />
-            {touched.email && errors.email && (
-              <ValidationErrorMessage
-                additionalClasses="Login__InlineErrorMsg"
-                id="email-validation"
-                aria-hidden="true"
-              >
-                {errors.email}
-              </ValidationErrorMessage>
-            )}
-            <Field
-              as={Input}
-              type="password"
-              name="password"
-              label="Password*"
-              placeholder="Password"
-              aria-describedby="password-validation"
-              aria-required="true"
-              aria-invalid={
-                touched.password && errors.password ? `true` : `false`
-              }
-              labelAdditionalClasses="Login__Label"
-              autoComplete="current-password"
-            />
-            {touched.password && errors.password && (
-              <ValidationErrorMessage
-                additionalClasses="Login__InlineErrorMsg"
-                id="password-validation"
-                aria-hidden="true"
-              >
-                {errors.password}
-              </ValidationErrorMessage>
-            )}
-            <PrimaryButton
-              additionalClasses="Login__SubmitBtn"
-              type="submit"
-              disabled={loading || signupLoading || !isValid}
-              loading={loading || signupLoading}
-              aria-label={`log${loading ? `ging` : ``} in`}
-            >
-              Log in
-            </PrimaryButton>
-            {loginErrors && loginErrors.length
-              ? loginErrors.map((error, index) => (
-                  <React.Fragment key={index}>
-                    <ValidationErrorMessage
-                      key={index}
-                      additionalClasses="Login__SignUpErrorMsg"
-                      role="status"
-                      aria-live="polite"
-                    >
-                      {error}
-                    </ValidationErrorMessage>
-                    <hr className="Login__ErrorsDivider" />
-                  </React.Fragment>
-                ))
-              : null}
-
-            {/* For GoogleSignIn */}
-            {signupErrors && signupErrors.length
-              ? signupErrors.map((error, index) => (
-                  <React.Fragment key={index}>
-                    <ValidationErrorMessage
-                      additionalClasses="Login__SignUpErrorMsg"
-                      role="status"
-                      aria-live="polite"
-                    >
-                      {error}
-                    </ValidationErrorMessage>
-                    <hr className="Login__ErrorsDivider" />
-                  </React.Fragment>
-                ))
-              : null}
-          </Form>
-        )}
-      </Formik>
-
-      <nav className="Login__ButtonsNav" aria-label="reset password or sign up">
-        <LinkButton
-          additionalClasses="Login__PasswordReset"
-          size="s"
-          aria-label="request password reset"
-          to={ROUTES.PASSWORD_RESET}
+        <SignInWithGoogle
+          additionalClasses="Login__GoogleBtn"
+          loading={signupLoading}
+        />
+        <OrDivider />
+        <Formik
+          initialValues={{
+            email: "",
+            password: "",
+          }}
+          validationSchema={loginSchema}
+          onSubmit={(values) => {
+            handleLogin(values);
+          }}
         >
-          Forgot password?
-        </LinkButton>
-        <hr className="Login__Divider" />
-        <div className="Login__Footer">
-          <p>Don’t have an account?</p>
+          {({ handleSubmit, isValid, touched, errors }) => (
+            <Form
+              onSubmit={handleSubmit}
+              aria-label="login with email and password"
+            >
+              <Field
+                as={Input}
+                name="email"
+                label="Email address*"
+                placeholder="Email address"
+                aria-describedby="email-validation"
+                aria-required="true"
+                aria-invalid={touched.email && errors.email ? `true` : `false`}
+                labelAdditionalClasses="Login__Label"
+                autoComplete="email"
+                autoCorrect="off"
+                autoCapitalize="off"
+              />
+              {touched.email && errors.email && (
+                <ValidationErrorMessage
+                  additionalClasses="Login__InlineErrorMsg"
+                  id="email-validation"
+                  aria-hidden="true"
+                >
+                  {errors.email}
+                </ValidationErrorMessage>
+              )}
+              <Field
+                as={Input}
+                type="password"
+                name="password"
+                label="Password*"
+                placeholder="Password"
+                aria-describedby="password-validation"
+                aria-required="true"
+                aria-invalid={
+                  touched.password && errors.password ? `true` : `false`
+                }
+                labelAdditionalClasses="Login__Label"
+                autoComplete="current-password"
+              />
+              {touched.password && errors.password && (
+                <ValidationErrorMessage
+                  additionalClasses="Login__InlineErrorMsg"
+                  id="password-validation"
+                  aria-hidden="true"
+                >
+                  {errors.password}
+                </ValidationErrorMessage>
+              )}
+              <PrimaryButton
+                additionalClasses="Login__SubmitBtn"
+                type="submit"
+                disabled={loading || signupLoading || !isValid}
+                loading={loading || signupLoading}
+                aria-label={`log${loading ? `ging` : ``} in`}
+              >
+                Log in
+              </PrimaryButton>
+              {loginErrors && loginErrors.length
+                ? loginErrors.map((error, index) => (
+                    <React.Fragment key={index}>
+                      <ValidationErrorMessage
+                        key={index}
+                        additionalClasses="Login__SignUpErrorMsg"
+                        role="status"
+                        aria-live="polite"
+                      >
+                        {error}
+                      </ValidationErrorMessage>
+                      <hr className="Login__ErrorsDivider" />
+                    </React.Fragment>
+                  ))
+                : null}
+
+              {/* For GoogleSignIn */}
+              {signupErrors && signupErrors.length
+                ? signupErrors.map((error, index) => (
+                    <React.Fragment key={index}>
+                      <ValidationErrorMessage
+                        additionalClasses="Login__SignUpErrorMsg"
+                        role="status"
+                        aria-live="polite"
+                      >
+                        {error}
+                      </ValidationErrorMessage>
+                      <hr className="Login__ErrorsDivider" />
+                    </React.Fragment>
+                  ))
+                : null}
+            </Form>
+          )}
+        </Formik>
+
+        <nav
+          className="Login__ButtonsNav"
+          aria-label="reset password or sign up"
+        >
           <LinkButton
-            additionalClasses="Login__Footer__Btn"
+            additionalClasses="Login__PasswordReset"
             size="s"
-            aria-label="sign up for a new account"
-            to={ROUTES.SIGN_UP}
+            aria-label="request password reset"
+            to={ROUTES.PASSWORD_RESET}
           >
-            Sign up
+            Forgot password?
           </LinkButton>
-        </div>
-      </nav>
-    </section>
+          <hr className="Login__Divider" />
+          <div className="Login__Footer">
+            <p>Don’t have an account?</p>
+            <LinkButton
+              additionalClasses="Login__Footer__Btn"
+              size="s"
+              aria-label="sign up for a new account"
+              to={ROUTES.SIGN_UP}
+            >
+              Sign up
+            </LinkButton>
+          </div>
+        </nav>
+      </section>
+    </>
   );
 }
 

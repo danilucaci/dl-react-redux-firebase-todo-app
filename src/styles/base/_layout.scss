@@ -67,6 +67,14 @@
       margin-right: -#{grid.$grid-spacing-m};
     }
   }
+
+  &--col {
+    flex-direction: column;
+  }
+
+  &--align-center {
+    align-items: center;
+  }
 }
 
 .col {
@@ -157,5 +165,14 @@
     $loop-index,
     grid.$grid-column-count-xl,
     xxl
+  );
+}
+
+// Generate col-xxl-1...12 classes with `-xxxl` prefix
+@for $loop-index from 1 through grid.$grid-column-count-xl {
+  @include mixins.generate-grid-colums-with-prefix(
+    $loop-index,
+    grid.$grid-column-count-xl,
+    xxxl
   );
 }
