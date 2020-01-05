@@ -13,8 +13,23 @@ function NotFound() {
       <SEO title={seo.pages.notFound.title} />
       <HomePageHeaderContainer />
       <AppMain>
-        <section className="Section">
-          <h1>NotFound page</h1>
+        <section className="NotFound row row--contain-8 Section">
+          <div className="col">
+            <span aria-hidden="true" className="NotFound__404">
+              404
+            </span>
+            <h1 className="NotFound__Title">
+              Sorry, this page wasn’t found{" "}
+              <span role="img" aria-label="Sad face emoji">
+                😔
+              </span>
+            </h1>
+            <p className="NotFound__Copy">
+              You have arrived at this 404 page because the page you asked for
+              wasn’t found on todos.danilucaci.com.
+            </p>
+            <a href="/">Go back to the home page</a>
+          </div>
         </section>
       </AppMain>
     </>

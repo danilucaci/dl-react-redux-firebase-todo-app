@@ -9,6 +9,14 @@
 $spacing-site-nav-vertical-s: functions.rem(8);
 $spacing-site-nav-vertical-m: functions.rem(8);
 
+// 404
+$spacing-404-top-xl: functions.rem(88);
+$spacing-404-bottom-xl: functions.rem(200);
+$spacing-404-top-m: functions.rem(88);
+$spacing-404-bottom-m: functions.rem(200);
+$spacing-404-top-s: functions.rem(40);
+$spacing-404-bottom-s: functions.rem(80);
+
 // Icon Buttons
 $spacing-button-icon-horizontal-l: functions.rem(12) -
   sizing.$size-border-button-default;

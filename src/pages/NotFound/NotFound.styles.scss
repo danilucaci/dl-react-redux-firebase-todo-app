@@ -1,1 +1,53 @@
 @use "../../styles/tokens";
+
+.NotFound {
+  text-align: center;
+
+  &__404 {
+    display: block;
+    color: tokens.$color-text-404;
+    font-size: tokens.$font-size-404-s;
+    line-height: tokens.$font-line-height-404-s;
+    font-family: tokens.$font-family-display;
+    font-weight: 700;
+    font-style: normal;
+
+    margin-bottom: tokens.$spacing-c-07;
+
+    @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+      font-size: tokens.$font-size-404-m;
+      line-height: tokens.$font-line-height-404-m;
+    }
+  }
+
+  &__Title {
+    margin-bottom: tokens.$spacing-c-05;
+  }
+
+  &__Copy {
+    margin-bottom: tokens.$spacing-c-05;
+
+    @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+      margin-bottom: tokens.$spacing-c-09;
+    }
+  }
+
+  padding: {
+    top: tokens.$spacing-404-top-s;
+    bottom: tokens.$spacing-404-bottom-s;
+  }
+
+  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+    padding: {
+      top: tokens.$spacing-404-top-m;
+      bottom: tokens.$spacing-404-bottom-m;
+    }
+  }
+
+  @include tokens.media-min(xl) {
+    padding: {
+      top: tokens.$spacing-404-top-xl;
+      bottom: tokens.$spacing-404-bottom-xl;
+    }
+  }
+}
