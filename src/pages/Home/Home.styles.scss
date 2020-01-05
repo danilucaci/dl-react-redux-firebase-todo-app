@@ -196,6 +196,7 @@
     @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
       background-color: transparent;
       display: flex;
+      align-items: center;
       flex-direction: row;
 
       margin-bottom: tokens.$spacing-l-07;
