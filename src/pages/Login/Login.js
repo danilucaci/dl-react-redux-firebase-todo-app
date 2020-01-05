@@ -4,6 +4,9 @@ import { array, bool, shape, func } from "prop-types";
 import "./Login.styles.scss";
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
+import uuid from "uuid";
+import Button from "@material-ui/core/Button";
+import { makeStyles } from "@material-ui/core/styles";
 
 import * as ROUTES from "../../constants/routes";
 import HomePageHeaderContainer from "../../redux/containers/components/HomePageHeaderContainer";
@@ -25,12 +28,45 @@ const loginSchema = Yup.object().shape({
     .min(6, "The password needs to be 6 characters or longer."),
 });
 
+const INVITE_ONLY_SNACKBAR_MESSAGE_KEY = uuid.v4();
+
+const useStyles = makeStyles({
+  root: {
+    color: "white",
+  },
+});
+
+function DismissAction({ key, closeSnackbar }) {
+  const classes = useStyles();
+
+  return (
+    <>
+      <Button
+        variant="outlined"
+        size="medium"
+        classes={{
+          root: classes.root,
+        }}
+        onClick={() => closeSnackbar(key)}
+      >
+        Got it
+      </Button>
+    </>
+  );
+}
+
+function DismissActionHOC({ key, closeSnackbar }) {
+  return <DismissAction key={key} closeSnackbar={closeSnackbar} />;
+}
+
 function Login({
   userState: { loginErrors, signupErrors, signupLoading, isAuthenticated } = {},
   setLoginErrors,
   loginUser,
   clearLoginError,
   clearSignupError,
+  enqueueSnackbar,
+  closeSnackbar,
 }) {
   const [loading, setLoading] = useState(false);
   let history = useHistory();
@@ -39,6 +75,21 @@ function Login({
   const clearErrorsTimeoutRef = useRef(null);
 
   let { from } = location.state || { from: { pathname: "/" } };
+
+  useEffect(() => {
+    enqueueSnackbar({
+      message:
+        "This app is invite only. Please contact the author for a demo. (See footer)",
+      options: {
+        variant: "info",
+        persist: true,
+        action: DismissActionHOC({
+          closeSnackbar,
+          INVITE_ONLY_SNACKBAR_MESSAGE_KEY,
+        }),
+      },
+    });
+  }, [closeSnackbar, enqueueSnackbar]);
 
   useEffect(() => {
     if (loginErrors && loginErrors.length > 0) {
@@ -260,6 +311,8 @@ Login.propTypes = {
   setLoginErrors: func.isRequired,
   loginUser: func.isRequired,
   clearLoginError: func.isRequired,
+  enqueueSnackbar: func.isRequired,
+  closeSnackbar: func.isRequired,
 };
 
 export default Login;

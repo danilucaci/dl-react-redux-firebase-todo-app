@@ -8,6 +8,11 @@ import {
   clearSignupError,
 } from "../../../redux/user/user-actions";
 
+import {
+  enqueueSnackbar,
+  closeSnackbar,
+} from "../../../redux/localState/localState-actions";
+
 import Login from "../../../pages/Login/Login";
 
 export const mapStateToProps = (state) => ({
@@ -19,6 +24,8 @@ export const mapDispatchToProps = (dispatch) => ({
   setLoginErrors: (errors) => dispatch(setLoginErrors(errors)),
   clearLoginError: () => dispatch(clearLoginError()),
   clearSignupError: () => dispatch(clearSignupError()),
+  enqueueSnackbar: (message, key) => dispatch(enqueueSnackbar(message, key)),
+  closeSnackbar: (key) => dispatch(closeSnackbar(key)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

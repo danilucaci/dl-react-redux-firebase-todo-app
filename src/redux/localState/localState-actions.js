@@ -61,10 +61,10 @@ export const setInitialColorsLoaded = () => ({
   type: LocalStateTypes.SET_INITIAL_COLORS_LOADED,
 });
 
-export const enqueueSnackbar = (notification) => ({
+export const enqueueSnackbar = (notification, key = uuid.v4()) => ({
   type: LocalStateTypes.ENQUEUE_SNACKBAR,
   payload: {
-    key: uuid.v4(),
+    key,
     notification,
   },
 });
