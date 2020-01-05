@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import classnames from "classnames";
 
 import "./Home.styles.scss";
 import * as ROUTES from "../../constants/routes";
@@ -16,6 +17,37 @@ import PrimaryButton from "../../components/PrimaryButton/PrimaryButton";
 import HomePageHeaderContainer from "../../redux/containers/components/HomePageHeaderContainer";
 import SEO from "../../components/SEO/SEO";
 import seo from "../../utils/seo";
+
+function Image({ baseClassname, src, alt }) {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  const imgClasses = classnames({
+    [baseClassname]: true,
+    [`${baseClassname}--Loaded`]: imageLoaded,
+  });
+
+  const placeholderClasses = classnames({
+    [`${baseClassname}__Placeholder`]: true,
+    [`${baseClassname}__Placeholder--Loaded`]: imageLoaded,
+  });
+
+  function handleImageLoaded() {
+    setImageLoaded(true);
+  }
+
+  return (
+    <div className={`${baseClassname}__Wrapper`}>
+      <div className={placeholderClasses}></div>
+      <img
+        className={imgClasses}
+        loading="lazy"
+        onLoad={handleImageLoaded}
+        src={src}
+        alt={alt}
+      />
+    </div>
+  );
+}
 
 function Home() {
   let history = useHistory();
@@ -56,8 +88,8 @@ function Home() {
             </div>
 
             <div className="col col-xl-8">
-              <img
-                loading="lazy"
+              <Image
+                baseClassname="Home__Header__Image"
                 src={screenshotHeader}
                 alt="Screenshot of the main page of the app."
               />
@@ -84,8 +116,8 @@ function Home() {
             </p>
           </div>
           <div className="col col-xl-7">
-            <img
-              loading="lazy"
+            <Image
+              baseClassname="Home__Section__Image"
               src={screenshotProjects}
               alt="Screenshot of the projects page of the app."
             />
@@ -111,8 +143,8 @@ function Home() {
             </p>
           </div>
           <div className="col col-xl-7">
-            <img
-              loading="lazy"
+            <Image
+              baseClassname="Home__Section__Image"
               src={screenshotDueDates}
               alt="Screenshot of how to set a due date for a task."
             />
@@ -139,8 +171,8 @@ function Home() {
             </p>
           </div>
           <div className="col col-xl-7">
-            <img
-              loading="lazy"
+            <Image
+              baseClassname="Home__Section__Image"
               src={screenshotAddTodo}
               alt="Screenshot of how to add and edit tasks."
             />
@@ -164,8 +196,8 @@ function Home() {
             </p>
           </div>
           <div className="col col-xl-7">
-            <img
-              loading="lazy"
+            <Image
+              baseClassname="Home__Section__Image"
               src={screenshotSearch}
               alt="Screenshot of the search feature of the app."
             />
@@ -185,12 +217,12 @@ function Home() {
                     working on them one at a time.
                   </p>
                   <div className="Home__Testimonials__Card__Avatar">
-                    <img
-                      loading="lazy"
+                    <Image
+                      baseClassname="Home__Testimonials__Card__Image"
                       src={testimonialAvatar1}
                       alt="Portrait of Jerome Bell, the author of the first testimonial."
-                      className="Home__Testimonials__Card__Image"
                     />
+
                     <div className="Home__Testimonials__Card__Copy">
                       <p className="Home__Testimonials__Card__Name">
                         Jerome Bell
@@ -209,12 +241,12 @@ function Home() {
                     happy customers.
                   </p>
                   <div className="Home__Testimonials__Card__Avatar">
-                    <img
-                      loading="lazy"
+                    <Image
+                      baseClassname="Home__Testimonials__Card__Image"
                       src={testimonialAvatar2}
                       alt="Portrait of Juanita Webb, the author of the first testimonial."
-                      className="Home__Testimonials__Card__Image"
                     />
+
                     <div className="Home__Testimonials__Card__Copy">
                       <p className="Home__Testimonials__Card__Name">
                         Juanita Webb
@@ -233,12 +265,12 @@ function Home() {
                     important deadlines.
                   </p>
                   <div className="Home__Testimonials__Card__Avatar">
-                    <img
-                      loading="lazy"
+                    <Image
+                      baseClassname="Home__Testimonials__Card__Image"
                       src={testimonialAvatar3}
                       alt="Portrait of Scarlett Flores, the author of the first testimonial."
-                      className="Home__Testimonials__Card__Image"
                     />
+
                     <div className="Home__Testimonials__Card__Copy">
                       <p className="Home__Testimonials__Card__Name">
                         Scarlett Flores

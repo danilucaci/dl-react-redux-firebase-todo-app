@@ -1,4 +1,5 @@
 @use "../../styles/tokens";
+@use "../../styles/base/placeholders";
 
 .Home {
   background-color: tokens.$color-background-page-lightest;
@@ -116,12 +117,65 @@
     &__CTA {
       min-width: tokens.rem(200);
     }
+
+    &__Image {
+      display: block;
+      object-fit: cover;
+      object-position: center center;
+      width: 100%;
+      height: 100%;
+
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      opacity: 0;
+
+      &--Loaded {
+        opacity: 1;
+      }
+
+      &__Wrapper {
+        position: relative;
+        overflow: hidden;
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      &__Placeholder {
+        display: block;
+
+        @extend %animate-placeholder;
+
+        background: linear-gradient(
+          90deg,
+          tokens.$color-background-placeholder-stop-edge,
+          tokens.$color-background-placeholder-stop-middle,
+          tokens.$color-background-placeholder-stop-edge
+        );
+
+        background-size: 200% 200%;
+        background-color: tokens.$color-background-placeholder;
+        object-fit: cover;
+        object-position: center center;
+        position: relative;
+        padding-bottom: 75.2688172%;
+        bottom: 0;
+        left: 0;
+
+        opacity: 1;
+        transition: opacity 300ms ease 0s;
+
+        &--Loaded {
+          opacity: 0;
+        }
+      }
+    }
   }
 
   &__Section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: block;
 
     margin-bottom: tokens.$spacing-l-06;
 
@@ -141,6 +195,7 @@
 
     @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
       background-color: transparent;
+      display: flex;
       flex-direction: row;
 
       margin-bottom: tokens.$spacing-l-07;
@@ -217,6 +272,61 @@
 
       @include tokens.media-min(xl) {
         text-align: left;
+      }
+    }
+
+    &__Image {
+      display: block;
+      object-fit: cover;
+      object-position: center center;
+      width: 100%;
+      height: 100%;
+
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      opacity: 0;
+
+      &--Loaded {
+        opacity: 1;
+      }
+
+      &__Wrapper {
+        position: relative;
+        overflow: hidden;
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      &__Placeholder {
+        @extend %animate-placeholder;
+
+        background: linear-gradient(
+          90deg,
+          tokens.$color-background-placeholder-stop-edge,
+          tokens.$color-background-placeholder-stop-middle,
+          tokens.$color-background-placeholder-stop-edge
+        );
+
+        background-size: 200% 200%;
+
+        display: block;
+        background-color: tokens.$color-background-placeholder;
+        object-fit: cover;
+        object-position: center center;
+        position: relative;
+        padding-bottom: 75.30864198%;
+        bottom: 0;
+        left: 0;
+
+        opacity: 1;
+        transition: opacity 500ms ease 0s;
+
+        &--Loaded {
+          opacity: 0;
+        }
       }
     }
   }
@@ -334,17 +444,67 @@
         font-size: tokens.$font-size-body-s;
         line-height: tokens.$font-line-height-body-s;
       }
-    }
 
-    &__Card__Image {
-      width: tokens.$size-avatar-m;
-      height: tokens.$size-avatar-m;
-      border: tokens.$border-avatar-default tokens.$color-border-avatar-on-white
-        solid;
-      background-color: tokens.$color-background-avatar-on-white;
-      border-radius: 50%;
-      object-fit: cover;
-      display: block;
+      &__Image {
+        border: tokens.$border-avatar-default
+          tokens.$color-border-avatar-on-white solid;
+        border-radius: 50%;
+        display: block;
+        object-fit: cover;
+        object-position: center center;
+        width: tokens.$size-avatar-m;
+        height: tokens.$size-avatar-m;
+
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+
+        &--Loaded {
+          opacity: 1;
+        }
+
+        &__Wrapper {
+          position: relative;
+          overflow: hidden;
+          display: block;
+          height: 100%;
+        }
+
+        &__Placeholder {
+          @extend %animate-placeholder;
+
+          background: linear-gradient(
+            90deg,
+            tokens.$color-background-placeholder-stop-edge,
+            tokens.$color-background-placeholder-stop-middle,
+            tokens.$color-background-placeholder-stop-edge
+          );
+
+          background-size: 200% 200%;
+
+          display: block;
+          background-color: tokens.$color-background-placeholder;
+          border: tokens.$border-avatar-default
+            tokens.$color-border-avatar-on-white solid;
+          border-radius: 50%;
+          object-fit: cover;
+          object-position: center center;
+          position: relative;
+          bottom: 0;
+          left: 0;
+
+          width: tokens.$size-avatar-m;
+          height: tokens.$size-avatar-m;
+
+          opacity: 1;
+          transition: opacity 500ms ease 0s;
+
+          &--Loaded {
+            opacity: 0;
+          }
+        }
+      }
     }
   }
 
