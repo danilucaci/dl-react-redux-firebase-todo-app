@@ -13,7 +13,7 @@
   padding-bottom: tokens.$spacing-site-nav-vertical-s;
 
   @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
-    height: tokens.$size-site-nav-s;
+    height: tokens.$size-site-nav-m;
     padding-top: tokens.$spacing-site-nav-vertical-m;
     padding-bottom: tokens.$spacing-site-nav-vertical-m;
   }
@@ -27,12 +27,6 @@
     display: flex;
     justify-content: flex-end;
     margin-left: auto;
-    margin-right: -#{tokens.$grid-spacing-s};
-    padding-left: tokens.$grid-gutter-s;
-
-    @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
-      margin-right: 0;
-    }
   }
 
   &__SignupButton {

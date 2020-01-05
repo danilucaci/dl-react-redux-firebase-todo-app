@@ -4,11 +4,17 @@ import "./Logo.styles.scss";
 
 import * as ROUTES from "../../constants/routes";
 
+import { ReactComponent as CombinationLogo } from "../../assets/combination-logo.svg";
+import { ReactComponent as LogoMark } from "../../assets/logo.svg";
+
 function Logo() {
   return (
-    <Link to={ROUTES.LANDING} className="Logo col col-4 col-l-3 col-xl-4">
-      TodoThis
-    </Link>
+    <div className="Logo col">
+      <Link to={ROUTES.LANDING} className="Logo__Link">
+        <CombinationLogo className="Logo__Combination" />
+        <LogoMark className="Logo__Mark" />
+      </Link>
+    </div>
   );
 }
 

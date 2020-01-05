@@ -1,32 +1,59 @@
 @use "../../styles/tokens";
 
 .Logo {
-  font-family: tokens.$font-family-display;
-  font-weight: 700;
-  font-style: normal;
-  font-size: tokens.$font-size-logo;
-  line-height: tokens.$font-line-height-logo;
-  color: tokens.$color-text-display-default;
+  width: tokens.$size-logo-horizontal-s;
+  max-width: tokens.$size-logo-horizontal-s;
+  height: tokens.$size-logo-vertical-s;
 
-  text-decoration: none;
+  margin-left: -#{tokens.$grid-spacing-s};
+  padding-left: tokens.$grid-spacing-s;
 
-  &:visited,
-  &:link {
-    color: tokens.$color-text-body-default;
+  @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+    width: tokens.$size-logo-horizontal-xl;
+    max-width: tokens.$size-logo-horizontal-xl;
+    height: tokens.$size-logo-vertical-xl;
+
+    margin-left: -#{tokens.$grid-spacing-m};
+    padding-left: tokens.$grid-spacing-m;
   }
 
-  &:hover {
-    background-color: transparent;
-    color: tokens.$color-text-link-hover;
-    text-decoration: none;
-    cursor: pointer;
+  & svg {
+    vertical-align: middle;
   }
 
-  &:active {
-    background-color: transparent;
-    font-family: tokens.$font-family-display;
-    font-weight: 700;
-    color: tokens.$color-text-body-default;
-    cursor: pointer;
+  &__Link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: tokens.$color-background-link-default;
+
+    &:visited,
+    &:link {
+      background-color: tokens.$color-background-link-default;
+    }
+
+    &:hover {
+      background-color: tokens.$color-background-link-hover;
+      cursor: pointer;
+    }
+
+    &:active {
+      background-color: tokens.$color-background-link-active;
+      cursor: pointer;
+    }
+  }
+
+  &__Combination {
+    display: none;
+
+    @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+      display: block;
+    }
+  }
+
+  &__Mark {
+    @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {
+      display: none;
+    }
   }
 }

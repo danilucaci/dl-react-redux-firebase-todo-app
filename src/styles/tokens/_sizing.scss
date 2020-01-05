@@ -1,8 +1,15 @@
 @use "../base/functions";
+@use "./grid";
 
 // ******************************************
 // Sizing Tokens
 // ******************************************
+
+// Logo
+$size-logo-vertical-s: functions.rem(40);
+$size-logo-horizontal-s: functions.rem(40) + grid.$grid-spacing-s;
+$size-logo-vertical-xl: functions.rem(56);
+$size-logo-horizontal-xl: functions.rem(144) + grid.$grid-spacing-m;
 
 // Site nav
 $size-site-nav-s: functions.rem(56);
