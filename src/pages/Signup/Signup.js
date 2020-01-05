@@ -19,6 +19,7 @@ import ValidationErrorMessage from "../../components/ValidationErrorMessage/Vali
 import Checkbox, { CheckboxLabel } from "../../components/Checkbox/Checkbox";
 import SEO from "../../components/SEO/SEO";
 import seo from "../../utils/seo";
+import { useSessionStorage } from "../../hooks";
 
 const sigupSchema = Yup.object().shape({
   fullname: Yup.string().required("Please enter your full name to sign up."),
@@ -42,18 +43,23 @@ const useStyles = makeStyles({
   },
 });
 
-function DismissAction({ key, closeSnackbar }) {
+function DismissAction({ snackbarKey, closeSnackbar, setSnackbarDissmissed }) {
   const classes = useStyles();
+
+  function handleClose() {
+    closeSnackbar(snackbarKey);
+    setSnackbarDissmissed(true);
+  }
 
   return (
     <>
       <Button
         variant="outlined"
         size="medium"
+        onClick={handleClose}
         classes={{
           root: classes.root,
         }}
-        onClick={() => closeSnackbar(key)}
       >
         Got it
       </Button>
@@ -61,8 +67,18 @@ function DismissAction({ key, closeSnackbar }) {
   );
 }
 
-function DismissActionHOC({ key, closeSnackbar }) {
-  return <DismissAction key={key} closeSnackbar={closeSnackbar} />;
+function DismissActionHOC({
+  snackbarKey,
+  closeSnackbar,
+  setSnackbarDissmissed,
+}) {
+  return (
+    <DismissAction
+      snackbarKey={snackbarKey}
+      closeSnackbar={closeSnackbar}
+      setSnackbarDissmissed={setSnackbarDissmissed}
+    />
+  );
 }
 
 function Signup({
@@ -79,22 +95,37 @@ function Signup({
 
   let { from } = location.state || { from: { pathname: "/" } };
 
+  const [snackbarDissmissed, setSnackbarDissmissed] = useSessionStorage(
+    "__dl__signup__snackbarDissmissed",
+    false,
+  );
+
   useEffect(() => {
-    if (!isAuthenticated) {
-      enqueueSnackbar({
-        message:
-          "This app is invite only. Please contact the author for a demo. (See footer)",
-        options: {
-          variant: "info",
-          persist: true,
-          action: DismissActionHOC({
-            closeSnackbar,
-            INVITE_ONLY_SNACKBAR_MESSAGE_KEY,
-          }),
+    if (!isAuthenticated && !snackbarDissmissed) {
+      enqueueSnackbar(
+        {
+          message:
+            "This app is invite only. Please contact the author for a demo. (See footer)",
+          options: {
+            variant: "info",
+            persist: true,
+            action: DismissActionHOC({
+              snackbarKey: INVITE_ONLY_SNACKBAR_MESSAGE_KEY,
+              closeSnackbar,
+              setSnackbarDissmissed,
+            }),
+          },
         },
-      });
+        INVITE_ONLY_SNACKBAR_MESSAGE_KEY,
+      );
     }
-  }, [closeSnackbar, enqueueSnackbar, isAuthenticated]);
+  }, [
+    closeSnackbar,
+    enqueueSnackbar,
+    isAuthenticated,
+    setSnackbarDissmissed,
+    snackbarDissmissed,
+  ]);
 
   useEffect(() => {
     if (signupErrors && signupErrors.length > 0) {
