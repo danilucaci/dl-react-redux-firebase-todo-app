@@ -8,9 +8,8 @@ function SEO({ title, description }) {
       "@context": "https://www.schema.org",
       "@type": "product",
       brand: "danilucaci.com",
-      logo: "https://www.todos.danilucaci.com/logo.png",
+      logo: "https://todos.danilucaci.com/logo192.png",
       name: "Todos",
-      image: "http://www.todos.danilucaci.com/image.png",
       description: { description },
     },
     {
@@ -55,7 +54,7 @@ function SEO({ title, description }) {
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:type" content="website" />
-      <meta property="og:url" content="https://www.todos.danilucaci.com" />
+      <meta property="og:url" content="https://todos.danilucaci.com" />
       <script type="application/ld+json">
         {JSON.stringify(schemaOrgJSONLD)}
       </script>

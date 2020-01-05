@@ -6,7 +6,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { SnackbarProvider } from "notistack";
 
 import "./index.scss";
-
+import * as serviceWorker from "./serviceWorker";
 import store, { persistor } from "./redux/store";
 import AppContainer from "./redux/containers/pages/AppContainer";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
@@ -32,3 +32,8 @@ ReactDOM.render(
 
   document.getElementById("root"),
 );
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();
