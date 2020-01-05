@@ -102,12 +102,8 @@ function CookieConsent({
       },
       {
         expires: 780,
-        // @TODO
-        // Set correct production domain
-        domain: NODE_ENV === "development" ? "" : "",
-        // @TODO
-        // Set cookies to be secure in production
-        secure: NODE_ENV === "development" ? false : false,
+        domain: NODE_ENV === "development" ? "" : "todos.danilucaci.com",
+        secure: NODE_ENV === "development" ? false : true,
       },
     );
 
@@ -124,12 +120,8 @@ function CookieConsent({
       },
       {
         expires: 780,
-        // @TODO
-        // Set correct production domain
-        domain: NODE_ENV === "development" ? "" : "",
-        // @TODO
-        // Set cookies to be secure in production
-        secure: NODE_ENV === "development" ? false : false,
+        domain: NODE_ENV === "development" ? "" : "todos.danilucaci.com",
+        secure: NODE_ENV === "development" ? false : true,
       },
     );
 
