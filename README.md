@@ -16,9 +16,9 @@ Link: [https://todos.danilucaci.com](https://todos.danilucaci.com)
 
 ---
 
-> Currently the app is invite only. If you would like to see a demo, please get
-> in touch and I’d be more than happy to give you a tour (only for people
-> interested in working with me).
+> Currently, the app is invite only. If you would like to see a working demo,
+> please get in touch and I’d be more than happy to give you a tour (only for
+> people interested in working with me).
 
 ---
 
