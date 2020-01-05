@@ -17,11 +17,12 @@ ReactDOM.render(
       <ErrorBoundary>
         <BrowserRouter>
           <SnackbarProvider
+            maxSnack={3}
+            preventDuplicate
             anchorOrigin={{
               vertical: "top",
               horizontal: "right",
             }}
-            maxSnack={5}
           >
             <AppContainer />
           </SnackbarProvider>
