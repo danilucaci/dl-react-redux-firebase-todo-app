@@ -102,8 +102,12 @@ function CookieConsent({
       },
       {
         expires: 780,
+        // @TODO
+        // Set correct production domain
         domain: NODE_ENV === "development" ? "" : "",
-        secure: NODE_ENV === "development" ? false : true,
+        // @TODO
+        // Set cookies to be secure in production
+        secure: NODE_ENV === "development" ? false : false,
       },
     );
 
@@ -120,8 +124,12 @@ function CookieConsent({
       },
       {
         expires: 780,
+        // @TODO
+        // Set correct production domain
         domain: NODE_ENV === "development" ? "" : "",
-        secure: NODE_ENV === "development" ? false : true,
+        // @TODO
+        // Set cookies to be secure in production
+        secure: NODE_ENV === "development" ? false : false,
       },
     );
 
