@@ -80,19 +80,21 @@ function Signup({
   let { from } = location.state || { from: { pathname: "/" } };
 
   useEffect(() => {
-    enqueueSnackbar({
-      message:
-        "This app is invite only. Please contact the author for a demo. (See footer)",
-      options: {
-        variant: "info",
-        persist: true,
-        action: DismissActionHOC({
-          closeSnackbar,
-          INVITE_ONLY_SNACKBAR_MESSAGE_KEY,
-        }),
-      },
-    });
-  }, [closeSnackbar, enqueueSnackbar]);
+    if (!isAuthenticated) {
+      enqueueSnackbar({
+        message:
+          "This app is invite only. Please contact the author for a demo. (See footer)",
+        options: {
+          variant: "info",
+          persist: true,
+          action: DismissActionHOC({
+            closeSnackbar,
+            INVITE_ONLY_SNACKBAR_MESSAGE_KEY,
+          }),
+        },
+      });
+    }
+  }, [closeSnackbar, enqueueSnackbar, isAuthenticated]);
 
   useEffect(() => {
     if (signupErrors && signupErrors.length > 0) {
