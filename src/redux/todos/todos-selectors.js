@@ -63,14 +63,6 @@ export const todayTodosCountSelector = createSelector(
   (todos) => todos.length,
 );
 
-export const notOverdueTodayTodosSelector = createSelector(
-  [todayTodosSelector],
-  (todos) =>
-    todos
-      .filter((todo) => isFutureDate(todo.dueDate) || todo.dueDate === null)
-      .map((todo) => todo.id),
-);
-
 export const nextDaysTodosCountSelector = createSelector(
   [allTodosSelector],
   (todos) =>
