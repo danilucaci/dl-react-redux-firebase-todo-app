@@ -43,17 +43,12 @@
     display: block !important;
   }
 
-  &__CurrentUser_Wrapper {
+  &__CurrentUser__Wrapper {
     padding: {
       top: tokens.$spacing-c-05;
-      left: tokens.$grid-gutter-s;
+      left: tokens.$spacing-c-03;
       bottom: tokens.$spacing-c-05;
       right: tokens.$grid-gutter-s;
-    }
-
-    margin: {
-      left: -#{tokens.$grid-spacing-s};
-      right: -#{tokens.$grid-spacing-s};
     }
 
     @include tokens.media-min(tokens.$grid-gutter-breakpoint-change) {

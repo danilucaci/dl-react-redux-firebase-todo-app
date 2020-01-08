@@ -158,7 +158,7 @@ function SidebarContents({
   return (
     <>
       <ul className="Sidebar__Section" aria-label="main pages">
-        <li className="Sidebar__CurrentUser_Wrapper">
+        <li className="Sidebar__CurrentUser__Wrapper">
           <UserAvatarContainer />
         </li>
         <li className="Sidebar__Section__Item Sidebar__ProfileLink">
