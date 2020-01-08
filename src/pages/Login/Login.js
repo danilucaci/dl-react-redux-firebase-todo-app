@@ -93,9 +93,18 @@ function Login({
   let { from } = location.state || { from: { pathname: "/" } };
 
   const [snackbarDissmissed, setSnackbarDissmissed] = useSessionStorage(
-    "__dl__login__snackbarDissmissed",
+    "__dl__signup__snackbarDissmissed",
     false,
   );
+
+  useEffect(() => {
+    return () => {
+      if (!snackbarDissmissed) {
+        closeSnackbar(INVITE_ONLY_SNACKBAR_MESSAGE_KEY);
+        setSnackbarDissmissed(true);
+      }
+    };
+  }, [closeSnackbar, setSnackbarDissmissed, snackbarDissmissed]);
 
   useEffect(() => {
     if (!isAuthenticated && !snackbarDissmissed) {
@@ -171,7 +180,14 @@ function Login({
       history.replace(from);
       history.push(ROUTES.INBOX);
     }
-  }, [isAuthenticated, from, history]);
+  }, [
+    isAuthenticated,
+    from,
+    history,
+    snackbarDissmissed,
+    closeSnackbar,
+    setSnackbarDissmissed,
+  ]);
 
   async function handleLogin(values) {
     setLoading(true);

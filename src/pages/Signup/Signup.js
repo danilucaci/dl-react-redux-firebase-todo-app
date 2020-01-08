@@ -101,6 +101,15 @@ function Signup({
   );
 
   useEffect(() => {
+    return () => {
+      if (!snackbarDissmissed) {
+        closeSnackbar(INVITE_ONLY_SNACKBAR_MESSAGE_KEY);
+        setSnackbarDissmissed(true);
+      }
+    };
+  }, [closeSnackbar, setSnackbarDissmissed, snackbarDissmissed]);
+
+  useEffect(() => {
     if (!isAuthenticated && !snackbarDissmissed) {
       enqueueSnackbar(
         {
@@ -158,7 +167,14 @@ function Signup({
       history.replace(from);
       history.push(ROUTES.INBOX);
     }
-  }, [isAuthenticated, from, history]);
+  }, [
+    isAuthenticated,
+    from,
+    history,
+    snackbarDissmissed,
+    closeSnackbar,
+    setSnackbarDissmissed,
+  ]);
 
   async function handleSignup(values) {
     const { email, password, fullname, consentAccepted } = values;
