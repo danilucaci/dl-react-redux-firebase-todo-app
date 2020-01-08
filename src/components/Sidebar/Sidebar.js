@@ -13,9 +13,235 @@ import SidebarSkeletonContainer from "../../redux/containers/components/SidebarS
 import UserAvatarContainer from "../../redux/containers/components/UserAvatarContainer";
 import AddNew from "../AddNew/AddNew";
 import SidebarSignoutButton from "../SidebarSignoutButton/SidebarSignoutButton";
-
-import { useDisableSidebarBackground, useAnimation } from "../../hooks";
 import AriaText from "../AriaText/AriaText";
+
+import {
+  useDisableSidebarBackground,
+  useAnimation,
+  useCollapsible,
+} from "../../hooks";
+
+function ProjectsList({ projectIds, openAddProjectModal }) {
+  const [
+    collapsibleClasses,
+    collapsibleNodeRef,
+    collapsibleItemRef,
+    collapsibleExpanded,
+    collapsibleHeight,
+    handleTransitionEnd,
+    toggleCollapsible,
+    isCollapsibleVisible,
+  ] = useCollapsible(projectIds);
+
+  const toggleIconClasses = classnames({
+    Sidebar__Projects__Section__Title__Icon: true,
+    [`Sidebar__Projects__Section__Title__Icon--isExpanded`]: isCollapsibleVisible,
+  });
+
+  return (
+    <div className="Sidebar__Section" aria-label="projects">
+      <div className="Sidebar__Section__Title">
+        <button
+          className="Sidebar__Section__Title__Button"
+          aria-expanded={collapsibleExpanded}
+          onClick={toggleCollapsible}
+        >
+          <svg className={toggleIconClasses}>
+            <use xlinkHref="#chevron-right" />
+          </svg>
+          <AriaText>Collapse </AriaText>
+          Projects
+          <AriaText> list</AriaText>
+        </button>
+        <NavLink
+          className="Sidebar__Section__Title__SeeAll"
+          to={ROUTES.PROJECTS}
+        >
+          See all
+          <AriaText> projects</AriaText>
+        </NavLink>
+      </div>
+      <ul
+        className={`Sidebar__Items__List ${collapsibleClasses}`}
+        ref={collapsibleNodeRef}
+        style={{ height: collapsibleHeight }}
+        onTransitionEnd={handleTransitionEnd}
+      >
+        {projectIds &&
+          projectIds.map((projectId) => (
+            <ProjectSidebarItemContainer
+              key={projectId}
+              projectID={projectId}
+              ref={collapsibleItemRef}
+            />
+          ))}
+      </ul>
+      <div className="Sidebar__AddNew__Button">
+        <AddNew onClick={() => openAddProjectModal()}>Add project</AddNew>
+      </div>
+    </div>
+  );
+}
+
+function LabelsList({ labelIds, openAddLabelModal, logoutUser }) {
+  const [
+    collapsibleClasses,
+    collapsibleNodeRef,
+    collapsibleItemRef,
+    collapsibleExpanded,
+    collapsibleHeight,
+    handleTransitionEnd,
+    toggleCollapsible,
+    isCollapsibleVisible,
+  ] = useCollapsible(labelIds);
+
+  const toggleIconClasses = classnames({
+    Sidebar__Labels__Section__Title__Icon: true,
+    [`Sidebar__Labels__Section__Title__Icon--isExpanded`]: isCollapsibleVisible,
+  });
+
+  return (
+    <div className="Sidebar__Section" aria-label="labels">
+      <div className="Sidebar__Section__Title">
+        <button
+          className="Sidebar__Section__Title__Button"
+          aria-expanded={collapsibleExpanded}
+          onClick={toggleCollapsible}
+        >
+          <svg className={toggleIconClasses}>
+            <use xlinkHref="#chevron-right" />
+          </svg>
+          <AriaText>Collapse </AriaText>
+          Labels
+          <AriaText> list</AriaText>
+        </button>
+        <NavLink className="Sidebar__Section__Title__SeeAll" to={ROUTES.LABELS}>
+          See all
+          <AriaText> labels</AriaText>
+        </NavLink>
+      </div>
+      <ul
+        className={`Sidebar__Items__List ${collapsibleClasses}`}
+        ref={collapsibleNodeRef}
+        style={{ height: collapsibleHeight }}
+        onTransitionEnd={handleTransitionEnd}
+      >
+        {labelIds &&
+          labelIds.map((labelId) => (
+            <LabelSidebarItemContainer
+              key={labelId}
+              labelID={labelId}
+              ref={collapsibleItemRef}
+            />
+          ))}
+      </ul>
+      <div className="Sidebar__AddNew__Button">
+        <AddNew onClick={() => openAddLabelModal()}>Add label</AddNew>
+      </div>
+      <div className="Sidebar__Signout__Button">
+        <SidebarSignoutButton onClick={() => logoutUser()} />
+      </div>
+    </div>
+  );
+}
+
+function SidebarContents({
+  inboxTodosCount,
+  todayTodosCount,
+  nextDaysTodosCount,
+  projectIds,
+  labelIds,
+  logoutUser,
+  openAddProjectModal,
+  openAddLabelModal,
+}) {
+  return (
+    <>
+      <ul className="Sidebar__Section" aria-label="main pages">
+        <li className="Sidebar__CurrentUser_Wrapper">
+          <UserAvatarContainer />
+        </li>
+        <li className="Sidebar__Section__Item Sidebar__ProfileLink">
+          <NavLink
+            activeClassName="Sidebar__Link--Active"
+            className="Sidebar__Link"
+            to={ROUTES.PROFILE}
+          >
+            <svg className="Sidebar__Section__Item__Icon">
+              <use xlinkHref="#settings" />
+            </svg>
+            My account
+          </NavLink>
+        </li>
+        <li className="Sidebar__Section__Item">
+          <NavLink
+            activeClassName="Sidebar__Link--Active"
+            className="Sidebar__Link"
+            to={ROUTES.INBOX}
+          >
+            <svg className="Sidebar__Section__Item__Icon">
+              <use xlinkHref="#home" />
+            </svg>
+            Inbox
+            <span className="Sidebar__Section__Item__Count">
+              <AriaText>with </AriaText>
+              {inboxTodosCount}
+              <AriaText> todos</AriaText>
+            </span>
+          </NavLink>
+        </li>
+        <li className="Sidebar__Section__Item">
+          <NavLink
+            activeClassName="Sidebar__Link--Active"
+            className="Sidebar__Link"
+            to={ROUTES.TODAY}
+          >
+            <svg className="Sidebar__Section__Item__Icon Sidebar__Section__Item__Icon__Day">
+              <use xlinkHref="#calendar-day" />
+              <text transform="translate(4 2)" aria-hidden="true">
+                <tspan x="7.7" y="14.5" textAnchor="middle">
+                  {new Date().getDate()}
+                </tspan>
+              </text>
+            </svg>
+            Today
+            <span className="Sidebar__Section__Item__Count">
+              <AriaText>with </AriaText>
+              {todayTodosCount}
+              <AriaText>todos</AriaText>
+            </span>
+          </NavLink>
+        </li>
+        <li className="Sidebar__Section__Item">
+          <NavLink
+            activeClassName="Sidebar__Link--Active"
+            className="Sidebar__Link"
+            to={ROUTES.NEXT_DAYS}
+          >
+            <svg className="Sidebar__Section__Item__Icon">
+              <use xlinkHref="#calendar-base" />
+            </svg>
+            Next 7 days
+            <span className="Sidebar__Section__Item__Count">
+              <AriaText>with </AriaText>
+              {nextDaysTodosCount}
+              <AriaText>todos</AriaText>
+            </span>
+          </NavLink>
+        </li>
+      </ul>
+      <ProjectsList
+        projectIds={projectIds}
+        openAddProjectModal={openAddProjectModal}
+      />
+      <LabelsList
+        labelIds={labelIds}
+        openAddLabelModal={openAddLabelModal}
+        logoutUser={logoutUser}
+      />
+    </>
+  );
+}
 
 function Sidebar({
   inboxTodosCount,
@@ -77,139 +303,16 @@ function Sidebar({
       aria-label="primary"
     >
       {initialDataLoaded ? (
-        <>
-          <ul className="Sidebar__Section" aria-label="main pages">
-            <li className="Sidebar__CurrentUser_Wrapper">
-              <UserAvatarContainer />
-            </li>
-            <li className="Sidebar__Section__Item Sidebar__ProfileLink">
-              <NavLink
-                activeClassName="Sidebar__Link--Active"
-                className="Sidebar__Link"
-                to={ROUTES.PROFILE}
-              >
-                <svg className="Sidebar__Section__Item__Icon">
-                  <use xlinkHref="#settings" />
-                </svg>
-                My account
-              </NavLink>
-            </li>
-            <li className="Sidebar__Section__Item">
-              <NavLink
-                activeClassName="Sidebar__Link--Active"
-                className="Sidebar__Link"
-                to={ROUTES.INBOX}
-              >
-                <svg className="Sidebar__Section__Item__Icon">
-                  <use xlinkHref="#home" />
-                </svg>
-                Inbox
-                <span className="Sidebar__Section__Item__Count">
-                  <AriaText>with </AriaText>
-                  {inboxTodosCount}
-                  <AriaText> todos</AriaText>
-                </span>
-              </NavLink>
-            </li>
-            <li className="Sidebar__Section__Item">
-              <NavLink
-                activeClassName="Sidebar__Link--Active"
-                className="Sidebar__Link"
-                to={ROUTES.TODAY}
-              >
-                <svg className="Sidebar__Section__Item__Icon Sidebar__Section__Item__Icon__Day">
-                  <use xlinkHref="#calendar-day" />
-                  <text transform="translate(4 2)" aria-hidden="true">
-                    <tspan x="7.7" y="14.5" textAnchor="middle">
-                      {new Date().getDate()}
-                    </tspan>
-                  </text>
-                </svg>
-                Today
-                <span className="Sidebar__Section__Item__Count">
-                  <AriaText>with </AriaText>
-                  {todayTodosCount}
-                  <AriaText>todos</AriaText>
-                </span>
-              </NavLink>
-            </li>
-            <li className="Sidebar__Section__Item">
-              <NavLink
-                activeClassName="Sidebar__Link--Active"
-                className="Sidebar__Link"
-                to={ROUTES.NEXT_DAYS}
-              >
-                <svg className="Sidebar__Section__Item__Icon">
-                  <use xlinkHref="#calendar-base" />
-                </svg>
-                Next 7 days
-                <span className="Sidebar__Section__Item__Count">
-                  <AriaText>with </AriaText>
-                  {nextDaysTodosCount}
-                  <AriaText>todos</AriaText>
-                </span>
-              </NavLink>
-            </li>
-          </ul>
-          <ul className="Sidebar__Section" aria-label="projects">
-            <li className="Sidebar__Section__Title">
-              <button className="Sidebar__Section__Title__Button">
-                <svg className="Sidebar__Section__Title__Icon">
-                  <use xlinkHref="#chevron-down" />
-                </svg>
-                <AriaText>Collapse </AriaText>
-                Projects
-                <AriaText> list</AriaText>
-              </button>
-              <NavLink
-                className="Sidebar__Section__Title__SeeAll"
-                to={ROUTES.PROJECTS}
-              >
-                See all
-                <AriaText> projects</AriaText>
-              </NavLink>
-            </li>
-            {projectIds &&
-              projectIds.map((projectId) => (
-                <ProjectSidebarItemContainer
-                  key={projectId}
-                  projectID={projectId}
-                />
-              ))}
-            <li className="Sidebar__AddNew__Button">
-              <AddNew onClick={() => openAddProjectModal()}>Add project</AddNew>
-            </li>
-          </ul>
-          <ul className="Sidebar__Section" aria-label="labels">
-            <li className="Sidebar__Section__Title">
-              <button className="Sidebar__Section__Title__Button">
-                <svg className="Sidebar__Section__Title__Icon">
-                  <use xlinkHref="#chevron-down" />
-                </svg>
-                <AriaText>Collapse </AriaText>
-                Labels
-                <AriaText> list</AriaText>
-              </button>
-              <NavLink
-                className="Sidebar__Section__Title__SeeAll"
-                to={ROUTES.LABELS}
-              >
-                See all
-                <AriaText> labels</AriaText>
-              </NavLink>
-            </li>
-            {labelIds &&
-              labelIds.map((labelId) => (
-                <LabelSidebarItemContainer key={labelId} labelID={labelId} />
-              ))}
-            <li className="Sidebar__AddNew__Button">
-              <AddNew onClick={() => openAddLabelModal()}>Add label</AddNew>
-            </li>
-            <li className="Sidebar__Signout__Button">
-              <SidebarSignoutButton onClick={() => logoutUser()} />
-            </li>
-          </ul>
-        </>
+        <SidebarContents
+          inboxTodosCount={inboxTodosCount}
+          todayTodosCount={todayTodosCount}
+          nextDaysTodosCount={nextDaysTodosCount}
+          projectIds={projectIds}
+          labelIds={labelIds}
+          logoutUser={logoutUser}
+          openAddProjectModal={openAddProjectModal}
+          openAddLabelModal={openAddLabelModal}
+        />
       ) : (
         <SidebarSkeletonContainer />
       )}

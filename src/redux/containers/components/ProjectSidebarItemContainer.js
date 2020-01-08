@@ -16,4 +16,6 @@ export const makeMapStateToProps = () => {
   });
 };
 
-export default connect(makeMapStateToProps)(ProjectSidebarItem);
+export default connect(makeMapStateToProps, null, null, { forwardRef: true })(
+  ProjectSidebarItem,
+);

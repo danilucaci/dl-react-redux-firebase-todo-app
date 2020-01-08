@@ -89,6 +89,11 @@
   list-style-type: none;
 }
 
+.Sidebar__Items__List {
+  margin-left: 0;
+  list-style-type: none;
+}
+
 .Sidebar__Link {
   text-decoration: none;
   color: inherit;
@@ -248,7 +253,7 @@
   @extend %bottom-divider--on-white;
 
   margin: {
-    bottom: tokens.$spacing-c-05;
+    bottom: tokens.$spacing-c-03;
   }
 
   padding: {
@@ -300,11 +305,17 @@
   }
 }
 
-.Sidebar__Section__Title__Icon {
+.Sidebar__Projects__Section__Title__Icon,
+.Sidebar__Labels__Section__Title__Icon {
   width: tokens.$size-icon-m;
   height: tokens.$size-icon-m;
   fill: tokens.$color-icon-default;
   margin-right: tokens.$spacing-c-04;
+
+  &--isExpanded {
+    transition: transform tokens.$timing-sidebar-icon ease;
+    transform: rotate(90deg);
+  }
 }
 
 .Sidebar__Section__Title__SeeAll {

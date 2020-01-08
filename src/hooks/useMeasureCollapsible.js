@@ -12,7 +12,12 @@ import { useCallback, useState, useEffect, useRef } from "react";
 //   box: "border-box",
 // };
 
-function useMeasure(shouldMeasure) {
+function useMeasure(
+  isNodeVisible,
+  isNodeTransitioning,
+  shouldMeasureAgain,
+  cancelShouldMeasureAgain,
+) {
   const [contentRect, setContentRect] = useState({
     x: 0,
     y: 0,
@@ -37,15 +42,31 @@ function useMeasure(shouldMeasure) {
   }, []);
 
   useEffect(() => {
-    function measure([entry]) {
+    function measure(entry) {
       rafId.current = window.requestAnimationFrame(() => {
         setContentRect(entry.contentRect);
         setNodeMeasured(true);
+
+        if (typeof cancelShouldMeasureAgain === "function") {
+          cancelShouldMeasureAgain();
+        }
       });
     }
 
-    if (nodeRef && shouldMeasure) {
-      ro.current = new ResizeObserver(measure);
+    function shouldMeasure([entry]) {
+      if (isNodeVisible && !isNodeTransitioning && !nodeMeasured) {
+        return measure(entry);
+      }
+
+      if (shouldMeasureAgain) {
+        return measure(entry);
+      }
+
+      return null;
+    }
+
+    if (nodeRef) {
+      ro.current = new ResizeObserver(shouldMeasure);
       ro.current.observe(nodeRef);
     }
 
@@ -58,7 +79,14 @@ function useMeasure(shouldMeasure) {
         ro.current.disconnect();
       }
     };
-  }, [nodeMeasured, nodeRef, shouldMeasure]);
+  }, [
+    isNodeTransitioning,
+    nodeMeasured,
+    nodeRef,
+    isNodeVisible,
+    shouldMeasureAgain,
+    cancelShouldMeasureAgain,
+  ]);
 
   return [setNodeRefCb, contentRect, nodeMeasured];
 }

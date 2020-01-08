@@ -1,0 +1,17 @@
+.Collapsible {
+  transition: height 250ms ease;
+  display: block;
+
+  &--isTransitioning {
+    overflow: visible;
+    display: block !important;
+  }
+
+  &--isHidding {
+    overflow: hidden;
+  }
+
+  &--isHidden {
+    display: none;
+  }
+}

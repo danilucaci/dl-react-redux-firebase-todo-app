@@ -34,7 +34,6 @@ function AddLabelModal({
 
     const newLabel = {
       name: labelName,
-      todosCount: 0,
       color: {
         colorID: selectedColor.id,
         colorName: selectedColor.colorName,

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@juggle/resize-observer": "^2.5.0",
     "@material-ui/core": "^4.8.2",
     "@reach/menu-button": "^0.7.0",
     "algoliasearch": "^3.35.1",
