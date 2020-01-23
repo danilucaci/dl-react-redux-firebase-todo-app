@@ -1,7 +1,14 @@
 {
   "name": "dl-react-redux-firebase-todo-app",
+  "description": "A todo app made with react, redux and firebase.",
+  "license": "MIT",
   "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/danilucaci/dl-react-redux-firebase-todo-app.git"
+  },
   "private": true,
+  "author": "Dani Lucaci <hello@danilucaci.com>",
   "dependencies": {
     "@juggle/resize-observer": "^2.5.0",
     "@material-ui/core": "^4.8.2",
