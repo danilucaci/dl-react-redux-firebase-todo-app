@@ -33,7 +33,7 @@ function Footer() {
           <p>
             The project’s source code is available on{" "}
             <a
-              href="https://github.com/danilucaci/react-todo-app.git"
+              href="https://github.com/danilucaci/dl-react-redux-firebase-todo-app"
               target="_blank"
               rel="nofollow noopener noreferrer"
             >
