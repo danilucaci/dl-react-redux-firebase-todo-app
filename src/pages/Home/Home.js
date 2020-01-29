@@ -261,7 +261,7 @@ function Home() {
                 <div className="col Home__Testimonials__Card">
                   <p className="Home__Testimonials__Card__Body">
                     I used to keep track of all my work in my mind, but I soon
-                    lost it. Now I never lose sight of my to-dos or miss
+                    lost it. Now I never lose sight of my tasks or miss
                     important deadlines.
                   </p>
                   <div className="Home__Testimonials__Card__Avatar">
