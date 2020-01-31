@@ -7,7 +7,6 @@ import SEO from "../../components/SEO/SEO";
 import seo from "../../utils/seo";
 
 function NotFound() {
-  console.log("Not found");
   return (
     <>
       <SEO title={seo.pages.notFound.title} />
