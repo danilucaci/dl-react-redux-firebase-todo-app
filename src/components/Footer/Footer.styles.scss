@@ -4,7 +4,7 @@
 .Site__Footer {
   @extend %top-divider--on-white;
 
-  background-color: tokens.$color-background-page-lighter;
+  background-color: tokens.$color-background-page-lightest;
   padding-top: tokens.$spacing-c-09;
   padding-bottom: tokens.$spacing-c-10;
 
