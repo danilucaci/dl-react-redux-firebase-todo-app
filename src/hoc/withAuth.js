@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 
-import { auth, createGoogleProvider } from "../firebase/firebase";
+import { auth } from "../firebase/firebase";
 import getCurrentUserDataFromSnapshot from "../utils/firebase/getCurrentUserDataFromSnapshot";
 import { createUserProfileDocument } from "../utils/firebase/createUserProfileDocument";
 import { loginSuccess, logoutUser } from "../redux/user/user-actions";
@@ -11,6 +11,7 @@ import {
   enqueueErrorSnackbar,
   setLiveRegionMessage,
 } from "../redux/localState/localState-actions";
+import revertUserCreation from "../utils/firebase/revertUserCreation";
 
 export const mapStateToProps = (state) => ({
   userState: userStateSelector(state),
@@ -51,7 +52,7 @@ function withAuth(Component) {
       }
 
       unsubscribeFromAuth.current = auth.onAuthStateChanged(
-        async function handleAuthStateChange(user) {
+        function handleAuthStateChange(user) {
           /* on sign in @returns: `user` */
           /* on sign out @returns: `null` */
 
@@ -61,7 +62,7 @@ function withAuth(Component) {
            */
           if (!isSigningUp && !signupErrors.lenght) {
             if (user) {
-              await createUserProfileDocument(user)
+              createUserProfileDocument(user)
                 .then((userRef) => {
                   unsubscribeFromUserDoc.current = userRef.onSnapshot(
                     function handleUserSnapshot(snapshot) {
@@ -88,40 +89,13 @@ function withAuth(Component) {
                     },
                   );
                 })
-                .catch(async (error) => {
+                .catch((error) => {
                   enqueueErrorSnackbar(
                     `Something went wrong while creating your account: ${error.message}`,
                   );
 
                   if (user) {
-                    /**
-                     * If it fails to create the user doc in the firestore db,
-                     * rollback and delete the user. This will happen each time
-                     * a user that is not present in `allowed-users` is trying to signup.
-                     */
-                    await user.delete().catch(async (error) => {
-                      if (process.env.NODE_ENV === "development") {
-                        console.log(error);
-                      }
-                      /**
-                       * @see https://firebase.google.com/docs/auth/web/manage-users#re-authenticate_a_user
-                       */
-                      if (
-                        error.hasOwnProperty("code") &&
-                        error.code.includes("requires-recent-login")
-                      ) {
-                        await user
-                          .reauthenticateWithPopup(createGoogleProvider())
-                          .catch((error) => {
-                            if (process.env.NODE_ENV === "development") {
-                              console.log(error);
-                            }
-
-                            // Fallback
-                            handleLogOut();
-                          });
-                      }
-                    });
+                    revertUserCreation(user, handleLogOut);
                   }
                   /**
                    * `isAuthenticated`: Don’t log out if there was no previous user set

@@ -3,6 +3,7 @@ import { auth, signInWithGoogle, signOut } from "../../firebase/firebase";
 import { createSignUpUserDocument } from "../../utils/firebase/createSignUpUserDocument";
 import { resetStoreAndLogOut } from "../root-reducer";
 import { setLiveRegionMessage } from "../localState/localState-actions";
+import revertUserCreation from "../../utils/firebase/revertUserCreation";
 
 export const loginRequest = () => ({ type: UserTypes.LOGIN_REQUEST });
 
@@ -81,6 +82,10 @@ export function signUpWithEmailRequest({
     dispatch(signupRequest());
     dispatch(setLiveRegionMessage("Signing in"));
 
+    function logoutCb() {
+      return dispatch(logoutUser());
+    }
+
     const { user } =
       (await auth
         .createUserWithEmailAndPassword(email, password)
@@ -94,6 +99,7 @@ export function signUpWithEmailRequest({
         consentAccepted,
         consentValue,
       }).catch((errorMessage) => {
+        revertUserCreation(user, logoutCb);
         dispatch(setSignupErrors(errorMessage));
       });
 
@@ -109,6 +115,10 @@ export function signUpWithGoogleRequest({ consentAccepted, consentValue }) {
     dispatch(signupRequest());
     dispatch(setLiveRegionMessage("Signing in with google"));
 
+    function logoutCb() {
+      return dispatch(logoutUser());
+    }
+
     const { user } =
       (await signInWithGoogle().catch((error) => {
         dispatch(setSignupErrors(error.message));
@@ -119,6 +129,7 @@ export function signUpWithGoogleRequest({ consentAccepted, consentValue }) {
         consentAccepted,
         consentValue,
       }).catch((errorMessage) => {
+        revertUserCreation(user, logoutCb);
         dispatch(setSignupErrors(errorMessage));
       });
 
