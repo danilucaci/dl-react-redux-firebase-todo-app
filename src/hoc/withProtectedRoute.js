@@ -4,10 +4,10 @@ import { Redirect } from "react-router-dom";
 
 import { getDisplayName } from "../utils/helpers";
 
-import { currentUserSelector } from "../redux/user/user-selectors";
+import { userStateSelector } from "../redux/user/user-selectors";
 
 export const mapStateToProps = (state) => ({
-  currentUser: currentUserSelector(state),
+  user: userStateSelector(state),
 });
 
 /**
@@ -31,7 +31,7 @@ function withProtectedRoute(predicate = null) {
     Component.displayName = `WithProtectedRoute(${getDisplayName(Component)})`;
 
     function WrappedComponent(props) {
-      const { currentUser = null } = props;
+      const { user: { currentUser = null, isLoggingOut } = {} } = props;
 
       // If a predicate is passed
       if (predicate) {
@@ -41,13 +41,13 @@ function withProtectedRoute(predicate = null) {
          * doesn’t have the necessary permissions
          */
 
-        if (predicate(currentUser)) {
+        if (predicate(currentUser) && !isLoggingOut) {
           return <Component {...props} />;
         } else return <Redirect to="/" />;
       }
 
       // If there is a `currentUser` return the `Component`.
-      if (currentUser) {
+      if (currentUser && !isLoggingOut) {
         return <Component {...props} />;
       }
 
