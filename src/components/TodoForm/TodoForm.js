@@ -189,14 +189,14 @@ function TodoForm({
         className="Todo__Form__FormWrapper"
         onSubmit={handleFormSubmit}
       >
-        <label htmlFor={`todo-${name}`}>
+        <label htmlFor="todo-name">
           <AriaText>Edit todo {name}</AriaText>
         </label>
         <Input
           value={newTodoName}
           onChange={(e) => setNewTodoName(e.target.value)}
           ref={inputRef}
-          id={`todo-${name}`}
+          id="todo-name"
         />
         <div className="Todo__Form__ButtonsContainer">
           <div className="Todo__Form__MetaRow">
@@ -278,7 +278,6 @@ TodoForm.propTypes = {
     uid: string.isRequired,
     id: string.isRequired,
   }),
-  isVisible: bool.isRequired,
   toggleVisibility: func.isRequired,
   toggleTodoFocus: func.isRequired,
 };

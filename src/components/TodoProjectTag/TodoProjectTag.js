@@ -65,7 +65,10 @@ const TodoProjectTag = ({
             </svg>
           </>
         )}
-        <MenuList className="Todo__Project__Tag__List">
+        <MenuList
+          data-testid="project-tag-list"
+          className="Todo__Project__Tag__List"
+        >
           {projects &&
             projects.map((project) => (
               <MenuItem

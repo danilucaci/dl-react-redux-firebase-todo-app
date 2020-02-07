@@ -18,7 +18,9 @@ import { isToday } from "date-fns";
 import AddTime from "../AddTime/AddTime";
 import TimeInput from "../TimeInput/TimeInput";
 
-ReactModal.setAppElement("#root");
+if (process.env.NODE_ENV !== "test") {
+  ReactModal.setAppElement("#root");
+}
 
 const DatePicker = ({
   dueDate,
@@ -172,7 +174,10 @@ const DatePicker = ({
         firstDayOfWeek={1}
       />
       {message && <div className="DatePicker__ErrorMessage">{message}</div>}
-      <div className="DatePicker__TimeInputRow">
+      <div
+        className="DatePicker__TimeInputRow"
+        data-testid="date-picker-inputs"
+      >
         {showTimeInput ? (
           <TimeInput
             showTimeInput={showTimeInput}

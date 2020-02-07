@@ -96,7 +96,10 @@ export const LabelTag = memo(function LabelTag({
         <AriaText>todo labels: </AriaText>
         {labelName}
       </MenuButton>
-      <MenuList className="Todo__Label__Tag__List">
+      <MenuList
+        data-testid="labels-tag-list"
+        className="Todo__Label__Tag__List"
+      >
         {appLabels.map((appLabel) => (
           <MenuItem
             className={`Todo__Label__Tag__Item ${
