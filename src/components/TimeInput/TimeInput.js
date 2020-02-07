@@ -119,6 +119,7 @@ const TimeInput = ({
                 iconOnly
                 type="submit"
                 ariaText="Save time"
+                data-testid="save-button"
                 disabled={!isValid}
                 additionalClasses="TimeInput__SaveTime"
               />
@@ -126,6 +127,7 @@ const TimeInput = ({
                 size="s"
                 icon="close"
                 iconOnly
+                data-testid="cancel-button"
                 onClick={handleCloseForm}
                 type="button"
                 ariaText="Cancel editing"
@@ -136,6 +138,7 @@ const TimeInput = ({
                 className="TimeInput__Form__Message"
                 id="time-status"
                 aria-hidden="true"
+                data-testid="time-input-error-message"
               >
                 {errors.time}
               </p>
@@ -155,6 +158,7 @@ const TimeInput = ({
           aria-label={`change time, current: ${selectedTime}`}
           ref={editTimeButtonRefCb}
           onClick={() => setShowInputForm(true)}
+          data-testid="time-button"
         >
           {selectedTime}
         </OutlinedButton>
@@ -164,6 +168,7 @@ const TimeInput = ({
           icon="close"
           iconOnly
           type="button"
+          data-testid="clear-time-button"
           additionalClasses="TimeInput__ClearTime"
           aria-label="Remove time"
           onClick={clearTime}
